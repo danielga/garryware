@@ -126,6 +126,7 @@ function GM:GetEnts( group )
 end
 	
 function GM:EndGame()
+	if (self.WareHaveStarted == false) then return end
 	self.WareHaveStarted = false
 	
 	if (minigames[self.WareID][3] != nil) then minigames[self.WareID][3]() end
@@ -236,11 +237,11 @@ function GM:Think()
 		self.GamesArePlaying = true
 		self.WareHaveStarted = false
 		
-		self.NextgameStart = CurTime() + 8
+		self.NextgameStart = CurTime() + 10
 		
 	elseif team.NumPlayers(TEAM_UNASSIGNED) == 0 && self.GamesArePlaying == true then
 		self.GamesArePlaying = false
-		self:RemoveEnts()
+		GAMEMODE:EndGame()
 	end
 	
 end
