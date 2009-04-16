@@ -101,7 +101,7 @@ function GM:PickRandomGame()
 	
 	if (GetConVar("ware_debug"):GetInt() > 0) then name = GetConVar("ware_debugname"):GetString() end --debugging
 	
-	if (minigames[name] != nil) then
+	if (minigames[name] != nil && minigames[name][1] != nil && minigames[name][2] != nil) then
 		minigames[name][1]()
 		timer.Simple(self.Windup,GAMEMODE.SetWareID,GAMEMODE,name)
 		timer.Simple(self.Windup,minigames[name][2])

@@ -217,3 +217,40 @@ function WAREfindthemissingThink( )
 	end
 end
 hook.Add( "Think", "WAREfindthemissingThink", WAREfindthemissingThink );
+
+
+
+registerMinigame("avoidball",function(self, args)
+	--Start of INIT
+	GAMEMODE:SetWareWindupAndLength(1.5,8)
+	
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Avoid the balls !",1)
+	
+	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+		v:Give( "weapon_physcannon" )
+	end
+	
+	return
+	
+end,function(self, args)
+	--Start of ACT
+	local entposcopy = 	table.Copy(GAMEMODE:GetEnts(ENTS_INAIR)) --Copy the ents to remove entries
+	local numberSpawns = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*3),3,table.Count(entposcopy))
+	for i = 1, numberSpawns do
+		table.sort(entposcopy,function(a,b) return a:EntIndex() < b:EntIndex() end) --Making sure the table doesnt have holes
+		local iselect = math.random(1,table.Count(entposcopy))
+		local v = entposcopy[iselect]
+		
+		local ent = ents.Create ("ware_avoidball");
+		ent:SetPos(v:GetPos());
+		ent:Spawn();
+		
+		local phys = ent:GetPhysicsObject()
+		phys:ApplyForceCenter (VectorRand() * 512);
+		
+		table.remove( entposcopy, iselect )
+		GAMEMODE:AppendEntToBin(ent)
+		GAMEMODE:MakeAppearEffect(ent:GetPos())
+	end
+	return
+end)
