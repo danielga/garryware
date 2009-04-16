@@ -101,10 +101,14 @@ function GM:PickRandomGame()
 	
 	if (GetConVar("ware_debug"):GetInt() > 0) then name = GetConVar("ware_debugname"):GetString() end --debugging
 	
-	minigames[name][1]()
-	timer.Simple(self.Windup,GAMEMODE.SetWareID,GAMEMODE,name)
-	timer.Simple(self.Windup,minigames[name][2])
-	
+	if (minigames[name] != nil) then
+		minigames[name][1]()
+		timer.Simple(self.Windup,GAMEMODE.SetWareID,GAMEMODE,name)
+		timer.Simple(self.Windup,minigames[name][2])
+	else
+		GAMEMODE:SetWareWindupAndLength(3,0)
+		GAMEMODE:DrawPlayersTextAndInitialStatus("Error with minigame \""..name.."\".",0)
+	end
 	self.NextgameEnd = CurTime() + self.Windup + self.WareLen
 end
 
@@ -115,11 +119,12 @@ function GM:GetEnts( group )
   elseif group == ENTS_OVERCRATE then
 	return GAMEMODE.EntsOverCrate
 	
-  elseif group == ENTS_INSKY then
-	return GAMEMODE.EntsInSky
+  elseif group == ENTS_INAIR then
+	return GAMEMODE.EntsInAir
 	
   elseif group == ENTS_CROSS then
 	return GAMEMODE.EntsCross
+	
   else
 	return {}
   end
@@ -129,7 +134,7 @@ function GM:EndGame()
 	if (self.WareHaveStarted == false) then return end
 	self.WareHaveStarted = false
 	
-	if (minigames[self.WareID][3] != nil) then minigames[self.WareID][3]() end
+	if (minigames[self.WareID] != nil && minigames[self.WareID][3] != nil) then minigames[self.WareID][3]() end
 	self:RemoveEnts()
 	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
 		local achieved = v:GetNWInt("ware_achieved")
@@ -204,6 +209,18 @@ function registerMinigame(name, funcInit, funcAct, funcDestroy)
 	table.insert(minigames_Names,{name , math.random(0,95)*0.01})
 	print("Minigame \""..name.."\" added ! ")
 end
+
+/*
+I can't get to make this function
+function registerTrigger(name, hookName, func)
+	hook.Add( hookName, "WARE"..name..hookName,
+	function(self,args)
+		if GAMEMODE:GetWareID() == name then
+			
+		end
+	); 
+end
+*/
 
 IncludeMinigames()
 	

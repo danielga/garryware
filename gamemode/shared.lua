@@ -66,7 +66,7 @@ function GM:InitPostEntity( )
 	
 	self.EntsOnCrate = ents.FindByClass("gmod_itemstart_oncrate")
 	self.EntsOverCrate = ents.FindByClass("gmod_itemstart_overcrate")
-	self.EntsInSky = ents.FindByClass("gmod_itemstart_insky")
+	self.EntsInAir = ents.FindByClass("gmod_itemstart_inair")
 	self.EntsCross = ents.FindByClass("gmod_itemstart_cross")
 	
 	self.NextgameStart = CurTime() + 8

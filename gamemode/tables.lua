@@ -26,12 +26,12 @@ Sound("buttons/button8.wav")}
 GM.WareEnts = {}
 GM.EntsOnCrate = {}
 GM.EntsOverCrate = {}
-GM.EntsInSky = {}
+GM.EntsInAir = {}
 GM.EntsCross = {}
 
 ENTS_ONCRATE = 1
 ENTS_OVERCRATE = 2
-ENTS_INSKY = 3
+ENTS_INAIR = 3
 ENTS_CROSS = 4
 
 /*
