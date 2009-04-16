@@ -62,15 +62,15 @@ function EFFECT:Render( )
 	
 		render.DrawBeam( self.StartPos, 										// Start
 						self.EndPos,											// End
-						i * self.Alpha * 0.025,													// Width
+						i * self.Alpha * 0.01,													// Width
 						texcoord,														// Start tex coord
 						texcoord + (self.Length / (128 + self.Alpha)),									// End tex coord
 						self.Color )
 						
 		render.SetMaterial( matLight )
 
-		render.DrawSprite( self.StartPos, i * 15, i * 15, Color( self.Color.r, self.Color.g, self.Color.b, self.Alpha ) )
-		render.DrawSprite( self.EndPos, i * 15, i * 15, Color( self.Color.r, self.Color.g, self.Color.b, self.Alpha ) )
+		render.DrawSprite( self.StartPos, i * 4, i * 4, Color( self.Color.r, self.Color.g, self.Color.b, self.Alpha ) )
+		render.DrawSprite( self.EndPos, i * 4, i * 4, Color( self.Color.r, self.Color.g, self.Color.b, self.Alpha ) )
 	
 	end
 	
