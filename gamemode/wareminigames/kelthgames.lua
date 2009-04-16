@@ -36,21 +36,26 @@ hook.Add( "Think", "WAREclimbThink", WAREclimbThink );
 
 registerMinigame("touchsky",function(self, args)
 	--Start of INIT
-	GAMEMODE:SetWareWindupAndLength(1.5,6)
-	
-	GAMEMODE:DrawPlayersTextAndInitialStatus("Don't touch the sky ! ",1)
+	GAMEMODE:SetWareWindupAndLength(2,6)
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Stay on the ground ! ",1)
 	return
 	
 end,function(self, args)
 	--Start of ACT
-	game.ConsoleCommand("sv_gravity -150\n")
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Don't touch the sky ! ",1)
+	
 	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
 		v:Give( "ware_velocitygun" )
+	end
+	for k,v in pairs(player.GetAll()) do 
+		v:SetGravity(-0.2)
 	end
 	return
 end,function(self, args)
 	-- End of ACT
-	game.ConsoleCommand("sv_gravity 600\n")
+	for k,v in pairs(player.GetAll()) do 
+		v:SetGravity(1)
+	end
 end)
 function WAREtouchskyThink( )
 	if GAMEMODE:GetWareID() == "touchsky" then
