@@ -84,8 +84,10 @@ hook.Add( "HUDShouldDraw", "HideThings", HideThings )
 
 local vgui_ridiculous = vgui.RegisterFile( "vgui_ridiculous.lua" )
 local vgui_transit = vgui.RegisterFile( "vgui_transitscreen.lua" )
+local vgui_wait = vgui.RegisterFile( "vgui_waitscreen.lua" )
 local RidiculousVGUI = vgui.CreateFromTable( vgui_ridiculous ) 
 local TransitVGUI = vgui.CreateFromTable( vgui_transit )
+local WaitVGUI = vgui.CreateFromTable( vgui_wait )
 
 local function Transit( m )
 	TransitVGUI:Show()
@@ -93,3 +95,18 @@ local function Transit( m )
 	timer.Simple( 2.7, function() TransitVGUI:Hide() end )
 end
 usermessage.Hook( "Transit", Transit )
+
+local function WaitShow( m )
+	WaitVGUI:Show()
+end
+usermessage.Hook( "WaitShow", WaitShow )
+
+local function WaitHide( m )
+	WaitVGUI:Hide()
+end
+usermessage.Hook( "WaitHide", WaitHide )
+
+local function GameStartTime( m )
+	NextgameStart = m:ReadLong()
+end
+usermessage.Hook( "GameStartTime", GameStartTime )

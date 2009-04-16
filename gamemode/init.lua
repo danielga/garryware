@@ -224,12 +224,18 @@ end
 
 IncludeMinigames()
 	
+function GM:SetNextGameStartsIn( delay )
+	self.NextgameStart = CurTime() + delay
+	SendUserMessage( "GameStartTime" , nil, self.NextgameStart )
+end	
+
 function GM:Think()
 
 	self.BaseClass:Think()
 	
 	if (self.GamesArePlaying == true && self.WareHaveStarted == false) then
 		if (CurTime() > self.NextgameStart) then
+			SendUserMessage( "WaitHide" )
 			GAMEMODE:PickRandomGame()
 		end
 	elseif (self.GamesArePlaying == true && self.WareHaveStarted == true) then
@@ -254,7 +260,8 @@ function GM:Think()
 		self.GamesArePlaying = true
 		self.WareHaveStarted = false
 		
-		self.NextgameStart = CurTime() + 10
+		self:SetNextGameStartsIn( 15 )
+		SendUserMessage( "WaitShow" )
 		
 	elseif team.NumPlayers(TEAM_UNASSIGNED) == 0 && self.GamesArePlaying == true then
 		self.GamesArePlaying = false
