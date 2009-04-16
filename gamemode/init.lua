@@ -128,6 +128,7 @@ end
 function GM:EndGame()
 	self.WareHaveStarted = false
 	
+	if (minigames[self.WareID][3] != nil) then minigames[self.WareID][3]() end
 	self:RemoveEnts()
 	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
 		local achieved = v:GetNWInt("ware_achieved")
@@ -193,8 +194,12 @@ function GM:WarePlayerDestinyLose( player )
 	util.Effect("ware_bad", ed, true, true)
 end
 
-function registerMinigame(name, funcInit, funcAct)
-	minigames[name] = { funcInit, funcAct }
+function registerMinigame(name, funcInit, funcAct, funcDestroy)
+	if (funcDestroy == nil) then
+		minigames[name] = { funcInit, funcAct }
+	else
+		minigames[name] = { funcInit, funcAct , funcDestroy }
+	end
 	table.insert(minigames_Names,{name , math.random(0,95)*0.01})
 	print("Minigame \""..name.."\" added ! ")
 end

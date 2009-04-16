@@ -10,14 +10,13 @@ registerMinigame("calc",function(self, args)
 	
 end,function(self, args)
 	--Start of ACT
-	timer.Simple(8,WAREcalcReveal)
 	return
-end)
-function WAREcalcReveal()
+end,function(self, args)
 	for k,v in pairs(player.GetAll()) do 
 		v:ChatPrint( "Answer was "..GAMEMODE.GamePool.WareSolution.." !" )  
 	end
-end
+end)
+
 function WAREcalcPlayerSay( ply, text, say )
 	if GAMEMODE:GetWareID() == "calc" then
 		if text == tostring(GAMEMODE.GamePool.WareSolution) then
