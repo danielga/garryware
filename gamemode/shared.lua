@@ -11,7 +11,7 @@ GM.Website 	= ""
 DeriveGamemode( "fretta" )
 IncludePlayerClasses()
 
-GM.Help		= "Do what she says"
+GM.Help		= "Do what she says\n(Credits goes to DasMatze and Valve for the Meet the Sniper flourish.)\n\nMinigame crafters:\nHurricaaane, Kelth, and you?"
 GM.TeamBased = false
 GM.AllowAutoTeam = true
 GM.AllowSpectating = true
