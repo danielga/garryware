@@ -52,15 +52,15 @@ function SWEP:PrimaryAttack()
 	self:ShootBullet( 0, 1, 0.0 )
 	
 	// Punch the player's view
-	self.Owner:ViewPunch( Angle( -10, 0, 0 ) )
+	self.Owner:ViewPunch( Angle( -5, 0, 0 ) )
 	
-	self:SetNextPrimaryFire( CurTime() + 0.6 )
+	self:SetNextPrimaryFire( CurTime() + 2 )
 	
 	if ( SERVER ) then
 	
 		// Make the player fly backwards..
 		self.Owner:SetGroundEntity( NULL )
-		//self.Owner:SetVelocity( self.Owner:GetVelocity()*-1 + self.Owner:GetAimVector() * -750 )
+		self.Owner:SetVelocity( self.Owner:GetVelocity()*-1 + self.Owner:GetAimVector() * -250 )
 		local trace = self.Owner:GetEyeTrace()
 		if trace.Entity:IsPlayer() then
 			trace.Entity:SetGroundEntity( NULL )

@@ -1,8 +1,10 @@
+// CLIMB ON THE BOXES MINIGAME
+
 registerMinigame("climb",function(self, args)
 	--Start of INIT
 	GAMEMODE:SetWareWindupAndLength(1.5,3)
 	
-	GAMEMODE:DrawPlayersTextAndInitialStatus("Climb on the blocks !",0)
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Climb on the boxes!",0)
 	return
 	
 end,function(self, args)
@@ -30,6 +32,8 @@ function WAREclimbThink( )
 end
 hook.Add( "Think", "WAREclimbThink", WAREclimbThink );  
 
+// TOUCH SKY MINIGAME
+
 registerMinigame("touchsky",function(self, args)
 	--Start of INIT
 	GAMEMODE:SetWareWindupAndLength(1.5,6)
@@ -39,16 +43,20 @@ registerMinigame("touchsky",function(self, args)
 	
 end,function(self, args)
 	--Start of ACT
+	game.ConsoleCommand("sv_gravity -150\n")
 	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
 		v:Give( "ware_velocitygun" )
 	end
 	return
+end,function(self, args)
+	-- End of ACT
+	game.ConsoleCommand("sv_gravity 600\n")
 end)
 function WAREtouchskyThink( )
 	if GAMEMODE:GetWareID() == "touchsky" then
 	local entover = table.Copy(GAMEMODE:GetEnts(ENTS_OVERCRATE))
 	local entsky = table.Copy(GAMEMODE:GetEnts(ENTS_OVERCRATE))
-	local zsky = (entover[1]:GetPos().z + entsky[1]:GetPos().z)/1.5
+	local zsky = (entover[1]:GetPos().z + entsky[1]:GetPos().z)/2
 	
 	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
 		if v:GetPos().z > zsky then
@@ -57,5 +65,6 @@ function WAREtouchskyThink( )
 	end
 	end
 end
+
 hook.Add( "Think", "WAREtouchskyThink", WAREtouchskyThink );  
 
