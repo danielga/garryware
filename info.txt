@@ -1,0 +1,25 @@
+"Gamemode"
+{
+	"name"		"Garry Ware"
+	"version"	"1"
+
+	"author_name"	"Hurricaaane"
+	"author_email"	""
+	"author_url"	""
+	
+	"icon"		""
+	"info"		""
+	"hide"		"0"
+
+	"fretta_maps"
+	{
+		"1"	"^wa_"
+	}
+	"mappattern"
+	{
+		"1"	"^wa_"
+	}
+
+	"selectable"	"1"
+	"description"	"Garry Ware"
+}
