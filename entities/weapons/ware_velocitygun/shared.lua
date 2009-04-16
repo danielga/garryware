@@ -54,7 +54,7 @@ function SWEP:PrimaryAttack()
 	// Punch the player's view
 	self.Owner:ViewPunch( Angle( -5, 0, 0 ) )
 	
-	self:SetNextPrimaryFire( CurTime() + 2 )
+	self:SetNextPrimaryFire( CurTime() + 1.3 )
 	
 	if ( SERVER ) then
 	
@@ -64,7 +64,7 @@ function SWEP:PrimaryAttack()
 		local trace = self.Owner:GetEyeTrace()
 		if trace.Entity:IsPlayer() then
 			trace.Entity:SetGroundEntity( NULL )
-			trace.Entity:SetVelocity(trace.Entity:GetVelocity()*-1 + Vector(0,0,1)*475)
+			trace.Entity:SetVelocity(trace.Entity:GetVelocity()*-1 + Vector(0,0,1)*375)
 		end
 	end
 

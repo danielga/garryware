@@ -38,6 +38,9 @@ registerMinigame("touchsky",function(self, args)
 	--Start of INIT
 	GAMEMODE:SetWareWindupAndLength(2,6)
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Stay on the ground ! ",1)
+	local entover = table.Copy(GAMEMODE:GetEnts(ENTS_OVERCRATE))
+	local entsky = table.Copy(GAMEMODE:GetEnts(ENTS_INAIR))
+	GAMEMODE.GamePool.zsky = (entover[1]:GetPos().z + entsky[1]:GetPos().z)/2
 	return
 	
 end,function(self, args)
@@ -48,7 +51,7 @@ end,function(self, args)
 		v:Give( "ware_velocitygun" )
 	end
 	for k,v in pairs(player.GetAll()) do 
-		v:SetGravity(-0.2)
+		v:SetGravity(-0.1)
 	end
 	return
 end,function(self, args)
@@ -59,12 +62,9 @@ end,function(self, args)
 end)
 function WAREtouchskyThink( )
 	if GAMEMODE:GetWareID() == "touchsky" then
-	local entover = table.Copy(GAMEMODE:GetEnts(ENTS_OVERCRATE))
-	local entsky = table.Copy(GAMEMODE:GetEnts(ENTS_OVERCRATE))
-	local zsky = (entover[1]:GetPos().z + entsky[1]:GetPos().z)/2
 	
 	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
-		if v:GetPos().z > zsky then
+		if v:GetPos().z > GAMEMODE.GamePool.zsky then
 			GAMEMODE:WarePlayerDestinyLose( v )
 		end
 	end
