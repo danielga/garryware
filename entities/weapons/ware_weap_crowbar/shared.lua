@@ -1,49 +1,30 @@
+
 if (SERVER) then
    AddCSLuaFile ("shared.lua");
-
-   SWEP.Weight = 5;
-   SWEP.AutoSwitchTo = false;
-   SWEP.AutoSwitchFrom = false;
 end
 
-if (CLIENT) then
-   SWEP.PrintName = "PROJECTILE CROWBAR";
-   SWEP.Slot = 1;
-   SWEP.SlotPos = 3;
-   SWEP.DrawAmmo = false;
-   SWEP.DrawCrosshair = true;
-end
-
-/*
-SWEP.Author = "Hurricaaane";
-SWEP.Contact = "http://www.youtube.com/profile?user=Hurricaaane";
-SWEP.Purpose = "Projectile Crowbar";
-SWEP.Instructions = "Left click throws a crowbar.";
-*/
-
-SWEP.Spawnable			= false
-SWEP.AdminSpawnable		= false
-
+SWEP.Base				= "gmdm_base"
+SWEP.PrintName = "PROJECTILE CROWBAR";
+SWEP.Slot = 1;
+SWEP.SlotPos = 0;
+SWEP.DrawAmmo = false;
+SWEP.DrawCrosshair = true;
 SWEP.ViewModel		= "models/weapons/v_crowbar.mdl"		
 SWEP.WorldModel		= "models/weapons/w_crowbar.mdl"
 
-SWEP.Primary.ClipSize = -1;
-SWEP.Primary.DefaultClip = -1;
-SWEP.Primary.Automatic = false;
-SWEP.Primary.Ammo = "none";
+function SWEP:Initialize()
 
-SWEP.Secondary.ClipSize = -1;
-SWEP.Secondary.DefaultClip = -1;
-SWEP.Secondary.Automatic = false;
-SWEP.Secondary.Ammo = "none";
-
-SWEP.Delay = 0.3
-SWEP.TickDelay = 0.1
+	self:GMDMInit()
+	self:SetWeaponHoldType( "pistol" )
+	
+end
 
 local ShootSound = Sound ("weapons/slam/throw.wav");
 
-function SWEP:Think()
-end
+SWEP.RunArmAngle  = Angle( 70, 0, 0 )
+SWEP.RunArmOffset = Vector( 25, 4, 0 )
+SWEP.Delay = 0.3
+SWEP.TickDelay = 0.1
 
 function SWEP:ThrowCrowbar(shotPower)
 	local tr = self.Owner:GetEyeTrace();
@@ -71,22 +52,38 @@ function SWEP:ThrowCrowbar(shotPower)
 	
 	local phys = ent:GetPhysicsObject()
 	phys:ApplyForceCenter (self.Owner:GetAimVector():GetNormalized() * shotPower);
-	
-	self.Weapon:SetNextPrimaryFire( CurTime() + self.Delay )
-	self.Weapon:SetNextSecondaryFire( CurTime() + self.TickDelay ) 
 end
 
+/*---------------------------------------------------------
+   PRIMARY
+---------------------------------------------------------*/
+
+SWEP.Primary.ClipSize = -1;
+SWEP.Primary.DefaultClip = -1;
+SWEP.Primary.Automatic = false;
+SWEP.Primary.Ammo = "none";
+
 function SWEP:PrimaryAttack()
-	self.Weapon:EmitSound (ShootSound);
+	self.Weapon:SetNextPrimaryFire( CurTime() + self.Delay )
+	self.Weapon:SetNextSecondaryFire( CurTime() + self.TickDelay )
 	
-	self.Weapon:SendWeaponAnim( ACT_VM_DRAW ) 		// View model animation
-	self.Owner:SetAnimation( PLAYER_ATTACK1 )				// 3rd Person Animation
+	if ( !self:CanShootWeapon() ) then return end
+	
+	self.Weapon:EmitSound (ShootSound);
 	
 	if (CLIENT) then return end
 	self:ThrowCrowbar(100000);
-	
 	self.Owner:StripWeapon("ware_weap_crowbar");
 end
+
+/*---------------------------------------------------------
+   SECONDARY
+---------------------------------------------------------*/
+
+SWEP.Secondary.ClipSize = -1;
+SWEP.Secondary.DefaultClip = -1;
+SWEP.Secondary.Automatic = false;
+SWEP.Secondary.Ammo = "none";
 
 function SWEP:SecondaryAttack()
 end

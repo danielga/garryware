@@ -4,7 +4,7 @@ if ( SERVER ) then
 end
 
 SWEP.Base				= "gmdm_base"
-SWEP.PrintName			= "#Pistol"			
+SWEP.PrintName			= "Pistol"			
 SWEP.Slot				= 1
 SWEP.SlotPos			= 0
 SWEP.DrawAmmo			= true
