@@ -14,7 +14,7 @@ function PANEL:Init()
 	self.TrotterTexPath = "sprites/ware_trotter"
 	self.TrotterTexID   = surface.GetTextureID( self.TrotterTexPath )
 	
-	self:SetVisible( true )
+	//self:SetVisible( true )
 	
 	self.StartAngle = 15
 end
@@ -37,8 +37,12 @@ end
    Name: PerformLayout
 ---------------------------------------------------------*/
 function PANEL:Paint()	
-	local achieved = LocalPlayer():GetNWInt("ware_achieved",0)
-	local hasdestiny = LocalPlayer():GetNWInt("ware_hasdestiny",0)
+	local achieved = 0
+	local hasdestiny = 0
+	if LocalPlayer():IsValid() then
+		achieved = LocalPlayer():GetNWInt("ware_achieved",0)
+		hasdestiny = LocalPlayer():GetNWInt("ware_hasdestiny",0)
+	end
 	
 	surface.SetTexture( self.ClockTexID )
 	if (CurTime() < NextgameStart) then
@@ -56,7 +60,7 @@ function PANEL:Paint()
 	else
 		surface.SetDrawColor( 0,255,0,255 )
 	end
-	surface.DrawTexturedRectRotated( ScrW()*0.05, ScrH() - ScrH()*0.05 , 256, 256, 0 + self.StartAngle ) // Position the crosshair
+	surface.DrawTexturedRectRotated( ScrW()*0.05, ScrH() - ScrH()*0.05 , 256, 256, 0 + self.StartAngle )
 	
 	surface.SetTexture( self.TrotterTexID )
 	surface.SetDrawColor( 255,255,255,255 )

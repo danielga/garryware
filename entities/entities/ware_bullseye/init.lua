@@ -43,7 +43,7 @@ function ENT:PhysicsCollide( data, physobj )
 	
 	LastSpeed = math.max( NewVelocity:Length(), LastSpeed )
 	
-	local TargetVelocity = NewVelocity * LastSpeed * 0.5
+	local TargetVelocity = NewVelocity * LastSpeed * 0.85
 	
 	physobj:SetVelocity( TargetVelocity )
 	

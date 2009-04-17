@@ -5,6 +5,8 @@ AddCSLuaFile( "admin.lua" )
 AddCSLuaFile( "cl_postprocess.lua" )
 AddCSLuaFile( "vgui_ridiculous.lua" )
 AddCSLuaFile( "vgui_transitscreen.lua" )
+AddCSLuaFile( "vgui_clock.lua" )
+AddCSLuaFile( "vgui_waitscreen.lua" )
 AddCSLuaFile( "skin.lua" )
 
 include( "shared.lua" )
@@ -36,6 +38,10 @@ resource.AddFile("materials/sprites/ware_clock.vmt")
 resource.AddFile("materials/sprites/ware_clock.vtf")
 resource.AddFile("materials/sprites/ware_trotter.vmt")
 resource.AddFile("materials/sprites/ware_trotter.vtf")
+resource.AddFile("materials/sprites/ware_bubble.vmt")
+resource.AddFile("materials/sprites/ware_bubble.vtf")
+resource.AddFile("materials/sprites/ware_lock.vmt")
+resource.AddFile("materials/sprites/ware_lock.vtf")
 
 local minigames = {}
 local minigames_Names = {}
@@ -223,17 +229,15 @@ function registerMinigame(name, funcInit, funcAct, funcDestroy)
 	print("Minigame \""..name.."\" added ! ")
 end
 
-/*
-I can't get to make this function
 function registerTrigger(name, hookName, func)
-	hook.Add( hookName, "WARE"..name..hookName,
-	function(self,args)
+	hook.Add(
+	hookName, "WARE"..name..hookName,
+	function(...)
 		if GAMEMODE:GetWareID() == name then
-			
+			return func(unpack(arg))
 		end
-	); 
+	end)
 end
-*/
 
 IncludeMinigames()
 	
@@ -248,8 +252,8 @@ function GM:Think()
 	
 	if (self.GamesArePlaying == true && self.WareHaveStarted == false) then
 		if (CurTime() > self.NextgameStart) then
-			SendUserMessage( "WaitHide" )
 			GAMEMODE:PickRandomGame()
+			SendUserMessage("WaitHide")
 		end
 	elseif (self.GamesArePlaying == true && self.WareHaveStarted == true) then
 		if (CurTime() > (self.NextgameEnd - (self.WareLen/6)*self.TickAnnounce )) then

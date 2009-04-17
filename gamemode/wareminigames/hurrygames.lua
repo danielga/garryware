@@ -16,28 +16,24 @@ end,function(self, args)
 		v:ChatPrint( "Answer was "..GAMEMODE.GamePool.WareSolution.." !" )  
 	end
 end)
-
-function WAREcalcPlayerSay( ply, text, say )
-	if GAMEMODE:GetWareID() == "calc" then
-		if text == tostring(GAMEMODE.GamePool.WareSolution) then
-			GAMEMODE:WarePlayerDestinyWin( ply )
-			for k,v in pairs(player.GetAll()) do 
-				v:ChatPrint( ply:GetName() .. " has found the correct answer !" )  
-			end
-			return false
-		else
-			GAMEMODE:WarePlayerDestinyLose( ply )
+registerTrigger("calc","PlayerSay",function(ply, text, say)
+	if text == tostring(GAMEMODE.GamePool.WareSolution) then
+		GAMEMODE:WarePlayerDestinyWin( ply )
+		for k,v in pairs(player.GetAll()) do 
+			v:ChatPrint( ply:GetName() .. " has found the correct answer !" )  
 		end
+		return false
+	else
+		GAMEMODE:WarePlayerDestinyLose( ply )
 	end
-end
-hook.Add( "PlayerSay", "WAREcalcPlayerSay", WAREcalcPlayerSay );  
+end)
 
 
 
 
 registerMinigame("chair",function(self, args)
 	--Start of INIT
-	GAMEMODE:SetWareWindupAndLength(0.7,4)
+	GAMEMODE:SetWareWindupAndLength(0.7,6)
 	
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Break 1 chair !",0)
 	return
@@ -73,14 +69,11 @@ end,function(self, args)
 	end
 	return
 end)
-function WAREchairPropBreak( killer, prop )
-	if GAMEMODE:GetWareID() == "chair" then
-		if killer:IsPlayer() then
-			GAMEMODE:WarePlayerDestinyWin( killer )
-		end
+registerTrigger("chair","PropBreak",function( killer, prop )
+	if killer:IsPlayer() then
+		GAMEMODE:WarePlayerDestinyWin( killer )
 	end
-end
-hook.Add( "PropBreak", "WAREchairPropBreak", WAREchairPropBreak );  
+end)  
 
 
 
@@ -99,14 +92,11 @@ end,function(self, args)
 	end
 	return
 end)
-function WAREdontmoveThink( )
-	if GAMEMODE:GetWareID() == "dontmove" then
-		for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
-			if (v:GetVelocity():Length() > 16) then GAMEMODE:WarePlayerDestinyLose( v ) end
-		end
+registerTrigger("dontmove","Think",function( )
+	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+		if (v:GetVelocity():Length() > 16) then GAMEMODE:WarePlayerDestinyLose( v ) end
 	end
-end
-hook.Add( "Think", "WAREdontmoveThink", WAREdontmoveThink );  
+end)
 
 
 
@@ -152,16 +142,13 @@ end,function(self, args)
 	end
 	return
 end)
-function WAREweirdoGravGunPunt( ply, target )
-	if GAMEMODE:GetWareID() == "weirdo" then
-		if target:GetNWInt("isweirdo",0) == 1 then
-			GAMEMODE:WarePlayerDestinyWin( ply )
-		else
-			GAMEMODE:WarePlayerDestinyLose( ply )
-		end
+registerTrigger("weirdo","GravGunPunt",function( ply, target )
+	if target:GetNWInt("isweirdo",0) == 1 then
+		GAMEMODE:WarePlayerDestinyWin( ply )
+	else
+		GAMEMODE:WarePlayerDestinyLose( ply )
 	end
-end
-hook.Add( "GravGunPunt", "WAREweirdoGravGunPunt", WAREweirdoGravGunPunt );  
+end)
 
 
 
@@ -206,17 +193,14 @@ end,function(self, args)
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Stand on the missing prop !",0)
 	return
 end)
-function WAREfindthemissingThink( )
-	if GAMEMODE:GetWareID() == "findthemissing" then
-		local sphere = ents.FindInSphere(GAMEMODE.GamePool.MissingEnt:GetPos(),32)
-		for _,target in pairs(sphere) do
-			if target:IsPlayer() then
-				GAMEMODE:WarePlayerDestinyWin( target )
-			end
+registerTrigger("findthemissing","Think",function( )
+	local sphere = ents.FindInSphere(GAMEMODE.GamePool.MissingEnt:GetPos(),32)
+	for _,target in pairs(sphere) do
+		if target:IsPlayer() then
+			GAMEMODE:WarePlayerDestinyWin( target )
 		end
 	end
-end
-hook.Add( "Think", "WAREfindthemissingThink", WAREfindthemissingThink );
+end)
 
 
 
@@ -293,18 +277,15 @@ end,function(self, args)
 	end
 	return
 end)
-function WAREbullseyeThink( )
-	if GAMEMODE:GetWareID() == "bullseye" then
-		for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
-			local timeshit = v:GetNWInt("timeshit",0)
-			if timeshit == GAMEMODE.GamePool.TimesToHit then
-				v:SetAchievedNoDestiny( 1 )
-			elseif timeshit > GAMEMODE.GamePool.TimesToHit then
-				GAMEMODE:WarePlayerDestinyLose(v)
-			else
-				v:SetAchievedNoDestiny( 0 )
-			end
+registerTrigger("bullseye","Think",function( )
+	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+		local timeshit = v:GetNWInt("timeshit",0)
+		if timeshit == GAMEMODE.GamePool.TimesToHit then
+			v:SetAchievedNoDestiny( 1 )
+		elseif timeshit > GAMEMODE.GamePool.TimesToHit then
+			GAMEMODE:WarePlayerDestinyLose(v)
+		else
+			v:SetAchievedNoDestiny( 0 )
 		end
 	end
-end
-hook.Add( "Think", "WAREbullseyeThink", WAREbullseyeThink );
+end)

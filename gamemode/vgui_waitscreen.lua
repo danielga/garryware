@@ -6,7 +6,8 @@ PANEL.Base = "DPanel"
 ---------------------------------------------------------*/
 function PANEL:Init()
 
-	local h = ScrH() * 0.2
+	local h = ScrH() * 0.3
+	//It was 0.2 before
 	
 	self:SetPaintBackground( false )
 
@@ -31,13 +32,14 @@ function PANEL:PerformLayout()
 	
 	self.WinnerSubtitle:SizeToContents()
 	self.WinnerSubtitle:Center()
-	self.WinnerSubtitle:AlignTop( 8 )
+	self.WinnerSubtitle:AlignTop( 6 )
 	
 end
 
 function PANEL:Show()
 
-	local h = ScrH() * 0.07
+	//local h = ScrH() * 0.07
+	local h = 52
 	
 	self.BottomPanel:SetPos( 0, ScrH() )
 	self.BottomPanel:MoveTo( 0, ScrH()-h, 1 )
