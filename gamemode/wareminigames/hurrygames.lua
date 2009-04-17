@@ -115,7 +115,7 @@ registerMinigame("weirdo",function(self, args)
 	--Start of INIT
 	GAMEMODE:SetWareWindupAndLength(0.7,6)
 	
-	GAMEMODE:DrawPlayersTextAndInitialStatus("Punt the weirdo ?",0)
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Punt the big crate !",0)
 	return
 	
 end,function(self, args)
@@ -254,3 +254,57 @@ end,function(self, args)
 	end
 	return
 end)
+
+
+registerMinigame("bullseye",function(self, args)
+	--Start of INIT
+	GAMEMODE:SetWareWindupAndLength(1.5,8)
+	
+	GAMEMODE.GamePool.TimesToHit = math.random(2,5)
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Hit the bullseye exactly "..GAMEMODE.GamePool.TimesToHit.." times !",1)
+	
+	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+		v:Give( "gmdm_pistol" )
+		v:GiveAmmo( 12, "Pistol", true )	
+		v:SetNWInt("timeshit",0)
+	end
+	
+	return
+	
+end,function(self, args)
+	--Start of ACT
+	local entposcopy = 	table.Copy(GAMEMODE:GetEnts(ENTS_OVERCRATE)) --Copy the ents to remove entries
+	local numberSpawns = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*0.3),1,table.Count(entposcopy))
+	for i = 1, numberSpawns do
+		table.sort(entposcopy,function(a,b) return a:EntIndex() < b:EntIndex() end) --Making sure the table doesnt have holes
+		local iselect = math.random(1,table.Count(entposcopy))
+		local v = entposcopy[iselect]
+		
+		local ent = ents.Create ("ware_bullseye");
+		ent:SetPos(v:GetPos());
+		ent:Spawn();
+		
+		local phys = ent:GetPhysicsObject()
+		phys:ApplyForceCenter (VectorRand() * 16);
+		
+		table.remove( entposcopy, iselect )
+		GAMEMODE:AppendEntToBin(ent)
+		GAMEMODE:MakeAppearEffect(ent:GetPos())
+	end
+	return
+end)
+function WAREbullseyeThink( )
+	if GAMEMODE:GetWareID() == "bullseye" then
+		for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+			local timeshit = v:GetNWInt("timeshit",0)
+			if timeshit == GAMEMODE.GamePool.TimesToHit then
+				v:SetAchievedNoDestiny( 1 )
+			elseif timeshit > GAMEMODE.GamePool.TimesToHit then
+				GAMEMODE:WarePlayerDestinyLose(v)
+			else
+				v:SetAchievedNoDestiny( 0 )
+			end
+		end
+	end
+end
+hook.Add( "Think", "WAREbullseyeThink", WAREbullseyeThink );

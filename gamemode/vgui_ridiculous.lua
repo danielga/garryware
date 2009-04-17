@@ -14,8 +14,8 @@ function PANEL:Init()
 	local Wins = self.List:AddColumn( "Win" )
 	local Losses = self.List:AddColumn( "Fail" )
 
-	Col1:SetMinWidth( 200 )
-	Col1:SetMaxWidth( 200 )
+	Col1:SetMinWidth( 170 )
+	Col1:SetMaxWidth( 170 )
 	
 	Wins:SetMinWidth( 32 )
 	Wins:SetMaxWidth( 32 )
@@ -31,8 +31,8 @@ function PANEL:Init()
 	local Wins_2 = self.List2:AddColumn( "Win" )
 	local Losses_2 = self.List2:AddColumn( "Fail" )
 	
-	Col1_2:SetMinWidth( 200 )
-	Col1_2:SetMaxWidth( 200 )
+	Col1_2:SetMinWidth( 170 )
+	Col1_2:SetMaxWidth( 170 )
 	
 	Wins_2:SetMinWidth( 32 )
 	Wins_2:SetMaxWidth( 32 )
@@ -57,7 +57,7 @@ function PANEL:Think()
 		local winNum = ply:Frags( )
 		local loseNum = ply:Deaths( )
 		if (ply:GetNWInt("ware_achieved",0) > 0) then
-			Wins[ winNum + 0.001*loseNum + 0.00001*(ply:UserID()) ] = ply
+			Wins[ -winNum - 0.001*loseNum - 0.00001*(ply:UserID()) ] = ply
 		end
 	end
 	local Fails_2 = {}
@@ -65,7 +65,7 @@ function PANEL:Think()
 		local winNum_2 = ply:Frags( )
 		local loseNum_2 = ply:Deaths( )
 		if (ply:GetNWInt("ware_achieved",0) == 0) then
-			Fails_2[ winNum_2 + 0.001*loseNum_2 + 0.00001*(ply:UserID()) ] = ply
+			Fails_2[ -winNum_2 - 0.001*loseNum_2 - 0.00001*(ply:UserID()) ] = ply
 		end
 	end
 	
@@ -97,11 +97,11 @@ end
 ---------------------------------------------------------*/
 function PANEL:PerformLayout()
 
-	self:SetSize( 528, 200 )
+	self:SetSize( 468, 200 )
 	self:SetPos( ScrW()/2 - self:GetWide()/2 , 0 )
 	
-	self.List:StretchToParent( 5,5,266,5 )
-	self.List2:StretchToParent( 266,5,5,5 )
+	self.List:StretchToParent( 5,5,236,5 )
+	self.List2:StretchToParent( 236,5,5,5 )
 	
 end
 

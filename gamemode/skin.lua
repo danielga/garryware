@@ -19,5 +19,13 @@ function SKIN:PaintListViewLine( panel )
 	surface.DrawRect( 0, 0, panel:GetWide(), panel:GetTall() )
 end
 
+function SKIN:SchemeListViewLabel( panel )
+	panel:SetFont( "WAREScore" )
+	panel:SetColor(Color(255,255,255,255))
+end
+function SKIN:SchemeListViewColumn( panel )
+	panel.Header:SetFont( "WAREScore" )
+	panel.Header:SetColor(Color(255,255,255,255))
+end
 
 derma.DefineSkin( "ware", "", SKIN )

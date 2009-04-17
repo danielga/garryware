@@ -70,6 +70,7 @@ function GM:InitPostEntity( )
 	self.EntsCross = ents.FindByClass("gmod_itemstart_cross")
 	
 	self.NextgameStart = CurTime() + 8
+	self.NexttimeAdvert = CurTime() + 32
 end
 
 

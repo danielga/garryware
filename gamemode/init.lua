@@ -30,6 +30,9 @@ resource.AddFile("sound/ware/game_new.mp3")
 resource.AddFile("sound/ware/game_lose.mp3")
 resource.AddFile("sound/ware/game_win.mp3")
 
+resource.AddFile("materials/sprites/ware_bullseye.vmt")
+resource.AddFile("materials/sprites/ware_bullseye.vtf")
+
 local minigames = {}
 local minigames_Names = {}
 
@@ -131,7 +134,6 @@ function GM:GetEnts( group )
 end
 	
 function GM:EndGame()
-	if (self.WareHaveStarted == false) then return end
 	self.WareHaveStarted = false
 	
 	if (minigames[self.WareID] != nil && minigames[self.WareID][3] != nil) then minigames[self.WareID][3]() end
@@ -266,6 +268,13 @@ function GM:Think()
 	elseif team.NumPlayers(TEAM_UNASSIGNED) == 0 && self.GamesArePlaying == true then
 		self.GamesArePlaying = false
 		GAMEMODE:EndGame()
+	end
+	if (self.NexttimeAdvert - CurTime()) < 0 then
+		for k,v in pairs(player.GetAll()) do 
+			v:ChatPrint( "This gamemode is called Garry Ware, keep track of it on http://www.facepunch.com/showthread.php?p=14682019" ) 
+			v:ChatPrint( "You can also code your own minigames ! Get documented on the Facepunch thread !" ) 
+		end
+		self.NexttimeAdvert = CurTime() + math.random(60*3,60*5)
 	end
 	
 end
