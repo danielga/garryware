@@ -114,7 +114,7 @@ end)
 -- CROUCH MINIGAME
 
 --Useful function to spawn a crouchball
-
+/*
 function WARESpawnCrouchBall(pos)
 	local ent = ents.Create ("ware_crouchball");
 	ent:SetPos(pos);
@@ -168,6 +168,5 @@ end,function(self, args)
 	-- End of ACT
 
 end)
-
-
+*/
 
