@@ -45,6 +45,7 @@ resource.AddFile("materials/sprites/ware_lock.vtf")
 
 local minigames = {}
 local minigames_Names = {}
+local minigames_Triggers = {}
 
 CreateConVar( "ware_debug", 0, {FCVAR_ARCHIVE} )
 CreateConVar( "ware_debugname", "", {FCVAR_ARCHIVE} )
@@ -100,6 +101,24 @@ function GM:RemoveEnts()
 	end
 end
 
+function GM:GetEnts( group )
+  if     group == ENTS_ONCRATE then
+	return GAMEMODE.EntsOnCrate
+	
+  elseif group == ENTS_OVERCRATE then
+	return GAMEMODE.EntsOverCrate
+	
+  elseif group == ENTS_INAIR then
+	return GAMEMODE.EntsInAir
+	
+  elseif group == ENTS_CROSS then
+	return GAMEMODE.EntsCross
+	
+  else
+	return {}
+  end
+end
+
 function GM:PickRandomGame()
 	self.WareHaveStarted = true
 	self.TickAnnounce = 5
@@ -116,7 +135,8 @@ function GM:PickRandomGame()
 	
 	if (minigames[name] != nil && minigames[name][1] != nil && minigames[name][2] != nil) then
 		minigames[name][1]()
-		timer.Simple(self.Windup,GAMEMODE.SetWareID,GAMEMODE,name)
+		GAMEMODE:SetWareID(name)
+		timer.Simple(self.Windup,GAMEMODE.HookTriggers,GAMEMODE,name)
 		timer.Simple(self.Windup,minigames[name][2])
 	else
 		GAMEMODE:SetWareWindupAndLength(3,0)
@@ -135,28 +155,11 @@ function GM:PickRandomGame()
 	//print("---"..CurTime() + self.Windup.."---"..self.NextgameEnd.."---"..self.Windup.."---"..self.WareLen)
 	
 end
-
-function GM:GetEnts( group )
-  if     group == ENTS_ONCRATE then
-	return GAMEMODE.EntsOnCrate
-	
-  elseif group == ENTS_OVERCRATE then
-	return GAMEMODE.EntsOverCrate
-	
-  elseif group == ENTS_INAIR then
-	return GAMEMODE.EntsInAir
-	
-  elseif group == ENTS_CROSS then
-	return GAMEMODE.EntsCross
-	
-  else
-	return {}
-  end
-end
 	
 function GM:EndGame()
 	self.WareHaveStarted = false
 	
+	GAMEMODE:UnhookTriggers(self.WareID)
 	if (minigames[self.WareID] != nil && minigames[self.WareID][3] != nil) then minigames[self.WareID][3]() end
 	self:RemoveEnts()
 	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
@@ -230,13 +233,26 @@ function registerMinigame(name, funcInit, funcAct, funcDestroy)
 end
 
 function registerTrigger(name, hookName, func)
-	hook.Add(
-	hookName, "WARE"..name..hookName,
-	function(...)
-		if GAMEMODE:GetWareID() == name then
-			return func(unpack(arg))
-		end
-	end)
+	if minigames_Triggers[name] == nil then minigames_Triggers[name] = {} end
+	minigames_Triggers[name][hookName] = function(...)
+											//if GAMEMODE:GetWareID() == name then
+												return func(unpack(arg))
+											//end
+										end
+end
+
+function GM:HookTriggers( name )
+	if minigames_Triggers[name] == nil then return end
+	for hookName, callback in pairs(minigames_Triggers[name]) do
+		hook.Add(hookName, "WARE"..name..hookName,callback)
+	end
+end
+
+function GM:UnhookTriggers( name )
+	if minigames_Triggers[name] == nil then return end
+	for hookName, _ in pairs(minigames_Triggers[name]) do
+		hook.Remove(hookName, "WARE"..name..hookName)
+	end
 end
 
 IncludeMinigames()
