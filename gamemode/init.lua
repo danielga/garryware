@@ -218,11 +218,7 @@ function GM:WarePlayerDestinyLose( player )
 end
 
 function registerMinigame(name, funcInit, funcAct, funcDestroy)
-	if (funcDestroy == nil) then
-		minigames[name] = { funcInit, funcAct }
-	else
-		minigames[name] = { funcInit, funcAct , funcDestroy }
-	end
+	minigames[name] = { funcInit, funcAct , funcDestroy }
 	table.insert(minigames_Names,{name , math.random(0,95)*0.01})
 	print("Minigame \""..name.."\" added ! ")
 end
