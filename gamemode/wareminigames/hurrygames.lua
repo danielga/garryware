@@ -48,7 +48,7 @@ end,function(self, args)
 	local numberSpawns = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*0.5),1,table.Count(entposcopy))
 	
 	for i = 0, numberSpawns - 1 do
-		table.sort(entposcopy,function(a,b) return a:EntIndex() < b:EntIndex() end) --Making sure the table doesnt have holes
+		//table.sort(entposcopy,function(a,b) return a:EntIndex() < b:EntIndex() end) --Making sure the table doesnt have holes
 		local iselect = math.random(1,table.Count(entposcopy))
 		local v = entposcopy[iselect]
 		
@@ -175,7 +175,7 @@ registerMinigame("findthemissing",function(self, args)
 	local entposcopy = 	table.Copy(GAMEMODE:GetEnts(ENTS_ONCRATE)) --Copy the ents to remove entries
 	local numberSpawns = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*0.6),3,table.Count(entposcopy))
 	for i = 1, numberSpawns do
-		table.sort(entposcopy,function(a,b) return a:EntIndex() < b:EntIndex() end) --Making sure the table doesnt have holes
+		//table.sort(entposcopy,function(a,b) return a:EntIndex() < b:EntIndex() end) --Making sure the table doesnt have holes
 		local iselect = math.random(1,table.Count(entposcopy))
 		local v = entposcopy[iselect]
 		
@@ -237,7 +237,7 @@ end,function(self, args)
 	local entposcopy = 	table.Copy(GAMEMODE:GetEnts(ENTS_INAIR)) --Copy the ents to remove entries
 	local numberSpawns = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*3),3,table.Count(entposcopy))
 	for i = 1, numberSpawns do
-		table.sort(entposcopy,function(a,b) return a:EntIndex() < b:EntIndex() end) --Making sure the table doesnt have holes
+		//table.sort(entposcopy,function(a,b) return a:EntIndex() < b:EntIndex() end) --Making sure the table doesnt have holes
 		local iselect = math.random(1,table.Count(entposcopy))
 		local v = entposcopy[iselect]
 		
@@ -276,7 +276,7 @@ end,function(self, args)
 	local entposcopy = 	table.Copy(GAMEMODE:GetEnts(ENTS_OVERCRATE)) --Copy the ents to remove entries
 	local numberSpawns = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*0.3),1,table.Count(entposcopy))
 	for i = 1, numberSpawns do
-		table.sort(entposcopy,function(a,b) return a:EntIndex() < b:EntIndex() end) --Making sure the table doesnt have holes
+		//table.sort(entposcopy,function(a,b) return a:EntIndex() < b:EntIndex() end) --Making sure the table doesnt have holes
 		local iselect = math.random(1,table.Count(entposcopy))
 		local v = entposcopy[iselect]
 		
