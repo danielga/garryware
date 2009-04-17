@@ -29,6 +29,12 @@ local fLastMessage = 0;
 local fAlpha = 0;
 local szMessage = "";
 
+NextgameStart = 0
+NextwarmupEnd = 0
+NextgameEnd = 0
+WarmupLen = 0
+GameLen = 0
+
 function GM:PrintCenterMessage( )
 	if( fLastMessage + iKeepTime < CurTime() and fAlpha > 0) then
 		fAlpha = fAlpha - (FrameTime()*200)
@@ -85,9 +91,11 @@ hook.Add( "HUDShouldDraw", "HideThings", HideThings )
 local vgui_ridiculous = vgui.RegisterFile( "vgui_ridiculous.lua" )
 local vgui_transit = vgui.RegisterFile( "vgui_transitscreen.lua" )
 local vgui_wait = vgui.RegisterFile( "vgui_waitscreen.lua" )
+local vgui_clock = vgui.RegisterFile( "vgui_clock.lua" )
 local RidiculousVGUI = vgui.CreateFromTable( vgui_ridiculous ) 
 local TransitVGUI = vgui.CreateFromTable( vgui_transit )
 local WaitVGUI = vgui.CreateFromTable( vgui_wait )
+local ClockVGUI = vgui.CreateFromTable( vgui_clock )
 
 local function Transit( m )
 	TransitVGUI:Show()
@@ -110,3 +118,12 @@ local function GameStartTime( m )
 	NextgameStart = m:ReadLong()
 end
 usermessage.Hook( "GameStartTime", GameStartTime )
+
+local function NextGameTimes( m )
+	NextwarmupEnd = m:ReadFloat()
+	NextgameEnd = m:ReadFloat()
+	WarmupLen = m:ReadFloat()
+	GameLen = m:ReadFloat()
+	//print("---"..NextwarmupEnd.."---"..NextgameEnd.."---"..WarmupLen.."---"..GameLen)
+end
+usermessage.Hook( "NextGameTimes", NextGameTimes )

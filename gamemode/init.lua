@@ -32,6 +32,10 @@ resource.AddFile("sound/ware/game_win.mp3")
 
 resource.AddFile("materials/sprites/ware_bullseye.vmt")
 resource.AddFile("materials/sprites/ware_bullseye.vtf")
+resource.AddFile("materials/sprites/ware_clock.vmt")
+resource.AddFile("materials/sprites/ware_clock.vtf")
+resource.AddFile("materials/sprites/ware_trotter.vmt")
+resource.AddFile("materials/sprites/ware_trotter.vtf")
 
 local minigames = {}
 local minigames_Names = {}
@@ -113,6 +117,17 @@ function GM:PickRandomGame()
 		GAMEMODE:DrawPlayersTextAndInitialStatus("Error with minigame \""..name.."\".",0)
 	end
 	self.NextgameEnd = CurTime() + self.Windup + self.WareLen
+	//SendUserMessage( "NextGameTimes" , nil, CurTime() + self.Windup, self.NextgameEnd, self.Windup, self.WareLen  )
+	local rp = RecipientFilter()
+	rp:AddAllPlayers()
+	umsg.Start("NextGameTimes", rp)
+		umsg.Float( CurTime() + self.Windup )
+		umsg.Float( self.NextgameEnd )
+		umsg.Float( self.Windup )
+		umsg.Float( self.WareLen )
+	umsg.End()
+	//print("---"..CurTime() + self.Windup.."---"..self.NextgameEnd.."---"..self.Windup.."---"..self.WareLen)
+	
 end
 
 function GM:GetEnts( group )
