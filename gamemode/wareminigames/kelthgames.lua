@@ -14,8 +14,7 @@ end,function(self, args)
 	end
 	return
 end)
-function WAREclimbThink( )
-	if GAMEMODE:GetWareID() == "climb" then
+registerTrigger("climb","Think",function()  
 	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
 		v:SetAchievedNoDestiny(0)
 	end
@@ -28,9 +27,7 @@ function WAREclimbThink( )
 			end
 		end
 	end
-	end
-end
-hook.Add( "Think", "WAREclimbThink", WAREclimbThink );  
+end)
 
 -- TOUCH SKY MINIGAME
 
@@ -60,18 +57,13 @@ end,function(self, args)
 		v:SetGravity(1)
 	end
 end)
-function WAREtouchskyThink( )
-	if GAMEMODE:GetWareID() == "touchsky" then
-	
+registerTrigger("touchsky","Think",function()  
 	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
 		if v:GetPos().z > GAMEMODE.GamePool.zsky then
 			GAMEMODE:WarePlayerDestinyLose( v )
 		end
 	end
-	end
-end
-
-hook.Add( "Think", "WAREtouchskyThink", WAREtouchskyThink );  
+end)
 
 
 -- CATCH A BALL MINIGAME
@@ -88,7 +80,7 @@ end,function(self, args)
 	local numberSpawns = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*0.5),1,table.Count(entposcopy))
 	
 	for i = 0, numberSpawns - 1 do
-		table.sort(entposcopy,function(a,b) return a:EntIndex() < b:EntIndex() end) --Making sure the table doesnt have holes
+		// table.sort(entposcopy,function(a,b) return a:EntIndex() < b:EntIndex() end) --Making sure the table doesnt have holes
 		local iselect = math.random(1,table.Count(entposcopy))
 		local v = entposcopy[iselect]
 		
@@ -115,13 +107,67 @@ end,function(self, args)
 
 end)
 
-function WAREcatchballGravGunOnPickedUp( pl, ent )
-	if GAMEMODE:GetWareID() == "catchball" then
+registerTrigger("catchball","GravGunOnPickedUp",function(pl, ent)  
 	GAMEMODE:WarePlayerDestinyWin( pl )
+end)
+
+-- CROUCH MINIGAME
+
+--Useful function to spawn a crouchball
+
+function WARESpawnCrouchBall(pos)
+	local ent = ents.Create ("ware_crouchball");
+	ent:SetPos(pos);
+	ent:Spawn();
+	GAMEMODE:AppendEntToBin(ent)
+	GAMEMODE:MakeAppearEffect(ent:GetPos())
+	local crouch = math.random(0,4)
+	
+	if crouch >= 3 then 
+		ent:SetColor(math.random(100,255),math.random(100,255),0,255)
+		ent:SetNWBool("crouch", false)
+	else
+		ent:SetColor(0,0,255,255)
+		ent:SetNWBool("crouch", true)
 	end
+	mess=GAMEMODE.GamePool.Fake[math.random(1,table.Count(GAMEMODE.GamePool.Fake))]
+	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+		v:PrintMessage( HUD_PRINTCENTER, mess )
+	end
+	
+	
+	return
 end
 
-hook.Add( "GravGunOnPickedUp", "WAREcatchballGravGunOnPickedUp", WAREcatchballGravGunOnPickedUp );  
+registerMinigame("crouch",function(self, args)
+	--Start of INIT
+	GAMEMODE.GamePool.NbBall = math.random(4,8)
+	GAMEMODE.GamePool.Fake = {"To crouch or no to crouch ?","I think you should crouch...","Crouch !","Look ! It's a blue one !","You may have to crouch next time.","Don't crouch this time !"}
+	GAMEMODE:SetWareWindupAndLength( 4, GAMEMODE.GamePool.NbBall/2 + 2 )
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Crouch only when a blue ball hit the ground !",1)
+	return
+	
+end,function(self, args)
+	--Start of ACT
+	local entposcopy = table.Copy(GAMEMODE:GetEnts(ENTS_INAIR)) --Copying the table, and the removing elements from it
+
+	local posCenter = Vector(0,0,0)
+	for k,v in pairs(entposcopy) do
+		posCenter = posCenter + v:GetPos()	
+		table.remove( entposcopy, k )
+	end
+	posCenter = posCenter/table.Count(entposcopy)
+	
+	for i = 0, GAMEMODE.GamePool.NbBall do
+		timer.Simple(i/2,WARESpawnCrouchBall,posCenter)
+	end
+	
+	
+	return
+end,function(self, args)
+	-- End of ACT
+
+end)
 
 
 
