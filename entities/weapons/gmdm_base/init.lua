@@ -206,3 +206,10 @@ function SWEP:NPCShoot_Secondary( ShootPos, ShootDir )
 	self:PrimaryAttack()
 
 end
+
+/*---------------------------------------------------------
+   Name: Deploy
+---------------------------------------------------------*/
+function SWEP:Deploy()
+	return true
+end

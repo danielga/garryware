@@ -66,7 +66,7 @@ function PANEL:Think()
 		local winNum = ply:Frags( )
 		local loseNum = ply:Deaths( )
 		if (ply:GetNWInt("ware_achieved",0) > 0) then
-			Wins[ -winNum - 0.001*loseNum - 0.00001*(ply:UserID()) ] = ply
+			Wins[ -winNum*10000 - 100*loseNum - 1*(ply:UserID()) ] = ply
 		end
 	end
 	local Fails_2 = {}
@@ -74,7 +74,7 @@ function PANEL:Think()
 		local winNum_2 = ply:Frags( )
 		local loseNum_2 = ply:Deaths( )
 		if (ply:GetNWInt("ware_achieved",0) == 0) then
-			Fails_2[ -winNum_2 - 0.001*loseNum_2 - 0.00001*(ply:UserID()) ] = ply
+			Fails_2[ -winNum_2*10000 - 100*loseNum_2 - 1*(ply:UserID()) ] = ply
 		end
 	end
 	

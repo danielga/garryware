@@ -23,7 +23,8 @@ function(self, args)
 	-- HAXX
 	-- GravGunOnPickedUp hook is broken, so we'll use this tricky workaround
 	local lua_run = ents.Create("lua_run")
-	lua_run:SetKeyValue('Code','CALLER:SetNWEntity("CanOwner",ACTIVATOR)')
+	--lua_run:SetKeyValue('Code','CALLER:SetNWEntity("CanOwner",ACTIVATOR)')
+	lua_run:SetKeyValue('Code','CALLER.CanOwner=ACTIVATOR')
 	lua_run:SetKeyValue('targetname','luarun')
 	lua_run:Spawn()
 	
@@ -76,9 +77,6 @@ function(self, args)
 	GAMEMODE:MakeAppearEffect(pos)
 	
 	GAMEMODE.GamePool.Trashcan = trash
-	
-	local min,max = trash:WorldSpaceAABB()
-	print(tostring(max-min))
 end,
 -- ACT END
 function(self, args)
@@ -102,7 +100,7 @@ registerTrigger("pickupthatcan","Think",function()
 			local bmin,bmax = GAMEMODE.GamePool.Trashcan:WorldSpaceAABB()
 			for _,v in pairs(ents.FindInBox(bmin+Vector(10,10,10),bmax-Vector(10,10,10))) do
 				if v:GetModel()=="models/props_junk/popcan01a.mdl" then
-					local Owner = v:GetNWEntity("CanOwner")
+					local Owner = v.CanOwner
 					if Owner and Owner:IsPlayer() then
 						GAMEMODE:MakeAppearEffect(v:GetPos())
 						v:Remove()
@@ -116,3 +114,132 @@ registerTrigger("pickupthatcan","Think",function()
 		end
 	end
 end)
+
+---------------------------------------------------------------------------------
+
+local CrateColours = {
+	{1,0,0},
+	{0,1,0},
+	{0,0,1},
+	{1,1,0},
+	{1,0,1},
+	{0,1,1},
+}
+
+local CratePitches = {
+	262,
+	294,
+	330,
+	349,
+	392,
+	440,
+}
+
+local function ResetCrate(i)
+	if not GAMEMODE.GamePool.Crates then return end
+	
+	local prop = GAMEMODE.GamePool.Crates[i]
+	if not(prop and prop:IsValid()) then return end
+	
+	local col = CrateColours[i]
+	
+	prop:SetColor(col[1]*100, col[2]*100, col[3]*100, 100)
+end
+
+local function PlayCrate(i)
+	if not GAMEMODE.GamePool.Crates then return end
+	
+	local prop = GAMEMODE.GamePool.Crates[i]
+	if not(prop and prop:IsValid()) then return end
+	
+	local col = CrateColours[i]
+	
+	prop:SetColor(col[1]*255, col[2]*255, col[3]*255, 255)
+	prop:SetHealth(100000)
+	prop:EmitSound("buttons/button17.wav", 100, CratePitches[i]/3)
+	
+	timer.Simple(0.5, ResetCrate, i)
+end
+
+registerMinigame("memorycrates",
+-- INIT
+function(self, args)
+	local numberSpawns = 5
+	local delay = 4
+	
+	GAMEMODE:SetWareWindupAndLength(numberSpawns+delay,numberSpawns)
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Watch carefully !",0)
+	
+	GAMEMODE.GamePool.Crates = {}
+	
+	for i,pos in ipairs(GetRandomPositions(numberSpawns, ENTS_ONCRATE)) do
+		local col = CrateColours[i]
+		local prop = ents.Create("prop_physics")
+		prop:SetModel("models/props_junk/wood_crate001a.mdl")
+		prop:PhysicsInit(SOLID_VPHYSICS)
+		prop:SetSolid(SOLID_VPHYSICS)
+		prop:SetPos(pos+Vector(0,0,64))
+		prop:Spawn()
+		
+		prop:SetColor(col[1]*100, col[2]*100, col[3]*100, 100)
+		prop:SetHealth(100000)
+		prop:SetMoveType(MOVETYPE_NONE)
+		prop:SetCollisionGroup(COLLISION_GROUP_WEAPON)
+		prop.CrateID = i
+		
+		GAMEMODE.GamePool.Crates[i] = prop
+		
+		GAMEMODE:AppendEntToBin(prop)
+		GAMEMODE:MakeAppearEffect(pos)
+	end
+	
+	local sequence = {}
+	for i=1,numberSpawns do sequence[i]=i end
+	
+	GAMEMODE.GamePool.Sequence = {}
+	for i=1,numberSpawns do
+		GAMEMODE.GamePool.Sequence[i] = table.remove(sequence, math.random(1,#sequence))
+		timer.Simple(delay+i-1, PlayCrate, GAMEMODE.GamePool.Sequence[i])
+	end
+end,
+-- ACT START
+function(self, args)
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Repeat ! ",0)
+	
+	GAMEMODE.GamePool.PlayerCurrentCrate = {}
+	
+	for _,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+		v:Give("gmdm_pistol")
+		v:GiveAmmo(12, "Pistol", true)
+		GAMEMODE.GamePool.PlayerCurrentCrate[v] = 1
+	end
+end,
+-- ACT END
+function(self, args)
+	GAMEMODE.GamePool.Crates = nil
+	GAMEMODE.GamePool.Sequence = nil
+	GAMEMODE.GamePool.PlayerCurrentCrate = nil
+end)
+
+registerTrigger("memorycrates","EntityTakeDamage",function(ent,inf,att,amount,info)
+	local pool = GAMEMODE.GamePool
+	
+	if not att:IsPlayer() or not info:IsBulletDamage() then return end
+	if not pool.PlayerCurrentCrate[att] then return end
+	if not pool.Crates or not ent.CrateID then return end
+	
+	PlayCrate(ent.CrateID)
+	
+	if pool.Sequence[pool.PlayerCurrentCrate[att]] == ent.CrateID then
+		pool.PlayerCurrentCrate[att] = pool.PlayerCurrentCrate[att] + 1
+		if not pool.Sequence[pool.PlayerCurrentCrate[att]] then
+			GAMEMODE:WarePlayerDestinyWin(att)
+			att:StripWeapons()
+		end
+	else
+		GAMEMODE:WarePlayerDestinyLose(att)
+		att:StripWeapons()
+	end
+end)
+
+---------------------------------------------------------------------------------

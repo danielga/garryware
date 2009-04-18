@@ -63,6 +63,7 @@ function GM:InitPostEntity( )
 
 	self.GamesArePlaying = false
 	self.WareHaveStarted = false
+	self.GameHasEnded = false
 	
 	self.EntsOnCrate = ents.FindByClass("gmod_itemstart_oncrate")
 	self.EntsOverCrate = ents.FindByClass("gmod_itemstart_overcrate")

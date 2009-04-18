@@ -126,6 +126,7 @@ function GM:PickRandomGame()
 	for k,v in pairs(player.GetAll()) do 
 		v:SetNWInt("ware_hasdestiny", 0 )
 		v:SendLua( "LocalPlayer():EmitSound( \"" .. GAMEMODE.NewWareSound .. "\" );" );
+		v:StripWeapons() -- TEST
 	end
 	
 	table.sort(minigames_Names,function(a,b) return a[2] < b[2] end)
@@ -176,7 +177,7 @@ function GM:EndGame()
 		
 		v:StripWeapons()
 		v:RemoveAllAmmo( )
-		//v:Give("weapon_hands")
+		v:Give("weapon_physcannon")  -- TEST
 		
 		if achieved >= 1 then
 			v:SendLua( "LocalPlayer():EmitSound( \"" .. GAMEMODE.WinWareSound .. "\" );" );
@@ -288,7 +289,7 @@ function GM:Think()
 		end
 	end
 	
-	if team.NumPlayers(TEAM_UNASSIGNED) > 0 && self.GamesArePlaying == false then
+	if team.NumPlayers(TEAM_UNASSIGNED) > 0 && self.GamesArePlaying == false && self.GameHasEnded == false then
 	
 		self.GamesArePlaying = true
 		self.WareHaveStarted = false
@@ -310,3 +311,9 @@ function GM:Think()
 	
 end
 
+function GM:EndOfGame( bGamemodeVote )
+	self.GamesArePlaying = false
+	self.GameHasEnded = true
+	GAMEMODE:EndGame()
+	self.BaseClass:EndOfGame( bGamemodeVote );
+end
