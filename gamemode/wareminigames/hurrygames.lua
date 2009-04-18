@@ -303,3 +303,20 @@ registerTrigger("bullseye","Think",function( )
 		end
 	end
 end)
+
+
+registerMinigame("paparazzi",
+--Start of INIT
+function(self, args)
+	GAMEMODE:SetWareWindupAndLength(2.5,3.5)
+	
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Don't get photograph'd !",1)
+	return
+end,
+--Start of ACT
+function(self, args)
+	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+		v:Give( "ware_camera" )
+	end
+	return
+end)
