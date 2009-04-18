@@ -108,3 +108,6 @@ function SWEP:TranslateFOV()
 	return 40
 end
 
+
+
+
