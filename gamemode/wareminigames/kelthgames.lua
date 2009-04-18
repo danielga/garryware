@@ -20,8 +20,8 @@ registerTrigger("climb","Think",function()
 	end
 	local entposcopy = 	table.Copy(GAMEMODE:GetEnts(ENTS_ONCRATE))
 	for _,block in pairs(entposcopy) do
-		local sphere = ents.FindInSphere(block:GetPos(),32)
-		for _,target in pairs(sphere) do
+		local box = ents.FindInBox(block:GetPos()+Vector(-30,-30,0),block:GetPos()+Vector(30,30,64))
+		for _,target in pairs(box) do
 			if target:IsPlayer() then
 				target:SetAchievedNoDestiny(1)
 			end

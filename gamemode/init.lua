@@ -119,13 +119,27 @@ function GM:GetEnts( group )
   end
 end
 
+function GM:GetRandomPositions(num, group)
+	local entposcopy = table.Copy(GAMEMODE:GetEnts(group))
+	local result = {}
+	
+	local available = math.Clamp(num,1,#entposcopy)
+	
+	for i=1,available do
+		local p = table.remove(entposcopy, math.random(1,#entposcopy))
+		table.insert(result, p:GetPos())
+	end
+	
+	return result
+end
+
 function GM:PickRandomGame()
 	self.WareHaveStarted = true
 	self.TickAnnounce = 5
 	
 	for k,v in pairs(player.GetAll()) do 
 		v:SetNWInt("ware_hasdestiny", 0 )
-		v:SendLua( "LocalPlayer():EmitSound( \"" .. GAMEMODE.NewWareSound .. "\" );" );
+		v:SendLua( "LocalPlayer():EmitSound( \"" .. GAMEMODE.NewWareSound .. "\",40 );" );
 		v:StripWeapons() -- TEST
 	end
 	
@@ -182,9 +196,9 @@ function GM:EndGame()
 		v:Give("weapon_physcannon")  -- TEST
 		
 		if achieved >= 1 then
-			v:SendLua( "LocalPlayer():EmitSound( \"" .. GAMEMODE.WinWareSound .. "\" );" );
+			v:SendLua( "LocalPlayer():EmitSound( \"" .. GAMEMODE.WinWareSound .. "\",40 );" );
 		else
-			v:SendLua( "LocalPlayer():EmitSound( \"" .. GAMEMODE.LoseWareSound .. "\" );" );
+			v:SendLua( "LocalPlayer():EmitSound( \"" .. GAMEMODE.LoseWareSound .. "\",40 );" );
 		end
 	end
 	

@@ -1,5 +1,6 @@
-registerMinigame("calc",function(self, args)
-	--Start of INIT
+registerMinigame("calc",
+--INIT
+function(self, args)
 	GAMEMODE:SetWareWindupAndLength(0,8)
 	
 	local a = math.random(10,99)
@@ -8,10 +9,13 @@ registerMinigame("calc",function(self, args)
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Calculate and say : "..a.." + "..b.." = ?",0)
 	return
 	
-end,function(self, args)
-	--Start of ACT
+end,
+--ACT START
+function(self, args)
 	return
-end,function(self, args)
+end,
+--ACT END
+function(self, args)
 	for k,v in pairs(player.GetAll()) do 
 		v:ChatPrint( "Answer was "..GAMEMODE.GamePool.WareSolution.." !" )  
 	end
@@ -31,15 +35,17 @@ end)
 
 
 
-registerMinigame("chair",function(self, args)
-	--Start of INIT
+registerMinigame("chair",
+--INIT
+function(self, args)
 	GAMEMODE:SetWareWindupAndLength(0.7,6)
 	
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Break 1 chair !",0)
 	return
 	
-end,function(self, args)
-	--Start of ACT
+end,
+--Start of ACT
+function(self, args)
 	local entposcopy = table.Copy(GAMEMODE:GetEnts(ENTS_ONCRATE)) --Copying the table, and the removing elements from it
 	local numberSpawns = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*0.5),1,table.Count(entposcopy))
 	
@@ -78,15 +84,16 @@ end)
 
 
 
-registerMinigame("dontmove",function(self, args)
-	--Start of INIT
+registerMinigame("dontmove",
+--Start of INIT
+function(self, args)
 	GAMEMODE:SetWareWindupAndLength(3.5,2)
 	
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Don't move !",1)
 	return
-	
-end,function(self, args)
-	--Start of ACT
+end,
+--Start of ACT
+function(self, args)
 	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
 		v:Give( "ware_weap_crowbar" )
 	end
@@ -101,16 +108,16 @@ end)
 
 
 
-registerMinigame("weirdo",function(self, args)
-	--Start of INIT
+registerMinigame("weirdo",
+--Start of INIT
+function(self, args)
 	GAMEMODE:SetWareWindupAndLength(0.7,6)
 	
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Punt the big crate !",0)
 	return
-	
-end,function(self, args)
-	--Start of ACT
-	
+end,
+--Start of ACT
+function(self, args)
 	for k,v in pairs(GAMEMODE:GetEnts(ENTS_ONCRATE)) do
 		local ent = ents.Create ("prop_physics");
 		ent:SetModel ("models/props_junk/wood_crate001a.mdl");
@@ -153,14 +160,15 @@ end)
 
 
 
-registerMinigame("findthemissing",function(self, args)
-	--Start of INIT
+registerMinigame("findthemissing",
+--Start of INIT
+function(self, args)
 	GAMEMODE:SetWareWindupAndLength(5,5)
 	
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Watch the props...",0)
 	
 	local entposcopy = 	table.Copy(GAMEMODE:GetEnts(ENTS_ONCRATE)) --Copy the ents to remove entries
-	local numberSpawns = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*0.6),3,table.Count(entposcopy))
+	local numberSpawns = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*0.8),3,table.Count(entposcopy))
 	for i = 1, numberSpawns do
 		//table.sort(entposcopy,function(a,b) return a:EntIndex() < b:EntIndex() end) --Making sure the table doesnt have holes
 		local iselect = math.random(1,table.Count(entposcopy))
@@ -179,8 +187,9 @@ registerMinigame("findthemissing",function(self, args)
 	end
 	return
 	
-end,function(self, args)
-	--Start of ACT
+end,
+--Start of ACT
+function(self, args)
 	local entw = table.Random(ents.FindByClass("prop_physics"))
 	GAMEMODE.GamePool.MissingEnt = entw:GetNWEntity("parpoint")
 	entw:Remove()
@@ -194,8 +203,9 @@ end,function(self, args)
 	return
 end)
 registerTrigger("findthemissing","Think",function( )
-	local sphere = ents.FindInSphere(GAMEMODE.GamePool.MissingEnt:GetPos(),32)
-	for _,target in pairs(sphere) do
+	local missentpos = GAMEMODE.GamePool.MissingEnt:GetPos()
+	local box = ents.FindInBox(missentpos+Vector(-30,-30,0),missentpos+Vector(30,30,64))
+	for _,target in pairs(box) do
 		if target:IsPlayer() then
 			GAMEMODE:WarePlayerDestinyWin( target )
 		end
@@ -204,8 +214,9 @@ end)
 
 
 
-registerMinigame("avoidball",function(self, args)
-	--Start of INIT
+registerMinigame("avoidball",
+--Start of INIT
+function(self, args)
 	GAMEMODE:SetWareWindupAndLength(1.5,8)
 	
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Avoid the balls !",1)
@@ -216,8 +227,9 @@ registerMinigame("avoidball",function(self, args)
 	
 	return
 	
-end,function(self, args)
-	--Start of ACT
+end,
+--Start of ACT
+function(self, args)
 	local entposcopy = 	table.Copy(GAMEMODE:GetEnts(ENTS_INAIR)) --Copy the ents to remove entries
 	local numberSpawns = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*3),3,table.Count(entposcopy))
 	for i = 1, numberSpawns do
@@ -240,8 +252,9 @@ end,function(self, args)
 end)
 
 
-registerMinigame("bullseye",function(self, args)
-	--Start of INIT
+registerMinigame("bullseye",
+--Start of INIT
+function(self, args)
 	GAMEMODE:SetWareWindupAndLength(1.5,8)
 	
 	GAMEMODE.GamePool.TimesToHit = math.random(2,5)
@@ -255,8 +268,9 @@ registerMinigame("bullseye",function(self, args)
 	
 	return
 	
-end,function(self, args)
-	--Start of ACT
+end,
+--Start of ACT
+function(self, args)
 	local entposcopy = 	table.Copy(GAMEMODE:GetEnts(ENTS_OVERCRATE)) --Copy the ents to remove entries
 	local numberSpawns = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*0.3),1,table.Count(entposcopy))
 	for i = 1, numberSpawns do

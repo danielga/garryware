@@ -1,5 +1,6 @@
 local function GetRandomPositions(num, group)
 	local entposcopy = table.Copy(GAMEMODE:GetEnts(group))
+	num = math.Clamp(num,0,#entposcopy)
 	local result = {}
 	
 	for i=1,num do
@@ -10,12 +11,51 @@ local function GetRandomPositions(num, group)
 	return result
 end
 
+local function GetRandomPositionsAvoidBox(num, group, test, vec1, vec2)
+	local entposcopy = table.Copy(GAMEMODE:GetEnts(group))
+	num = math.Clamp(num,0,#entposcopy)
+	local result = {}
+	local invalid = {}
+	local failsafe = false
+	
+	for i=1,num do
+		local ok
+		repeat
+			local p = table.remove(entposcopy, math.random(1,#entposcopy))
+			ok = true
+			
+			if not failsafe then
+				for _,v in pairs(ents.FindInBox(p:GetPos()+vec1, p:GetPos()+vec2)) do
+					if test(v) then
+						ok = false
+						break
+					end
+				end
+			end
+			
+			if ok then
+				table.insert(result, p:GetPos())
+			else
+				table.insert(invalid, p:GetPos())
+			end
+			
+			if #entposcopy==0 then
+				-- No more entities available, enable failsafe mode, and pick invalid entities
+				entposcopy = invalid
+				failsafe = true
+			end
+		until ok
+	end
+	
+	return result
+end
+
 ---------------------------------------------------------------------------------
 
 registerMinigame("pickupthatcan",
 -- INIT
 function(self, args)
-	GAMEMODE:SetWareWindupAndLength(5,5)
+	GAMEMODE:SetWareWindupAndLength(3,5)
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Pick up that can !",0)
 	
 	local numberSpawns = math.Clamp(team.NumPlayers(TEAM_UNASSIGNED),1,table.Count(GAMEMODE:GetEnts(ENTS_INAIR)))
@@ -36,10 +76,11 @@ function(self, args)
 		prop:SetMoveType(MOVETYPE_VPHYSICS)
 		prop:SetSolid(SOLID_VPHYSICS)
 		prop:SetPos(pos)
+		prop:SetAngles(Angle(math.random(-180,180),math.random(-180,180),math.random(-180,180)))
 		prop:Spawn()
 		
 		prop:Fire("AddOutput", "OnPhysGunPickup luarun,RunCode")
-		util.SpriteTrail(prop,0,Color(255,255,255,255),false,16,0,8,1/8,"trails/smoke.vmt")
+		util.SpriteTrail(prop,0,Color(255,255,255,255),false,16,0,6,1/8,"trails/smoke.vmt")
 		
 		GAMEMODE:AppendEntToBin(prop)
 		GAMEMODE:MakeAppearEffect(pos)
@@ -53,10 +94,9 @@ end,
 function(self, args)
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Put it in the trashcan ! ",0)
 	
-	local pos = GetRandomPositions(1, ENTS_ONCRATE)[1]
+	local pos = GetRandomPositionsAvoidBox(1, ENTS_ONCRATE, function(v) return v:IsPlayer() end, Vector(-64,-64,64), Vector(64,64,64))[1]
 	local trash = ents.Create("prop_physics")
 	trash:SetModel("models/props_trainstation/trashcan_indoor001b.mdl")
-	trash:SetKeyValue("physdamagescale", 1000)
 	trash:PhysicsInit(SOLID_VPHYSICS)
 	trash:SetSolid(SOLID_VPHYSICS)
 	
@@ -98,7 +138,7 @@ registerTrigger("pickupthatcan","Think",function()
 	if GAMEMODE.GamePool.Trashcan then
 		if not GAMEMODE.GamePool.NextTrashThink or CurTime()>GAMEMODE.GamePool.NextTrashThink then
 			local bmin,bmax = GAMEMODE.GamePool.Trashcan:WorldSpaceAABB()
-			for _,v in pairs(ents.FindInBox(bmin+Vector(10,10,10),bmax-Vector(10,10,10))) do
+			for _,v in pairs(ents.FindInBox(bmin+Vector(12,12,14),bmax-Vector(12,12,10))) do
 				if v:GetModel()=="models/props_junk/popcan01a.mdl" then
 					local Owner = v.CanOwner
 					if Owner and Owner:IsPlayer() then
@@ -305,6 +345,7 @@ function(self, args)
 			prop2:PhysicsInit(SOLID_VPHYSICS)
 			prop2:SetSolid(SOLID_VPHYSICS)
 			prop2:SetPos(pos)
+			prop2:SetAngles(Angle(math.random(-180,180),math.random(-180,180),math.random(-180,180)))
 			prop2:Spawn()
 			
 			prop2:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
@@ -341,6 +382,86 @@ registerTrigger("meloncrates","PropBreak",function(pl,prop)
 		prop.Contents:SetCollisionGroup(COLLISION_GROUP_INTERACTIVE)
 		prop.Contents:GetPhysicsObject():EnableMotion(true)
 		prop.Contents:GetPhysicsObject():Wake()
+	end
+end)
+
+---------------------------------------------------------------------------------
+
+function RespawnSawblade(ent)
+	if not ent or not ent:IsValid() or not ent.OriginalPos then return end
+	
+	local saw = ents.Create ("prop_physics")
+	saw:SetModel("models/props_junk/sawblade001a.mdl")
+	saw:SetPos(ent.OriginalPos)
+	saw:SetAngles(Angle(0,0,0))
+	saw:Spawn()
+	
+	GAMEMODE:AppendEntToBin(saw)
+	GAMEMODE:MakeAppearEffect(saw:GetPos())
+end
+
+registerMinigame("buildtothetop",
+-- INIT
+function(self, args)
+	GAMEMODE:SetWareWindupAndLength(2,14)
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Punt a sawblade to freeze it",0)
+	
+	for k,v in pairs(GAMEMODE:GetEnts(ENTS_ONCRATE)) do
+		local saw = ents.Create ("prop_physics")
+		saw:SetModel("models/props_junk/sawblade001a.mdl")
+		saw:SetPos(v:GetPos()+Vector(0,0,100))
+		saw:SetAngles(Angle(0,0,0))
+		saw:Spawn()
+		
+		saw.OriginalPos = v:GetPos()+Vector(0,0,100)
+		
+		GAMEMODE:AppendEntToBin(saw)
+		GAMEMODE:MakeAppearEffect(saw:GetPos())
+	end
+	
+	for _,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+		v:Give("weapon_physcannon")
+	end
+end,
+-- ACT START
+function(self, args)
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Get on the red platform !",0)
+	
+	local numberSpawns = math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*0.75)
+	
+	for i,pos in ipairs(GetRandomPositions(numberSpawns, ENTS_INAIR)) do
+		local platform = ents.Create("prop_physics")
+		platform:SetModel("models/props_lab/blastdoor001b.mdl")
+		platform:SetPos(pos+Vector(0,0,-140))
+		platform:SetAngles(Angle(90,0,0))
+		platform:Spawn()
+		platform:SetColor(255,0,0,255)
+		platform:GetPhysicsObject():EnableMotion(false)
+		
+		GAMEMODE:AppendEntToBin(platform)
+		GAMEMODE:MakeAppearEffect(platform:GetPos())
+	end
+end,
+-- ACT END
+function(self, args)
+	
+end)
+
+registerTrigger("buildtothetop","Think",function()
+	for _,v in pairs(ents.FindByClass("player")) do
+		local ent = v:GetGroundEntity()
+		if ent and ent:IsValid() and ent:GetModel()=="models/props_lab/blastdoor001b.mdl" then
+			GAMEMODE:WarePlayerDestinyWin(v)
+		end
+	end
+end)
+
+registerTrigger("buildtothetop","GravGunPunt",function(pl,ent)
+	if not pl:IsPlayer() then return end
+	
+	if ent:GetPhysicsObject() and ent:GetPhysicsObject():IsValid() then
+		ent:GetPhysicsObject():EnableMotion(false)
+		timer.Simple(4,RespawnSawblade,ent)
 	end
 end)
 
