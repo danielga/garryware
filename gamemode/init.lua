@@ -163,6 +163,8 @@ function GM:EndGame()
 	GAMEMODE:UnhookTriggers(self.WareID)
 	if (minigames[self.WareID] != nil && minigames[self.WareID][3] != nil) then minigames[self.WareID][3]() end
 	self:RemoveEnts()
+	self.GamePool = {}
+	
 	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
 		local achieved = v:GetNWInt("ware_achieved")
 		local destiny = v:GetNWInt("ware_hasdestiny")
