@@ -53,6 +53,10 @@ function PANEL:Init()
 	self.Failcount = 0
 end
 
+function PANEL:Hide()
+	self:SetVisible( false )
+end
+
 /*---------------------------------------------------------
    Name: Think
 ---------------------------------------------------------*/

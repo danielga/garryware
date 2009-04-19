@@ -229,40 +229,46 @@ function GM:PickRandomGame()
 end
 	
 function GM:EndGame()
-	self.WareHaveStarted = false
-	
 	GAMEMODE:UnhookTriggers(self.WareID)
 	if (minigames[self.WareID] != nil && minigames[self.WareID][3] != nil) then minigames[self.WareID][3]() end
 	self:RemoveEnts()
 	self.GamePool = {}
 	
-	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
-		local achieved = v:GetNWInt("ware_achieved")
-		local destiny = v:GetNWInt("ware_hasdestiny")
-		
-		if (destiny == 0) then
-			if achieved >= 1 then
-				self:WarePlayerDestinyWin( v )
-			else
-				self:WarePlayerDestinyLose( v )
+	if self.WareHaveStarted == true then
+		for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+			local achieved = v:GetNWInt("ware_achieved")
+			local destiny = v:GetNWInt("ware_hasdestiny")
+			
+			if (destiny == 0) then
+				if achieved >= 1 then
+					self:WarePlayerDestinyWin( v )
+				else
+					self:WarePlayerDestinyLose( v )
+				end
 			end
+			
+			v:StripWeapons()
+			v:RemoveAllAmmo( )
+			v:Give("weapon_physcannon")  -- TEST
+			
+			if achieved >= 1 then
+				v:SendLua( "LocalPlayer():EmitSound( \"" .. GAMEMODE.WinWareSound .. "\",40 );" );
+			else
+				v:SendLua( "LocalPlayer():EmitSound( \"" .. GAMEMODE.LoseWareSound .. "\",40 );" );
+			end
+			v:ConCommand("r_cleardecals")
 		end
-		
-		v:StripWeapons()
-		v:RemoveAllAmmo( )
-		v:Give("weapon_physcannon")  -- TEST
-		
-		if achieved >= 1 then
-			v:SendLua( "LocalPlayer():EmitSound( \"" .. GAMEMODE.WinWareSound .. "\",40 );" );
-		else
+		for k,v in pairs(team.GetPlayers(TEAM_SPECTATOR)) do
 			v:SendLua( "LocalPlayer():EmitSound( \"" .. GAMEMODE.LoseWareSound .. "\",40 );" );
+			v:ConCommand("r_cleardecals")
 		end
+		minigames_Names[1][2] = math.ceil(minigames_Names[1][2]) + math.random(0,95)*0.01
 	end
 	
-	minigames_Names[1][2] = math.ceil(minigames_Names[1][2]) + math.random(0,95)*0.01
 	self.NextgameStart = CurTime() + 2.7
 	SendUserMessage( "Transit" )
 	
+	self.WareHaveStarted = false
 	self.WareID = ""
 end
 
@@ -384,9 +390,24 @@ function GM:Think()
 	
 end
 
-function GM:EndOfGame( bGamemodeVote )
+function GM:EndTheGameForOnce()
 	self.GamesArePlaying = false
 	self.GameHasEnded = true
+	for k,v in pairs(player.GetAll()) do 
+		v:SendLua( "LocalPlayer():EmitSound( \"" .. GAMEMODE.LoseWareSound .. "\",40 );" );
+	end
 	GAMEMODE:EndGame()
+	SendUserMessage( "EndOfGamemode_HideVGUI" )
+end
+
+function GM:EndOfGame( bGamemodeVote )
+	self:EndTheGameForOnce()
+	
 	self.BaseClass:EndOfGame( bGamemodeVote );
+end
+
+function GM:StartGamemodeVote()
+	self:EndTheGameForOnce()
+	
+	self.BaseClass:StartGamemodeVote();
 end

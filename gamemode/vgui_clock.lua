@@ -33,6 +33,10 @@ function PANEL:Think()
 	self:InvalidateLayout()
 end
 
+function PANEL:Hide()
+	self:SetVisible( false )
+end
+
 /*---------------------------------------------------------
    Name: PerformLayout
 ---------------------------------------------------------*/

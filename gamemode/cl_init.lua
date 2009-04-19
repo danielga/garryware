@@ -131,3 +131,9 @@ local function NextGameTimes( m )
 	//print("---"..NextwarmupEnd.."---"..NextgameEnd.."---"..WarmupLen.."---"..GameLen)
 end
 usermessage.Hook( "NextGameTimes", NextGameTimes )
+
+local function EndOfGamemode_HideVGUI( m )
+	RidiculousVGUI:Hide()
+	ClockVGUI:Hide()
+end
+usermessage.Hook( "EndOfGamemode_HideVGUI", EndOfGamemode_HideVGUI )
