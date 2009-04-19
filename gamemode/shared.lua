@@ -3,7 +3,7 @@ if( SERVER ) then
 end
 include( "ply_extension.lua" );
 
-GM.Name 	= "Garry Ware"
+GM.Name 	= "Garry Ware (SVN)"
 GM.Author 	= "Hurricaaane"
 GM.Email 	= ""
 GM.Website 	= ""
