@@ -46,21 +46,17 @@ function(self, args)
 end,
 --Start of ACT
 function(self, args)
-	local entposcopy = table.Copy(GAMEMODE:GetEnts(ENTS_ONCRATE)) --Copying the table, and the removing elements from it
-	local numberSpawns = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*0.5),1,table.Count(entposcopy))
-	
-	for i = 0, numberSpawns - 1 do
-		//table.sort(entposcopy,function(a,b) return a:EntIndex() < b:EntIndex() end) --Making sure the table doesnt have holes
-		local iselect = math.random(1,table.Count(entposcopy))
-		local v = entposcopy[iselect]
-		
+	local ratio = 0.5
+	local minimum = 1
+	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*ratio),minimum,64)
+	local entposcopy = GAMEMODE:GetRandomLocations(num, ENTS_ONCRATE)
+	for k,v in pairs(entposcopy) do
 		local ent = ents.Create ("prop_physics");
 		ent:SetModel ("models/props_c17/FurnitureChair001a.mdl");
 		ent:SetPos(v:GetPos()+Vector(0,0,24));
 		ent:SetAngles(Angle(0,math.Rand(0,360),0) );
 		ent:Spawn(); 
-		
-		table.remove( entposcopy, iselect )
+
 		GAMEMODE:AppendEntToBin(ent)
 		GAMEMODE:MakeAppearEffect(ent:GetPos())
 	end
@@ -112,7 +108,6 @@ registerMinigame("weirdo",
 --Start of INIT
 function(self, args)
 	GAMEMODE:SetWareWindupAndLength(0.7,6)
-	
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Punt the big crate !",0)
 	return
 end,
@@ -164,16 +159,13 @@ registerMinigame("findthemissing",
 --Start of INIT
 function(self, args)
 	GAMEMODE:SetWareWindupAndLength(5,5)
-	
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Watch the props...",0)
 	
-	local entposcopy = 	table.Copy(GAMEMODE:GetEnts(ENTS_ONCRATE)) --Copy the ents to remove entries
-	local numberSpawns = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*0.8),3,table.Count(entposcopy))
-	for i = 1, numberSpawns do
-		//table.sort(entposcopy,function(a,b) return a:EntIndex() < b:EntIndex() end) --Making sure the table doesnt have holes
-		local iselect = math.random(1,table.Count(entposcopy))
-		local v = entposcopy[iselect]
-		
+	local ratio = 0.8
+	local minimum = 3
+	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*ratio),minimum,64)
+	local entposcopy = GAMEMODE:GetRandomLocationsAvoidBox(num, ENTS_ONCRATE, function(v) return v:IsPlayer() end, Vector(-30,-30,0), Vector(30,30,64))
+	for k,v in pairs(entposcopy) do
 		local ent = ents.Create ("prop_physics");
 		ent:SetModel ("models/props_c17/FurnitureWashingmachine001a.mdl");
 		ent:SetPos(v:GetPos()+Vector(0,0,32));
@@ -181,7 +173,6 @@ function(self, args)
 		ent:Spawn(); 
 		ent:SetNWEntity("parpoint",v)
 		
-		table.remove( entposcopy, iselect )
 		GAMEMODE:AppendEntToBin(ent)
 		GAMEMODE:MakeAppearEffect(ent:GetPos())
 	end
@@ -218,7 +209,6 @@ registerMinigame("avoidball",
 --Start of INIT
 function(self, args)
 	GAMEMODE:SetWareWindupAndLength(1.5,8)
-	
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Avoid the balls !",1)
 	
 	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
@@ -230,13 +220,11 @@ function(self, args)
 end,
 --Start of ACT
 function(self, args)
-	local entposcopy = 	table.Copy(GAMEMODE:GetEnts(ENTS_INAIR)) --Copy the ents to remove entries
-	local numberSpawns = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*3),3,table.Count(entposcopy))
-	for i = 1, numberSpawns do
-		//table.sort(entposcopy,function(a,b) return a:EntIndex() < b:EntIndex() end) --Making sure the table doesnt have holes
-		local iselect = math.random(1,table.Count(entposcopy))
-		local v = entposcopy[iselect]
-		
+	local ratio = 1.5
+	local minimum = 3
+	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*ratio),minimum,64)
+	local entposcopy = GAMEMODE:GetRandomLocations(num, ENTS_INAIR)
+	for k,v in pairs(entposcopy) do
 		local ent = ents.Create ("ware_avoidball");
 		ent:SetPos(v:GetPos());
 		ent:Spawn();
@@ -244,7 +232,6 @@ function(self, args)
 		local phys = ent:GetPhysicsObject()
 		phys:ApplyForceCenter (VectorRand() * 512);
 		
-		table.remove( entposcopy, iselect )
 		GAMEMODE:AppendEntToBin(ent)
 		GAMEMODE:MakeAppearEffect(ent:GetPos())
 	end
@@ -271,13 +258,11 @@ function(self, args)
 end,
 --Start of ACT
 function(self, args)
-	local entposcopy = 	table.Copy(GAMEMODE:GetEnts(ENTS_OVERCRATE)) --Copy the ents to remove entries
-	local numberSpawns = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*0.3),1,table.Count(entposcopy))
-	for i = 1, numberSpawns do
-		//table.sort(entposcopy,function(a,b) return a:EntIndex() < b:EntIndex() end) --Making sure the table doesnt have holes
-		local iselect = math.random(1,table.Count(entposcopy))
-		local v = entposcopy[iselect]
-		
+	local ratio = 0.3
+	local minimum = 1
+	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*ratio),minimum,64)
+	local entposcopy = GAMEMODE:GetRandomLocations(num, ENTS_INAIR)
+	for k,v in pairs(entposcopy) do
 		local ent = ents.Create ("ware_bullseye");
 		ent:SetPos(v:GetPos());
 		ent:Spawn();
@@ -285,7 +270,6 @@ function(self, args)
 		local phys = ent:GetPhysicsObject()
 		phys:ApplyForceCenter (VectorRand() * 16);
 		
-		table.remove( entposcopy, iselect )
 		GAMEMODE:AppendEntToBin(ent)
 		GAMEMODE:MakeAppearEffect(ent:GetPos())
 	end

@@ -82,11 +82,15 @@ function GM:HUDThink()
 end
 
 function HideThings( name )
-	if (name == "CHudHealth" or name == "CHudBattery") then
+	if (name == "CHudHealth" or name == "CHudBattery" or name == "CHudWeaponSelection") then
 		return false
 	end
 end
-hook.Add( "HUDShouldDraw", "HideThings", HideThings ) 
+hook.Add( "HUDShouldDraw", "HideThings", HideThings )
+
+function GM:HUDWeaponPickedUp( wep )
+	return false
+end
 
 local vgui_ridiculous = vgui.RegisterFile( "vgui_ridiculous.lua" )
 local vgui_transit = vgui.RegisterFile( "vgui_transitscreen.lua" )
