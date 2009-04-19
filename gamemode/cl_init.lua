@@ -34,6 +34,7 @@ NextwarmupEnd = 0
 NextgameEnd = 0
 WarmupLen = 0
 GameLen = 0
+TimeWhenGameEnds = 0
 
 function GM:PrintCenterMessage( )
 	if( fLastMessage + iKeepTime < CurTime() and fAlpha > 0) then
@@ -96,10 +97,12 @@ local vgui_ridiculous = vgui.RegisterFile( "vgui_ridiculous.lua" )
 local vgui_transit = vgui.RegisterFile( "vgui_transitscreen.lua" )
 local vgui_wait = vgui.RegisterFile( "vgui_waitscreen.lua" )
 local vgui_clock = vgui.RegisterFile( "vgui_clock.lua" )
+local vgui_clockgame = vgui.RegisterFile( "vgui_clockgame.lua" )
 local RidiculousVGUI = vgui.CreateFromTable( vgui_ridiculous ) 
 local TransitVGUI = vgui.CreateFromTable( vgui_transit )
 local WaitVGUI = vgui.CreateFromTable( vgui_wait )
 local ClockVGUI = vgui.CreateFromTable( vgui_clock )
+local ClockGameVGUI = vgui.CreateFromTable( vgui_clockgame )
 
 local function Transit( m )
 	TransitVGUI:Show()
@@ -123,6 +126,12 @@ local function GameStartTime( m )
 end
 usermessage.Hook( "GameStartTime", GameStartTime )
 
+local function TimeWhenGameEnds( m )
+	TimeWhenGameEnds = m:ReadFloat()
+	print("Game ends on time : "..TimeWhenGameEnds)
+end
+usermessage.Hook( "TimeWhenGameEnds", TimeWhenGameEnds )
+
 local function NextGameTimes( m )
 	NextwarmupEnd = m:ReadFloat()
 	NextgameEnd = m:ReadFloat()
@@ -135,5 +144,6 @@ usermessage.Hook( "NextGameTimes", NextGameTimes )
 local function EndOfGamemode_HideVGUI( m )
 	RidiculousVGUI:Hide()
 	ClockVGUI:Hide()
+	ClockGameVGUI:Hide()
 end
 usermessage.Hook( "EndOfGamemode_HideVGUI", EndOfGamemode_HideVGUI )

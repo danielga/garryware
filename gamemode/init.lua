@@ -6,6 +6,7 @@ AddCSLuaFile( "cl_postprocess.lua" )
 AddCSLuaFile( "vgui_ridiculous.lua" )
 AddCSLuaFile( "vgui_transitscreen.lua" )
 AddCSLuaFile( "vgui_clock.lua" )
+AddCSLuaFile( "vgui_clockgame.lua" )
 AddCSLuaFile( "vgui_waitscreen.lua" )
 AddCSLuaFile( "skin.lua" )
 
@@ -411,3 +412,11 @@ function GM:StartGamemodeVote()
 	
 	self.BaseClass:StartGamemodeVote();
 end
+
+function GM:PlayerAuthed( ply, id )
+	local rp = RecipientFilter()
+	rp:AddPlayer( ply )
+	umsg.Start("TimeWhenGameEnds", rp)
+		umsg.Float( self.TimeWhenGameEnds )
+	umsg.End()
+end 

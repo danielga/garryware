@@ -72,6 +72,8 @@ function GM:InitPostEntity( )
 	
 	self.NextgameStart = CurTime() + 8
 	self.NexttimeAdvert = CurTime() + 32
+	
+	self.TimeWhenGameEnds = CurTime() + self.GameLength
 end
 
 
