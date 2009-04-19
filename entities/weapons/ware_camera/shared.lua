@@ -41,7 +41,6 @@ SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "none"
 
 function SWEP:PrimaryAttack()
-
 	self.Weapon:SetNextPrimaryFire( CurTime() + 0.3 )
 	self.Weapon:SetNextSecondaryFire( CurTime() + 0.3 )
 	
@@ -49,6 +48,8 @@ function SWEP:PrimaryAttack()
 	if ( !self:CanPrimaryAttack() ) then return end
 	
 	if (SERVER) then
+		GAMEMODE:MakeDisappearEffect( self.Owner:GetShootPos() )
+		
 		self.Weapon:SetNWFloat("phototick",CurTime())
 		for k,target in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
 			
@@ -59,7 +60,7 @@ function SWEP:PrimaryAttack()
 				local targetpo = self.Owner:GetAimVector()
 				local tracedata = {}
 				tracedata.start = self.Owner:GetShootPos()
-				tracedata.endpos = target:GetPos()
+				tracedata.endpos = target:GetPos()+Vector(0,0,36)
 				tracedata.filter = {self.Owner , target}
 				local trace = util.TraceLine(tracedata)
 				if trace.Hit == false then
