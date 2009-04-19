@@ -1,6 +1,6 @@
 "Gamemode"
 {
-	"name"		"Garry Ware (SVN)"
+	"name"		"Garry Ware"
 	"version"	"1"
 
 	"author_name"	"Hurricaaane"
