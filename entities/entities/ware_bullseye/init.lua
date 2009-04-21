@@ -56,7 +56,7 @@ end
 function ENT:OnTakeDamage( dmginfo )
 
 	// React physically when shot/getting blown
-	dmginfo:SetDamageForce(dmginfo:GetDamageForce()*0.05)
+	dmginfo:SetDamageForce(dmginfo:GetDamageForce()*0.015)
 	self.Entity:TakePhysicsDamage( dmginfo )
 	
 	local ply = dmginfo:GetAttacker( )
