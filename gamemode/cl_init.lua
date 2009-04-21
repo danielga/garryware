@@ -37,6 +37,7 @@ WarmupLen = 0
 WareLen = 0
 TimeWhenGameEnds = 0
 TickAnnounce = 0
+UpcomingInfo = ""
 
 function GM:PrintCenterMessage( )
 	if( fLastMessage + iKeepTime < CurTime() and fAlpha > 0) then
@@ -144,11 +145,18 @@ local function GameStartTime( m )
 end
 usermessage.Hook( "GameStartTime", GameStartTime )
 
-local function TimeWhenGameEnds( m )
+local function ServerJoinInfo( m )
+	local didnotbegin = false
+
 	TimeWhenGameEnds = m:ReadFloat()
+	didnotbegin = m:ReadBool()
+	
+	if didnotbegin == true then
+		WaitShow()
+	end
 	print("Game ends on time : "..TimeWhenGameEnds)
 end
-usermessage.Hook( "TimeWhenGameEnds", TimeWhenGameEnds )
+usermessage.Hook( "ServerJoinInfo", ServerJoinInfo )
 
 local function NextGameTimes( m )
 	NextwarmupEnd = m:ReadFloat()

@@ -11,6 +11,11 @@ function PANEL:Init()
 	
 	self:SetPaintBackground( false )
 
+	self.Info = vgui.Create( "HTML", DPanel)
+	self.Info:OpenURL("http://subversion.assembla.com/svn/garryware/garryware.html")  
+	self.Info:SetSize( 400, 250 )
+	self.Info:SetPos(ScrW() - 415 , 15)
+	
 	self.BottomPanel = VGUIRect( 0, ScrH(), ScrW(), h )
 	self.BottomPanel:SetColor( color_black )
 	self.BottomPanel:SetParent( self )
@@ -20,6 +25,10 @@ function PANEL:Init()
 	self.WinnerSubtitle:SetColor( color_white )
 	
 	self:SetVisible( false )
+end
+
+function PANEL:SetInfo( message )
+	self.Info:SetHTML( message )
 end
 
 /*---------------------------------------------------------
@@ -46,6 +55,8 @@ function PANEL:Show()
 	
 	self:InvalidateLayout()
 	self:SetVisible( true )
+	
+	self.Info:SetVisible( true )
 
 end
 
@@ -69,6 +80,7 @@ function PANEL:Hide()
 
 	self.BottomPanel:MoveTo( 0, ScrH(), 1 )
 	
+	self.Info:SetVisible( false )
 	timer.Simple( 1, function() self:SetVisible( false ) end )
 end
 

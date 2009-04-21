@@ -29,10 +29,10 @@ GM.EntsOverCrate = {}
 GM.EntsInAir = {}
 GM.EntsCross = {}
 
-ENTS_ONCRATE = 1
-ENTS_OVERCRATE = 2
-ENTS_INAIR = 3
-ENTS_CROSS = 4
+ENTS_ONCRATE = "oncrate"
+ENTS_OVERCRATE = "overcrate"
+ENTS_INAIR = "inair"
+ENTS_CROSS = "cross"
 
 /*
 for k,v in pairs(GM.Corpses) do

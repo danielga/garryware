@@ -45,6 +45,17 @@ resource.AddFile("materials/sprites/ware_bubble.vtf")
 resource.AddFile("materials/sprites/ware_lock.vmt")
 resource.AddFile("materials/sprites/ware_lock.vtf")
 
+--MAP
+resource.AddFile("materials/ware/detail.vtf")
+resource.AddFile("materials/ware/ware_crate.vmt")
+resource.AddFile("materials/ware/ware_crate.vtf")
+resource.AddFile("materials/ware/ware_crate2.vmt")
+resource.AddFile("materials/ware/ware_crate2.vtf")
+resource.AddFile("materials/ware/ware_floorred.vmt")
+resource.AddFile("materials/ware/ware_floor.vtf")
+resource.AddFile("materials/ware/ware_wallorange.vmt")
+resource.AddFile("materials/ware/ware_wallwhite.vtf")
+
 local minigames = {}
 local minigames_Names = {}
 local minigames_Triggers = {}
@@ -104,21 +115,15 @@ function GM:RemoveEnts()
 end
 
 function GM:GetEnts( group )
-  if     group == ENTS_ONCRATE then
-	return GAMEMODE.EntsOnCrate
-	
-  elseif group == ENTS_OVERCRATE then
-	return GAMEMODE.EntsOverCrate
-	
-  elseif group == ENTS_INAIR then
-	return GAMEMODE.EntsInAir
-	
-  elseif group == ENTS_CROSS then
-	return GAMEMODE.EntsCross
-	
-  else
-	return {}
-  end
+	local all_ents = ents.FindByClass("gmod_warelocation")
+	local entlist = {}
+
+	for k,v in pairs(all_ents) do
+		if v:GetName() == group then
+			table.insert(entlist,v)
+		end
+	end
+	return entlist
 end
 
 function GM:GetRandomLocations(num, group)
@@ -431,9 +436,16 @@ function GM:StartGamemodeVote()
 end
 
 function GM:PlayerAuthed( ply, id )
+	local didnotbegin = false
+	if self.NextgameStart < CurTime() then
+		didnotbegin = true
+	end
+	
 	local rp = RecipientFilter()
 	rp:AddPlayer( ply )
-	umsg.Start("TimeWhenGameEnds", rp)
+	
+	umsg.Start("ServerJoinInfo", rp)
 		umsg.Float( self.TimeWhenGameEnds )
+		umsg.Bool( didnotbegin )
 	umsg.End()
 end 

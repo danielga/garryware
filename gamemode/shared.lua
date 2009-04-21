@@ -65,10 +65,12 @@ function GM:InitPostEntity( )
 	self.WareHaveStarted = false
 	self.GameHasEnded = false
 	
+	/*
 	self.EntsOnCrate = ents.FindByClass("gmod_itemstart_oncrate")
 	self.EntsOverCrate = ents.FindByClass("gmod_itemstart_overcrate")
 	self.EntsInAir = ents.FindByClass("gmod_itemstart_inair")
 	self.EntsCross = ents.FindByClass("gmod_itemstart_cross")
+	*/
 	
 	self.NextgameStart = CurTime() + 8
 	self.NexttimeAdvert = CurTime() + 32
