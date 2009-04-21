@@ -107,7 +107,7 @@ end)
 registerMinigame("weirdo",
 --Start of INIT
 function(self, args)
-	GAMEMODE:SetWareWindupAndLength(0.7,6)
+	GAMEMODE:SetWareWindupAndLength(0.7,7.5)
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Punt the big crate !",0)
 	return
 end,
@@ -158,10 +158,10 @@ end)
 registerMinigame("findthemissing",
 --Start of INIT
 function(self, args)
-	GAMEMODE:SetWareWindupAndLength(5,5)
+	GAMEMODE:SetWareWindupAndLength(5,6)
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Watch the props...",0)
 	
-	local ratio = 0.8
+	local ratio = 0.6
 	local minimum = 3
 	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*ratio),minimum,64)
 	local entposcopy = GAMEMODE:GetRandomLocationsAvoidBox(num, ENTS_ONCRATE, function(v) return v:IsPlayer() end, Vector(-30,-30,0), Vector(30,30,64))
