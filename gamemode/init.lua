@@ -374,7 +374,7 @@ function GM:Think()
 		self.GamesArePlaying = true
 		self.WareHaveStarted = false
 		
-		self:SetNextGameStartsIn( 15 )
+		self:SetNextGameStartsIn( 22 )
 		SendUserMessage( "WaitShow" )
 		
 	elseif team.NumPlayers(TEAM_UNASSIGNED) == 0 && self.GamesArePlaying == true then
