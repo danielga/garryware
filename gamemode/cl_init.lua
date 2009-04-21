@@ -2,6 +2,7 @@ include( 'shared.lua' )
 include( 'cl_postprocess.lua' )
 include( 'admin.lua' )
 include( 'skin.lua' )
+include( "tables.lua" )
 
 surface.CreateFont( "coolvetica", 48, 400, true, false, "WAREIns" ) 
 surface.CreateFont( "Verdana", 16, 400, false, false, "WAREScore" ) 
@@ -33,8 +34,9 @@ NextgameStart = 0
 NextwarmupEnd = 0
 NextgameEnd = 0
 WarmupLen = 0
-GameLen = 0
+WareLen = 0
 TimeWhenGameEnds = 0
+TickAnnounce = 0
 
 function GM:PrintCenterMessage( )
 	if( fLastMessage + iKeepTime < CurTime() and fAlpha > 0) then
@@ -70,6 +72,22 @@ function GM:GetMotionBlurValues( x, y, fwd, spin )
 	
 	return x, y, fwd, spin
 	
+end
+
+function GM:Think()
+	self.BaseClass:Think()
+	
+	if (TickAnnounce > 0) then
+		if (CurTime() > (NextgameEnd - (WareLen/6)*TickAnnounce )) then
+			if     TickAnnounce == 5 then LocalPlayer():EmitSound( GAMEMODE.Left5 )
+			elseif TickAnnounce == 4 then LocalPlayer():EmitSound( GAMEMODE.Left4 )
+			elseif TickAnnounce == 3 then LocalPlayer():EmitSound( GAMEMODE.Left3 )
+			elseif TickAnnounce == 2 then LocalPlayer():EmitSound( GAMEMODE.Left2 )
+			elseif TickAnnounce == 1 then LocalPlayer():EmitSound( GAMEMODE.Left1 )
+			end
+			TickAnnounce = TickAnnounce - 1
+		end
+	end
 end
 
 function GM:HUDPaint()
@@ -136,8 +154,10 @@ local function NextGameTimes( m )
 	NextwarmupEnd = m:ReadFloat()
 	NextgameEnd = m:ReadFloat()
 	WarmupLen = m:ReadFloat()
-	GameLen = m:ReadFloat()
-	//print("---"..NextwarmupEnd.."---"..NextgameEnd.."---"..WarmupLen.."---"..GameLen)
+	WareLen = m:ReadFloat()
+	TickAnnounce = 5
+	LocalPlayer():EmitSound( GAMEMODE.NewWareSound , 40 )
+	//print("---"..NextwarmupEnd.."---"..NextgameEnd.."---"..WarmupLen.."---"..WareLen)
 end
 usermessage.Hook( "NextGameTimes", NextGameTimes )
 
@@ -147,3 +167,23 @@ local function EndOfGamemode_HideVGUI( m )
 	ClockGameVGUI:Hide()
 end
 usermessage.Hook( "EndOfGamemode_HideVGUI", EndOfGamemode_HideVGUI )
+
+local function EventDestinySet( m )
+	local Destiny = m:ReadLong()
+	if (Destiny > 0) then
+		LocalPlayer():EmitSound( table.Random(GAMEMODE.WinTriggerSounds) )
+	else
+		LocalPlayer():EmitSound( table.Random(GAMEMODE.LoseTriggerSounds) )
+	end
+end
+usermessage.Hook( "EventDestinySet", EventDestinySet )
+
+local function EventEndgameSet( m )
+	local Destiny = m:ReadLong()
+	if (Destiny > 0) then
+		LocalPlayer():EmitSound( GAMEMODE.WinWareSound , 40 )
+	else
+		LocalPlayer():EmitSound( GAMEMODE.LoseWareSound , 40 )
+	end
+end
+usermessage.Hook( "EventEndgameSet", EventEndgameSet )

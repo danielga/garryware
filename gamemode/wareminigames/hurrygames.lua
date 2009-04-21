@@ -220,7 +220,7 @@ function(self, args)
 end,
 --Start of ACT
 function(self, args)
-	local ratio = 1.5
+	local ratio = 1.1
 	local minimum = 3
 	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*ratio),minimum,64)
 	local entposcopy = GAMEMODE:GetRandomLocations(num, ENTS_INAIR)

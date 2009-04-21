@@ -173,6 +173,6 @@ function PANEL:Paint()
 	if hasdestiny > 0 then
 		surface.SetTexture( self.LockTexID )
 		surface.SetDrawColor( 255,255,255,255 )
-		surface.DrawTexturedRectRotated(self:GetWide()/2, 24, 16 + math.Clamp(16*(CurTime() - NextgameStart)/GameLen,0,24), 16 + math.Clamp(16*(CurTime() - NextgameStart)/GameLen,0,24), 0)
+		surface.DrawTexturedRectRotated(self:GetWide()/2, 24, 16 + math.Clamp(16*(CurTime() - NextgameStart)/WareLen,0,24), 16 + math.Clamp(16*(CurTime() - NextgameStart)/WareLen,0,24), 0)
 	end
 end

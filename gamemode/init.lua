@@ -9,6 +9,7 @@ AddCSLuaFile( "vgui_clock.lua" )
 AddCSLuaFile( "vgui_clockgame.lua" )
 AddCSLuaFile( "vgui_waitscreen.lua" )
 AddCSLuaFile( "skin.lua" )
+AddCSLuaFile( "tables.lua" )
 
 include( "shared.lua" )
 include( "admin.lua" )
@@ -193,11 +194,10 @@ end
 
 function GM:PickRandomGame()
 	self.WareHaveStarted = true
-	self.TickAnnounce = 5
 	
 	for k,v in pairs(player.GetAll()) do 
 		v:SetNWInt("ware_hasdestiny", 0 )
-		v:SendLua( "LocalPlayer():EmitSound( \"" .. GAMEMODE.NewWareSound .. "\",40 );" );
+		--v:SendLua( "LocalPlayer():EmitSound( \"" .. GAMEMODE.NewWareSound .. "\",40 );" );
 		v:StripWeapons() -- TEST
 	end
 	
@@ -252,15 +252,23 @@ function GM:EndGame()
 			v:RemoveAllAmmo( )
 			v:Give("weapon_physcannon")  -- TEST
 			
-			if achieved >= 1 then
-				v:SendLua( "LocalPlayer():EmitSound( \"" .. GAMEMODE.WinWareSound .. "\",40 );" );
-			else
-				v:SendLua( "LocalPlayer():EmitSound( \"" .. GAMEMODE.LoseWareSound .. "\",40 );" );
-			end
+			local rp = RecipientFilter()
+			rp:AddPlayer( v )
+			umsg.Start("EventEndgameSet", rp)
+				umsg.Long(achieved)
+			umsg.End()
+			
+			--v:SendLua( "LocalPlayer():EmitSound( \"" .. GAMEMODE.WinWareSound .. "\",40 );" );
+			--v:SendLua( "LocalPlayer():EmitSound( \"" .. GAMEMODE.LoseWareSound .. "\",40 );" );
+			
 			v:ConCommand("r_cleardecals")
 		end
 		for k,v in pairs(team.GetPlayers(TEAM_SPECTATOR)) do
-			v:SendLua( "LocalPlayer():EmitSound( \"" .. GAMEMODE.LoseWareSound .. "\",40 );" );
+			local rp = RecipientFilter()
+			rp:AddPlayer( v )
+			umsg.Start("EventEndgameSet", rp)
+				umsg.Long(0)
+			umsg.End()
 			v:ConCommand("r_cleardecals")
 		end
 		minigames_Names[1][2] = math.ceil(minigames_Names[1][2]) + math.random(0,95)*0.01
@@ -279,11 +287,15 @@ function GM:WarePlayerDestinyWin( player )
 	
 	player:SetNWInt("ware_achieved", 1 )
 	player:SetNWInt("ware_hasdestiny", 1 )
-	player:PrintMessage(HUD_PRINTCENTER , "Success !")
-	player:SendLua( "LocalPlayer():EmitSound( \"" .. table.Random(GAMEMODE.WinTriggerSounds) .. "\" );" );
 	player:EmitSound(GAMEMODE.WinOther)
-	
 	player:AddFrags( 1 )
+	
+	player:PrintMessage(HUD_PRINTCENTER , "Success !")
+	local rp = RecipientFilter()
+	rp:AddPlayer( player )
+	umsg.Start("EventDestinySet", rp)
+		umsg.Long(1)
+	umsg.End()
 	
 	local ed = EffectData()
 	ed:SetOrigin( player:GetPos() )
@@ -296,11 +308,16 @@ function GM:WarePlayerDestinyLose( player )
 	
 	player:SetNWInt("ware_achieved", 0 )
 	player:SetNWInt("ware_hasdestiny", 1 )
-	player:PrintMessage(HUD_PRINTCENTER , "Fail !")
-	player:SendLua( "LocalPlayer():EmitSound( \"" .. table.Random(GAMEMODE.LoseTriggerSounds) .. "\" );" );
-	player:EmitSound(GAMEMODE.LoseOther)
 	
+	player:EmitSound(GAMEMODE.LoseOther)
 	player:AddDeaths( 1 )
+	
+	player:PrintMessage(HUD_PRINTCENTER , "Fail !")
+	local rp = RecipientFilter()
+	rp:AddPlayer( player )
+	umsg.Start("EventDestinySet", rp)
+		umsg.Long(0)
+	umsg.End()
 	
 	local ed = EffectData()
 	ed:SetOrigin( player:GetPos() )
@@ -353,6 +370,7 @@ function GM:Think()
 			SendUserMessage("WaitHide")
 		end
 	elseif (self.GamesArePlaying == true && self.WareHaveStarted == true) then
+		/*
 		if (CurTime() > (self.NextgameEnd - (self.WareLen/6)*self.TickAnnounce )) then
 			for k,v in pairs(player.GetAll()) do 
 				if     self.TickAnnounce == 5 then v:SendLua( "LocalPlayer():EmitSound( \"" .. GAMEMODE.Left5 .. "\" );" );
@@ -364,6 +382,7 @@ function GM:Think()
 			end
 			self.TickAnnounce = self.TickAnnounce - 1
 		end
+		*/
 		if (CurTime() > self.NextgameEnd) then
 			GAMEMODE:EndGame()
 		end
@@ -392,11 +411,9 @@ function GM:Think()
 end
 
 function GM:EndTheGameForOnce()
+	if self.GameHasEnded == true then return end
 	self.GamesArePlaying = false
 	self.GameHasEnded = true
-	for k,v in pairs(player.GetAll()) do 
-		v:SendLua( "LocalPlayer():EmitSound( \"" .. GAMEMODE.LoseWareSound .. "\",40 );" );
-	end
 	GAMEMODE:EndGame()
 	SendUserMessage( "EndOfGamemode_HideVGUI" )
 end

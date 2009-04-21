@@ -74,7 +74,7 @@ function PANEL:Paint()
 	elseif (CurTime() < NextwarmupEnd) then
 		surface.DrawTexturedRectRotated( ScrW()*0.05, ScrH() - ScrH()*0.05 , 256, 256, 360*(WarmupLen-(CurTime()-NextwarmupEnd))/WarmupLen + 90 + self.StartAngle )
 	elseif (CurTime() < NextgameEnd) then
-		surface.DrawTexturedRectRotated( ScrW()*0.05, ScrH() - ScrH()*0.05 , 256, 256, 360*(GameLen-(CurTime()-NextgameEnd))/GameLen + 90 + self.StartAngle )
+		surface.DrawTexturedRectRotated( ScrW()*0.05, ScrH() - ScrH()*0.05 , 256, 256, 360*(WareLen-(CurTime()-NextgameEnd))/WareLen + 90 + self.StartAngle )
 	else
 		surface.DrawTexturedRectRotated( ScrW()*0.05, ScrH() - ScrH()*0.05 , 256, 256, 360*0 + 90 + self.StartAngle )
 	end
