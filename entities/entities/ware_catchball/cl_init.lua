@@ -47,3 +47,8 @@ function ENT:Draw()
 	
 end
 
+function ENT:Think()
+	if self:GetNWBool( "usable" ) == false then
+		self.Color = Color((self.Color.r - 192)*0.97 + 192, (self.Color.g - 0)*0.97 + 0, (self.Color.b - 0)*0.97 + 0, 255)
+	end
+end

@@ -120,10 +120,9 @@ end)
 
 registerTrigger("catchball","GravGunOnPickedUp",
 function(pl, ent)  
-	if ent:GetClass() == "ware_catchball" then
+	if ent:GetClass() == "ware_catchball" && ent:GetNWBool( "usable" ) == true then
 		GAMEMODE:WarePlayerDestinyWin( pl )
-		ent:Remove()
-		pl:StripWeapons()
+		ent:SetUnusable()
 	end
 end)
 

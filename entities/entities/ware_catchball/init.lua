@@ -20,6 +20,8 @@ function ENT:Initialize()
 		phys:Wake()
 	end
 	
+	self.Entity:SetNWBool( "usable", true )
+	
 	// Set collision bounds exactly
 	self.Entity:SetCollisionBounds( Vector( -self.Size, -self.Size, -self.Size), Vector( self.Size,self.Size, self.Size ) )
 	
@@ -48,3 +50,11 @@ function ENT:PhysicsCollide( data, physobj )
 	physobj:SetVelocity( TargetVelocity )
 	
 end
+
+/*---------------------------------------------------------
+   Name: PhysicsCollide
+---------------------------------------------------------*/
+function ENT:SetUnusable()
+	self.Entity:SetNWBool( "usable", false )
+end
+
