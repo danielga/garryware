@@ -9,7 +9,7 @@ local matchcolors = {
 { "pink" , Color(255,0,255,255) },
 }
 
-registerMinigame("match",
+registerMinigame("shootcolor",
 --INIT
 function(self, args)
 	GAMEMODE:SetWareWindupAndLength(0.7,4)
@@ -46,6 +46,15 @@ function(self, args)
 	local selected = table.Random(spawnedcolors)[1]
 	GAMEMODE.GamePool.SelectedColor = selected
 	
+	for k,v in pairs(ents.FindByClass("prop_physics")) do
+		if v:GetNWString("color","") == GAMEMODE.GamePool.SelectedColor then
+			local land = ents.Create ("gmod_landmarkonremove");
+			land:SetPos(v:GetPos());
+			land:Spawn();
+			GAMEMODE:AppendEntToBin(land)
+		end
+	end
+	
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Shoot the "..selected.." one !",0)
 	return
 	
@@ -58,7 +67,7 @@ function(self, args)
 	end
 	return
 end)
-registerTrigger("match","EntityTakeDamage",function(ent,inf,att,amount,info)
+registerTrigger("shootcolor","EntityTakeDamage",function(ent,inf,att,amount,info)
 	local pool = GAMEMODE.GamePool
 	
 	if att:IsPlayer() == false or info:IsBulletDamage() == false then return end
@@ -73,3 +82,80 @@ registerTrigger("match","EntityTakeDamage",function(ent,inf,att,amount,info)
 		att:StripWeapons()
 	end
 end)
+
+
+
+/*
+registerMinigame("getoncolor",
+--INIT
+function(self, args)
+	GAMEMODE:SetWareWindupAndLength(0.7,4)
+	
+	local matchtemp = table.Copy(matchcolors)
+	local spawnedcolors = {}
+	
+	local ratio = 0.6
+	local minimum = 3
+	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*ratio),minimum,#matchcolors)
+	local entposcopy = GAMEMODE:GetRandomLocations(num, ENTS_CROSS)
+	for k,v in pairs(entposcopy) do
+		local cookie = math.random(1,#matchtemp)
+		local color = table.remove(matchtemp,cookie)
+		table.insert(spawnedcolors,color)
+		
+		local ent = ents.Create("ware_ringzone");
+		ent:SetPos(v:GetPos() + Vector(0,0,8) )
+		ent:SetAngles(Angle(0,0,0));
+		ent:Spawn();
+		ent:Activate()
+		
+		ent:SetSize(64)
+		GAMEMODE:AppendEntToBin(ent)
+		
+		ent:SetNWString("selcolor",color[1])
+		ent:SetColor(color[2])
+
+		GAMEMODE:AppendEntToBin(ent)
+		GAMEMODE:MakeAppearEffect(ent:GetPos())
+	end
+	
+	local selected = table.Random(spawnedcolors)[1]
+	GAMEMODE.GamePool.SelectedColor = selected
+	
+	for k,v in pairs(ents.FindByClass("ware_ringzone")) do
+		if v:GetNWString("selcolor","") == GAMEMODE.GamePool.SelectedColor then
+			local land = ents.Create ("gmod_landmarkonremove");
+			land:SetPos(v:GetPos());
+			land:Spawn();
+			GAMEMODE:AppendEntToBin(land)
+		end
+	end
+	
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Get on the "..selected.." one !",0)
+	return
+	
+end,
+--Start of ACT
+function(self, args)
+	for _,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do
+		v:Give( "ware_weap_crowbar" )
+	end
+	return
+end)
+registerTrigger("getoncolor","Think",function( )
+	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+		v:SetAchievedNoDestiny(0)
+	end
+	for k,v in pairs(ents.FindByClass("ware_ringzone")) do
+		if v:GetNWString("selcolor","") == GAMEMODE.GamePool.SelectedColor then
+			local missentpos = v:GetPos()
+			local sphere = ents.FindInSphere(missentpos,64)
+			for _,target in pairs(sphere) do
+				if target:IsPlayer() then
+					target:SetAchievedNoDestiny(1)
+				end
+			end
+		end
+	end
+end)
+*/
