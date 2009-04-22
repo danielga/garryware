@@ -161,8 +161,8 @@ function(self, args)
 	GAMEMODE:SetWareWindupAndLength(5,6)
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Watch the props...",0)
 	
-	local ratio = 0.6
-	local minimum = 3
+	local ratio = 0.8
+	local minimum = 4
 	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*ratio),minimum,64)
 	local entposcopy = GAMEMODE:GetRandomLocationsAvoidBox(num, ENTS_ONCRATE, function(v) return v:IsPlayer() end, Vector(-30,-30,0), Vector(30,30,64))
 	for k,v in pairs(entposcopy) do
@@ -181,24 +181,32 @@ function(self, args)
 end,
 --Start of ACT
 function(self, args)
-	local entw = table.Random(ents.FindByClass("prop_physics"))
-	GAMEMODE.GamePool.MissingEnt = entw:GetNWEntity("parpoint")
-	entw:Remove()
+	GAMEMODE.GamePool.MissingEnts = {}
+	local ratio = 0.25
+	local minimum = 1
+	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*ratio),minimum,64)
+	local entws = GAMEMODE:GetRandomLocations(num,ents.FindByClass("prop_physics"))
 	
-	local land = ents.Create ("gmod_landmarkonremove");
-	land:SetPos(GAMEMODE.GamePool.MissingEnt:GetPos());
-	land:Spawn(); 
-	GAMEMODE:AppendEntToBin(land)
+	for k,v in pairs(entws) do
+		table.insert(GAMEMODE.GamePool.MissingEnts,v:GetNWEntity("parpoint"))
+		v:Remove()
+		local land = ents.Create ("gmod_landmarkonremove");
+		land:SetPos(v:GetPos());
+		land:Spawn();
+		GAMEMODE:AppendEntToBin(land)
+	end
 	
-	GAMEMODE:DrawPlayersTextAndInitialStatus("Stand on the missing prop !",0)
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Stand on a missing prop !",0)
 	return
 end)
 registerTrigger("findthemissing","Think",function( )
-	local missentpos = GAMEMODE.GamePool.MissingEnt:GetPos()
-	local box = ents.FindInBox(missentpos+Vector(-30,-30,0),missentpos+Vector(30,30,64))
-	for _,target in pairs(box) do
-		if target:IsPlayer() then
-			GAMEMODE:WarePlayerDestinyWin( target )
+	for k,v in pairs(GAMEMODE.GamePool.MissingEnts) do
+		local missentpos = v:GetPos()
+		local box = ents.FindInBox(missentpos+Vector(-30,-30,0),missentpos+Vector(30,30,64))
+		for _,target in pairs(box) do
+			if target:IsPlayer() then
+				GAMEMODE:WarePlayerDestinyWin( target )
+			end
 		end
 	end
 end)

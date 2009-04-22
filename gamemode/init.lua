@@ -127,7 +127,20 @@ function GM:GetEnts( group )
 end
 
 function GM:GetRandomLocations(num, group)
-	local entposcopy = table.Copy(GAMEMODE:GetEnts(group))
+	local entposcopy = {}
+	if type(group) == "table" then
+		for k,v in pairs(group) do
+			if (type(v) == "string") then
+				for l,w in pairs(GAMEMODE:GetEnts(group)) do
+					table.insert(entposcopy,w)
+				end
+			else
+				table.insert(entposcopy,v)
+			end
+		end
+	else
+		entposcopy = table.Copy(GAMEMODE:GetEnts(group))
+	end
 	local result = {}
 	
 	local available = math.Clamp(num,1,#entposcopy)

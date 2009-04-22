@@ -12,7 +12,7 @@ function PANEL:Init()
 	self:SetPaintBackground( false )
 
 	self.Info = vgui.Create( "HTML", DPanel)
-	self.Info:OpenURL("https://www.assembla.com/spaces/garryware/documents/cIq5KWlY0r3OXWeJe5afGb/download/garryware.html")  
+	self.Info:OpenURL("http://www.assembla.com/spaces/garryware/documents/cIq5KWlY0r3OXWeJe5afGb/download/garryware.html")  
 	self.Info:SetSize( 400, 250 )
 	self.Info:SetPos(ScrW() - 415 , 15)
 	
