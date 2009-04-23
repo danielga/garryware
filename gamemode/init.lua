@@ -58,10 +58,6 @@ resource.AddFile("materials/ware/ware_floor.vtf")
 resource.AddFile("materials/ware/ware_wallorange.vmt")
 resource.AddFile("materials/ware/ware_wallwhite.vtf")
 
---DEBUG
-CreateConVar( "ware_debug", 0, {FCVAR_ARCHIVE} )
-CreateConVar( "ware_debugname", "", {FCVAR_ARCHIVE} )
-
 
 --Initialization functions
 function GM:SetWareWindupAndLength(windup , len)
@@ -213,6 +209,10 @@ end
 
 --Include NAO !!!
 IncludeMinigames()
+
+--DEBUG
+CreateConVar( "ware_debug", 0, {FCVAR_ARCHIVE} )
+CreateConVar( "ware_debugname", "", {FCVAR_ARCHIVE} )
 
 --Thinking and overrides
 function GM:SetNextGameStartsIn( delay )

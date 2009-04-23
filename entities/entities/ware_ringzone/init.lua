@@ -7,7 +7,6 @@ function ENT:Initialize()
 
 	self.Entity:SetModel("models/Combine_Helicopter/helicopter_bomb01.mdl")
 	
-	self.Entity:PhysicsInit( SOLID_NONE )
 	self.Entity:SetMoveType( MOVETYPE_NONE )
 	self.Entity:SetSolid( SOLID_NONE )
 	

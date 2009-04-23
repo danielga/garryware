@@ -3,7 +3,7 @@ WARE.Author = "Kelth"
 function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(1.5,3)
 	
-	GAMEMODE:DrawPlayersTextAndInitialStatus("Climb on the boxes!",0)
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Climb on the boxes !",0)
 	return
 end
 

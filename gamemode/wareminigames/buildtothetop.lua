@@ -17,7 +17,7 @@ end
 
 function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(2,14)
-	GAMEMODE:DrawPlayersTextAndInitialStatus("Punt a sawblade to freeze it",0)
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Punt a sawblade to freeze it...",0)
 	
 	for k,v in pairs(GAMEMODE:GetEnts(ENTS_ONCRATE)) do
 		local saw = ents.Create ("prop_physics")
@@ -74,6 +74,6 @@ function WARE:GravGunPunt(pl,ent)
 	
 	if ent:GetPhysicsObject() and ent:GetPhysicsObject():IsValid() then
 		ent:GetPhysicsObject():EnableMotion(false)
-		timer.Simple(4,RespawnSawblade,ent)
+		timer.Simple(2,RespawnSawblade,ent)
 	end
 end
