@@ -37,30 +37,31 @@ end
 
 function WARE:StartAction()
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Put it in the trashcan ! ",0)
-	
-	local pos = GAMEMODE:GetRandomPositionsAvoidBox(1, ENTS_ONCRATE, function(v) return v:IsPlayer() end, Vector(-64,-64,64), Vector(64,64,64))[1]
-	local trash = ents.Create("prop_physics")
-	trash:SetModel("models/props_trainstation/trashcan_indoor001b.mdl")
-	trash:PhysicsInit(SOLID_VPHYSICS)
-	trash:SetSolid(SOLID_VPHYSICS)
-	
-	trash:SetPos(pos)
-	trash:Spawn()
-	
-	local land = ents.Create("gmod_landmarkonremove")
-	land:SetPos(pos)
-	land:Spawn()
-	
-	local obbmins = trash:OBBMins()
-	pos = pos - Vector(0,0,obbmins.z)
-	trash:SetPos(pos)
-	trash:SetMoveType(MOVETYPE_NONE)
-	
-	GAMEMODE:AppendEntToBin(land)
-	GAMEMODE:AppendEntToBin(trash)
-	GAMEMODE:MakeAppearEffect(pos)
-	
-	GAMEMODE.GamePool.Trashcan = trash
+	GAMEMODE.GamePool.Trashcans = {}
+	local pos = GAMEMODE:GetRandomPositionsAvoidBox(2, ENTS_ONCRATE, function(v) return v:IsPlayer() end, Vector(-64,-64,64), Vector(64,64,64))
+	for k,v in pairs(pos) do
+		local trash = ents.Create("prop_physics")
+		trash:SetModel("models/props_trainstation/trashcan_indoor001b.mdl")
+		trash:PhysicsInit(SOLID_VPHYSICS)
+		trash:SetSolid(SOLID_VPHYSICS)
+		
+		trash:SetPos(v)
+		trash:Spawn()
+		
+		local obbmins = trash:OBBMins()
+		local newpos = v - Vector(0,0,obbmins.z)
+		trash:SetPos(newpos)
+		trash:SetMoveType(MOVETYPE_NONE)
+		
+		local land = ents.Create("gmod_landmarkonremove")
+		land:SetPos(newpos)
+		land:Spawn()
+		GAMEMODE:AppendEntToBin(land)
+		GAMEMODE:AppendEntToBin(trash)
+		table.insert(GAMEMODE.GamePool.Trashcans,trash)
+		
+		GAMEMODE:MakeAppearEffect( v )
+	end
 end
 
 function WARE:EndAction()
@@ -70,21 +71,27 @@ function WARE:EndAction()
 end
 
 function WARE:Think()
-	if GAMEMODE.GamePool.Trashcan then
+	if GAMEMODE.GamePool.Trashcans then
 		if not GAMEMODE.GamePool.NextTrashThink or CurTime()>GAMEMODE.GamePool.NextTrashThink then
-			local bmin,bmax = GAMEMODE.GamePool.Trashcan:WorldSpaceAABB()
-			for _,v in pairs(ents.FindInBox(bmin+Vector(12,12,14),bmax-Vector(12,12,10))) do
-				if v:GetModel()=="models/props_junk/popcan01a.mdl" then
-					local Owner = v.CanOwner
-					if Owner and Owner:IsPlayer() then
-						GAMEMODE:MakeAppearEffect(v:GetPos())
-						v:Remove()
-					
-						Owner:StripWeapons()
-						GAMEMODE:WarePlayerDestinyWin(Owner)
+		
+			for l,w in pairs(GAMEMODE.GamePool.Trashcans) do
+			
+				local bmin,bmax = w:WorldSpaceAABB()
+				for _,v in pairs(ents.FindInBox(bmin+Vector(12,12,14),bmax-Vector(12,12,10))) do
+					if v:GetModel()=="models/props_junk/popcan01a.mdl" then
+						local Owner = v.CanOwner
+						if Owner and Owner:IsPlayer() then
+							GAMEMODE:MakeAppearEffect(v:GetPos())
+							v:Remove()
+						
+							Owner:StripWeapons()
+							Owner:WarePlayerDestinyWin( )
+						end
 					end
 				end
+				
 			end
+			
 			GAMEMODE.GamePool.NextTrashThink = CurTime()+0.1
 		end
 	end

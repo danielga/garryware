@@ -90,7 +90,7 @@ function WARE:PropBreak(pl,prop)
 	if not pl:IsPlayer() then return end
 	
 	if prop:GetModel()=="models/props_junk/watermelon01.mdl" then
-		GAMEMODE:WarePlayerDestinyWin(pl)
+		pl:WarePlayerDestinyWin( )
 		pl:StripWeapons()
 	elseif prop.Contents then
 		prop.Contents:SetCollisionGroup(COLLISION_GROUP_INTERACTIVE)

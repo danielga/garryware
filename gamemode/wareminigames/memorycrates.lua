@@ -112,11 +112,11 @@ function WARE:EntityTakeDamage(ent,inf,att,amount,info)
 	if pool.Sequence[pool.PlayerCurrentCrate[att]] == ent.CrateID then
 		pool.PlayerCurrentCrate[att] = pool.PlayerCurrentCrate[att] + 1
 		if not pool.Sequence[pool.PlayerCurrentCrate[att]] then
-			GAMEMODE:WarePlayerDestinyWin(att)
+			att:WarePlayerDestinyWin( )
 			att:StripWeapons()
 		end
 	else
-		GAMEMODE:WarePlayerDestinyLose(att)
+		att:WarePlayerDestinyLose( )
 		att:StripWeapons()
 	end
 end

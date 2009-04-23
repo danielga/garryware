@@ -62,7 +62,7 @@ function WARE:Think()
 	for _,v in pairs(ents.FindByClass("player")) do
 		local ent = v:GetGroundEntity()
 		if ent and ent:IsValid() and ent:GetModel()=="models/props_lab/blastdoor001b.mdl" then
-			GAMEMODE:WarePlayerDestinyWin(v)
+			v:WarePlayerDestinyWin( )
 		end
 	end
 end

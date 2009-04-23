@@ -117,7 +117,7 @@ function GM:PickRandomGame()
 		self.WareID = name
 		minigame:Initialize()
 	else
-		self:SetWareWindupAndLength(3,0)
+		self:SetWareWindupAndLength(0,3)
 		self:DrawPlayersTextAndInitialStatus("Error with minigame \""..name.."\".",0)
 	end
 	self.NextgameEnd = CurTime() + self.Windup + self.WareLen
@@ -236,9 +236,11 @@ function GM:Think()
 			if CurTime() > (self.NextgameStart + self.Windup) && self.ActionPhase == false then
 				local minigame = ware_mod.Get(self.WareID)
 				
-				self:HookTriggers(self.WareID)
-				if minigame.StartAction then
-					minigame:StartAction()
+				if minigame then
+					self:HookTriggers(self.WareID)
+					if minigame.StartAction then
+						minigame:StartAction()
+					end
 				end
 				
 				self.ActionPhase = true
