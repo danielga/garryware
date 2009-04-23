@@ -9,13 +9,7 @@ local matchcolors = {
 { "pink" , Color(255,0,255,255) },
 }
 
-
-
-
-/*
-registerMinigame("getoncolor",
---INIT
-function(self, args)
+function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(0.7,4)
 	
 	local matchtemp = table.Copy(matchcolors)
@@ -60,16 +54,20 @@ function(self, args)
 	
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Get on the "..selected.." one !",0)
 	return
-	
-end,
---Start of ACT
-function(self, args)
+end
+
+function WARE:StartAction()
 	for _,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do
 		v:Give( "ware_weap_crowbar" )
 	end
 	return
-end)
-registerTrigger("getoncolor","Think",function( )
+end
+
+function WARE:EndAction()
+
+end
+
+function WARE:Think( )
 	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
 		v:SetAchievedNoDestiny(0)
 	end
@@ -84,5 +82,4 @@ registerTrigger("getoncolor","Think",function( )
 			end
 		end
 	end
-end)
-*/
+end
