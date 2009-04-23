@@ -11,8 +11,10 @@ local matchcolors = {
 { "pink" , Color(255,0,255,255) },
 }
 
+WARE.CircleRadius = 64
+
 function WARE:Initialize()
-	GAMEMODE:SetWareWindupAndLength(0.7,4)
+	GAMEMODE:SetWareWindupAndLength(0.7,5)
 	
 	local matchtemp = table.Copy(matchcolors)
 	local spawnedcolors = {}
@@ -32,11 +34,11 @@ function WARE:Initialize()
 		ent:Spawn();
 		ent:Activate()
 		
-		ent:SetSize(64)
+		ent:SetZSize(self.CircleRadius*2)
 		GAMEMODE:AppendEntToBin(ent)
 		
 		ent:SetNWString("selcolor",color[1])
-		ent:SetColor(color[2])
+		ent:SetZColor(color[2])
 
 		GAMEMODE:AppendEntToBin(ent)
 		GAMEMODE:MakeAppearEffect(ent:GetPos())
@@ -54,7 +56,7 @@ function WARE:Initialize()
 		end
 	end
 	
-	GAMEMODE:DrawPlayersTextAndInitialStatus("Get on the "..selected.." one !",0)
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Get on the "..selected.." circle !",0)
 	return
 end
 
@@ -76,7 +78,7 @@ function WARE:Think( )
 	for k,v in pairs(ents.FindByClass("ware_ringzone")) do
 		if v:GetNWString("selcolor","") == GAMEMODE.GamePool.SelectedColor then
 			local missentpos = v:GetPos()
-			local sphere = ents.FindInSphere(missentpos,64)
+			local sphere = ents.FindInSphere(missentpos,self.CircleRadius)
 			for _,target in pairs(sphere) do
 				if target:IsPlayer() then
 					target:SetAchievedNoDestiny(1)
