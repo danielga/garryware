@@ -81,7 +81,7 @@ function GM:Think()
 end
 
 function IncludeMinigames()
-	local path = string.Replace(GM.Folder, "gamemodes/", "").."/gamemode/wareminigames_temp/"
+	local path = string.Replace(GM.Folder, "gamemodes/", "").."/gamemode/wareminigames/"
 	for _,file in pairs(file.FindInLua(path.."*.lua")) do
 		WARE = {}
 		
