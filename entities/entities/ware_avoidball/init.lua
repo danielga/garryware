@@ -37,7 +37,7 @@ function ENT:PhysicsCollide( data, physobj )
 	
 	if data.HitEntity then
 		if data.HitEntity:IsValid() and data.HitEntity:IsPlayer() then
-			GAMEMODE:WarePlayerDestinyLose( data.HitEntity )
+			data.HitEntity:WarePlayerDestinyLose( )
 		end
 	end
 	

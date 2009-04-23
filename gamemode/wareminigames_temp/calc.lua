@@ -19,12 +19,12 @@ end
 
 function WARE:PlayerSay(ply, text, say)
 	if text == tostring(GAMEMODE.GamePool.WareSolution) then
-		GAMEMODE:WarePlayerDestinyWin( ply )
+		ply:WarePlayerDestinyWin( )
 		for k,v in pairs(player.GetAll()) do 
 			v:ChatPrint( ply:GetName() .. " has found the correct answer !" )  
 		end
 		return false
 	else
-		GAMEMODE:WarePlayerDestinyLose( ply )
+		ply:WarePlayerDestinyLose( )
 	end
 end

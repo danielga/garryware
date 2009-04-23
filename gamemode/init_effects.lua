@@ -1,3 +1,4 @@
+--Effects included in init.lua
 function GM:MakeAppearEffect( pos )
 	local ed = EffectData()
 	ed:SetOrigin( pos )

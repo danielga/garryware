@@ -16,6 +16,9 @@ include( "admin.lua" )
 include( "tables.lua" )
 include( "ply_extension.lua" )
 
+include( "init_effects.lua" )
+include( "init_entitygathering.lua" )
+
 resource.AddFile("sound/ware/crit_hit1.wav")
 resource.AddFile("sound/ware/crit_hit2.wav")
 resource.AddFile("sound/ware/crit_hit3.wav")
@@ -56,11 +59,12 @@ resource.AddFile("materials/ware/ware_floor.vtf")
 resource.AddFile("materials/ware/ware_wallorange.vmt")
 resource.AddFile("materials/ware/ware_wallwhite.vtf")
 
-local MinigameSequence = {}
-
+--DEBUG
 CreateConVar( "ware_debug", 0, {FCVAR_ARCHIVE} )
 CreateConVar( "ware_debugname", "", {FCVAR_ARCHIVE} )
 
+
+--Initialization functions
 function GM:SetWareWindupAndLength(windup , len)
 	self.Windup  = windup
 	self.WareLen = len
@@ -73,32 +77,8 @@ function GM:DrawPlayersTextAndInitialStatus(text , initialAchievedInt)
 	end
 end
 
-function GM:SetWareID(name)
-	self.WareID = name
-end
 
-function GM:GetWareID()
-	return self.WareID
-end
-
-function GM:MakeAppearEffect( pos )
-	local ed = EffectData()
-	ed:SetOrigin( pos )
-	util.Effect("ware_appear", ed, true, true)
-end
-
-function GM:MakeDisappearEffect( pos )
-	local ed = EffectData()
-	ed:SetOrigin( pos )
-	util.Effect("ware_disappear", ed, true, true)
-end
-
-function GM:MakeLankmarkEffect( pos )
-	local ed = EffectData()
-	ed:SetOrigin( pos )
-	util.Effect("ware_landmark", ed, true, true)
-end
-
+--Bin functions
 function GM:AppendEntToBin( ent )
 	table.insert(GAMEMODE.WareEnts,ent)
 end
@@ -112,154 +92,36 @@ function GM:RemoveEnts()
 	end
 end
 
-function GM:GetEnts( group )
-	local all_ents = ents.FindByClass("gmod_warelocation")
-	local entlist = {}
-
-	for k,v in pairs(all_ents) do
-		if v:GetName() == group then
-			table.insert(entlist,v)
-		end
-	end
-	return entlist
-end
-
-function GM:GetRandomLocations(num, group)
-	local entposcopy = {}
-	if type(group) == "table" then
-		for k,v in pairs(group) do
-			if (type(v) == "string") then
-				for l,w in pairs(GAMEMODE:GetEnts(group)) do
-					table.insert(entposcopy,w)
-				end
-			else
-				table.insert(entposcopy,v)
-			end
-		end
-	else
-		entposcopy = table.Copy(GAMEMODE:GetEnts(group))
-	end
-	local result = {}
-	
-	local available = math.Clamp(num,1,#entposcopy)
-	
-	for i=1,available do
-		local p = table.remove(entposcopy, math.random(1,#entposcopy))
-		table.insert(result, p)
-	end
-	
-	return result
-end
-
-function GM:GetRandomPositions(num, group)
-	local result = self:GetRandomLocations(num, group)
-	for k,v in pairs(result) do
-		result[k] = result[k]:GetPos()
-	end
-	
-	return result
-end
-
-function GM:GetRandomLocationsAvoidBox(num, group, test, vec1, vec2)
-	local entposcopy = table.Copy(GAMEMODE:GetEnts(group))
-	num = math.Clamp(num,0,#entposcopy)
-	local result = {}
-	local invalid = {}
-	local failsafe = false
-	
-	for i=1,num do
-		local ok
-		repeat
-			local p = table.remove(entposcopy, math.random(1,#entposcopy))
-			ok = true
-			
-			if not failsafe then
-				for _,v in pairs(ents.FindInBox(p:GetPos()+vec1, p:GetPos()+vec2)) do
-					if test(v) then
-						ok = false
-						break
-					end
-				end
-			end
-			
-			if ok then
-				table.insert(result, p)
-			else
-				table.insert(invalid, p)
-			end
-			
-			if #entposcopy==0 then
-				-- No more entities available, enable failsafe mode, and pick invalid entities
-				entposcopy = invalid
-				failsafe = true
-			end
-		until ok
-	end
-	
-	return result
-end
-
-function GM:GetRandomPositionsAvoidBox(num, group, test, vec1, vec2)
-	local result = self:GetRandomLocationsAvoidBox(num, group, test, vec1, vec2)
-	for k,v in pairs(result) do
-		result[k] = result[k]:GetPos()
-	end
-	
-	return result
-end
-
-function GM:RandomizeGameSequence()
-	MinigameSequence = {}
-	local gamenamecopy = ware_minigame.GetNamesTable()
-	
-	for i=1,#gamenamecopy do
-		local name = table.remove(gamenamecopy, math.random(1,#gamenamecopy))
-		table.insert(MinigameSequence,name)
-	end
-end
-
+--Minigame essentials
 function GM:PickRandomGame()
+	local minigame
 	self.WareHaveStarted = true
 	
+	--Standard initialization
 	for k,v in pairs(player.GetAll()) do 
 		v:SetNWInt("ware_hasdestiny", 0 )
-		--v:SendLua( "LocalPlayer():EmitSound( \"" .. GAMEMODE.NewWareSound .. "\",40 );" );
 		v:StripWeapons() -- TEST
 	end
 	
-	--table.sort(minigames_Names,function(a,b) return a[2] < b[2] end)
-	--local name = minigames_Names[1][1]
-	
-	local name, minigame
-	
+	--Ware is picked up now
 	if GetConVar("ware_debug"):GetInt() > 0 then
 		name = GetConVar("ware_debugname"):GetString()
-		minigame = ware_minigame.Get(name)
+		minigame = ware_mod.Get(name)
 	else
-		repeat
-			if #MinigameSequence==0 then -- All games have been played, start a new cycle
-				GAMEMODE:RandomizeGameSequence()
-			end
-			name = table.remove(MinigameSequence,1)
-			minigame = ware_minigame.Get(name)
-		until minigame.IsPlayable==nil or minigame:IsPlayable()
+		minigame = ware_mod.GetRandomGameName()
 	end
 	
-	local minigame = ware_minigame.Get(name)
-	
+	--Ware is initialized
 	if minigame and minigame.Initialize and minigame.StartAction then
+		self.WareID = name
 		minigame:Initialize()
-		GAMEMODE:SetWareID(name)
-		timer.Simple(self.Windup,GAMEMODE.HookTriggers,GAMEMODE,name)
-		timer.Simple(self.Windup,minigame.StartAction,minigame)
 	else
-		GAMEMODE:SetWareWindupAndLength(3,0)
-		GAMEMODE:DrawPlayersTextAndInitialStatus("Error with minigame \""..name.."\".",0)
+		self:SetWareWindupAndLength(3,0)
+		self:DrawPlayersTextAndInitialStatus("Error with minigame \""..name.."\".",0)
 	end
-	
 	self.NextgameEnd = CurTime() + self.Windup + self.WareLen
-	//SendUserMessage( "NextGameTimes" , nil, CurTime() + self.Windup, self.NextgameEnd, self.Windup, self.WareLen  )
 	
+	--Send info about ware
 	local rp = RecipientFilter()
 	rp:AddAllPlayers()
 	umsg.Start("NextGameTimes", rp)
@@ -268,22 +130,23 @@ function GM:PickRandomGame()
 		umsg.Float( self.Windup )
 		umsg.Float( self.WareLen )
 	umsg.End()
-	//print("---"..CurTime() + self.Windup.."---"..self.NextgameEnd.."---"..self.Windup.."---"..self.WareLen)
-	
+	--print("---"..CurTime() + self.Windup.."---"..self.NextgameEnd.."---"..self.Windup.."---"..self.WareLen)
 end
 	
 function GM:EndGame()
-	GAMEMODE:UnhookTriggers(self.WareID)
-	
-	local minigame = ware_minigame.Get(self.WareID)
-	if minigame and minigame.EndAction then minigame:EndAction() end
-	self:RemoveEnts()
-	self.GamePool = {}
-	
+
 	if self.WareHaveStarted == true then
+		--Destroy all
+		if CurTime() > (self.NextgameStart + self.Windup) then GAMEMODE:UnhookTriggers(self.WareID) end
+		local minigame = ware_mod.Get(self.WareID)
+		if minigame and minigame.EndAction then minigame:EndAction() end
+		self:RemoveEnts()
+		self.GamePool = {}
+
+		--Do stuff to player
 		for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
 			local achieved = v:GetNWInt("ware_achieved")
-			local destiny = v:GetNWInt("ware_hasdestiny")
+			local destiny  = v:GetNWInt("ware_hasdestiny")
 			
 			if (destiny == 0) then
 				if achieved >= 1 then
@@ -293,22 +156,23 @@ function GM:EndGame()
 				end
 			end
 			
+			--Reinit player
 			v:StripWeapons()
 			v:RemoveAllAmmo( )
-			v:Give("weapon_physcannon")  -- TEST
+			v:Give("weapon_physcannon")
 			
+			--Tell players if they won
 			local rp = RecipientFilter()
 			rp:AddPlayer( v )
 			umsg.Start("EventEndgameSet", rp)
 				umsg.Long(achieved)
 			umsg.End()
 			
-			--v:SendLua( "LocalPlayer():EmitSound( \"" .. GAMEMODE.WinWareSound .. "\",40 );" );
-			--v:SendLua( "LocalPlayer():EmitSound( \"" .. GAMEMODE.LoseWareSound .. "\",40 );" );
-			
+			--Clear decals
 			v:ConCommand("r_cleardecals")
 		end
 		for k,v in pairs(team.GetPlayers(TEAM_SPECTATOR)) do
+			--Do generic stuff to specs
 			local rp = RecipientFilter()
 			rp:AddPlayer( v )
 			umsg.Start("EventEndgameSet", rp)
@@ -316,129 +180,69 @@ function GM:EndGame()
 			umsg.End()
 			v:ConCommand("r_cleardecals")
 		end
-		--minigames_Names[1][2] = math.ceil(minigames_Names[1][2]) + math.random(0,95)*0.01
 	end
 	
 	self.NextgameStart = CurTime() + 2.7
 	SendUserMessage( "Transit" )
 	
+	--Reinit
 	self.WareHaveStarted = false
 	self.WareID = ""
 end
 
-function GM:WarePlayerDestinyWin( player )
-	if player:Team() != TEAM_UNASSIGNED       then return end
-	if player:GetNWInt("ware_hasdestiny") > 0 then return end
-	
-	player:SetNWInt("ware_achieved", 1 )
-	player:SetNWInt("ware_hasdestiny", 1 )
-	player:EmitSound(GAMEMODE.WinOther)
-	player:AddFrags( 1 )
-	
-	player:PrintMessage(HUD_PRINTCENTER , "Success !")
-	local rp = RecipientFilter()
-	rp:AddPlayer( player )
-	umsg.Start("EventDestinySet", rp)
-		umsg.Long(1)
-	umsg.End()
-	
-	local ed = EffectData()
-	ed:SetOrigin( player:GetPos() )
-	util.Effect("ware_good", ed, true, true)
-end
-
-function GM:WarePlayerDestinyLose( player )
-	if player:Team() != TEAM_UNASSIGNED then return end
-	if player:GetNWInt("ware_hasdestiny") > 0 then return end
-	
-	player:SetNWInt("ware_achieved", 0 )
-	player:SetNWInt("ware_hasdestiny", 1 )
-	
-	player:EmitSound(GAMEMODE.LoseOther)
-	player:AddDeaths( 1 )
-	
-	player:PrintMessage(HUD_PRINTCENTER , "Fail !")
-	local rp = RecipientFilter()
-	rp:AddPlayer( player )
-	umsg.Start("EventDestinySet", rp)
-		umsg.Long(0)
-	umsg.End()
-	
-	local ed = EffectData()
-	ed:SetOrigin( player:GetPos() )
-	util.Effect("ware_bad", ed, true, true)
-end
-
---[[
-function registerMinigame(name, funcInit, funcAct, funcDestroy)
-	minigames[name] = { funcInit, funcAct , funcDestroy }
-	table.insert(minigames_Names,{name , math.random(0,95)*0.01})
-	print("Minigame \""..name.."\" added ! ")
-end
-
-function registerTrigger(name, hookName, func)
-	if minigames_Triggers[name] == nil then minigames_Triggers[name] = {} end
-	minigames_Triggers[name][hookName] = function(...)
-											//if GAMEMODE:GetWareID() == name then
-												return func(unpack(arg))
-											//end
-										end
-end]]
-
-
 function GM:HookTriggers( name )
-	if not ware_minigame.GetHooks(name) then return end
+	if not ware_ware_mod.GetHooks(name) then return end
 	
-	for hookname,callback in pairs(ware_minigame.GetHooks(name)) do
+	for hookname,callback in pairs(ware_mod.GetHooks(name)) do
 		hook.Add(hookname, "WARE"..name..hookname, callback)
 	end
 end
 
 function GM:UnhookTriggers( name )
-	if not ware_minigame.GetHooks(name) then return end
+	if not ware_mod.GetHooks(name) then return end
 	
-	for hookname,_ in pairs(ware_minigame.GetHooks(name)) do
+	for hookname,_ in pairs(ware_mod.GetHooks(name)) do
 		hook.Remove(hookname, "WARE"..name..hookname)
 	end
 end
 
+--Include NAO !!!
 IncludeMinigames()
 	
+--Thinking and overrides
 function GM:SetNextGameStartsIn( delay )
 	self.NextgameStart = CurTime() + delay
 	SendUserMessage( "GameStartTime" , nil, self.NextgameStart )
 end	
 
 function GM:Think()
-
 	self.BaseClass:Think()
 	
+	--Starts a new ware
 	if (self.GamesArePlaying == true && self.WareHaveStarted == false) then
 		if (CurTime() > self.NextgameStart) then
 			GAMEMODE:PickRandomGame()
 			SendUserMessage("WaitHide")
 		end
+		
+	--Starts the action
 	elseif (self.GamesArePlaying == true && self.WareHaveStarted == true) then
-		/*
-		if (CurTime() > (self.NextgameEnd - (self.WareLen/6)*self.TickAnnounce )) then
-			for k,v in pairs(player.GetAll()) do 
-				if     self.TickAnnounce == 5 then v:SendLua( "LocalPlayer():EmitSound( \"" .. GAMEMODE.Left5 .. "\" );" );
-				elseif self.TickAnnounce == 4 then v:SendLua( "LocalPlayer():EmitSound( \"" .. GAMEMODE.Left4 .. "\" );" );
-				elseif self.TickAnnounce == 3 then v:SendLua( "LocalPlayer():EmitSound( \"" .. GAMEMODE.Left3 .. "\" );" );
-				elseif self.TickAnnounce == 2 then v:SendLua( "LocalPlayer():EmitSound( \"" .. GAMEMODE.Left2 .. "\" );" );
-				elseif self.TickAnnounce == 1 then v:SendLua( "LocalPlayer():EmitSound( \"" .. GAMEMODE.Left1 .. "\" );" );
-				end
+		--Don't use an elseif
+		if CurTime() > (self.NextgameStart + self.Windup) then
+			local minigame = ware_mod.Get(self.WareID)
+			
+			self:HookTriggers(self.WareID))
+			if minigame.StartAction == true then
+				minigame:StartAction()
 			end
-			self.TickAnnounce = self.TickAnnounce - 1
 		end
-		*/
 		if (CurTime() > self.NextgameEnd) then
 			GAMEMODE:EndGame()
 		end
 	end
 	
-	if team.NumPlayers(TEAM_UNASSIGNED) > 0 && self.GamesArePlaying == false && self.GameHasEnded == false then
-	
+	--Starts a new game
+	elseif team.NumPlayers(TEAM_UNASSIGNED) > 0 && self.GamesArePlaying == false && self.GameHasEnded == false then
 		self.GamesArePlaying = true
 		self.WareHaveStarted = false
 		
@@ -448,11 +252,24 @@ function GM:Think()
 			self:SetNextGameStartsIn( 22 )
 		end
 		SendUserMessage( "WaitShow" )
-		
+	
+	--Ends a current game
 	elseif team.NumPlayers(TEAM_UNASSIGNED) == 0 && self.GamesArePlaying == true then
 		self.GamesArePlaying = false
 		GAMEMODE:EndGame()
+		
+		--Send info about ware
+		local rp = RecipientFilter()
+		rp:AddAllPlayers()
+		umsg.Start("NextGameTimes", rp)
+			umsg.Float( 0 )
+			umsg.Float( 0 )
+			umsg.Float( 0 )
+			umsg.Float( 0 )
+		umsg.End()
 	end
+	
+	--Adverts
 	if (self.NexttimeAdvert - CurTime()) < 0 then
 		for k,v in pairs(player.GetAll()) do 
 			v:ChatPrint( "This gamemode is called Garry Ware, keep track of it on http://www.facepunch.com/showthread.php?p=14682019" ) 
@@ -468,7 +285,19 @@ function GM:EndTheGameForOnce()
 	self.GamesArePlaying = false
 	self.GameHasEnded = true
 	GAMEMODE:EndGame()
+	
+	--Send info about VGUI
 	SendUserMessage( "EndOfGamemode_HideVGUI" )
+	
+	--Send info about ware
+	local rp = RecipientFilter()
+	rp:AddAllPlayers()
+	umsg.Start("NextGameTimes", rp)
+		umsg.Float( 0 )
+		umsg.Float( 0 )
+		umsg.Float( 0 )
+		umsg.Float( 0 )
+	umsg.End()
 end
 
 function GM:EndOfGame( bGamemodeVote )
@@ -483,7 +312,8 @@ function GM:StartGamemodeVote()
 	self.BaseClass:StartGamemodeVote();
 end
 
-function GM:PlayerAuthed( ply, id )
+function GM:PlayerInitialSpawn( ply, id )
+	--Give him info about wether the game has begun and when the game ends
 	local didnotbegin = false
 	if self.NextgameStart < CurTime() then
 		didnotbegin = true
@@ -491,7 +321,6 @@ function GM:PlayerAuthed( ply, id )
 	
 	local rp = RecipientFilter()
 	rp:AddPlayer( ply )
-	
 	umsg.Start("ServerJoinInfo", rp)
 		umsg.Float( self.TimeWhenGameEnds )
 		umsg.Bool( didnotbegin )

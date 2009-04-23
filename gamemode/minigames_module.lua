@@ -1,8 +1,9 @@
 
-module( "ware_minigame", package.seeall )
+module( "ware_mod", package.seeall )
 
 local Minigames = {}
 local Minigames_names = {}
+local Minigames_sequence = {}
 
 local function CopyTable(tbl)
 	local res = {}
@@ -16,7 +17,7 @@ local function CopyTable(tbl)
 	return res
 end
 
-local ware_minigame_meta = {
+local ware_mod_meta = {
 	__index = {
 		Copy = function(self)
 			return CopyTable(self)
@@ -36,14 +37,32 @@ function Register(name, minigame)
 		end
 	end
 	
-	setmetatable(minigame, ware_minigame_meta)
+	setmetatable(minigame, ware_mod_meta)
 	Minigames[name] = minigame
 	
 	table.insert(Minigames_names, name)
 end
 
+function RandomizeGameSequence()
+	Minigames_sequence = {}
+	local gamenamecopy = ware_mod.GetNamesTable()
+	
+	for i=1,#gamenamecopy do
+		local name = table.remove(gamenamecopy, math.random(1,#gamenamecopy))
+		table.insert(MinigameSequence,name)
+	end
+end
+
 function GetRandomGame()
-	return Minigames_names[math.random(1,#Minigames_names)]
+	local name, minigame
+	repeat
+		if #MinigameSequence == 0 then -- All games have been played, start a new cycle
+			ware_mod.RandomizeGameSequence()
+		end
+		name = table.remove(MinigameSequence,1)
+		minigame = ware_mod.Get(name)
+	until minigame.IsPlayable == nil or minigame:IsPlayable()
+	return minigame
 end
 
 function Get(name)

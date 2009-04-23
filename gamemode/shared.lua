@@ -66,13 +66,6 @@ function GM:InitPostEntity( )
 	self.WareHaveStarted = false
 	self.GameHasEnded = false
 	
-	/*
-	self.EntsOnCrate = ents.FindByClass("gmod_itemstart_oncrate")
-	self.EntsOverCrate = ents.FindByClass("gmod_itemstart_overcrate")
-	self.EntsInAir = ents.FindByClass("gmod_itemstart_inair")
-	self.EntsCross = ents.FindByClass("gmod_itemstart_cross")
-	*/
-	
 	self.NextgameStart = CurTime() + 8
 	self.NexttimeAdvert = CurTime() + 32
 	
@@ -93,7 +86,7 @@ function IncludeMinigames()
 		include(path..file)
 		
 		local gamename = string.Replace(file, ".lua", "")
-		ware_minigame.Register(gamename, WARE)
+		ware_mod.Register(gamename, WARE)
 	end
 end
 

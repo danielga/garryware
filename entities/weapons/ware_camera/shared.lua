@@ -64,7 +64,7 @@ function SWEP:PrimaryAttack()
 				tracedata.filter = {self.Owner , target}
 				local trace = util.TraceLine(tracedata)
 				if trace.Hit == false then
-					GAMEMODE:WarePlayerDestinyLose( target )
+					target:WarePlayerDestinyLose( )
 				end 
 			end
 		end
