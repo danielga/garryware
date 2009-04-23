@@ -84,11 +84,15 @@ function GM:Think()
 end
 
 function IncludeMinigames()
-	--Include minigames
-	local Folder = string.Replace( GM.Folder, "gamemodes/", "" );
-	for c, d in pairs(file.FindInLua(Folder.."/gamemode/wareminigames/*.lua")) do
-		include     (Folder.."/gamemode/wareminigames/"..d)
-		AddCSLuaFile(Folder.."/gamemode/wareminigames/"..d)
+	local path = string.Replace(GM.Folder, "gamemodes/", "").."/gamemode/wareminigames/"
+	for _,file in pairs(file.FindInLua(path.."*.lua")) do
+		WARE = {}
+		
+		--AddCSLuaFile(path..file)
+		include(path..file)
+		
+		local gamename = string.Replace(file, ".lua", "")
+		ware_minigame.Register(gamename, WARE)
 	end
 end
 

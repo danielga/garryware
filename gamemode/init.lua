@@ -219,12 +219,13 @@ function GM:PickRandomGame()
 		v:StripWeapons() -- TEST
 	end
 	
-	table.sort(minigames_Names,function(a,b) return a[2] < b[2] end)
-	local name = minigames_Names[1][1]
+	--table.sort(minigames_Names,function(a,b) return a[2] < b[2] end)
+	--local name = minigames_Names[1][1]
+	local name = ware_minigame.GetRandomGame()
 	
 	if (GetConVar("ware_debug"):GetInt() > 0) then name = GetConVar("ware_debugname"):GetString() end --debugging
 	
-	if (minigames[name] != nil && minigames[name][1] != nil && minigames[name][2] != nil) then
+	if ware_minigame.Get[name] and ware_minigame.Get[name] then
 		minigames[name][1]()
 		GAMEMODE:SetWareID(name)
 		timer.Simple(self.Windup,GAMEMODE.HookTriggers,GAMEMODE,name)
@@ -342,6 +343,7 @@ function GM:WarePlayerDestinyLose( player )
 	util.Effect("ware_bad", ed, true, true)
 end
 
+--[[
 function registerMinigame(name, funcInit, funcAct, funcDestroy)
 	minigames[name] = { funcInit, funcAct , funcDestroy }
 	table.insert(minigames_Names,{name , math.random(0,95)*0.01})
@@ -355,19 +357,22 @@ function registerTrigger(name, hookName, func)
 												return func(unpack(arg))
 											//end
 										end
-end
+end]]
+
 
 function GM:HookTriggers( name )
-	if minigames_Triggers[name] == nil then return end
-	for hookName, callback in pairs(minigames_Triggers[name]) do
-		hook.Add(hookName, "WARE"..name..hookName,callback)
+	if not ware_minigame.GetHooks(name) then return end
+	
+	for hookname,callback in pairs(ware_minigame.GetHooks(name)) do
+		hook.Add(hookname, "WARE"..name..hookname, callback)
 	end
 end
 
 function GM:UnhookTriggers( name )
-	if minigames_Triggers[name] == nil then return end
-	for hookName, _ in pairs(minigames_Triggers[name]) do
-		hook.Remove(hookName, "WARE"..name..hookName)
+	if not ware_minigame.GetHooks(name) then return end
+	
+	for hookname,_ in pairs(ware_minigame.GetHooks(name)) do
+		hook.Remove(hookname, "WARE"..name..hookname)
 	end
 end
 
