@@ -39,6 +39,8 @@ local function PlayCrate(i)
 	prop:SetHealth(100000)
 	prop:EmitSound("buttons/button17.wav", 100, CratePitches[i]/3)
 	
+	GAMEMODE:MakeAppearEffect( prop:GetPos() )
+	
 	timer.Simple(0.5, ResetCrate, i)
 end
 

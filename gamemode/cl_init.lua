@@ -78,7 +78,7 @@ end
 function GM:Think()
 	self.BaseClass:Think()
 	
-	if (TickAnnounce > 0 && extwarmupEnd != 0 ) then
+	if (TickAnnounce > 0 && CurTime() < NextgameEnd ) then
 		if (CurTime() > (NextgameEnd - (WareLen/6)*TickAnnounce )) then
 			if     TickAnnounce == 5 then LocalPlayer():EmitSound( GAMEMODE.Left5 )
 			elseif TickAnnounce == 4 then LocalPlayer():EmitSound( GAMEMODE.Left4 )
@@ -164,7 +164,7 @@ local function NextGameTimes( m )
 	WarmupLen = m:ReadFloat()
 	WareLen = m:ReadFloat()
 	TickAnnounce = 5
-	if NextwarmupEnd != 0 then LocalPlayer():EmitSound( GAMEMODE.NewWareSound , 40 ) end
+	LocalPlayer():EmitSound( GAMEMODE.NewWareSound , 40 )
 	//print("---"..NextwarmupEnd.."---"..NextgameEnd.."---"..WarmupLen.."---"..WareLen)
 end
 usermessage.Hook( "NextGameTimes", NextGameTimes )

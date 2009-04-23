@@ -23,7 +23,7 @@ function WARE:PlayerSay(ply, text, say)
 		for k,v in pairs(player.GetAll()) do 
 			v:ChatPrint( ply:GetName() .. " has found the correct answer !" )  
 		end
-		return false
+		return true
 	else
 		ply:WarePlayerDestinyLose( )
 	end
