@@ -66,14 +66,13 @@ end
 usermessage.Hook( "gmdm_printcenter", ReceiveCenterMessage );
 
 function GM:GetMotionBlurValues( x, y, fwd, spin )
-
 	if( ValidEntity( LocalPlayer() ) and ( !LocalPlayer():IsOnGround() or LocalPlayer():KeyDown( IN_SPEED ) )) then
 		fwd = fwd * 5
 	end
 	
 	return x, y, fwd, spin
-	
 end
+
 
 function GM:Think()
 	self.BaseClass:Think()
@@ -95,10 +94,6 @@ function GM:HUDPaint()
 	self:PrintCenterMessage();
 	
 	self.BaseClass:HUDPaint();
-end
-
-
-function GM:HUDThink()
 end
 
 function HideThings( name )

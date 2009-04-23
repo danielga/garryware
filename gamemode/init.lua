@@ -344,3 +344,17 @@ function GM:PlayerInitialSpawn( ply, id )
 	
 	self.BaseClass:PlayerInitialSpawn( ply, id )
 end 
+
+function GM:InitPostEntity( )
+	self.BaseClass:InitPostEntity()
+
+	self.GamesArePlaying = false
+	self.WareHaveStarted = false
+	self.ActionPhase = false
+	self.GameHasEnded = false
+	
+	self.NextgameStart = CurTime() + 8
+	self.NexttimeAdvert = CurTime() + 32
+	
+	self.TimeWhenGameEnds = CurTime() + self.GameLength
+end

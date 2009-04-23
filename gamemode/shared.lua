@@ -61,25 +61,6 @@ function GM:CreateTeams()
 
 end
 
-function GM:InitPostEntity( )
-	self.BaseClass:InitPostEntity()
-
-	self.GamesArePlaying = false
-	self.WareHaveStarted = false
-	self.ActionPhase = false
-	self.GameHasEnded = false
-	
-	self.NextgameStart = CurTime() + 8
-	self.NexttimeAdvert = CurTime() + 32
-	
-	self.TimeWhenGameEnds = CurTime() + self.GameLength
-end
-
-
-function GM:Think()
-	if ( CLIENT ) then self:HUDThink() end
-end
-
 function IncludeMinigames()
 	local path = string.Replace(GM.Folder, "gamemodes/", "").."/gamemode/wareminigames/"
 	for _,file in pairs(file.FindInLua(path.."*.lua")) do
