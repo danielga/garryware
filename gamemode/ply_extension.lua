@@ -11,6 +11,49 @@ function meta:SetAchievedNoDestiny( hasAchievedInt )
 	self:SetNWInt("ware_achieved",hasAchievedInt)
 end
 
+function meta:WarePlayerDestinyWin()
+	if self:Team() != TEAM_UNASSIGNED       then return end
+	if self:GetNWInt("ware_hasdestiny") > 0 then return end
+	
+	self:SetNWInt("ware_achieved", 1 )
+	self:SetNWInt("ware_hasdestiny", 1 )
+	self:EmitSound(GAMEMODE.WinOther)
+	self:AddFrags( 1 )
+	
+	self:PrintMessage(HUD_PRINTCENTER , "Success !")
+	local rp = RecipientFilter()
+	rp:AddPlayer( self )
+	umsg.Start("EventDestinySet", rp)
+		umsg.Long(1)
+	umsg.End()
+	
+	local ed = EffectData()
+	ed:SetOrigin( self:GetPos() )
+	util.Effect("ware_good", ed, true, true)
+end
+
+function meta:WarePlayerDestinyLose( )
+	if self:Team() != TEAM_UNASSIGNED then return end
+	if self:GetNWInt("ware_hasdestiny") > 0 then return end
+	
+	self:SetNWInt("ware_achieved", 0 )
+	self:SetNWInt("ware_hasdestiny", 1 )
+	
+	self:EmitSound(GAMEMODE.LoseOther)
+	self:AddDeaths( 1 )
+	
+	self:PrintMessage(HUD_PRINTCENTER , "Fail !")
+	local rp = RecipientFilter()
+	rp:AddPlayer( self )
+	umsg.Start("EventDestinySet", rp)
+		umsg.Long(0)
+	umsg.End()
+	
+	local ed = EffectData()
+	ed:SetOrigin( self:GetPos() )
+	util.Effect("ware_bad", ed, true, true)
+end
+
 function meta:PrintMessage( t, m )
 
 	if( t == HUD_PRINTCENTER ) then
