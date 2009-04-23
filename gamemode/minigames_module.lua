@@ -4,6 +4,7 @@ module( "ware_mod", package.seeall )
 local Minigames = {}
 local Minigames_names = {}
 local Minigames_sequence = {}
+local Minigames_CSFiles = {}
 
 local function CopyTable(tbl)
 	local res = {}

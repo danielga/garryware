@@ -214,7 +214,7 @@ end
 
 --Include NAO !!!
 IncludeMinigames()
-	
+
 --Thinking and overrides
 function GM:SetNextGameStartsIn( delay )
 	self.NextgameStart = CurTime() + delay
