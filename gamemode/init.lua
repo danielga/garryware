@@ -198,7 +198,8 @@ function GM:HookTriggers( name )
 	if not hooks then return end
 	
 	for hookname,callback in pairs(hooks) do
-		hook.Add(hookname, "WARE"..name..hookname,function(...) local state = callback(unpack(arg)) print(state) return state end)
+		--hook.Add(hookname, "WARE"..name..hookname,function(...) local state = callback(unpack(arg)) print(state) return state end)
+		hook.Add(hookname, "WARE"..name..hookname,callback)
 	end
 end
 
