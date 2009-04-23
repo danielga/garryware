@@ -37,7 +37,9 @@ GM.RoundEndsWhenOneTeamAlive = false
 
 
 GM.GamesArePlaying = false
+GM.GameHasEnded = false
 GM.WareHaveStarted = false
+GM.ActionPhase = false
 GM.WareID = ""
 GM.NextgameStart = 0
 GM.NextgameEnd = 0
@@ -64,6 +66,7 @@ function GM:InitPostEntity( )
 
 	self.GamesArePlaying = false
 	self.WareHaveStarted = false
+	self.ActionPhase = false
 	self.GameHasEnded = false
 	
 	self.NextgameStart = CurTime() + 8

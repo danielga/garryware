@@ -41,6 +41,7 @@ function Register(name, minigame)
 	Minigames[name] = minigame
 	
 	table.insert(Minigames_names, name)
+	print("Minigame "..name.." added !")
 end
 
 function RandomizeGameSequence()
@@ -49,20 +50,20 @@ function RandomizeGameSequence()
 	
 	for i=1,#gamenamecopy do
 		local name = table.remove(gamenamecopy, math.random(1,#gamenamecopy))
-		table.insert(MinigameSequence,name)
+		table.insert(Minigames_sequence,name)
 	end
 end
 
-function GetRandomGame()
+function GetRandomGameName()
 	local name, minigame
 	repeat
-		if #MinigameSequence == 0 then -- All games have been played, start a new cycle
+		if #Minigames_sequence == 0 then -- All games have been played, start a new cycle
 			ware_mod.RandomizeGameSequence()
 		end
-		name = table.remove(MinigameSequence,1)
+		name = table.remove(Minigames_sequence,1)
 		minigame = ware_mod.Get(name)
 	until minigame.IsPlayable == nil or minigame:IsPlayable()
-	return minigame
+	return name
 end
 
 function Get(name)
@@ -70,7 +71,8 @@ function Get(name)
 end
 
 function GetHooks(name)
-	return Minigames[name].Hooks
+	if Minigames[name] == nil then return nil end
+	return Minigames[name].Hooks or nil
 end
 
 function GetNamesTable()

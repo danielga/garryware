@@ -106,10 +106,11 @@ function GM:PickRandomGame()
 	--Ware is picked up now
 	if GetConVar("ware_debug"):GetInt() > 0 then
 		name = GetConVar("ware_debugname"):GetString()
-		minigame = ware_mod.Get(name)
 	else
-		minigame = ware_mod.GetRandomGameName()
+		name = ware_mod.GetRandomGameName()
 	end
+	
+	minigame = ware_mod.Get(name)
 	
 	--Ware is initialized
 	if minigame and minigame.Initialize and minigame.StartAction then
@@ -134,10 +135,12 @@ function GM:PickRandomGame()
 end
 	
 function GM:EndGame()
-
 	if self.WareHaveStarted == true then
 		--Destroy all
-		if CurTime() > (self.NextgameStart + self.Windup) then GAMEMODE:UnhookTriggers(self.WareID) end
+		if self.ActionPhase == true then
+			GAMEMODE:UnhookTriggers(self.WareID)
+			self.ActionPhase = false
+		end
 		local minigame = ware_mod.Get(self.WareID)
 		if minigame and minigame.EndAction then minigame:EndAction() end
 		self:RemoveEnts()
@@ -150,9 +153,9 @@ function GM:EndGame()
 			
 			if (destiny == 0) then
 				if achieved >= 1 then
-					self:WarePlayerDestinyWin( v )
+					v:WarePlayerDestinyWin( )
 				else
-					self:WarePlayerDestinyLose( v )
+					v:WarePlayerDestinyLose( )
 				end
 			end
 			
@@ -191,17 +194,19 @@ function GM:EndGame()
 end
 
 function GM:HookTriggers( name )
-	if not ware_ware_mod.GetHooks(name) then return end
+	local hooks = ware_mod.GetHooks(name)
+	if not hooks then return end
 	
-	for hookname,callback in pairs(ware_mod.GetHooks(name)) do
+	for hookname,callback in pairs(hooks) do
 		hook.Add(hookname, "WARE"..name..hookname, callback)
 	end
 end
 
 function GM:UnhookTriggers( name )
-	if not ware_mod.GetHooks(name) then return end
+	local hooks = ware_mod.GetHooks(name)
+	if not hooks then return end
 	
-	for hookname,_ in pairs(ware_mod.GetHooks(name)) do
+	for hookname,_ in pairs(hooks) do
 		hook.Remove(hookname, "WARE"..name..hookname)
 	end
 end
@@ -218,55 +223,64 @@ end
 function GM:Think()
 	self.BaseClass:Think()
 	
-	--Starts a new ware
-	if (self.GamesArePlaying == true && self.WareHaveStarted == false) then
-		if (CurTime() > self.NextgameStart) then
-			GAMEMODE:PickRandomGame()
-			SendUserMessage("WaitHide")
-		end
+	if (self.GamesArePlaying == true) then
+		--Starts a new ware
+		if (self.WareHaveStarted == false) then
+			if (CurTime() > self.NextgameStart) then
+				GAMEMODE:PickRandomGame()
+				SendUserMessage("WaitHide")
+			end
 		
-	--Starts the action
-	elseif (self.GamesArePlaying == true && self.WareHaveStarted == true) then
-		--Don't use an elseif
-		if CurTime() > (self.NextgameStart + self.Windup) then
-			local minigame = ware_mod.Get(self.WareID)
+		--Starts the action
+		else
+			if CurTime() > (self.NextgameStart + self.Windup) && self.ActionPhase == false then
+				local minigame = ware_mod.Get(self.WareID)
+				
+				self:HookTriggers(self.WareID)
+				if minigame.StartAction then
+					minigame:StartAction()
+				end
+				
+				self.ActionPhase = true
+			end
 			
-			self:HookTriggers(self.WareID))
-			if minigame.StartAction == true then
-				minigame:StartAction()
+			if (CurTime() > self.NextgameEnd) then
+				GAMEMODE:EndGame()
 			end
 		end
-		if (CurTime() > self.NextgameEnd) then
+		
+		
+		
+		--Ends a current game
+		if team.NumPlayers(TEAM_UNASSIGNED) == 0 && self.GamesArePlaying == true then
+			self.GamesArePlaying = false
 			GAMEMODE:EndGame()
+			
+			--Send info about ware
+			local rp = RecipientFilter()
+			rp:AddAllPlayers()
+			umsg.Start("NextGameTimes", rp)
+				umsg.Float( 0 )
+				umsg.Float( 0 )
+				umsg.Float( 0 )
+				umsg.Float( 0 )
+			umsg.End()
 		end
-	end
 	
-	--Starts a new game
-	elseif team.NumPlayers(TEAM_UNASSIGNED) > 0 && self.GamesArePlaying == false && self.GameHasEnded == false then
-		self.GamesArePlaying = true
-		self.WareHaveStarted = false
-		
-		if (GetConVar("ware_debug"):GetInt() > 0) then
-			self:SetNextGameStartsIn( 4 )
-		else
-			self:SetNextGameStartsIn( 22 )
+	else
+		--Starts a new game
+		if team.NumPlayers(TEAM_UNASSIGNED) > 0 && self.GameHasEnded == false && self.GamesArePlaying == false then
+			self.GamesArePlaying = true
+			self.WareHaveStarted = false
+			self.ActionPhase = false
+			
+			if (GetConVar("ware_debug"):GetInt() > 0) then
+				self:SetNextGameStartsIn( 4 )
+			else
+				self:SetNextGameStartsIn( 22 )
+			end
+			SendUserMessage( "WaitShow" )
 		end
-		SendUserMessage( "WaitShow" )
-	
-	--Ends a current game
-	elseif team.NumPlayers(TEAM_UNASSIGNED) == 0 && self.GamesArePlaying == true then
-		self.GamesArePlaying = false
-		GAMEMODE:EndGame()
-		
-		--Send info about ware
-		local rp = RecipientFilter()
-		rp:AddAllPlayers()
-		umsg.Start("NextGameTimes", rp)
-			umsg.Float( 0 )
-			umsg.Float( 0 )
-			umsg.Float( 0 )
-			umsg.Float( 0 )
-		umsg.End()
 	end
 	
 	--Adverts
@@ -277,7 +291,6 @@ function GM:Think()
 		end
 		self.NexttimeAdvert = CurTime() + math.random(60*3,60*5)
 	end
-	
 end
 
 function GM:EndTheGameForOnce()
@@ -325,4 +338,6 @@ function GM:PlayerInitialSpawn( ply, id )
 		umsg.Float( self.TimeWhenGameEnds )
 		umsg.Bool( didnotbegin )
 	umsg.End()
+	
+	self.BaseClass:PlayerInitialSpawn( ply, id )
 end 
