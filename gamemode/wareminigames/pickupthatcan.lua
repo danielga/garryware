@@ -1,3 +1,5 @@
+WARE.Author = "Kilburn"
+
 function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(3,5)
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Pick up that can !",0)

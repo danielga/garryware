@@ -1,9 +1,11 @@
---ware_mod.AddCSFile( "wareminigames/clientside/cl_hlss.lua" )
+WARE.Author = "Hurricaaane (Ha3)"
+
+WARE.OccurencesPerCycle = 2
 
 function WARE:IsPlayable()
 	local doit = false
-	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
-		doit = v:IsSpeaking( ) or doit
+	if #team.GetPlayers(TEAM_UNASSIGNED) >= 14 then
+		doit = true
 	end
 	return doit
 end
@@ -27,6 +29,8 @@ function WARE:EndAction()
 end
 
 local function WareHLSS(player, commandName, args)
-	player:WarePlayerDestinyLose( )
+	if (GAMEMODE.WareID == "hlss") then
+		player:WarePlayerDestinyLose( )
+	end
 end
-concommand.Add("ware_hlss",WareHLSS)
+concommand.Add("cware_hlss",WareHLSS)

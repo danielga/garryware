@@ -1,3 +1,5 @@
+WARE.Author = "Hurricaaane (Ha3)"
+
 function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(5,6)
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Watch the props...",0)

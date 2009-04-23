@@ -1,3 +1,5 @@
+WARE.Author = "Kelth"
+
 function WARE:Initialize()
 	--Start of INIT
 	GAMEMODE:SetWareWindupAndLength(0.5,6)

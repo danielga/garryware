@@ -38,7 +38,7 @@ end
 function SWEP:Think()
 	if (CLIENT) then
 		if GetConVar("voice_inputfromfile"):GetInt() > 0 && self.Owner:IsSpeaking( ) then
-			RunConsoleCommand("ware_hlss")
+			RunConsoleCommand("cware_hlss")
 		end
 	end
 end

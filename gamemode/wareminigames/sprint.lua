@@ -1,3 +1,5 @@
+WARE.Author = "Frostyfrog"
+
 function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(2,5)
 	

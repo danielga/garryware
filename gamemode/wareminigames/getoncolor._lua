@@ -1,3 +1,5 @@
+WARE.Author = "Hurricaaane (Ha3)"
+
 local matchcolors = {
 { "black" , Color(0,0,0,255) },
 { "grey" , Color(128,128,128,255) },

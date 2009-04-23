@@ -1,3 +1,5 @@
+WARE.Author = "Kilburn"
+
 local function RespawnSawblade(ent)
 	if not ent or not ent:IsValid() or not ent.OriginalPos then return end
 	

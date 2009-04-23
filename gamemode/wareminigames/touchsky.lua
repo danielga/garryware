@@ -1,3 +1,5 @@
+WARE.Author = "Kelth"
+
 function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(2,6)
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Stay on the ground ! ",1)

@@ -1,7 +1,6 @@
 
 AddCSLuaFile( "cl_init.lua" )
 AddCSLuaFile( "shared.lua" )
-AddCSLuaFile( "admin.lua" )
 AddCSLuaFile( "cl_postprocess.lua" )
 AddCSLuaFile( "vgui_ridiculous.lua" )
 AddCSLuaFile( "vgui_transitscreen.lua" )

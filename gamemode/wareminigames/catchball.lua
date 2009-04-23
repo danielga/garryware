@@ -1,3 +1,5 @@
+WARE.Author = "Kelth"
+
 function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(2,6)
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Catch a ball !",0)

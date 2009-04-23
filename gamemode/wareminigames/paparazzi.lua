@@ -1,3 +1,5 @@
+WARE.Author = "Hurricaaane (Ha3)"
+
 function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(2.5,3.5)
 	

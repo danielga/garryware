@@ -1,3 +1,5 @@
+WARE.Author = "Kelth"
+
 function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(1.5,3)
 	

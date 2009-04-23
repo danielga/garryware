@@ -1,6 +1,5 @@
 include( 'shared.lua' )
 include( 'cl_postprocess.lua' )
-include( 'admin.lua' )
 include( 'skin.lua' )
 include( "tables.lua" )
 
@@ -38,6 +37,7 @@ WareLen = 0
 TimeWhenGameEnds = 0
 TickAnnounce = 0
 UpcomingInfo = ""
+
 
 function GM:PrintCenterMessage( )
 	if( fLastMessage + iKeepTime < CurTime() and fAlpha > 0) then
@@ -90,11 +90,13 @@ function GM:Think()
 	end
 end
 
+
 function GM:HUDPaint()
 	self:PrintCenterMessage();
 	
 	self.BaseClass:HUDPaint();
 end
+
 
 function HideThings( name )
 	if (name == "CHudHealth" or name == "CHudBattery" or name == "CHudWeaponSelection") then
@@ -102,6 +104,7 @@ function HideThings( name )
 	end
 end
 hook.Add( "HUDShouldDraw", "HideThings", HideThings )
+
 
 function GM:HUDWeaponPickedUp( wep )
 	return false

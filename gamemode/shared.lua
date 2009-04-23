@@ -12,7 +12,7 @@ GM.Website 	= ""
 DeriveGamemode( "fretta" )
 IncludePlayerClasses()
 
-GM.Help		= "Do what she says\n\nMinigame crafters:\nHurricaaane, Kelth, Kilburn, and you?\n\nCredits goes to DasMatze and Valve for the Meet the Sniper flourish. Special thanks to : Kilburn (for minigame registering improvement)"
+GM.Help		= "Do what she says\n\nMinigame crafters:\nHurricaaane, Kelth, Kilburn, Frostyfrog, and you?\n\nCredits goes to DasMatze and Valve for the Meet the Sniper flourish. Special thanks to : Kilburn (for minigame registering improvement)"
 GM.TeamBased = false
 GM.AllowAutoTeam = true
 GM.AllowSpectating = true

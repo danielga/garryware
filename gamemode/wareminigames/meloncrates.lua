@@ -1,3 +1,5 @@
+WARE.Author = "Kilburn"
+
 local function ResetFlashCrate(prop)
 	if not(prop and prop:IsValid()) then return end
 	prop:SetColor(255,255,255,255)

@@ -48,10 +48,18 @@ end
 function RandomizeGameSequence()
 	Minigames_sequence = {}
 	local gamenamecopy = ware_mod.GetNamesTable()
+	local occurListDisc = {}
+	local occur
 	
 	for i=1,#gamenamecopy do
 		local name = table.remove(gamenamecopy, math.random(1,#gamenamecopy))
 		table.insert(Minigames_sequence,name)
+		
+		occur = ware_mod.Get(name).OccurencesPerCycle or 1
+		occurListDisc[name] = (occurListDisc[name] or 0) + 1
+		if occur - occurListDisc[name] > 0 then
+			table.insert(gamenamecopy,name)
+		end
 	end
 end
 

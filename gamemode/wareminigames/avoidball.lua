@@ -1,3 +1,5 @@
+WARE.Author = "Hurricaaane (Ha3)"
+
 function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(1.5,8)
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Avoid the balls !",1)
