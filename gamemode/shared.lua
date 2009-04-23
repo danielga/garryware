@@ -2,6 +2,7 @@ if( SERVER ) then
 	AddCSLuaFile( "ply_extension.lua" );
 end
 include( "ply_extension.lua" );
+include( "minigames_module.lua" )
 
 GM.Name 	= "Garry Ware (SVN)"
 GM.Author 	= "Hurricaaane"
@@ -84,7 +85,7 @@ function GM:Think()
 end
 
 function IncludeMinigames()
-	local path = string.Replace(GM.Folder, "gamemodes/", "").."/gamemode/wareminigames/"
+	local path = string.Replace(GM.Folder, "gamemodes/", "").."/gamemode/wareminigames_temp/"
 	for _,file in pairs(file.FindInLua(path.."*.lua")) do
 		WARE = {}
 		

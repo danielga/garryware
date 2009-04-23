@@ -32,7 +32,7 @@ function Register(name, minigame)
 	minigame.Hooks = {}
 	for name,func in pairs(minigame) do
 		if type(func)=="function" and IsValidHookName(name) then
-			minigame.Hooks[name] = func
+			minigame.Hooks[name] = function(...) func(minigame,unpack(arg)) end
 		end
 	end
 	

@@ -19,17 +19,17 @@ local MelonCratesFakeProps = {
 -----------------------------------------------------------------------------------
 
 function WARE:Initialize()
-	local maxcount = table.Count(self:GetEnts(ENTS_ONCRATE))
+	local maxcount = table.Count(GAMEMODE:GetEnts(ENTS_ONCRATE))
 	
 	local numberMelonSpawns = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*0.5),1,maxcount)
 	local numberFakeSpawns = math.Clamp(team.NumPlayers(TEAM_UNASSIGNED)+1,4,maxcount-numberMelonSpawns)
 	
 	local delay = 2
 	
-	self:SetWareWindupAndLength(delay+1,6)
-	self:DrawPlayersTextAndInitialStatus("Watch the crates...",0)
+	GAMEMODE:SetWareWindupAndLength(delay+1,6)
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Watch the crates...",0)
 	
-	for i,pos in ipairs(GetRandomPositions(numberMelonSpawns+numberFakeSpawns, ENTS_ONCRATE)) do
+	for i,pos in ipairs(GAMEMODE:GetRandomPositions(numberMelonSpawns+numberFakeSpawns, ENTS_ONCRATE)) do
 		pos = pos + Vector(0,0,100)
 		
 		local prop = ents.Create("prop_physics")
@@ -41,8 +41,8 @@ function WARE:Initialize()
 		
 		prop:SetMoveType(MOVETYPE_NONE)
 		
-		self:AppendEntToBin(prop)
-		self:MakeAppearEffect(pos)
+		GAMEMODE:AppendEntToBin(prop)
+		GAMEMODE:MakeAppearEffect(pos)
 		
 		local model
 		
@@ -65,7 +65,7 @@ function WARE:Initialize()
 			prop2:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
 			prop2:SetMoveType(MOVETYPE_VPHYSICS)
 			prop2:GetPhysicsObject():EnableMotion(false)
-			self:AppendEntToBin(prop2)
+			GAMEMODE:AppendEntToBin(prop2)
 			
 			prop.Contents = prop2
 		end
@@ -75,7 +75,7 @@ function WARE:Initialize()
 end
 
 function WARE:StartAction()
-	self:DrawPlayersTextAndInitialStatus("Break a melon ! ",0)
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Break a melon ! ",0)
 	
 	for _,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
 		v:Give("weapon_crowbar")
@@ -90,7 +90,7 @@ function WARE:PropBreak(pl,prop)
 	if not pl:IsPlayer() then return end
 	
 	if prop:GetModel()=="models/props_junk/watermelon01.mdl" then
-		self:WarePlayerDestinyWin(pl)
+		GAMEMODE:WarePlayerDestinyWin(pl)
 		pl:StripWeapons()
 	elseif prop.Contents then
 		prop.Contents:SetCollisionGroup(COLLISION_GROUP_INTERACTIVE)

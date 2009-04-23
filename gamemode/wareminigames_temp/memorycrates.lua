@@ -48,12 +48,12 @@ function WARE:Initialize()
 	local numberSpawns = 5
 	local delay = 4
 	
-	self:SetWareWindupAndLength(numberSpawns+delay,numberSpawns)
-	self:DrawPlayersTextAndInitialStatus("Watch carefully !",0)
+	GAMEMODE:SetWareWindupAndLength(numberSpawns+delay,numberSpawns)
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Watch carefully !",0)
 	
-	self.GamePool.Crates = {}
+	GAMEMODE.GamePool.Crates = {}
 	
-	for i,pos in ipairs(self:GetRandomPositions(numberSpawns, ENTS_ONCRATE)) do
+	for i,pos in ipairs(GAMEMODE:GetRandomPositions(numberSpawns, ENTS_ONCRATE)) do
 		local col = CrateColours[i]
 		local prop = ents.Create("prop_physics")
 		prop:SetModel("models/props_junk/wood_crate001a.mdl")
@@ -68,31 +68,31 @@ function WARE:Initialize()
 		prop:SetCollisionGroup(COLLISION_GROUP_WEAPON)
 		prop.CrateID = i
 		
-		self.GamePool.Crates[i] = prop
+		GAMEMODE.GamePool.Crates[i] = prop
 		
-		self:AppendEntToBin(prop)
-		self:MakeAppearEffect(pos)
+		GAMEMODE:AppendEntToBin(prop)
+		GAMEMODE:MakeAppearEffect(pos)
 	end
 	
 	local sequence = {}
 	for i=1,numberSpawns do sequence[i]=i end
 	
-	self.GamePool.Sequence = {}
+	GAMEMODE.GamePool.Sequence = {}
 	for i=1,numberSpawns do
-		self.GamePool.Sequence[i] = table.remove(sequence, math.random(1,#sequence))
-		timer.Simple(delay+i-1, PlayCrate, self.GamePool.Sequence[i])
+		GAMEMODE.GamePool.Sequence[i] = table.remove(sequence, math.random(1,#sequence))
+		timer.Simple(delay+i-1, PlayCrate, GAMEMODE.GamePool.Sequence[i])
 	end
 end
 
 function WARE:StartAction()
-	self:DrawPlayersTextAndInitialStatus("Repeat ! ",0)
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Repeat ! ",0)
 	
-	self.GamePool.PlayerCurrentCrate = {}
+	GAMEMODE.GamePool.PlayerCurrentCrate = {}
 	
 	for _,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
 		v:Give("gmdm_pistol")
 		v:GiveAmmo(12, "Pistol", true)
-		self.GamePool.PlayerCurrentCrate[v] = 1
+		GAMEMODE.GamePool.PlayerCurrentCrate[v] = 1
 	end
 end
 
@@ -101,7 +101,7 @@ function WARE:EndAction()
 end
 
 function WARE:EntityTakeDamage(ent,inf,att,amount,info)
-	local pool = self.GamePool
+	local pool = GAMEMODE.GamePool
 	
 	if not att:IsPlayer() or not info:IsBulletDamage() then return end
 	if not pool.PlayerCurrentCrate[att] then return end
@@ -112,11 +112,11 @@ function WARE:EntityTakeDamage(ent,inf,att,amount,info)
 	if pool.Sequence[pool.PlayerCurrentCrate[att]] == ent.CrateID then
 		pool.PlayerCurrentCrate[att] = pool.PlayerCurrentCrate[att] + 1
 		if not pool.Sequence[pool.PlayerCurrentCrate[att]] then
-			self:WarePlayerDestinyWin(att)
+			GAMEMODE:WarePlayerDestinyWin(att)
 			att:StripWeapons()
 		end
 	else
-		self:WarePlayerDestinyLose(att)
+		GAMEMODE:WarePlayerDestinyLose(att)
 		att:StripWeapons()
 	end
 end

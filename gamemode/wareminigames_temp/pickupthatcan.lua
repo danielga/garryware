@@ -1,8 +1,8 @@
 function WARE:Initialize()
-	self:SetWareWindupAndLength(3,5)
-	self:DrawPlayersTextAndInitialStatus("Pick up that can !",0)
+	GAMEMODE:SetWareWindupAndLength(3,5)
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Pick up that can !",0)
 	
-	local numberSpawns = math.Clamp(team.NumPlayers(TEAM_UNASSIGNED),1,table.Count(self:GetEnts(ENTS_INAIR)))
+	local numberSpawns = math.Clamp(team.NumPlayers(TEAM_UNASSIGNED),1,table.Count(GAMEMODE:GetEnts(ENTS_INAIR)))
 	
 	-- HAXX
 	-- GravGunOnPickedUp hook is broken, so we'll use this tricky workaround
@@ -12,7 +12,7 @@ function WARE:Initialize()
 	lua_run:SetKeyValue('targetname','luarun')
 	lua_run:Spawn()
 	
-	for _,pos in ipairs(self:GetRandomPositions(numberSpawns, ENTS_INAIR)) do
+	for _,pos in ipairs(GAMEMODE:GetRandomPositions(numberSpawns, ENTS_INAIR)) do
 		local prop = ents.Create("prop_physics")
 		prop:SetModel("models/props_junk/popcan01a.mdl")
 		prop:SetSkin(math.random(0,2))
@@ -26,8 +26,8 @@ function WARE:Initialize()
 		prop:Fire("AddOutput", "OnPhysGunPickup luarun,RunCode")
 		util.SpriteTrail(prop,0,Color(255,255,255,255),false,16,0,6,1/8,"trails/smoke.vmt")
 		
-		self:AppendEntToBin(prop)
-		self:MakeAppearEffect(pos)
+		GAMEMODE:AppendEntToBin(prop)
+		GAMEMODE:MakeAppearEffect(pos)
 	end
 	
 	for _,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
@@ -36,9 +36,9 @@ function WARE:Initialize()
 end
 
 function WARE:StartAction()
-	self:DrawPlayersTextAndInitialStatus("Put it in the trashcan ! ",0)
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Put it in the trashcan ! ",0)
 	
-	local pos = self:GetRandomPositionsAvoidBox(1, ENTS_ONCRATE, function(v) return v:IsPlayer() end, Vector(-64,-64,64), Vector(64,64,64))[1]
+	local pos = GAMEMODE:GetRandomPositionsAvoidBox(1, ENTS_ONCRATE, function(v) return v:IsPlayer() end, Vector(-64,-64,64), Vector(64,64,64))[1]
 	local trash = ents.Create("prop_physics")
 	trash:SetModel("models/props_trainstation/trashcan_indoor001b.mdl")
 	trash:PhysicsInit(SOLID_VPHYSICS)
@@ -56,11 +56,11 @@ function WARE:StartAction()
 	trash:SetPos(pos)
 	trash:SetMoveType(MOVETYPE_NONE)
 	
-	self:AppendEntToBin(land)
-	self:AppendEntToBin(trash)
-	self:MakeAppearEffect(pos)
+	GAMEMODE:AppendEntToBin(land)
+	GAMEMODE:AppendEntToBin(trash)
+	GAMEMODE:MakeAppearEffect(pos)
 	
-	self.GamePool.Trashcan = trash
+	GAMEMODE.GamePool.Trashcan = trash
 end
 
 function WARE:EndAction()
@@ -70,22 +70,22 @@ function WARE:EndAction()
 end
 
 function WARE:Think()
-	if self.GamePool.Trashcan then
-		if not self.GamePool.NextTrashThink or CurTime()>self.GamePool.NextTrashThink then
-			local bmin,bmax = self.GamePool.Trashcan:WorldSpaceAABB()
+	if GAMEMODE.GamePool.Trashcan then
+		if not GAMEMODE.GamePool.NextTrashThink or CurTime()>GAMEMODE.GamePool.NextTrashThink then
+			local bmin,bmax = GAMEMODE.GamePool.Trashcan:WorldSpaceAABB()
 			for _,v in pairs(ents.FindInBox(bmin+Vector(12,12,14),bmax-Vector(12,12,10))) do
 				if v:GetModel()=="models/props_junk/popcan01a.mdl" then
 					local Owner = v.CanOwner
 					if Owner and Owner:IsPlayer() then
-						self:MakeAppearEffect(v:GetPos())
+						GAMEMODE:MakeAppearEffect(v:GetPos())
 						v:Remove()
 					
 						Owner:StripWeapons()
-						self:WarePlayerDestinyWin(Owner)
+						GAMEMODE:WarePlayerDestinyWin(Owner)
 					end
 				end
 			end
-			self.GamePool.NextTrashThink = CurTime()+0.1
+			GAMEMODE.GamePool.NextTrashThink = CurTime()+0.1
 		end
 	end
 end

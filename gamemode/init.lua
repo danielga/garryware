@@ -201,8 +201,8 @@ function GM:GetRandomLocationsAvoidBox(num, group, test, vec1, vec2)
 	return result
 end
 
-function GM:GetRandomPositionsAvoidBox(num, group)
-	local result = self:GetRandomLocationsAvoidBox(num, group)
+function GM:GetRandomPositionsAvoidBox(num, group, test, vec1, vec2)
+	local result = self:GetRandomLocationsAvoidBox(num, group, test, vec1, vec2)
 	for k,v in pairs(result) do
 		result[k] = result[k]:GetPos()
 	end
@@ -225,17 +225,21 @@ function GM:PickRandomGame()
 	
 	if (GetConVar("ware_debug"):GetInt() > 0) then name = GetConVar("ware_debugname"):GetString() end --debugging
 	
-	if ware_minigame.Get[name] and ware_minigame.Get[name] then
-		minigames[name][1]()
+	local minigame = ware_minigame.Get(name)
+	
+	if minigame and minigame.Initialize and minigame.StartAction then
+		minigame:Initialize()
 		GAMEMODE:SetWareID(name)
 		timer.Simple(self.Windup,GAMEMODE.HookTriggers,GAMEMODE,name)
-		timer.Simple(self.Windup,minigames[name][2])
+		timer.Simple(self.Windup,minigame.StartAction,minigame)
 	else
 		GAMEMODE:SetWareWindupAndLength(3,0)
 		GAMEMODE:DrawPlayersTextAndInitialStatus("Error with minigame \""..name.."\".",0)
 	end
+	
 	self.NextgameEnd = CurTime() + self.Windup + self.WareLen
 	//SendUserMessage( "NextGameTimes" , nil, CurTime() + self.Windup, self.NextgameEnd, self.Windup, self.WareLen  )
+	
 	local rp = RecipientFilter()
 	rp:AddAllPlayers()
 	umsg.Start("NextGameTimes", rp)
@@ -250,7 +254,9 @@ end
 	
 function GM:EndGame()
 	GAMEMODE:UnhookTriggers(self.WareID)
-	if (minigames[self.WareID] != nil && minigames[self.WareID][3] != nil) then minigames[self.WareID][3]() end
+	
+	local minigame = ware_minigame.Get(self.WareID)
+	if minigame and minigame.EndAction then minigame:EndAction() end
 	self:RemoveEnts()
 	self.GamePool = {}
 	
@@ -290,7 +296,7 @@ function GM:EndGame()
 			umsg.End()
 			v:ConCommand("r_cleardecals")
 		end
-		minigames_Names[1][2] = math.ceil(minigames_Names[1][2]) + math.random(0,95)*0.01
+		--minigames_Names[1][2] = math.ceil(minigames_Names[1][2]) + math.random(0,95)*0.01
 	end
 	
 	self.NextgameStart = CurTime() + 2.7
