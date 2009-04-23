@@ -56,9 +56,7 @@ resource.AddFile("materials/ware/ware_floor.vtf")
 resource.AddFile("materials/ware/ware_wallorange.vmt")
 resource.AddFile("materials/ware/ware_wallwhite.vtf")
 
-local minigames = {}
-local minigames_Names = {}
-local minigames_Triggers = {}
+local MinigameSequence = {}
 
 CreateConVar( "ware_debug", 0, {FCVAR_ARCHIVE} )
 CreateConVar( "ware_debugname", "", {FCVAR_ARCHIVE} )
@@ -210,6 +208,16 @@ function GM:GetRandomPositionsAvoidBox(num, group, test, vec1, vec2)
 	return result
 end
 
+function GM:RandomizeGameSequence()
+	MinigameSequence = {}
+	local gamenamecopy = ware_minigame.GetNamesTable()
+	
+	for i=1,#gamenamecopy do
+		local name = table.remove(gamenamecopy, math.random(1,#gamenamecopy))
+		table.insert(MinigameSequence,name)
+	end
+end
+
 function GM:PickRandomGame()
 	self.WareHaveStarted = true
 	
@@ -221,9 +229,21 @@ function GM:PickRandomGame()
 	
 	--table.sort(minigames_Names,function(a,b) return a[2] < b[2] end)
 	--local name = minigames_Names[1][1]
-	local name = ware_minigame.GetRandomGame()
 	
-	if (GetConVar("ware_debug"):GetInt() > 0) then name = GetConVar("ware_debugname"):GetString() end --debugging
+	local name, minigame
+	
+	if GetConVar("ware_debug"):GetInt() > 0 then
+		name = GetConVar("ware_debugname"):GetString()
+		minigame = ware_minigame.Get(name)
+	else
+		repeat
+			if #MinigameSequence==0 then -- All games have been played, start a new cycle
+				GAMEMODE:RandomizeGameSequence()
+			end
+			name = table.remove(MinigameSequence,1)
+			minigame = ware_minigame.Get(name)
+		until minigame.IsPlayable==nil or minigame:IsPlayable()
+	end
 	
 	local minigame = ware_minigame.Get(name)
 	

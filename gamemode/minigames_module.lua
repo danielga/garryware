@@ -53,3 +53,7 @@ end
 function GetHooks(name)
 	return Minigames[name].Hooks
 end
+
+function GetNamesTable()
+	return table.Copy(Minigames_names)
+end
