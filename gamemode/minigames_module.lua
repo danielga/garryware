@@ -42,7 +42,6 @@ function Register(name, minigame)
 	Minigames[name] = minigame
 	
 	table.insert(Minigames_names, name)
-	print("Minigame "..name.." added !")
 end
 
 function RandomizeGameSequence()
@@ -86,4 +85,12 @@ end
 
 function GetNamesTable()
 	return table.Copy(Minigames_names)
+end
+
+function GetAuthorTable()
+	local authtable = {}
+	for k,v in pairs(Minigames) do
+		authtable[v.Author or "Unknown"] = (authtable[v.Author or "Unknown"] or 0) + 1
+	end
+	return table.Copy(authtable)
 end

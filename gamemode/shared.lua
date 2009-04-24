@@ -63,6 +63,9 @@ end
 
 function IncludeMinigames()
 	local path = string.Replace(GM.Folder, "gamemodes/", "").."/gamemode/wareminigames/"
+	local names = {}
+	local authors = {}
+	local str = ""
 	for _,file in pairs(file.FindInLua(path.."*.lua")) do
 		WARE = {}
 		
@@ -72,5 +75,21 @@ function IncludeMinigames()
 		local gamename = string.Replace(file, ".lua", "")
 		ware_mod.Register(gamename, WARE)
 	end
+	
+	print("__________\n")
+	names = ware_mod.GetNamesTable()
+	str = "Added wares : "
+	for k,v in pairs(names) do
+		str = str.."["..v.."] "
+	end
+	print(str)
+	
+	authors = ware_mod.GetAuthorTable()
+	str = "Author [wares] : "
+	for k,v in pairs(authors) do
+		str = str.." "..k.." ["..v.." wares]  "
+	end
+	print(str)
+	print("__________\n")
 end
 
