@@ -4,6 +4,12 @@ if (!meta) then return end
 
 meta.OldPrintMessage = meta.PrintMessage;
 
+function meta:GiveOverride(class)
+	local w = ents.Create(class)
+	w:SetPos(self:GetPos() + Vector(0,0,24))
+	w:Spawn()
+end
+
 function meta:SetAchievedNoDestiny( hasAchievedInt )
 	--You can't change the achieved status on someone who has a destiny
 	--because he already earned the points
