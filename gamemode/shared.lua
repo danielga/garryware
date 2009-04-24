@@ -5,7 +5,7 @@ include( "ply_extension.lua" );
 include( "minigames_module.lua" )
 
 GM.Name 	= "Garry Ware"
-GM.Author 	= "Hurricaaane"
+GM.Author 	= "Hurricaaane (Ha3)"
 GM.Email 	= ""
 GM.Website 	= ""
 
