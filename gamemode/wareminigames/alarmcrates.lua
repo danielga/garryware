@@ -32,8 +32,20 @@ function WARE:Initialize()
 		GAMEMODE:MakeAppearEffect(pos)
 		
 		if i<=numberAlarmSpawns then
-			prop.AlarmSound = CreateSound(prop, Sound(Alarms[math.random(1,#Alarms)]))
-			--prop.AlarmSound:SetSoundLevel(3.9)
+			local speaker = ents.Create("prop_physics")
+			speaker:SetModel("models/props_wasteland/speakercluster01a.mdl")
+			speaker:PhysicsInit(SOLID_VPHYSICS)
+			speaker:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
+			speaker:SetSolid(SOLID_VPHYSICS)
+			speaker:SetPos(prop:GetPos())
+			speaker:SetAngles(Angle(math.random(0,360),math.random(0,360),math.random(0,360)))
+			speaker:Spawn()
+			speaker:SetColor(255,255,255,0)
+			speaker:GetPhysicsObject():EnableMotion(false)
+			
+			speaker.AlarmSound = CreateSound(speaker, Sound(Alarms[math.random(1,#Alarms)]))
+			prop.Speaker = speaker
+			GAMEMODE:AppendEntToBin(speaker)
 		end
 	end
 end
@@ -62,22 +74,44 @@ function WARE:EndAction()
 	end
 end
 
+function WARE:Think()
+	for _,v in pairs(ents.FindByClass("prop_physics")) do
+		if v.AlarmSound and v.AlarmPitch then
+			v.AlarmPitch = v.AlarmPitch - 0.7
+			v.AlarmSound:ChangePitch(v.AlarmPitch)
+			
+			if v.AlarmPitch<=20 then
+				v.AlarmSound:Stop()
+				v.AlarmSound = nil
+				v.AlarmPitch = nil
+			end
+		end
+	end
+end
+
 function WARE:PropBreak(pl,prop)
 	if not pl:IsPlayer() then return end
 	
-	if prop.AlarmSound then
+	if prop.Speaker then
 		pl:WarePlayerDestinyWin()
 		pl:StripWeapons()
-		prop.AlarmSound:Stop()
-		prop.AlarmSound = nil
+		
+		prop.Speaker.AlarmPitch = 100
 		
 		local spark = ents.Create("env_spark")
-		spark:SetPos(prop:GetPos())
+		spark:SetPos(prop.Speaker:GetPos())
 		spark:SetKeyValue("MaxDelay",1)
 		spark:SetKeyValue("Magnitude",4)
 		spark:SetKeyValue("TrailLength",2)
 		spark:Spawn()
+		spark:SetParent(prop.Speaker)
 		spark:Fire("StartSpark")
-		spark:Fire("Kill",0,2)
+		
+		prop.Speaker:SetColor(255,255,255,255)
+		prop.Speaker:SetCollisionGroup(COLLISION_GROUP_INTERACTIVE)
+		prop.Speaker:GetPhysicsObject():EnableMotion(true)
+		prop.Speaker:GetPhysicsObject():Wake()
+		prop.Speaker:GetPhysicsObject():AddAngleVelocity(Angle(math.random(500,2000),math.random(500,2000),math.random(500,2000)))
+		prop.Speaker:GetPhysicsObject():ApplyForceCenter((prop:GetPos()-pl:GetPos()-Vector(0,0,50)):GetNormal() * math.random(3000,6000))
 	end
 end

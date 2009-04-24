@@ -14,8 +14,8 @@ local function NextCrateColour()
 	for _,prop in pairs(ents.FindByModel("models/props_c17/furniturewashingmachine001a.mdl")) do
 		if prop.CurrentColour and not prop.Stop then
 			prop.CurrentColour = prop.CurrentColour + 1
-			if not CrateColours[prop.CurrentColour] then prop.CurrentColour = 1 end
-			local col = CrateColours[prop.CurrentColour]
+			if not GAMEMODE.GamePool.Sequence[prop.CurrentColour] then prop.CurrentColour = 1 end
+			local col = GAMEMODE.GamePool.Sequence[prop.CurrentColour]
 			prop:SetColor(col[1]*255, col[2]*255, col[3]*255, 255)
 		end
 	end
@@ -38,14 +38,23 @@ function WARE:Initialize()
 	local maxcount = table.Count(GAMEMODE:GetEnts(ENTS_OVERCRATE))
 	local numberSpawns = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*ratio),minimum,maxcount)
 	
-	GAMEMODE.GamePool.TargetColour = math.random(1,#CrateColours)
+	-- Randomize the colour sequence so players have to memorize it every time this minigame plays
+	local seqcopy = table.Copy(CrateColours)
+	GAMEMODE.GamePool.Sequence = {}
+	for i=1,#CrateColours do
+		table.insert(GAMEMODE.GamePool.Sequence, table.remove(seqcopy,math.random(1,#seqcopy)))
+	end
+	
+	local Sequence = GAMEMODE.GamePool.Sequence
+	
+	GAMEMODE.GamePool.TargetColour = math.random(1,#Sequence)
 	
 	GAMEMODE:SetWareWindupAndLength(1,6)
-	GAMEMODE:DrawPlayersTextAndInitialStatus("Shoot the "..CrateColours[GAMEMODE.GamePool.TargetColour][4].." one !",0)
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Shoot the "..Sequence[GAMEMODE.GamePool.TargetColour][4].." one !",0)
 	
 	for i,pos in ipairs(GAMEMODE:GetRandomPositions(numberSpawns, ENTS_OVERCRATE)) do
-		local c = math.random(1,#CrateColours)
-		local col = CrateColours[c]
+		local c = math.random(1,#Sequence)
+		local col = Sequence[c]
 		local prop = ents.Create("prop_physics")
 		prop:SetModel("models/props_c17/furniturewashingmachine001a.mdl")
 		prop:PhysicsInit(SOLID_VPHYSICS)
@@ -70,7 +79,7 @@ function WARE:StartAction()
 	end
 	
 	NextCrateColour()
-	timer.Create("WARETIMERrollingcolor", 0.3, 0, NextCrateColour)
+	timer.Create("WARETIMERrollingcolor", 0.5, 0, NextCrateColour)
 end
 
 function WARE:EndAction()
