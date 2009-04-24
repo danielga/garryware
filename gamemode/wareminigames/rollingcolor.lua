@@ -22,12 +22,16 @@ local function NextCrateColour()
 end
 
 local function RemoveCrate(prop)
-	GAMEMODE:MakeAppearEffect(prop:GetPos())
-	prop:Remove()
+	if prop and prop:IsValid() then
+		GAMEMODE:MakeAppearEffect(prop:GetPos())
+		prop:Remove()
+	end
 end
 
 local function ResumeCrate(prop)
-	prop.Stop = nil
+	if prop and prop:IsValid() then
+		prop.Stop = nil
+	end
 end
 
 -----------------------------------------------------------------------------------
