@@ -80,7 +80,7 @@ function IncludeMinigames()
 	names = ware_mod.GetNamesTable()
 	str = "Added wares : "
 	for k,v in pairs(names) do
-		str = str.."["..v.."] "
+		str = str.."\""..v.."\" "
 	end
 	print(str)
 	
