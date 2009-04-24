@@ -112,6 +112,6 @@ function WARE:PropBreak(pl,prop)
 		prop.Speaker:GetPhysicsObject():EnableMotion(true)
 		prop.Speaker:GetPhysicsObject():Wake()
 		prop.Speaker:GetPhysicsObject():AddAngleVelocity(Angle(math.random(500,2000),math.random(500,2000),math.random(500,2000)))
-		prop.Speaker:GetPhysicsObject():ApplyForceCenter((prop:GetPos()-pl:GetPos()-Vector(0,0,50)):GetNormal() * math.random(3000,6000))
+		prop.Speaker:GetPhysicsObject():ApplyForceCenter((prop:GetPos()-pl:GetPos()-Vector(0,0,20)):GetNormal() * math.random(10000,20000))
 	end
 end
