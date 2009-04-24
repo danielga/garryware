@@ -1,12 +1,10 @@
 WARE.Author = "Kelth"
 
 function WARE:Initialize()
-	GAMEMODE:SetWareWindupAndLength(2,6)
+	GAMEMODE:SetWareWindupAndLength(0.8,6)
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Catch a ball !",0)
-	return
-end
 
-function WARE:StartAction()
+
 	local entposcopy = table.Copy(GAMEMODE:GetEnts(ENTS_ONCRATE)) --Copying the table, and the removing elements from it
 	local numberSpawns = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*0.5),1,table.Count(entposcopy))
 	
@@ -26,7 +24,11 @@ function WARE:StartAction()
 		GAMEMODE:AppendEntToBin(ent)
 		GAMEMODE:MakeAppearEffect(ent:GetPos())
 	end
-	
+
+	return
+end
+
+function WARE:StartAction()
 	
 	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
 		v:Give( "weapon_physcannon" )
