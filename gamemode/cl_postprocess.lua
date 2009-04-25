@@ -1,4 +1,55 @@
 
+HUDParticleThinkTime = CurTime()
+HUDParticles = {}
+
+function HUDThinkAboutParticles()
+	if CurTime() - HUDParticleThinkTime > 0.05 then
+		for k,sprite in pairs(HUDParticles) do
+			if sprite:IsValid() == false then
+				table.remove(HUDParticles,k)
+			else
+				local sx,sy = sprite:GetPos()
+				sprite.Velocity.y = sprite.Velocity.y + sprite.grav
+				sprite:MoveTo(sx + (sprite.Velocity.x*0.1)*sprite.resist, sy + (sprite.Velocity.y*0.1)*sprite.resist, 0.0001/FrameTime(),0)
+			end
+		end
+	end
+end
+
+function HUDMakeParticles(materialpath,number,duration,posx,posy,sizemin,sizemax,sizeendmin,sizeendmax,dir_angle,diffusemin,diffusemax,distancemin,distancemax,color,colorend,gravity,resist)
+	local sprite
+	local randang
+	local distance
+	local sizeto
+	local materialdec = Material(materialpath)
+	for i=1,number do
+		sprite = CreateSprite( materialdec )
+		sprite:SetTerm( duration )
+		sprite:SetPos( posx, posy )
+		
+		size = math.random(sizemin,sizemax)
+		sprite:SetSize( size, size )
+		sprite:SetColor( color )
+		
+		randang = math.rad( dir_angle + math.random(diffusemin,diffusemax) )
+		distance = math.random(distancemin,distancemax)
+		sprite.Velocity = Vector(math.cos(randang)*distance,math.sin(randang)*distance,0)
+		sprite:MoveTo(posx + sprite.Velocity.x*0.1, posy + sprite.Velocity.y*0.1, 0.0001/FrameTime(),0)
+		
+		sizeto = math.random(sizeendmin,sizeendmax)
+		sprite:SizeTo( sizeto, sizeto, duration, 0 )
+		sprite:ColorTo( colorend, duration, 0 )
+		
+		sprite.grav = gravity
+		sprite.resist = resist
+		
+		sprite:SetZPos(-128)
+		
+		table.insert(HUDParticles,sprite)
+	end
+end
+
+
 Sharpen = 0
 MotionBlur = 0
 ViewWobble = 0

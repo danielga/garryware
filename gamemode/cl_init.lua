@@ -92,9 +92,10 @@ end
 
 
 function GM:HUDPaint()
-	self:PrintCenterMessage();
-	
 	self.BaseClass:HUDPaint();
+	
+	self:PrintCenterMessage();
+	HUDThinkAboutParticles()
 end
 
 
@@ -178,8 +179,14 @@ local function EventDestinySet( m )
 	local Destiny = m:ReadLong()
 	if (Destiny > 0) then
 		LocalPlayer():EmitSound( table.Random(GAMEMODE.WinTriggerSounds) )
+		HUDMakeParticles("effects/yellowflare",35,2,ScrW()*0,ScrH(),20,20,50,70,-45,-60,60,64,256,Color(128,255,128,255),Color(0,255,0,0),5,1)
+		HUDMakeParticles("effects/yellowflare",5,2,ScrW()*0,ScrH(),10,10,20,30,-45,-60,60,256,512,Color(255,255,255,255),Color(255,255,255,0),10,1)
+		HUDMakeParticles("gui/silkicons/check_on.vmt",5,2,ScrW()*0,ScrH(),16,16,32,32,-45,-60,60,64,128,Color(255,255,255,255),Color(255,255,255,0),0,0.2)
 	else
 		LocalPlayer():EmitSound( table.Random(GAMEMODE.LoseTriggerSounds) )
+		HUDMakeParticles("effects/yellowflare",35,2,ScrW()*0,ScrH(),20,20,50,70,-45,-60,60,64,256,Color(255,128,128,255),Color(255,0,0,0),5,1)
+		HUDMakeParticles("effects/yellowflare",5,2,ScrW()*0,ScrH(),10,10,20,30,-45,-60,60,256,512,Color(255,255,255,255),Color(255,255,255,0),10,1)
+		HUDMakeParticles("gui/silkicons/check_off.vmt",5,2,ScrW()*0,ScrH(),16,16,32,32,-45,-60,60,64,128,Color(255,255,255,255),Color(255,255,255,0),0,0.2)
 	end
 end
 usermessage.Hook( "EventDestinySet", EventDestinySet )
