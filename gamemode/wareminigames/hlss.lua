@@ -30,7 +30,7 @@ function WARE:EndAction()
 end
 
 local function WareHLSS(player, commandName, args)
-	if (GAMEMODE.WareID == "hlss") then
+	if (GAMEMODE.Minigame.Name == "hlss") then
 		player:WarePlayerDestinyLose( )
 	end
 end
