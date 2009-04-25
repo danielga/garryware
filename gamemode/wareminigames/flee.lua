@@ -3,8 +3,8 @@ WARE.Author = "Hurricaaane (Ha3)"
 local possiblenpcs = { "npc_manhack" , "npc_rollermine" }
 
 function WARE:Initialize()
-	WARE.Choice = possiblenpcs[math.random(1,2)]
-	if WARE.Choice == "npc_rollermine" then
+	self.Choice = possiblenpcs[math.random(1,2)]
+	if self.Choice == "npc_rollermine" then
 		GAMEMODE:DrawPlayersTextAndInitialStatus("Don't be on the boxes !",1)
 		GAMEMODE:SetWareWindupAndLength(3,8)
 	else
@@ -16,7 +16,7 @@ function WARE:Initialize()
 end
 
 function WARE:StartAction()
-	if WARE.Choice == "npc_rollermine" then
+	if self.Choice == "npc_rollermine" then
 		GAMEMODE:DrawPlayersTextAndInitialStatus("Flee !",1)
 	end
 
@@ -25,7 +25,7 @@ function WARE:StartAction()
 	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*ratio),minimum,64)
 	local entposcopy = GAMEMODE:GetRandomLocations(num, ENTS_INAIR)
 	for k,v in pairs(entposcopy) do
-		local ent = ents.Create (WARE.Choice);
+		local ent = ents.Create (self.Choice);
 		ent:SetPos(v:GetPos());
 		ent:Spawn();
 		
@@ -49,7 +49,7 @@ function WARE:EntityTakeDamage( ent, inflictor, attacker, amount)
 end
 
 function WARE:Think( )
-	if WARE.Choice == "npc_rollermine" then
+	if self.Choice == "npc_rollermine" then
 		local entposcopy = 	table.Copy(GAMEMODE:GetEnts(ENTS_ONCRATE))
 		for _,block in pairs(entposcopy) do
 			local box = ents.FindInBox(block:GetPos()+Vector(-30,-30,0),block:GetPos()+Vector(30,30,64))

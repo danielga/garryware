@@ -1,4 +1,5 @@
 WARE.Author = "Hurricaaane (Ha3)"
+WARE.Room = "none"
 
 WARE.OccurencesPerCycle = 2
 

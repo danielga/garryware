@@ -1,4 +1,5 @@
 WARE.Author = "Hurricaaane (Ha3)"
+WARE.Room = "none"
 
 function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(0,8)
