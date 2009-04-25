@@ -3,6 +3,7 @@ if( SERVER ) then
 end
 include( "ply_extension.lua" );
 include( "minigames_module.lua" )
+include( "environment_module.lua" )
 
 GM.Name 	= "Garry Ware"
 GM.Author 	= "Hurricaaane (Ha3)"

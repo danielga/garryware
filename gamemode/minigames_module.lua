@@ -6,42 +6,47 @@ local Minigames_names = {}
 local Minigames_sequence = {}
 local Minigames_CSFiles = {}
 
-local function CopyTable(tbl)
+local function CopyMinigameTable(tbl)
 	local res = {}
 	for k,v in pairs(tbl) do
 		if k~="Hooks" or type(v)~="table" then
 			res[k] = v
 		else
-			res[k] = CopyTable(v)
+			res[k] = CopyMinigameTable(v)
 		end
 	end
 	return res
 end
 
-local ware_mod_meta = {
-	__index = {
-		Copy = function(self)
-			return CopyTable(self)
-		end,
-	}
-}
+--[[
+local WARE = {}
+local ware_mod_meta = {__index=WARE}]]
 
 local function IsValidHookName(name)
 	return name~="Initialize" and name~="StartAction" and name~="EndAction" and name~="IsPlayable"
 end
 
 function Register(name, minigame)
-	minigame.Hooks = {}
-	for name,func in pairs(minigame) do
-		if type(func)=="function" and IsValidHookName(name) then
-			minigame.Hooks[name] = function(...) return func(minigame,unpack(arg)) end
-		end
-	end
-	
-	setmetatable(minigame, ware_mod_meta)
+	minigame.Name = name
 	Minigames[name] = minigame
 	
 	table.insert(Minigames_names, name)
+end
+
+function CreateInstance(name)
+	if not Minigames[name] then return nil end
+	
+	local obj = CopyMinigameTable(Minigames[name])
+	
+	obj.Hooks = {}
+	for name,func in pairs(obj) do
+		if type(func)=="function" and IsValidHookName(name) then
+			obj.Hooks[name] = function(...) return func(obj,unpack(arg)) end
+		end
+	end
+	
+	--setmetatable(obj, ware_mod_meta)
+	return obj
 end
 
 function RandomizeGameSequence()
@@ -64,14 +69,16 @@ end
 
 function GetRandomGameName()
 	local name, minigame
+	local env
 	repeat
 		if #Minigames_sequence == 0 then -- All games have been played, start a new cycle
 			ware_mod.RandomizeGameSequence()
 		end
 		name = table.remove(Minigames_sequence,1)
 		minigame = ware_mod.Get(name)
-	until minigame.IsPlayable == nil or minigame:IsPlayable()
-	return name
+		env = ware_env.FindEnvironment(minigame.Room)
+	until env and (minigame.IsPlayable == nil or minigame:IsPlayable())
+	return name, env
 end
 
 function Get(name)

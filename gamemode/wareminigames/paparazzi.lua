@@ -1,5 +1,9 @@
 WARE.Author = "Hurricaaane (Ha3)"
 
+function WARE:IsPlayable()
+	return #team.GetPlayers(TEAM_UNASSIGNED) >=2
+end
+
 function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(2.5,3.5)
 	

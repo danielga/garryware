@@ -44,10 +44,10 @@ function WARE:Initialize()
 	end
 	
 	local selected = table.Random(spawnedcolors)[1]
-	GAMEMODE.GamePool.SelectedColor = selected
+	self.SelectedColor = selected
 	
 	for k,v in pairs(ents.FindByClass("prop_physics")) do
-		if v:GetNWString("color","") == GAMEMODE.GamePool.SelectedColor then
+		if v:GetNWString("color","") == self.SelectedColor then
 			local land = ents.Create ("gmod_landmarkonremove");
 			land:SetPos(v:GetPos());
 			land:Spawn();
@@ -72,13 +72,13 @@ function WARE:EndAction()
 end
 
 function WARE:EntityTakeDamage( ent, inf, att, amount, info )
-	local pool = GAMEMODE.GamePool
+	local pool = self
 	
 	if att:IsPlayer() == false or info:IsBulletDamage() == false then return end
 	if ent:GetNWString("selcolor","") == "" then return end
 	
 	--print("Someone shot the "..ent:GetNWString("selcolor","").." one...")
-	if ent:GetNWString("selcolor","") == GAMEMODE.GamePool.SelectedColor then
+	if ent:GetNWString("selcolor","") == self.SelectedColor then
 		att:WarePlayerDestinyWin( )
 		att:StripWeapons()
 	else

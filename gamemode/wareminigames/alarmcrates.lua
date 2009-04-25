@@ -67,7 +67,9 @@ end
 function WARE:EndAction()
 	for _,v in pairs(ents.FindByClass("prop_physics")) do
 		if v.AlarmSound then
-			GAMEMODE:MakeLankmarkEffect(v:GetPos())
+			if not v.AlarmPitch then
+				GAMEMODE:MakeLankmarkEffect(v:GetPos())
+			end
 			v.AlarmSound:Stop()
 			v.AlarmSound = nil
 		end
@@ -80,7 +82,7 @@ function WARE:Think()
 			v.AlarmPitch = v.AlarmPitch - 0.7
 			v.AlarmSound:ChangePitch(v.AlarmPitch)
 			
-			if v.AlarmPitch<=20 then
+			if v.AlarmPitch<=1 then
 				v.AlarmSound:Stop()
 				v.AlarmSound = nil
 				v.AlarmPitch = nil

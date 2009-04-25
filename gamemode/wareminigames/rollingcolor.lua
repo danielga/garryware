@@ -1,22 +1,24 @@
 WARE.Author = "Kilburn"
 
 local CrateColours = {
-	{1,0,0,"red"},
-	{0,1,0,"green"},
-	{0,0,1,"blue"},
-	{1,1,0,"yellow"},
-	{1,0,1,"purple"},
-	{1,1,1,"white"},
-	{0,0,0,"black"},
+	{"black" , Color(0  ,0  ,0  ,255)},
+	{"grey"  , Color(128,128,128,255)},
+	{"white" , Color(255,255,255,255)},
+	{"red"   , Color(255,0  ,0  ,255)},
+	{"green" , Color(0  ,255,0  ,255)},
+	{"blue"  , Color(0  ,0  ,255,255)},
+	{"yellow", Color(255,255,0  ,255)},
+	{"pink"  , Color(255,0  ,255,255)},
 }
 
-local function NextCrateColour()
+
+function WARE:NextCrateColour()
 	for _,prop in pairs(ents.FindByModel("models/props_c17/furniturewashingmachine001a.mdl")) do
 		if prop.CurrentColour and not prop.Stop then
 			prop.CurrentColour = prop.CurrentColour + 1
-			if not GAMEMODE.GamePool.Sequence[prop.CurrentColour] then prop.CurrentColour = 1 end
-			local col = GAMEMODE.GamePool.Sequence[prop.CurrentColour]
-			prop:SetColor(col[1]*255, col[2]*255, col[3]*255, 255)
+			if not self.Sequence[prop.CurrentColour] then prop.CurrentColour = 1 end
+			local col = self.Sequence[prop.CurrentColour]
+			prop:SetColor(col[2].r, col[2].g, col[2].b, col[2].a)
 		end
 	end
 end
@@ -37,24 +39,24 @@ end
 -----------------------------------------------------------------------------------
 
 function WARE:Initialize()
-	local ratio = 0.7
-	local minimum = 3
+	local ratio = 0.5
+	local minimum = 4
 	local maxcount = table.Count(GAMEMODE:GetEnts(ENTS_OVERCRATE))
 	local numberSpawns = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*ratio),minimum,maxcount)
 	
 	-- Randomize the colour sequence so players have to memorize it every time this minigame plays
 	local seqcopy = table.Copy(CrateColours)
-	GAMEMODE.GamePool.Sequence = {}
+	self.Sequence = {}
 	for i=1,#CrateColours do
-		table.insert(GAMEMODE.GamePool.Sequence, table.remove(seqcopy,math.random(1,#seqcopy)))
+		table.insert(self.Sequence, table.remove(seqcopy,math.random(1,#seqcopy)))
 	end
 	
-	local Sequence = GAMEMODE.GamePool.Sequence
+	local Sequence = self.Sequence
 	
-	GAMEMODE.GamePool.TargetColour = math.random(1,#Sequence)
+	self.TargetColour = math.random(1,#Sequence)
 	
-	GAMEMODE:SetWareWindupAndLength(1,6)
-	GAMEMODE:DrawPlayersTextAndInitialStatus("Shoot the "..Sequence[GAMEMODE.GamePool.TargetColour][4].." one !",0)
+	GAMEMODE:SetWareWindupAndLength(0.7,6)
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Shoot the "..Sequence[self.TargetColour][1].." one !",0)
 	
 	for i,pos in ipairs(GAMEMODE:GetRandomPositions(numberSpawns, ENTS_OVERCRATE)) do
 		local c = math.random(1,#Sequence)
@@ -68,7 +70,7 @@ function WARE:Initialize()
 		prop:Spawn()
 		
 		prop.CurrentColour = c
-		prop:SetColor(col[1]*255, col[2]*255, col[3]*255, 255)
+		prop:SetColor(col[2].r, col[2].g, col[2].b, col[2].a)
 		prop:SetMoveType(MOVETYPE_NONE)
 		
 		GAMEMODE:AppendEntToBin(prop)
@@ -82,8 +84,8 @@ function WARE:StartAction()
 		v:GiveAmmo(12, "Pistol", true)
 	end
 	
-	NextCrateColour()
-	timer.Create("WARETIMERrollingcolor", 0.5, 0, NextCrateColour)
+	self:NextCrateColour()
+	timer.Create("WARETIMERrollingcolor", 0.5, 0, self.NextCrateColour, self)
 end
 
 function WARE:EndAction()
@@ -91,12 +93,12 @@ function WARE:EndAction()
 end
 
 function WARE:EntityTakeDamage(ent,inf,att,amount,info)
-	local pool = GAMEMODE.GamePool
+	local pool = self
 	
 	if not att:IsPlayer() or not info:IsBulletDamage() then return end
 	if not ent.CurrentColour then return end
 	
-	if GAMEMODE.GamePool.TargetColour == ent.CurrentColour then
+	if self.TargetColour == ent.CurrentColour then
 		if not ent.Stop then
 			ent.Stop = true
 			timer.Simple(1, RemoveCrate, ent)

@@ -87,9 +87,37 @@ function GM:RemoveEnts()
 	end
 end
 
+function GM:RespawnAllPlayers()
+	if not self.CurrentEnvironment then return end
+	
+	local spawns = {}
+	for _,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do
+		if #spawns==0 then
+			spawns = table.Copy(self.CurrentEnvironment.PlayerSpawns)
+		end
+		
+		GAMEMODE:MakeDisappearEffect(v:GetPos())
+		local loc = table.remove(spawns, math.random(1,#spawns))
+		v:SetPos(loc:GetPos())
+		v:SetAngles(loc:GetAngles())
+		GAMEMODE:MakeAppearEffect(v:GetPos())
+	end
+	
+	for _,v in pairs(team.GetPlayers(TEAM_SPECTATOR)) do
+		if #spawns==0 then
+			spawns = table.Copy(self.CurrentEnvironment.PlayerSpawns)
+		end
+		
+		local loc = table.remove(spawns, math.random(1,#spawns))
+		v:SetPos(loc:GetPos())
+		v:SetAngles(loc:GetAngles())
+	end
+	
+	SendUserMessage( "PlayerTeleported" )
+end
+
 --Minigame essentials
 function GM:PickRandomGame()
-	local minigame
 	self.WareHaveStarted = true
 	
 	--Standard initialization
@@ -98,22 +126,15 @@ function GM:PickRandomGame()
 		v:StripWeapons() -- TEST
 	end
 	
-	--Ware is picked up now
-	if GetConVar("ware_debug"):GetInt() > 0 then
-		name = GetConVar("ware_debugname"):GetString()
-	else
-		name = ware_mod.GetRandomGameName()
-	end
-	
-	minigame = ware_mod.Get(name)
+	self.Minigame = ware_mod.CreateInstance(self.NextGameName)
 	
 	--Ware is initialized
-	if minigame and minigame.Initialize and minigame.StartAction then
-		self.WareID = name
-		minigame:Initialize()
+	if self.Minigame and self.Minigame.Initialize and self.Minigame.StartAction then
+		--self.WareID = name
+		self.Minigame:Initialize()
 	else
 		self:SetWareWindupAndLength(0,3)
-		self:DrawPlayersTextAndInitialStatus("Error with minigame \""..name.."\".",0)
+		self:DrawPlayersTextAndInitialStatus("Error with minigame \""..self.NextGameName.."\".",0)
 	end
 	self.NextgameEnd = CurTime() + self.Windup + self.WareLen
 	
@@ -133,13 +154,12 @@ function GM:EndGame()
 	if self.WareHaveStarted == true then
 		--Destroy all
 		if self.ActionPhase == true then
-			GAMEMODE:UnhookTriggers(self.WareID)
+			GAMEMODE:UnhookTriggers()
 			self.ActionPhase = false
 		end
-		local minigame = ware_mod.Get(self.WareID)
-		if minigame and minigame.EndAction then minigame:EndAction() end
+		if self.Minigame and self.Minigame.EndAction then self.Minigame:EndAction() end
 		self:RemoveEnts()
-		self.GamePool = {}
+		--self.GamePool = {}
 
 		--Do stuff to player
 		for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
@@ -185,25 +205,48 @@ function GM:EndGame()
 	
 	--Reinit
 	self.WareHaveStarted = false
-	self.WareID = ""
+	--self.WareID = ""
+	
+	--Ware is picked up now
+	self:PickRandomGameName()
 end
 
-function GM:HookTriggers( name )
-	local hooks = ware_mod.GetHooks(name)
+function GM:PickRandomGameName(first)
+	local env
+	if GetConVar("ware_debug"):GetInt() > 0 then
+		self.NextGameName = GetConVar("ware_debugname"):GetString()
+		env = ware_env.FindEnvironment(ware_mod.Get(self.NextGameName).Room) or self.CurrentEnvironment
+	else
+		self.NextGameName, env = ware_mod.GetRandomGameName()
+	end
+	
+	if env~=self.CurrentEnvironment then
+		self.CurrentEnvironment = env
+		if not first then
+			self.NextgameStart = self.NextgameStart + 1
+			self.NextPlayerRespawn = CurTime() + 2.7
+		else
+			self.NextPlayerRespawn = CurTime() + 1
+		end
+	end
+end
+
+function GM:HookTriggers()
+	local hooks = self.Minigame.Hooks
 	if not hooks then return end
 	
 	for hookname,callback in pairs(hooks) do
 		--hook.Add(hookname, "WARE"..name..hookname,function(...) local state = callback(unpack(arg)) print(state) return state end)
-		hook.Add(hookname, "WARE"..name..hookname,callback)
+		hook.Add(hookname, "WARE"..self.Minigame.Name..hookname,callback)
 	end
 end
 
-function GM:UnhookTriggers( name )
-	local hooks = ware_mod.GetHooks(name)
+function GM:UnhookTriggers()
+	local hooks = self.Minigame.Hooks
 	if not hooks then return end
 	
 	for hookname,_ in pairs(hooks) do
-		hook.Remove(hookname, "WARE"..name..hookname)
+		hook.Remove(hookname, "WARE"..self.Minigame.Name..hookname)
 	end
 end
 
@@ -230,16 +273,19 @@ function GM:Think()
 				GAMEMODE:PickRandomGame()
 				SendUserMessage("WaitHide")
 			end
+			
+			if self.NextPlayerRespawn and CurTime() > self.NextPlayerRespawn then
+				GAMEMODE:RespawnAllPlayers()
+				self.NextPlayerRespawn = nil
+			end
 		
 		--Starts the action
 		else
 			if CurTime() > (self.NextgameStart + self.Windup) && self.ActionPhase == false then
-				local minigame = ware_mod.Get(self.WareID)
-				
-				if minigame then
-					self:HookTriggers(self.WareID)
-					if minigame.StartAction then
-						minigame:StartAction()
+				if self.Minigame then
+					self:HookTriggers()
+					if self.Minigame.StartAction then
+						self.Minigame:StartAction()
 					end
 				end
 				
@@ -282,6 +328,8 @@ function GM:Think()
 				self:SetNextGameStartsIn( 22 )
 			end
 			SendUserMessage( "WaitShow" )
+			
+			self:PickRandomGameName()
 		end
 	end
 	
@@ -341,8 +389,30 @@ function GM:PlayerInitialSpawn( ply, id )
 		umsg.Bool( didnotbegin )
 	umsg.End()
 	
+	--Msg("Player "..ply:GetName().." has just spawned\n")
+	--[[
+	if self.CurrentEnvironment and #self.CurrentEnvironment.PlayerSpawns>0 then
+		local loc = self.CurrentEnvironment.PlayerSpawns[math.random(1,#self.CurrentEnvironment.PlayerSpawns)]
+		ply:SetPos(loc:GetPos())
+		ply:SetAngles(loc:GetAngles())
+	end]]
+	
+	
 	self.BaseClass:PlayerInitialSpawn( ply, id )
-end 
+end
+
+function GM:PlayerSpawn(ply)
+	self.BaseClass:PlayerSpawn(ply)
+	
+	if not self.CurrentEnvironment or #self.CurrentEnvironment.PlayerSpawns==0 then return end
+	
+	--Msg("Respawning player "..ply:GetName().." in environment "..self.CurrentEnvironment.ID.."\n")
+		
+	local loc = self.CurrentEnvironment.PlayerSpawns[math.random(1,#self.CurrentEnvironment.PlayerSpawns)]
+	
+	ply:SetPos(loc:GetPos())
+	ply:SetAngles(loc:GetAngles())
+end
 
 function GM:InitPostEntity( )
 	self.BaseClass:InitPostEntity()
@@ -356,4 +426,16 @@ function GM:InitPostEntity( )
 	self.NexttimeAdvert = CurTime() + 32
 	
 	self.TimeWhenGameEnds = CurTime() + self.GameLength
+	
+	for _,v in pairs(ents.FindByClass("func_wareroom")) do
+		ware_env.Create(v)
+	end
+	
+	-- No environment found, create the default one
+	if #ware_env.GetTable() then
+		ware_env.Create()
+	end
+	
+	-- Start with a generic environment
+	self.CurrentEnvironment = ware_env.FindEnvironment("generic")
 end

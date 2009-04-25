@@ -193,3 +193,8 @@ local function EventEndgameSet( m )
 	end
 end
 usermessage.Hook( "EventEndgameSet", EventEndgameSet )
+
+local function PlayerTeleported( m )
+	LocalPlayer():EmitSound( table.Random(GAMEMODE.TeleportSounds) , 40 )
+end
+usermessage.Hook( "PlayerTeleported", PlayerTeleported )

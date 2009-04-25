@@ -3,8 +3,8 @@ WARE.Author = "Hurricaaane (Ha3)"
 function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(1.5,8)
 	
-	GAMEMODE.GamePool.TimesToHit = math.random(2,5)
-	GAMEMODE:DrawPlayersTextAndInitialStatus("Hit the bullseye exactly "..GAMEMODE.GamePool.TimesToHit.." times !",1)
+	self.TimesToHit = math.random(2,5)
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Hit the bullseye exactly "..self.TimesToHit.." times !",1)
 	
 	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
 		v:Give( "gmdm_pistol" )
@@ -41,9 +41,9 @@ end
 function WARE:Think( )
 	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
 		local timeshit = v:GetNWInt("timeshit",0)
-		if timeshit == GAMEMODE.GamePool.TimesToHit then
+		if timeshit == self.TimesToHit then
 			v:SetAchievedNoDestiny( 1 )
-		elseif timeshit > GAMEMODE.GamePool.TimesToHit then
+		elseif timeshit > self.TimesToHit then
 			v:WarePlayerDestinyLose( )
 		else
 			v:SetAchievedNoDestiny( 0 )

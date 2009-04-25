@@ -23,6 +23,11 @@ GM.LoseTriggerSounds = {
 Sound("buttons/button8.wav"),
 Sound("buttons/button8.wav")}
 
+GM.TeleportSounds = {
+Sound("ambient/machines/teleport1.wav"),
+Sound("ambient/machines/teleport3.wav"),
+Sound("ambient/machines/teleport4.wav")}
+
 GM.WareEnts = {}
 GM.EntsOnCrate = {}
 GM.EntsOverCrate = {}

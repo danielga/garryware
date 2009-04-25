@@ -39,7 +39,7 @@ end
 
 function WARE:StartAction()
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Put it in the trashcan ! ",0)
-	GAMEMODE.GamePool.Trashcans = {}
+	self.Trashcans = {}
 	local pos = GAMEMODE:GetRandomPositionsAvoidBox(2, ENTS_ONCRATE, function(v) return v:IsPlayer() end, Vector(-64,-64,64), Vector(64,64,64))
 	for k,v in pairs(pos) do
 		local trash = ents.Create("prop_physics")
@@ -60,7 +60,7 @@ function WARE:StartAction()
 		land:Spawn()
 		GAMEMODE:AppendEntToBin(land)
 		GAMEMODE:AppendEntToBin(trash)
-		table.insert(GAMEMODE.GamePool.Trashcans,trash)
+		table.insert(self.Trashcans,trash)
 		
 		GAMEMODE:MakeAppearEffect( v )
 	end
@@ -73,10 +73,10 @@ function WARE:EndAction()
 end
 
 function WARE:Think()
-	if GAMEMODE.GamePool.Trashcans then
-		if not GAMEMODE.GamePool.NextTrashThink or CurTime()>GAMEMODE.GamePool.NextTrashThink then
+	if self.Trashcans then
+		if not self.NextTrashThink or CurTime()>self.NextTrashThink then
 		
-			for l,w in pairs(GAMEMODE.GamePool.Trashcans) do
+			for l,w in pairs(self.Trashcans) do
 			
 				local bmin,bmax = w:WorldSpaceAABB()
 				for _,v in pairs(ents.FindInBox(bmin+Vector(12,12,14),bmax-Vector(12,12,10))) do
@@ -94,7 +94,7 @@ function WARE:Think()
 				
 			end
 			
-			GAMEMODE.GamePool.NextTrashThink = CurTime()+0.1
+			self.NextTrashThink = CurTime()+0.1
 		end
 	end
 end

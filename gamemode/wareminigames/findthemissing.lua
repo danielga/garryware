@@ -23,14 +23,14 @@ function WARE:Initialize()
 end
 
 function WARE:StartAction()
-	GAMEMODE.GamePool.MissingEnts = {}
+	self.MissingEnts = {}
 	local ratio = 0.25
 	local minimum = 1
 	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*ratio),minimum,64)
-	local entws = GAMEMODE:GetRandomLocations(num,ents.FindByClass("prop_physics"))
+	local entws = GAMEMODE:GetRandomLocations(num,ents.FindByModel("models/props_c17/furniturewashingmachine001a.mdl"))
 	
 	for k,v in pairs(entws) do
-		table.insert(GAMEMODE.GamePool.MissingEnts,v:GetNWEntity("parpoint"))
+		table.insert(self.MissingEnts,v:GetNWEntity("parpoint"))
 		v:Remove()
 		local land = ents.Create ("gmod_landmarkonremove");
 		land:SetPos(v:GetPos());
@@ -47,7 +47,7 @@ function WARE:EndAction()
 end
 
 function WARE:Think( )
-	for k,v in pairs(GAMEMODE.GamePool.MissingEnts) do
+	for k,v in pairs(self.MissingEnts) do
 		local missentpos = v:GetPos()
 		local box = ents.FindInBox(missentpos+Vector(-30,-30,0),missentpos+Vector(30,30,64))
 		for _,target in pairs(box) do

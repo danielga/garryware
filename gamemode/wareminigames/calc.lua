@@ -5,7 +5,7 @@ function WARE:Initialize()
 	
 	local a = math.random(10,99)
 	local b = math.random(10,99)
-	GAMEMODE.GamePool.WareSolution = a + b
+	self.WareSolution = a + b
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Calculate and say : "..a.." + "..b.." = ?",0)
 end
 
@@ -15,12 +15,12 @@ end
 
 function WARE:EndAction()
 	for k,v in pairs(player.GetAll()) do 
-		v:ChatPrint( "Answer was "..GAMEMODE.GamePool.WareSolution.." !" )  
+		v:ChatPrint( "Answer was "..self.WareSolution.." !" )  
 	end
 end
 
 function WARE:PlayerSay(ply, text, say)
-	if text == tostring(GAMEMODE.GamePool.WareSolution) then
+	if text == tostring(self.WareSolution) then
 		ply:WarePlayerDestinyWin( )
 		for k,v in pairs(player.GetAll()) do 
 			v:ChatPrint( ply:GetName() .. " has found the correct answer !" )  

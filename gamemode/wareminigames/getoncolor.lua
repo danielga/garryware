@@ -45,10 +45,10 @@ function WARE:Initialize()
 	end
 	
 	local selected = table.Random(spawnedcolors)[1]
-	GAMEMODE.GamePool.SelectedColor = selected
+	self.SelectedColor = selected
 	
 	for k,v in pairs(ents.FindByClass("ware_ringzone")) do
-		if v:GetNWString("selcolor","") == GAMEMODE.GamePool.SelectedColor then
+		if v:GetNWString("selcolor","") == self.SelectedColor then
 			local land = ents.Create ("gmod_landmarkonremove");
 			land:SetPos(v:GetPos());
 			land:Spawn();
@@ -76,7 +76,7 @@ function WARE:Think( )
 		v:SetAchievedNoDestiny(0)
 	end
 	for k,v in pairs(ents.FindByClass("ware_ringzone")) do
-		if v:GetNWString("selcolor","") == GAMEMODE.GamePool.SelectedColor then
+		if v:GetNWString("selcolor","") == self.SelectedColor then
 			local missentpos = v:GetPos()
 			local sphere = ents.FindInSphere(missentpos,self.CircleRadius)
 			for _,target in pairs(sphere) do
