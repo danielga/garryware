@@ -18,7 +18,6 @@ function ENT:Setup(mins, maxs, callback, filter, iswhitelist)
 	self.vmax = Vector(self.vmax,self.vmax,self.vmax)
 	
 	self:SetNetworkedVector("vmax", self.vmax)
-	print(self.vmax)
 	
 	self.TouchCallback = callback
 	

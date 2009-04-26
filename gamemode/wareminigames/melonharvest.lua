@@ -23,6 +23,7 @@ local function EntityCaught(trigger,ent)
 			cart:SetColor(255,255,255,255)
 			cart.CartOwner:WarePlayerDestinyWin()
 			cart.CartOwner:StripWeapons()
+			trigger:Remove()
 			timer.Simple(1, RemoveCartVictory, cart)
 		end
 	end
@@ -62,8 +63,9 @@ function WARE:Initialize()
 		cart:SetAngles(Angle(0,math.random(-180,180),0))
 		cart:Spawn()
 		
-		cart:Fire("AddOutput", "OnPhysGunPickup luarun1,RunCode")
+		cart:Fire("AddOutput", "OnPhysGunOnlyPickup luarun1,RunCode")
 		cart:Fire("AddOutput", "OnPhysGunDrop luarun2,RunCode")
+		cart:Fire("AddOutput", "OnPhysCannonDetach luarun2,RunCode")
 		
 		GAMEMODE:AppendEntToBin(cart)
 		GAMEMODE:MakeAppearEffect(pos+Vector(0,0,100))
@@ -85,9 +87,10 @@ function WARE:StartAction()
 			trigger:SetPos(v:GetPos())
 			trigger:SetAngles(v:GetAngles())
 			trigger:Spawn()
-		
+			
 			trigger:SetParent(v)
 			trigger:Setup(Vector(-35,-15,-10), Vector(35,15,20), EntityCaught, {"models/props_junk/watermelon01.mdl"}, true)
+			v.Trigger = trigger
 		else
 			GAMEMODE:MakeDisappearEffect(v:GetPos())
 			v:Remove()
@@ -96,6 +99,9 @@ function WARE:StartAction()
 end
 
 function WARE:EndAction()
+	for _,v in pairs(ents.FindByClass("lua_run")) do
+		v:Remove()
+	end
 end
 
 function WARE:Think()
@@ -105,6 +111,13 @@ function WARE:Think()
 		if not v.Cart then
 			v:WarePlayerDestinyLose()
 			v:StripWeapons()
+		end
+	end
+	
+	for _,v in pairs(ents.FindByModel("models/props_wasteland/laundry_cart001.mdl")) do
+		if v.Trigger and v.Trigger:IsValid() and not v.CartOwner then
+			v.Trigger:Remove()
+			v.Trigger = nil
 		end
 	end
 	
