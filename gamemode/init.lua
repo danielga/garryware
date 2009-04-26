@@ -144,6 +144,7 @@ function GM:PickRandomGame()
 		--self.WareID = name
 		self.Minigame:Initialize()
 	else
+		self.Minigame = ware_mod.CreateInstance("_empty")
 		self:SetWareWindupAndLength(0,3)
 		self:DrawPlayersTextAndInitialStatus("Error with minigame \""..self.NextGameName.."\".",0)
 	end

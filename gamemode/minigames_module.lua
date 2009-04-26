@@ -92,7 +92,7 @@ function GetRandomGameName()
 end
 
 function Get(name)
-	return Minigames[name]
+	return Minigames[name] or Get("_empty")
 end
 
 function GetHooks(name)
