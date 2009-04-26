@@ -44,8 +44,8 @@ function WARE:Initialize()
 		GAMEMODE:MakeAppearEffect(ent:GetPos())
 	end
 	
-	local selected = table.Random(spawnedcolors)[1]
-	self.SelectedColor = selected
+	local selected = table.Random(spawnedcolors)
+	self.SelectedColor = selected[1]
 	
 	for k,v in pairs(ents.FindByClass("ware_ringzone")) do
 		if v:GetNWString("selcolor","") == self.SelectedColor then
@@ -56,7 +56,24 @@ function WARE:Initialize()
 		end
 	end
 	
-	GAMEMODE:DrawPlayersTextAndInitialStatus("Get on the "..selected.." circle !",0)
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Get on the "..selected[1].." circle !",0)
+	/*
+	GAMEMODE:StreamParticlesToClient(
+		player.GetAll(),
+		"effects/yellowflare",1,2,
+		{
+			0.5,0.4,
+			10,10,
+			256,256,
+			0,0,0,
+			0,0,
+			Color(selected[2].r,selected[2].g,selected[2].b,255),
+			Color(selected[2].r,selected[2].g,selected[2].b,0),
+			5,
+			1
+		}
+	)
+	*/
 	return
 end
 

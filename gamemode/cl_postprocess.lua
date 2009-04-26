@@ -49,6 +49,13 @@ function HUDMakeParticles(materialpath,number,duration,posx,posy,sizemin,sizemax
 	end
 end
 
+/*
+local function RemoteMakeParticles( m )
+	local data = m:GetDecodedData()
+	HUDMakeParticles(data.materialpath,data.number,data.duration,data.posx_rel*ScrW(),data.posy*ScrH(),data.sizemin,data.sizemax,data.sizeendmin,data.sizeendmax,data.dir_angle,data.diffusemin,data.diffusemax,data.distancemin,data.distancemax,data.color,data.colorend,data.gravity,data.resist)
+end
+datastream.Hook( "RemoteMakeParticles", RemoteMakeParticles )
+*/
 
 Sharpen = 0
 MotionBlur = 0

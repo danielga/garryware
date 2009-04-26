@@ -72,6 +72,34 @@ function GM:DrawPlayersTextAndInitialStatus(text , initialAchievedInt)
 	end
 end
 
+/*
+function GM:StreamParticlesToClient(tableClients,materialpath,number,duration,data)
+	datastream.StreamToClients(
+		tableClients,
+		"RemoteMakeParticles",
+		{
+			["materialpath"] = materialpath,
+			["number"] = number,
+			["duration"] = duration,
+			["posx_rel"] = data[1],
+			["posy_rel"] = data[2],
+			["sizemin"] = data[3],
+			["sizemax"] = data[4],
+			["sizeendmin"] = data[5],
+			["sizeendmax"] = data[6],
+			["dir_angle"] = data[7],
+			["diffusemin"] = data[8],
+			["diffusemax"] = data[9],
+			["distancemin"] = data[10],
+			["distancemax"] = data[11],
+			["color"] = data[12],
+			["colorend"] = data[13],
+			["gravity"] = data[14],
+			["resist"] = data[15]
+		}
+	);
+end
+*/
 
 --Bin functions
 function GM:AppendEntToBin( ent )

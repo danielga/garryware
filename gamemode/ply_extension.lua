@@ -164,3 +164,7 @@ function meta:Think( )
 	self:DoRecoilThink()
 
 end
+
+function meta:IsObserver()
+	return ( self:Team() == TEAM_SPECTATOR && self:GetObserverMode() > OBS_MODE_NONE );
+end
