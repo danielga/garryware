@@ -87,7 +87,7 @@ function WARE:StartAction()
 			trigger:Spawn()
 		
 			trigger:SetParent(v)
-			trigger:Setup(Vector(-35,-15,-10), Vector(35,15,20), EntityCaught)
+			trigger:Setup(Vector(-35,-15,-10), Vector(35,15,20), EntityCaught, {"models/props_junk/watermelon01.mdl"}, true)
 		else
 			GAMEMODE:MakeDisappearEffect(v:GetPos())
 			v:Remove()
