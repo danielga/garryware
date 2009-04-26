@@ -4,6 +4,19 @@ if (!meta) then return end
 
 meta.OldPrintMessage = meta.PrintMessage;
 
+-- Only useful when game starts since we're assuming every player is in the same environment
+function meta:GetEnvironment()
+	if #ents.FindByClass("func_wareroom")==0 then
+		return ware_env.Get(1)
+	end
+	
+	for _,v in pairs(ware_env.GetTable()) do
+		if v.Players[self] then
+			return v
+		end
+	end
+end
+
 function meta:GiveOverride(class)
 	local w = ents.Create(class)
 	w:SetPos(self:GetPos() + Vector(0,0,24))

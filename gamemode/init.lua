@@ -91,26 +91,31 @@ function GM:RespawnAllPlayers()
 	if not self.CurrentEnvironment then return end
 	
 	local spawns = {}
+	-- Priority goes to active players, so they don't spawn in each other
 	for _,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do
-		if #spawns==0 then
-			spawns = table.Copy(self.CurrentEnvironment.PlayerSpawns)
-		end
+		if v:GetEnvironment()~=self.CurrentEnvironment then
+			if #spawns==0 then
+				spawns = table.Copy(self.CurrentEnvironment.PlayerSpawns)
+			end
 		
-		GAMEMODE:MakeDisappearEffect(v:GetPos())
-		local loc = table.remove(spawns, math.random(1,#spawns))
-		v:SetPos(loc:GetPos())
-		v:SetAngles(loc:GetAngles())
-		GAMEMODE:MakeAppearEffect(v:GetPos())
+			GAMEMODE:MakeDisappearEffect(v:GetPos())
+			local loc = table.remove(spawns, math.random(1,#spawns))
+			v:SetPos(loc:GetPos())
+			v:SetAngles(loc:GetAngles())
+			GAMEMODE:MakeAppearEffect(v:GetPos())
+		end
 	end
 	
 	for _,v in pairs(team.GetPlayers(TEAM_SPECTATOR)) do
-		if #spawns==0 then
-			spawns = table.Copy(self.CurrentEnvironment.PlayerSpawns)
-		end
+		if v:GetEnvironment()~=self.CurrentEnvironment then
+			if #spawns==0 then
+				spawns = table.Copy(self.CurrentEnvironment.PlayerSpawns)
+			end
 		
-		local loc = table.remove(spawns, math.random(1,#spawns))
-		v:SetPos(loc:GetPos())
-		v:SetAngles(loc:GetAngles())
+			local loc = table.remove(spawns, math.random(1,#spawns))
+			v:SetPos(loc:GetPos())
+			v:SetAngles(loc:GetAngles())
+		end
 	end
 	
 	SendUserMessage( "PlayerTeleported" )
@@ -313,6 +318,10 @@ function GM:Think()
 				umsg.Float( 0 )
 				umsg.Float( 0 )
 			umsg.End()
+		elseif self.FirstTimePickGame and CurTime()>self.FirstTimePickGame then
+			-- Game has just started, pick the first game
+			self:PickRandomGameName()
+			self.FirstTimePickGame = nil
 		end
 	
 	else
@@ -324,12 +333,12 @@ function GM:Think()
 			
 			if (GetConVar("ware_debug"):GetInt() > 0) then
 				self:SetNextGameStartsIn( 4 )
+				self.FirstTimePickGame = 1.3
 			else
 				self:SetNextGameStartsIn( 22 )
+				self.FirstTimePickGame = 19.3
 			end
 			SendUserMessage( "WaitShow" )
-			
-			self:PickRandomGameName()
 		end
 	end
 	
@@ -416,6 +425,8 @@ end
 
 function GM:InitPostEntity( )
 	self.BaseClass:InitPostEntity()
+	
+	RemoveUnplayableMinigames()
 
 	self.GamesArePlaying = false
 	self.WareHaveStarted = false

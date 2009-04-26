@@ -26,7 +26,9 @@ function WARE:Initialize()
 		prop:Spawn()
 		
 		prop:Fire("AddOutput", "OnPhysGunPickup luarun,RunCode")
-		util.SpriteTrail(prop,0,Color(255,255,255,255),false,16,0,6,1/8,"trails/smoke.vmt")
+		--util.SpriteTrail(prop,0,Color(255,255,255,255),false,16,0,6,1/8,"trails/smoke.vmt")
+		
+		util.SpriteTrail(prop,0,Color(255,255,255,92),false,0.7,1.2,5,1/((0.7+1.2)*0.5),"trails/physbeam.vmt")
 		
 		GAMEMODE:AppendEntToBin(prop)
 		GAMEMODE:MakeAppearEffect(pos)

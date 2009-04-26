@@ -4,6 +4,7 @@ ENT.Type = "brush"
 function ENT:Initialize()
 	self.PlayerSpawns = {}
 	self.Locations = {}
+	self.Players = {}
 end
 
 function ENT:KeyValue(key,value)
@@ -28,6 +29,14 @@ function ENT:StartTouch(ent)
 			table.insert(self.Locations[ent:GetName()], ent)
 			ent:SetNotSolid(true)
 		end
+	elseif ent:IsPlayer() then
+		self.Players[ent] = 1
+	end
+end
+
+function ENT:EndTouch(ent)
+	if ent:IsPlayer() then
+		self.Players[ent] = nil
 	end
 end
 

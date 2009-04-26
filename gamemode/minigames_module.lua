@@ -29,8 +29,18 @@ end
 function Register(name, minigame)
 	minigame.Name = name
 	Minigames[name] = minigame
-	
 	table.insert(Minigames_names, name)
+end
+
+function Remove(name)
+	for k,v in ipairs(Minigames_names) do
+		if v==name then
+			table.remove(Minigames_names, k)
+			break
+		end
+	end
+	
+	Minigames[name] = nil
 end
 
 function CreateInstance(name)

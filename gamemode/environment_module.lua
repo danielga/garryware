@@ -44,17 +44,15 @@ local WAREENV = {}
 --Location retrieval functions
 function WAREENV:GetEnts(group)
 	if type(group)=="table" then
-		if ValidEntity(group[1]) then
-			return table.Copy(group)
-		end
-		
 		local result = {}
 		for _,v in pairs(group) do
 			table.Add(result, self:GetEnts(v))
 		end
 		return result
-	else
+	elseif type(group)=="string" then
 		return table.Copy(self.Locations[group] or {})
+	elseif group and group:IsValid() then
+		return {group}
 	end
 end
 
@@ -151,10 +149,10 @@ function Create(ent)
 	local env
 	if ent and ent:IsValid() and ent:GetClass()=="func_wareroom" then
 		--Create a new environment based on the given func_wareroom entity
-		env = {PlayerSpawns=ent.PlayerSpawns, Locations=ent.Locations, Name=ent:GetName(), MinPlayers=ent.MinPlayers or 0, MaxPlayers=ent.MaxPlayers or 0}
+		env = {PlayerSpawns=ent.PlayerSpawns, Locations=ent.Locations, Players=ent.Players, Name=ent:GetName(), MinPlayers=ent.MinPlayers or 0, MaxPlayers=ent.MaxPlayers or 0}
 	else
 		--Create the default environment
-		env = {PlayerSpawns={}, Locations={}, Name="", MinPlayers=0, MaxPlayers=0}
+		env = {PlayerSpawns={}, Locations={}, Players={}, Name="", MinPlayers=0, MaxPlayers=0}
 		for _,v in pairs(ents.GetAll()) do
 			if v:GetClass()=="info_player_start" then
 				table.insert(env.PlayerSpawns, v)
@@ -178,6 +176,19 @@ function Get(id)
 	return Environments[id]
 end
 
+function HasEnvironment(name)
+	if name=="none" or name=="generic" or name=="" or not name then
+		return true
+	end
+	
+	for _,v in pairs(ents.FindByClass("func_wareroom")) do
+		if string.find(v:GetName(),name) then
+			return true
+		end
+	end
+	return false
+end
+
 function FindEnvironment(name)
 	if name=="none" and not GAMEMODE.CurrentEnvironment then
 		name="generic"
@@ -185,7 +196,7 @@ function FindEnvironment(name)
 	
 	if name=="none" then
 		return GAMEMODE.CurrentEnvironment
-	elseif not name or name=="generic" then
+	elseif not name or name=="" or name=="generic" then
 		local list = {}
 		for _,v in ipairs(Environments) do
 			if v.Name=="" then

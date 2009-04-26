@@ -85,7 +85,9 @@ function WARE:StartAction()
 end
 
 function WARE:EndAction()
-	
+	for _,v in pairs(ents.FindByClass("models/props_junk/watermelon01.mdl")) do
+		GAMEMODE:MakeLankmarkEffect(v:GetPos())
+	end
 end
 
 function WARE:PropBreak(pl,prop)

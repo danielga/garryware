@@ -79,7 +79,7 @@ function IncludeMinigames()
 	
 	print("__________\n")
 	names = ware_mod.GetNamesTable()
-	str = "Added wares : "
+	str = "Added wares ("..#names..") : "
 	for k,v in pairs(names) do
 		str = str.."\""..v.."\" "
 	end
@@ -94,3 +94,22 @@ function IncludeMinigames()
 	print("__________\n")
 end
 
+function RemoveUnplayableMinigames()
+	local names = ware_mod.GetNamesTable()
+	local removed = {}
+	
+	for _,v in pairs(ware_mod.GetNamesTable()) do
+		if not ware_env.HasEnvironment(ware_mod.Get(v).Room) then
+			table.insert(removed,v)
+			ware_mod.Remove(v)
+		end
+	end
+	
+	print("__________\n")
+	str = "Removed wares ("..#removed..") : "
+	for k,v in pairs(removed) do
+		str = str.."\""..v.."\" "
+	end
+	print(str)
+	print("__________\n")
+end
