@@ -90,6 +90,8 @@ end
 function GM:RespawnAllPlayers()
 	if not self.CurrentEnvironment then return end
 	
+	local rp = RecipientFilter()
+	
 	local spawns = {}
 	-- Priority goes to active players, so they don't spawn in each other
 	for _,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do
@@ -103,6 +105,8 @@ function GM:RespawnAllPlayers()
 			v:SetPos(loc:GetPos())
 			v:SetAngles(loc:GetAngles())
 			GAMEMODE:MakeAppearEffect(v:GetPos())
+			
+			rp:AddPlayer(v)
 		end
 	end
 	
@@ -115,10 +119,12 @@ function GM:RespawnAllPlayers()
 			local loc = table.remove(spawns, math.random(1,#spawns))
 			v:SetPos(loc:GetPos())
 			v:SetAngles(loc:GetAngles())
+			
+			rp:AddPlayer(v)
 		end
 	end
 	
-	SendUserMessage( "PlayerTeleported" )
+	SendUserMessage("PlayerTeleported", rp)
 end
 
 --Minigame essentials
