@@ -123,7 +123,7 @@ function GM:RespawnAllPlayers()
 	local spawns = {}
 	-- Priority goes to active players, so they don't spawn in each other
 	for _,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do
-		if v:GetEnvironment()~=self.CurrentEnvironment then
+		--if v:GetEnvironment()~=self.CurrentEnvironment then
 			if #spawns==0 then
 				spawns = table.Copy(self.CurrentEnvironment.PlayerSpawns)
 			end
@@ -135,7 +135,7 @@ function GM:RespawnAllPlayers()
 			GAMEMODE:MakeAppearEffect(v:GetPos())
 			
 			rp:AddPlayer(v)
-		end
+		--end
 	end
 	
 	for _,v in pairs(team.GetPlayers(TEAM_SPECTATOR)) do
