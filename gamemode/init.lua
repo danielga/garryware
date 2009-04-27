@@ -123,19 +123,25 @@ function GM:RespawnAllPlayers()
 	local spawns = {}
 	-- Priority goes to active players, so they don't spawn in each other
 	for _,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do
-		--if v:GetEnvironment()~=self.CurrentEnvironment then
+		if v:GetEnvironment()~=self.CurrentEnvironment then
 			if #spawns==0 then
 				spawns = table.Copy(self.CurrentEnvironment.PlayerSpawns)
 			end
 		
 			GAMEMODE:MakeDisappearEffect(v:GetPos())
 			local loc = table.remove(spawns, math.random(1,#spawns))
-			v:SetPos(loc:GetPos())
-			v:SetAngles(loc:GetAngles())
-			GAMEMODE:MakeAppearEffect(v:GetPos())
+			
+			--v:SetPos(loc:GetPos())
+			--v:SetAngles(loc:GetAngles())
+			v.ForcedSpawn = loc
+			v:Spawn()
+			
+			GAMEMODE:MakeAppearEffect(loc:GetPos())
+			GAMEMODE:MakeLankmarkEffect(loc:GetPos())
 			
 			rp:AddPlayer(v)
-		--end
+			Msg("Teleported player \""..v:GetName().."\"\n")
+		end
 	end
 	
 	for _,v in pairs(team.GetPlayers(TEAM_SPECTATOR)) do
@@ -145,10 +151,14 @@ function GM:RespawnAllPlayers()
 			end
 		
 			local loc = table.remove(spawns, math.random(1,#spawns))
-			v:SetPos(loc:GetPos())
-			v:SetAngles(loc:GetAngles())
+			
+			--v:SetPos(loc:GetPos())
+			--v:SetAngles(loc:GetAngles())
+			v.ForcedSpawn = loc
+			v:Spawn()
 			
 			rp:AddPlayer(v)
+			Msg("Teleported player \""..v:GetName().."\"\n")
 		end
 	end
 	
@@ -451,11 +461,32 @@ function GM:PlayerSpawn(ply)
 	if not self.CurrentEnvironment or #self.CurrentEnvironment.PlayerSpawns==0 then return end
 	
 	--Msg("Respawning player "..ply:GetName().." in environment "..self.CurrentEnvironment.ID.."\n")
-		
+	
+	--[[
 	local loc = self.CurrentEnvironment.PlayerSpawns[math.random(1,#self.CurrentEnvironment.PlayerSpawns)]
 	
 	ply:SetPos(loc:GetPos())
-	ply:SetAngles(loc:GetAngles())
+	ply:SetAngles(loc:GetAngles())]]
+end
+
+function GM:PlayerSelectSpawn(ply)
+	if ply.ForcedSpawn then
+		local spawn = ply.ForcedSpawn
+		ply.ForcedSpawn = nil
+		return spawn
+	end
+	
+	local spawns
+	
+	if self.CurrentEnvironment then
+		spawns = self.CurrentEnvironment.PlayerSpawns
+	end
+	
+	if not spawns or #spawns==0 then
+		spawns = ents.FindByClass("info_player_start")
+	end
+	
+	return spawns[math.random(1,#spawns)]
 end
 
 function GM:InitPostEntity( )
