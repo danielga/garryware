@@ -30,14 +30,14 @@ function ENT:StartTouch(ent)
 			ent:SetNotSolid(true)
 		end
 	elseif ent:IsPlayer() then
-		Msg("Player \""..ent:GetName().."\" entered environment \""..self:GetName().."\"\n")
+		--Msg("Player \""..ent:GetName().."\" entered environment \""..self:GetName().."\"\n")
 		self.Players[ent] = 1
 	end
 end
 
 function ENT:EndTouch(ent)
 	if ent:IsPlayer() then
-		Msg("Player \""..ent:GetName().."\" left environment \""..self:GetName().."\"\n")
+		--Msg("Player \""..ent:GetName().."\" left environment \""..self:GetName().."\"\n")
 		self.Players[ent] = nil
 	end
 end
