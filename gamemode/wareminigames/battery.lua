@@ -105,7 +105,7 @@ function WARE:EndAction()
 	end
 	for _,v in pairs(ents.FindByClass("prop_physics")) do
 		if v:GetModel() == "models/props_lab/tpplugholder_single.mdl" && v:GetNWInt("isoccupied",0) == 0 then
-			GAMEMODE:MakeLankmarkEffect(v:GetPos())
+			GAMEMODE:MakeLandmarkEffect(v:GetPos())
 		end
 	end
 end

@@ -68,7 +68,7 @@ function WARE:EndAction()
 	for _,v in pairs(ents.FindByClass("prop_physics")) do
 		if v.AlarmSound then
 			if not v.AlarmPitch then
-				GAMEMODE:MakeLankmarkEffect(v:GetPos())
+				GAMEMODE:MakeLandmarkEffect(v:GetPos())
 			end
 			v.AlarmSound:Stop()
 			v.AlarmSound = nil

@@ -137,7 +137,7 @@ function GM:RespawnAllPlayers()
 			v:Spawn()
 			
 			GAMEMODE:MakeAppearEffect(loc:GetPos())
-			GAMEMODE:MakeLankmarkEffect(loc:GetPos())
+			GAMEMODE:MakeLandmarkEffect(loc:GetPos())
 			
 			rp:AddPlayer(v)
 			Msg("Teleported player \""..v:GetName().."\"\n")

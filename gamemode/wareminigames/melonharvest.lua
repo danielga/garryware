@@ -3,7 +3,7 @@ WARE.Author = "Kilburn"
 local function RemoveCartVictory(cart)
 	if cart and cart:IsValid() then
 		GAMEMODE:MakeDisappearEffect(cart:GetPos())
-		GAMEMODE:MakeLankmarkEffect(cart:GetPos())
+		GAMEMODE:MakeLandmarkEffect(cart:GetPos())
 		cart:Remove()
 	end
 end
