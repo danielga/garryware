@@ -399,8 +399,20 @@ end
 
 function GM:EndTheGameForOnce()
 	if self.GameHasEnded == true then return end
+	
 	self.GamesArePlaying = false
 	self.GameHasEnded = true
+	
+	--Find combos before ending the game and after saying the game has ended
+	for _,ply in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do
+		local combo = ply:GetNWInt("combo",0)
+		if (ply:GetNWBool("dominating",false) == true) then			
+			for k,v in pairs(player.GetAll()) do 
+				v:ChatPrint( ply:GetName() .. "'s combo streak reached "..combo.." wins in a row !" )
+			end
+		end
+	end
+	
 	GAMEMODE:EndGame()
 	
 	--Send info about VGUI
@@ -442,6 +454,8 @@ function GM:PlayerInitialSpawn( ply, id )
 		umsg.Float( self.TimeWhenGameEnds )
 		umsg.Bool( didnotbegin )
 	umsg.End()
+	ply:SetNWInt("combo",0)
+	ply:SetNWBool("dominating",false)
 	
 	--Msg("Player "..ply:GetName().." has just spawned\n")
 	--[[

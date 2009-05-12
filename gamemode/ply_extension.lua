@@ -49,6 +49,17 @@ function meta:WarePlayerDestinyWin()
 	local ed = EffectData()
 	ed:SetOrigin( self:GetPos() )
 	util.Effect("ware_good", ed, true, true)
+	
+	local combo = self:GetNWInt("combo") + 1
+	self:SetNWInt("combo",combo)
+	if (self:GetNWBool("dominating",false) == false && combo >= 3) then
+		self:SetNWBool("dominating",true)
+		self:EmitSound("misc/tf_domination.wav")
+		
+		local ed2 = EffectData()
+		ed2:SetOrigin( self:GetPos() )
+		util.Effect("ware_domination", ed2, true, true)
+	end
 end
 
 function meta:WarePlayerDestinyLose( )
@@ -71,6 +82,22 @@ function meta:WarePlayerDestinyLose( )
 	local ed = EffectData()
 	ed:SetOrigin( self:GetPos() )
 	util.Effect("ware_bad", ed, true, true)
+	
+	local lostcombo = self:GetNWInt("combo")
+	if (GAMEMODE.GameHasEnded == false && self:GetNWBool("dominating",false) == true) then
+		self:SetNWBool("dominating",false)
+		self:EmitSound("misc/tf_nemesis.wav")
+		
+		local ed2 = EffectData()
+		ed2:SetOrigin( self:GetPos() )
+		util.Effect("ware_losedom", ed2, true, true)
+		
+		for k,v in pairs(player.GetAll()) do 
+			v:ChatPrint( self:GetName() .. "'s combo streak ended with "..lostcombo.." wins in a row !" )
+		end
+	end
+	local combo = 0
+	self:SetNWInt("combo",combo)
 end
 
 function meta:PrintMessage( t, m )

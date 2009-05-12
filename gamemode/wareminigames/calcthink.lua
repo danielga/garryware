@@ -4,12 +4,32 @@ WARE.Room = "none"
 function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(0,8)
 	
-	local a = math.random(10,99)
-	local b = math.random(10,99)
-	self.WareSolution = a + b
-	GAMEMODE:DrawPlayersTextAndInitialStatus("Calculate and say : "..a.." + "..b.." = ?",0)
+	local init = math.random(2,9)
+	local mul = math.random(2,2)
+	local negative = math.random(0,1)
+	local add = math.random(1,9)
+	local ismul = math.random(0,1)
+	
+	if negative == 1 then
+		add = -add
+	end
+	
+	local one, two, three
+	if ismul == 1 then
+		one = init
+		two = one * mul
+		three = two * mul
+		self.WareSolution = three * mul
+	else
+		one = init + negative * (-add * 10)
+		two = one + add
+		three = two + add
+		self.WareSolution = three + add
+	end
+	
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Think : "..one.." - "..two.." - "..three.." - ?",0)
 	for k,v in pairs(player.GetAll()) do 
-		v:ChatPrint( "Calculate and say : "..a.." + "..b.." = ?" )  
+		v:ChatPrint( "Think : "..one.." - "..two.." - "..three.." - ?" )  
 	end
 end
 

@@ -89,6 +89,7 @@ function PANEL:Think()
 		local line = self.List:AddLine( ply:Nick(), win, fail )
 		line.goodness = true
 		line.destiny = ply:GetNWInt("ware_hasdestiny",0)
+		line.dominating = ply:GetNWBool("dominating",false)
 	end
 	self.List:DataLayout()
 	
@@ -99,6 +100,7 @@ function PANEL:Think()
 		local line = self.List2:AddLine( ply:Nick(), win_2, fail_2 )
 		line.goodness = false
 		line.destiny = ply:GetNWInt("ware_hasdestiny",0)
+		line.dominating = false
 	end
 	self.List2:DataLayout()
 	

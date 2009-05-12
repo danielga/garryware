@@ -27,5 +27,5 @@ function ENT:Draw()
 	
 	render.SetMaterial( Circle )
 	--render.DrawQuadEasy( self:GetPos(), self:GetAngles():Up(), size, size, color )
-	render.DrawQuadEasy( tr.HitPos, tr.HitNormal, size, size, color )
+	render.DrawQuadEasy( self:GetPos(), self:GetUp(), size, size, color )
 end

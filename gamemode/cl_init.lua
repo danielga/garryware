@@ -38,6 +38,18 @@ TimeWhenGameEnds = 0
 TickAnnounce = 0
 UpcomingInfo = ""
 
+LastSelfDomThink = 0
+LastRemainingThink = 0
+
+local DominationMat = Material("SGM/playercircle")
+
+/*
+MusCursor = 1
+MusGame = { {"........a4..a4..........a4..a4..","weapons/wrench_hit_build_fail.wav"} ,
+			{"a4..b4..........b4c5d5..........","weapons/wrench_hit_build_success1.wav"} }
+MusInterval = 0.12
+MusRealTime = 0
+*/
 
 function GM:PrintCenterMessage( )
 	if( fLastMessage + iKeepTime < CurTime() and fAlpha > 0) then
@@ -50,6 +62,44 @@ function GM:PrintCenterMessage( )
 		local gB = math.Clamp( timeDif * 400, 192, 255 );
 		draw.SimpleTextOutlined( szMessage, "WAREIns", ScrW()/2, ScrH()*0.62, Color( gB, gB, 255, math.Clamp( fAlpha, 0, 255 ) ), TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, 2, Color( 0, 0, 0, math.Clamp( ((fAlpha/255)^2)*255, 0, 255 ) ) );
 	end
+end
+
+function GM:PrintDominations( )
+	for k,ply in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do
+		if /*ply != LocalPlayer() &&*/ ply:GetNWBool("dominating",false) == true then
+			surface.SetMaterial( DominationMat )
+		
+			local pos = ply:GetPos() + Vector(0,0,96)
+			local lcolor = render.GetLightColor( ply:GetPos() ) * 2
+			lcolor.x = 255 * mathx.Clamp( lcolor.x, 0, 1 )
+			lcolor.y = 255 * mathx.Clamp( lcolor.y, 0, 1 )
+			lcolor.z = 0 * mathx.Clamp( lcolor.z, 0, 1 )
+			local pos_toscreen = pos:ToScreen()
+			
+			surface.SetDrawColor( lcolor.x, lcolor.y, lcolor.z, 255 )
+			surface.DrawTexturedRectRotated(pos_toscreen.x, pos_toscreen.y - 2, 52, 52, 0)
+			
+			draw.SimpleTextOutlined( tostring(ply:GetNWInt("combo",0)), "WAREIns", pos_toscreen.x, pos_toscreen.y, Color( 255, 255, 255, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color( 0, 0, 0, 255 ) );
+		end
+	end
+end
+
+function GM:PrintCommonParticles( )
+	if LocalPlayer():GetNWBool("dominating",false) == true then
+		if RealTime() - LastSelfDomThink > 0.2 then
+			HUDMakeParticles("effects/yellowflare",2,0.5,ScrW()*0.5,ScrH()*0.02,15,25,25,35,90,-55,55,32,48,Color(255,255,255,255),Color(255,255,0,0),0,0.8)
+			HUDMakeParticles("effects/yellowflare",1,0.3,ScrW()*0.5,ScrH()*0.02,5 ,10,10,20,90,-55,55,48,64,Color(255,255,255,255),Color(255,255,255,0),0,0.8)
+			LastSelfDomThink = RealTime()
+		end
+	end
+	/*
+	if TimeWhenGameEnds - CurTime() < 60 then
+		if RealTime() - LastRemainingThink > 0.5 then
+			HUDMakeParticles("effects/yellowflare",1,0.35,ScrW()*0.98,ScrH()*0.98,16,16,512,512,0,0,360,0,1,Color(255,0,0,255),Color(255,0,0,0),0,0)
+			LastRemainingThink = RealTime()
+		end
+	end
+	*/
 end
 
 function GM:AddCenterMessage( message )
@@ -88,6 +138,65 @@ function GM:Think()
 			TickAnnounce = TickAnnounce - 1
 		end
 	end
+	
+	--"Make your own music" module
+	/*
+	local Pitch = 0
+	local NoPitch
+	local Note = "."
+	local OctaveSt, Octave
+	local Pnum = 0
+	local Offset = 0
+	if (NextgameStart < CurTime() && CurTime() < NextgameEnd && (RealTime() - MusRealTime) > MusInterval) then
+		if MusCursor > MusGame[1][1]:len() then MusCursor = 1 end
+		
+		
+		for Index,Patch in pairs(MusGame) do
+			NoPitch = false
+			local Note = Patch[1]:sub(MusCursor,MusCursor)
+			if (Note != ".") then
+				OctaveSt = Patch[1]:sub(MusCursor+1,MusCursor+1)
+			end
+			if (OctaveSt == "0") then Octave = 0 end
+			if (OctaveSt == "1") then Octave = 1 end
+			if (OctaveSt == "2") then Octave = 2 end
+			if (OctaveSt == "3") then Octave = 3 end
+			if (OctaveSt == "4") then Octave = 4 end
+			if (OctaveSt == "5") then Octave = 5 end
+			if (OctaveSt == "6") then Octave = 6 end
+			if (OctaveSt == "7") then Octave = 7 end
+			if (OctaveSt == "8") then Octave = 8 end
+			if (OctaveSt == "9") then Octave = 9 end
+			
+			if (Note == "c") then Pnum = -9+(12*(Octave-4))
+			elseif (Note == "d") then Pnum = -7+(12*(Octave-4))
+			elseif (Note == "e") then Pnum = -5+(12*(Octave-4))
+			elseif (Note == "f") then Pnum = -4+(12*(Octave-4))
+			elseif (Note == "g") then Pnum = -2+(12*(Octave-4))
+			elseif (Note == "a") then Pnum = 0+(12*(Octave-4))
+			elseif (Note == "b") then Pnum = 2+(12*(Octave-4))
+			
+			elseif (Note == "C") then Pnum = -9+(12*(Octave-4))+1
+			elseif (Note == "D") then Pnum = -7+(12*(Octave-4))+1
+			elseif (Note == "F") then Pnum = -4+(12*(Octave-4))+1
+			elseif (Note == "G") then Pnum = -2+(12*(Octave-4))+1
+			elseif (Note == "A") then Pnum = 0+(12*(Octave-4))+1
+			else NoPitch = true Pnum = 0 end
+
+			if (NoPitch == true) then
+				Pitch = 0
+			else
+				Highness = Pnum + Offset
+				Pitch = 2^(Highness/12)
+			end
+			Pitch = Pitch * 100
+			LocalPlayer():EmitSound(Patch[2],100,Pitch)
+		end
+			
+		MusCursor = MusCursor + 2
+		MusRealTime = RealTime()
+	end
+	*/
 end
 
 
@@ -95,6 +204,8 @@ function GM:HUDPaint()
 	self.BaseClass:HUDPaint();
 	
 	self:PrintCenterMessage();
+	self:PrintDominations();
+	self:PrintCommonParticles();
 	HUDThinkAboutParticles()
 end
 
@@ -163,7 +274,12 @@ local function NextGameTimes( m )
 	WarmupLen = m:ReadFloat()
 	WareLen = m:ReadFloat()
 	TickAnnounce = 5
-	LocalPlayer():EmitSound( GAMEMODE.NewWareSound , 40 )
+	if (NextwarmupEnd != 0) then
+		LocalPlayer():EmitSound( GAMEMODE.NewWareSound , 40 )
+	else
+		
+	end
+	MusCursor = 0
 	//print("---"..NextwarmupEnd.."---"..NextgameEnd.."---"..WarmupLen.."---"..WareLen)
 end
 usermessage.Hook( "NextGameTimes", NextGameTimes )
