@@ -36,7 +36,7 @@ function WARE:Initialize()
 	self.NumHarvest = math.random(2,5)
 	local acttime = 3.5 * self.NumHarvest
 	self.NumMelonSpawns = math.ceil(numPlayers*0.2)
-	self.DelayBetweenMelons = 0.7 * (1.5 + self.NumMelonSpawns - (numPlayers*0.2))
+	self.DelayBetweenMelons = 0.3 * (1.5 + self.NumMelonSpawns - (numPlayers*0.2))
 	
 	GAMEMODE:SetWareWindupAndLength(5,acttime)
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Grab a laundry cart...",0)
