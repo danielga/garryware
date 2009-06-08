@@ -1,5 +1,10 @@
 WARE.Author = "Kilburn"
 
+//Temporary disable
+function WARE:IsPlayable()
+	return false
+end
+
 local function RemoveCartVictory(cart)
 	if cart and cart:IsValid() then
 		GAMEMODE:MakeDisappearEffect(cart:GetPos())
