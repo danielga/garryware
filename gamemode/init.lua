@@ -213,16 +213,7 @@ function GM:EndGame()
 
 		--Do stuff to player
 		for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
-			local achieved = v:GetNWInt("ware_achieved")
-			local destiny  = v:GetNWInt("ware_hasdestiny")
-			
-			if (destiny == 0) then
-				if achieved >= 1 then
-					v:WarePlayerDestinyWin( )
-				else
-					v:WarePlayerDestinyLose( )
-				end
-			end
+			local achieved = v:WareApplyDestiny()
 			
 			--Reinit player
 			v:StripWeapons()

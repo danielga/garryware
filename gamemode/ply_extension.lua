@@ -100,6 +100,20 @@ function meta:WarePlayerDestinyLose( )
 	self:SetNWInt("combo",combo)
 end
 
+function meta:WareApplyDestiny( )
+	local achieved = self:GetNWInt("ware_achieved")
+	local destiny  = self:GetNWInt("ware_hasdestiny")
+	
+	if (destiny == 0) then
+		if achieved >= 1 then
+			self:WarePlayerDestinyWin( )
+		else
+			self:WarePlayerDestinyLose( )
+		end
+	end
+	return achieved
+end
+
 function meta:PrintMessage( t, m )
 
 	if( t == HUD_PRINTCENTER ) then
