@@ -10,7 +10,7 @@ SWEP.SlotPos = 0;
 SWEP.DrawAmmo = false;
 SWEP.DrawCrosshair = true;
 SWEP.ViewModel		= "models/weapons/v_rpg.mdl"		
-SWEP.WorldModel		= "models/weapons/w_rocket_launcher.mdl.mdl"
+SWEP.WorldModel		= "models/weapons/w_rocket_launcher.mdl"
 
 function SWEP:Initialize()
 
