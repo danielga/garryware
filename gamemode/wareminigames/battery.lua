@@ -157,9 +157,12 @@ function WARE:Think()
 						if Owner and Owner:IsPlayer() then
 							GAMEMODE:MakeAppearEffect(v:GetPos())
 							w:SetNWInt("isoccupied",1)
+							//DropEntityIfHeld(v)
+							v:GetPhysicsObject():EnableMotion(false)
 							v:SetPos(w:GetPos() + w:GetForward()*13 + w:GetRight()*-13 + Vector(0,0,10))
 							v:SetAngles(w:GetAngles())
-							v:GetPhysicsObject():EnableMotion(false)
+							//v:GetPhysicsObject():ApplyForceCenter( Vector( 0, 0, 128 ) )
+
 							
 							w:EmitSound("npc/roller/mine/combine_mine_deploy1.wav")
 						

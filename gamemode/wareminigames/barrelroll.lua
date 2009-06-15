@@ -1,6 +1,11 @@
 WARE.Author = "Hurricaaane (Ha3)"
 --WARE.Room = ""
 
+//Temporary disable
+function WARE:IsPlayable()
+	return false
+end
+
 --STILL WORK IN PROGRESS
 /*
 function WARE:IsPlayable()

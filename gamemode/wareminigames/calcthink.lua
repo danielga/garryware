@@ -27,9 +27,9 @@ function WARE:Initialize()
 		self.WareSolution = three + add
 	end
 	
-	GAMEMODE:DrawPlayersTextAndInitialStatus("Think : "..one.." - "..two.." - "..three.." - ?",0)
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Think : "..one.." , "..two.." , "..three.." , ?",0)
 	for k,v in pairs(player.GetAll()) do 
-		v:ChatPrint( "Think : "..one.." - "..two.." - "..three.." - ?" )  
+		v:ChatPrint( "Think : "..one.." , "..two.." , "..three.." , ?" )  
 	end
 end
 

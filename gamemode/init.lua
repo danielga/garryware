@@ -140,7 +140,7 @@ function GM:RespawnAllPlayers()
 			GAMEMODE:MakeLandmarkEffect(loc:GetPos())
 			
 			rp:AddPlayer(v)
-			Msg("Teleported player \""..v:GetName().."\"\n")
+			--Msg("Teleported player \""..v:GetName().."\"\n")
 		end
 	end
 	
@@ -158,7 +158,7 @@ function GM:RespawnAllPlayers()
 			v:Spawn()
 			
 			rp:AddPlayer(v)
-			Msg("Teleported player \""..v:GetName().."\"\n")
+			--Msg("Teleported player \""..v:GetName().."\"\n")
 		end
 	end
 	
@@ -521,3 +521,8 @@ function GM:InitPostEntity( )
 	-- Start with a generic environment
 	self.CurrentEnvironment = ware_env.FindEnvironment("generic")
 end
+
+function LoseDestinyOnPlayerDeath( victim, weapon, killer )
+	victim:WarePlayerDestinyLose()
+end
+hook.Add( "PlayerDeath", "LoseDestinyOnPlayerDeath", LoseDestinyOnPlayerDeath );
