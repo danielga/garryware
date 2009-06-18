@@ -5,7 +5,7 @@ function WARE:Initialize()
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Stay on the ground ! ",1)
 	local entover = GAMEMODE:GetEnts(ENTS_OVERCRATE)
 	local entsky = GAMEMODE:GetEnts(ENTS_INAIR)
-	GAMEMODE.GamePool.zsky = (entover[1]:GetPos().z + entsky[1]:GetPos().z)/2
+	self.zsky = (entover[1]:GetPos().z + entsky[1]:GetPos().z)/2
 	return
 end
 
@@ -30,7 +30,7 @@ end
 
 function WARE:Think( )
 	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
-		if v:GetPos().z > GAMEMODE.GamePool.zsky then
+		if v:GetPos().z > self.zsky then
 			v:WarePlayerDestinyLose( )
 		end
 	end

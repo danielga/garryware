@@ -321,3 +321,14 @@ local function PlayerTeleported( m )
 	LocalPlayer():EmitSound( table.Random(GAMEMODE.TeleportSounds) , 40 )
 end
 usermessage.Hook( "PlayerTeleported", PlayerTeleported )
+
+local function EntityTextChangeColor( m )
+	local target = m:ReadEntity()
+	local r = m:ReadLong()
+	local g = m:ReadLong()
+	local b = m:ReadLong()
+	local a = m:ReadLong()
+	
+	target:SetEntityColor(r,g,b,a)
+end
+usermessage.Hook( "EntityTextChangeColor", EntityTextChangeColor )
