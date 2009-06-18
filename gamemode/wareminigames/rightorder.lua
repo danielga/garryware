@@ -92,8 +92,8 @@ function WARE:EntityTakeDamage(ent,inf,att,amount,info)
 		rp:AddPlayer( att )
 		umsg.Start("EntityTextChangeColor", rp)
 			umsg.Entity( ent.AssociatedText )
-			umsg.Long( 255 )
 			umsg.Long( 0 )
+			umsg.Long( 192 )
 			umsg.Long( 0 )
 			umsg.Long( 255 )
 		umsg.End()
@@ -103,6 +103,23 @@ function WARE:EntityTakeDamage(ent,inf,att,amount,info)
 			att:StripWeapons()
 		end
 	else
+	
+		local goodent = pool.Crates[pool.PlayerCurrentCrate[att]]
+		umsg.Start("EntityTextChangeColor", rp)
+			umsg.Entity( goodent.AssociatedText )
+			umsg.Long( 255 )
+			umsg.Long( 0 )
+			umsg.Long( 0 )
+			umsg.Long( 255 )
+		umsg.End()
+		umsg.Start("EntityTextChangeColor", rp)
+			umsg.Entity( ent.AssociatedText )
+			umsg.Long( 96 )
+			umsg.Long( 96 )
+			umsg.Long( 96 )
+			umsg.Long( 255 )
+		umsg.End()
+	
 		att:WarePlayerDestinyLose( )
 		att:StripWeapons()
 	end
