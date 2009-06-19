@@ -55,7 +55,7 @@ function WARE:Initialize()
 	
 	self.TargetColour = math.random(1,#Sequence)
 	
-	GAMEMODE:SetWareWindupAndLength(0.7,6)
+	GAMEMODE:SetWareWindupAndLength(0.7,7)
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Shoot the "..Sequence[self.TargetColour][1].." one !",0)
 	
 	for i,pos in ipairs(GAMEMODE:GetRandomPositions(numberSpawns, ENTS_OVERCRATE)) do
@@ -85,7 +85,7 @@ function WARE:StartAction()
 	end
 	
 	self:NextCrateColour()
-	timer.Create("WARETIMERrollingcolor", 0.5, 0, self.NextCrateColour, self)
+	timer.Create("WARETIMERrollingcolor", 0.7, 0, self.NextCrateColour, self)
 end
 
 function WARE:EndAction()
