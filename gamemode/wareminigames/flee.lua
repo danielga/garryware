@@ -12,8 +12,6 @@ function WARE:Initialize()
 end
 
 function WARE:StartAction()
-	GAMEMODE:DrawPlayersTextAndInitialStatus("Flee !",1)
-
 	local ratio = 0.7
 	local minimum = 3
 	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*ratio),minimum,64)

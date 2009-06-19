@@ -1,7 +1,7 @@
 WARE.Author = "xandar"
 
 function WARE:Initialize()
-	GAMEMODE:SetWareWindupAndLength(2,5)
+	GAMEMODE:SetWareWindupAndLength(3,5)
 	
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Don't stop jumping from box to box !",1)
 	self.Entground = GAMEMODE:GetEnts(ENTS_CROSS)
