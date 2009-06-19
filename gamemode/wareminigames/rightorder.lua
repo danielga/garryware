@@ -83,13 +83,12 @@ function WARE:EntityTakeDamage(ent,inf,att,amount,info)
 	if not pool.Crates or not ent.CrateID then return end
 	
 	GAMEMODE:MakeAppearEffect(ent:GetPos())
-	
+	local rp = RecipientFilter()
+	rp:AddPlayer( att )
 	if pool.Sequence[pool.PlayerCurrentCrate[att]] == ent.CrateID then
 		pool.PlayerCurrentCrate[att] = pool.PlayerCurrentCrate[att] + 1
 		att:SendLua( "LocalPlayer():EmitSound( \"" .. GAMEMODE.WinOther .. "\" );" );
 		
-		local rp = RecipientFilter()
-		rp:AddPlayer( att )
 		umsg.Start("EntityTextChangeColor", rp)
 			umsg.Entity( ent.AssociatedText )
 			umsg.Long( 0 )
