@@ -40,10 +40,22 @@ function ENT:PhysicsCollide( data, physobj )
 		effectdata:SetNormal( (self.Entity:GetPos() - data.HitPos):Normalize() )
 	util.Effect( "waveexplo", effectdata, true, true )
 	
-	for _,ent in pairs(ents.FindInSphere(self.Entity:GetPos(),64)) do
+	--Old fucking hard rocketjump code by Hurricaaane
+	/*for _,ent in pairs(ents.FindInSphere(self.Entity:GetPos(),64)) do
 		if ent:IsPlayer() == true then
 			ent:SetGroundEntity( NULL )
 			ent:SetVelocity(ent:GetVelocity() + (ent:GetPos() - self.Entity:GetPos()):Normalize() * 350)
+		end
+	end*/
+
+	--New code from BlackOps
+	for i,v in ipairs(ents.FindInSphere( self.Entity:GetPos(), 60 )) do
+		if(v!=self.Entity) then
+			if(v:IsPlayer()) then
+				if(v == self.Entity:GetOwner()) then
+					v:SetVelocity(v:GetAimVector() * -500, 0)
+				end
+			end
 		end
 	end
 	self.Entity:Remove()

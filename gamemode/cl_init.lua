@@ -222,6 +222,49 @@ function GM:HUDWeaponPickedUp( wep )
 	return false
 end
 
+
+
+function GM:AddScoreboardWins( ScoreBoard )
+
+	local f = function( ply ) return ply:Frags() end
+	ScoreBoard:AddColumn( "Wins", 50, f, 0.5, nil, 6, 6 )
+
+end
+
+function GM:AddScoreboardFails( ScoreBoard )
+
+	local f = function( ply ) return ply:Deaths() end
+	ScoreBoard:AddColumn( "Failures", 50, f, 0.5, nil, 6, 6 )
+
+end
+
+function GM:CreateScoreboard( ScoreBoard )
+
+	ScoreBoard:SetAsBullshitTeam( TEAM_SPECTATOR )
+	ScoreBoard:SetAsBullshitTeam( TEAM_CONNECTING )
+	
+	if ( GAMEMODE.TeamBased ) then
+		ScoreBoard:SetAsBullshitTeam( TEAM_UNASSIGNED )
+		ScoreBoard:SetHorizontal( true )
+	end
+
+	ScoreBoard:SetSkin( "SimpleSkin" )
+
+	self:AddScoreboardAvatar( ScoreBoard )		
+	self:AddScoreboardSpacer( ScoreBoard, 8 )	
+	self:AddScoreboardName( ScoreBoard )			
+	self:AddScoreboardWins( ScoreBoard )		
+	self:AddScoreboardFails( ScoreBoard )		
+	self:AddScoreboardPing( ScoreBoard )		
+		
+	// Here we sort by these columns (and descending), in this order. You can define up to 4
+	ScoreBoard:SetSortColumns( { 4, true, 5, false, 3, false } )
+
+end
+
+
+
+
 local vgui_ridiculous = vgui.RegisterFile( "vgui_ridiculous.lua" )
 local vgui_transit = vgui.RegisterFile( "vgui_transitscreen.lua" )
 local vgui_wait = vgui.RegisterFile( "vgui_waitscreen.lua" )

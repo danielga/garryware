@@ -28,4 +28,11 @@ function SKIN:SchemeListViewColumn( panel )
 	panel.Header:SetColor(Color(255,255,255,255))
 end
 
+function SKIN:PaintVScrollBar( panel )
+	return false
+end
+function SKIN:LayoutVScrollBar( panel )
+	return false
+end
+
 derma.DefineSkin( "ware", "", SKIN )

@@ -433,6 +433,9 @@ function GM:StartGamemodeVote()
 end
 
 function GM:PlayerInitialSpawn( ply, id )
+	self.BaseClass:PlayerInitialSpawn( ply, id )
+
+
 	--Give him info about wether the game has begun and when the game ends
 	local didnotbegin = false
 	if self.NextgameStart < CurTime() then
@@ -455,9 +458,6 @@ function GM:PlayerInitialSpawn( ply, id )
 		ply:SetPos(loc:GetPos())
 		ply:SetAngles(loc:GetAngles())
 	end]]
-	
-	
-	self.BaseClass:PlayerInitialSpawn( ply, id )
 end
 
 function GM:PlayerSpawn(ply)
