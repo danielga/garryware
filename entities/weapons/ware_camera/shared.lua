@@ -63,8 +63,10 @@ function SWEP:PrimaryAttack()
 				tracedata.endpos = target:GetPos()+Vector(0,0,36)
 				tracedata.filter = {self.Owner , target}
 				local trace = util.TraceLine(tracedata)
-				if trace.Hit == false then
-					target:WarePlayerDestinyLose( )
+				if (trace.Hit == false) and (target:GetNWBool("tagged",false) == false) then
+					target:SetMaterial("ice")
+					target:SetNWBool("tagged",true)
+					self.Owner:WarePlayerDestinyWin( )
 				end 
 			end
 		end

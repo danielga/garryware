@@ -372,6 +372,10 @@ local function EntityTextChangeColor( m )
 	local b = m:ReadLong()
 	local a = m:ReadLong()
 	
-	target:SetEntityColor(r,g,b,a)
+	if ValidEntity(target) then
+		target:SetEntityColor(r,g,b,a)
+	else
+		timer.Simple( 0, function(target,r,g,b,a) if ValidEntity(target) then target:SetEntityColor(r,g,b,a) end end )
+	end
 end
 usermessage.Hook( "EntityTextChangeColor", EntityTextChangeColor )
