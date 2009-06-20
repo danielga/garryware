@@ -9,6 +9,7 @@ function PANEL:Init()
 	self.List = vgui.Create( "DListView", self )
 	self.List:SetDrawBackground( false )
 	self.List:SetSortable( false )
+	self.List.IsWare = true
 	
 	local Col1 = self.List:AddColumn( "Winners" )
 	local Wins = self.List:AddColumn( "Win" )
@@ -26,6 +27,7 @@ function PANEL:Init()
 	self.List2 = vgui.Create( "DListView", self )
 	self.List2:SetDrawBackground( false )
 	self.List2:SetSortable( false )
+	self.List2.IsWare = true
 	
 	local Col1_2 = self.List2:AddColumn( "Failures" )
 	local Wins_2 = self.List2:AddColumn( "Win" )
@@ -63,7 +65,7 @@ end
 function PANEL:Think()
 
 	if ( self.NextThink > RealTime() ) then return end
-	self.NextThink = RealTime() + 0.5
+	self.NextThink = RealTime() + 0.1
 	
 	local Wins = {}
 	for k, ply in pairs( team.GetPlayers(TEAM_UNASSIGNED) ) do
@@ -82,24 +84,46 @@ function PANEL:Think()
 		end
 	end
 	
+	local counter
+	
 	self.List:Clear()
+	counter = 0
 	for k, ply in SortedPairs( Wins ) do
-		local win  = ply:Frags( )
-		local fail = ply:Deaths( )
-		local line = self.List:AddLine( ply:Nick(), win, fail )
+		if (counter < 7) then
+			local win  = ply:Frags( )
+			local fail = ply:Deaths( )
+			local line = self.List:AddLine( ply:Nick(), win, fail )
+			line.goodness = true
+			line.destiny = ply:GetNWInt("ware_hasdestiny",0)
+			line.dominating = ply:GetNWBool("dominating",false)
+		end
+		counter = counter + 1
+	end
+	if (counter > 7) then
+		local line = self.List:AddLine( "... (".. counter - 7 ..")", "", "" )
 		line.goodness = true
-		line.destiny = ply:GetNWInt("ware_hasdestiny",0)
-		line.dominating = ply:GetNWBool("dominating",false)
+		line.destiny = false
+		line.dominating = false
 	end
 	self.List:DataLayout()
 	
 	self.List2:Clear()
+	counter = 0
 	for k, ply in SortedPairs( Fails_2 ) do
-		local win_2  = ply:Frags( )
-		local fail_2 = ply:Deaths( )
-		local line = self.List2:AddLine( ply:Nick(), win_2, fail_2 )
-		line.goodness = false
-		line.destiny = ply:GetNWInt("ware_hasdestiny",0)
+		if (counter < 7) then
+			local win_2  = ply:Frags( )
+			local fail_2 = ply:Deaths( )
+			local line = self.List2:AddLine( ply:Nick(), win_2, fail_2 )
+			line.goodness = false
+			line.destiny = ply:GetNWInt("ware_hasdestiny",0)
+			line.dominating = false
+		end
+		counter = counter + 1
+	end
+	if (counter > 7) then
+		local line = self.List2:AddLine( "... (".. counter - 7 ..")", "", "" )
+		line.goodness = true
+		line.destiny = false
 		line.dominating = false
 	end
 	self.List2:DataLayout()
@@ -122,6 +146,8 @@ function PANEL:PerformLayout()
 	self.List:StretchToParent( self.Minispacing*2, 6,    560/2 + 32         ,  5 )
 	self.List2:StretchToParent( 560/2 + 32,        6,    self.Minispacing*2 ,  5 )
 	
+	self.List:SizeToContents()
+	self.List2:SizeToContents()
 end
 
 /*---------------------------------------------------------
