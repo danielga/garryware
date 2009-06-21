@@ -50,6 +50,8 @@ GM.TickAnnounce = 0
 
 GM.GamePool = {}
 
+GM.BestStreakEver = 3
+
 function GM:CreateTeams()
 	
 	team.SetUp( TEAM_UNASSIGNED, "Players", Color( 255, 255, 100 ), true )

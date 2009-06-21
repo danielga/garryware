@@ -224,17 +224,83 @@ end
 
 
 
-function GM:AddScoreboardWins( ScoreBoard )
+function GM:AddScoreboardWon( ScoreBoard )
 
 	local f = function( ply ) return ply:Frags() end
-	ScoreBoard:AddColumn( "Wins", 50, f, 0.5, nil, 6, 6 )
+	ScoreBoard:AddColumn( "Won", 30, f, 0.5, nil, 6, 6 )
 
 end
 
-function GM:AddScoreboardFails( ScoreBoard )
+function GM:AddScoreboardFailed( ScoreBoard )
 
 	local f = function( ply ) return ply:Deaths() end
-	ScoreBoard:AddColumn( "Failures", 50, f, 0.5, nil, 6, 6 )
+	ScoreBoard:AddColumn( "Failed", 30, f, 0.5, nil, 6, 6 )
+
+end
+
+function GM:AddScoreboardStreak( ScoreBoard )
+
+	local f = function( ply )
+		local combo = ply:GetNWInt("combo")
+		local combomax = ply:GetNWInt("combo_max")
+		local sufstring = ""
+		if (combo == combomax) then
+			sufstring = " .."
+		end
+		return combomax .. sufstring
+	end
+	ScoreBoard:AddColumn( "Best Streak", 55, f, 0.5, nil, 6, 6 )
+
+end
+
+function GM:AddScoreboardAward( ScoreBoard )
+
+	local f = function( ply ) 	
+	
+		/*local combomax = ply:GetNWInt("combo_max")
+		local av = vgui.Create( "DImage" )
+			av:SetSize( 16, 16 )
+			av:SetVisible( GAMEMODE.BestStreakEver == combomax )
+			av:SetImage( "gui/silkicons/star" )
+			return av*/
+			
+		local quastring = ""
+		local quartiers = false
+		local totalplayed = ply:Frags() + ply:Deaths()
+		
+		local besstring = ""
+		local beststreak = false
+		local combomax = ply:GetNWInt("combo_max")
+		
+		if ( ( totalplayed >= 5 ) and ( ( ply:Frags() / totalplayed ) >= 0.65 ) ) then
+			quastring = "Talented 65%"
+			quartiers = true
+		end
+		if ( ( totalplayed >= 5 ) and ( ( ply:Frags() / totalplayed ) >= 0.80 ) ) then
+			quastring = "Perfect 80%"
+		end
+		
+		if ( ( totalplayed >= 5 ) and ( ( ply:Frags() / totalplayed ) <= 0.20 ) ) then
+			quastring = "Try harder <20%"
+			quartiers = true
+		end
+		if ( ( totalplayed >= 5 ) and ( ( ply:Frags() / totalplayed ) <= 0.15 ) ) then
+			quastring = "AFK ? <15%"
+		end
+		
+		if ( GAMEMODE.BestStreakEver == combomax ) then
+			besstring = "Best Streak"
+			beststreak = true
+		end
+		
+		local qb = ""
+		if ( quartiers and beststreak ) then
+			qb = " + "
+		end
+		return "  " .. quastring .. qb .. besstring
+	end
+	
+	ScoreBoard:AddColumn( "Awards", 190, f, 0.5 , nil, 6 , 6 )
 
 end
 
@@ -250,19 +316,31 @@ function GM:CreateScoreboard( ScoreBoard )
 
 	ScoreBoard:SetSkin( "SimpleSkin" )
 
-	self:AddScoreboardAvatar( ScoreBoard )		
-	self:AddScoreboardSpacer( ScoreBoard, 8 )	
-	self:AddScoreboardName( ScoreBoard )			
-	self:AddScoreboardWins( ScoreBoard )		
-	self:AddScoreboardFails( ScoreBoard )		
-	self:AddScoreboardPing( ScoreBoard )		
+	self:AddScoreboardAvatar( ScoreBoard )		 //1
+	self:AddScoreboardWantsChange( ScoreBoard )	 //2
+	self:AddScoreboardName( ScoreBoard )	     //3
+	self:AddScoreboardWon( ScoreBoard )          //4
+	self:AddScoreboardFailed( ScoreBoard )       //5
+	self:AddScoreboardStreak( ScoreBoard )	     //6
+	self:AddScoreboardAward( ScoreBoard )		 //7
+	self:AddScoreboardPing( ScoreBoard )     //8
 		
 	// Here we sort by these columns (and descending), in this order. You can define up to 4
 	ScoreBoard:SetSortColumns( { 4, true, 5, false, 3, false } )
 
 end
 
+function GM:PositionScoreboard( ScoreBoard )
 
+	if ( GAMEMODE.TeamBased ) then
+		ScoreBoard:SetSize( 800, ScrH() - 50 )
+		ScoreBoard:SetPos( (ScrW() - ScoreBoard:GetWide()) * 0.5,  25 )
+	else
+		ScoreBoard:SetSize( 600, ScrH() - 64 )
+		ScoreBoard:SetPos( (ScrW() - ScoreBoard:GetWide()) / 2, 32 )
+	end
+
+end
 
 
 local vgui_ridiculous = vgui.RegisterFile( "vgui_ridiculous.lua" )
@@ -379,3 +457,8 @@ local function EntityTextChangeColor( m )
 	end
 end
 usermessage.Hook( "EntityTextChangeColor", EntityTextChangeColor )
+
+local function BestStreakEverBreached( m )
+	GAMEMODE.BestStreakEver = m:ReadLong()
+end
+usermessage.Hook( "BestStreakEverBreached", BestStreakEverBreached )

@@ -60,6 +60,18 @@ function meta:WarePlayerDestinyWin()
 		ed2:SetOrigin( self:GetPos() )
 		util.Effect("ware_domination", ed2, true, true)
 	end
+	local prevmaxcombo = self:GetNWInt("combo_max",0)
+	if (combo > prevmaxcombo) then
+		self:SetNWInt("combo_max",combo)
+		if (combo > GAMEMODE.BestStreakEver) then
+			GAMEMODE.BestStreakEver = combo
+			local rpall = RecipientFilter()
+			rpall:AddAllPlayers( )
+			umsg.Start("BestStreakEverBreached", rpall)
+				umsg.Long( GAMEMODE.BestStreakEver )
+			umsg.End()
+		end
+	end
 end
 
 function meta:WarePlayerDestinyLose( )
