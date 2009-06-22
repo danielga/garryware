@@ -116,12 +116,12 @@ function WARE:EntityTakeDamage(ent,inf,att,amount,info)
 	self.PlayerAlreadyHitCrate[att][ent.CrateID] = true
 	self.PlayerAddition[att] = self.PlayerAddition[att] + ent.Number
 	
+	local rp = RecipientFilter()
+	rp:AddPlayer( att )
 	if (self.PlayerAddition[att] == 21) then
 		att:WarePlayerDestinyWin( )
 		att:StripWeapons()
 		
-		local rp = RecipientFilter()
-		rp:AddPlayer( att )
 		for i=1,self.NbCardsToChose do
 			umsg.Start("EntityTextChangeColor", rp)
 				umsg.Entity( (pool.Crates[i]).AssociatedText )
@@ -135,8 +135,6 @@ function WARE:EntityTakeDamage(ent,inf,att,amount,info)
 		att:WarePlayerDestinyLose( )
 		att:StripWeapons()
 		
-		local rp = RecipientFilter()
-		rp:AddPlayer( att )
 		for i=1,self.NbCardsToChose do
 			umsg.Start("EntityTextChangeColor", rp)
 				umsg.Entity( (pool.Crates[i]).AssociatedText )
