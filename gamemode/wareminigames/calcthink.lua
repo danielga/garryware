@@ -4,18 +4,18 @@ WARE.Room = "none"
 function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(0,8)
 	
-	local init = math.random(2,9)
+	local init = math.random(2,19)
 	local mul = math.random(2,2)
 	local negative = math.random(0,1)
 	local add = math.random(1,9)
-	local ismul = math.random(0,1)
+	local ismul = math.random(1,7)
 	
 	if negative == 1 then
 		add = -add
 	end
 	
 	local one, two, three
-	if ismul == 1 then
+	if ismul == 7 then
 		one = init
 		two = one * mul
 		three = two * mul
