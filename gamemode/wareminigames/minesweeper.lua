@@ -176,20 +176,6 @@ function WARE:Initialize()
 			end
 		end
 	end
-	
-	Msg("Width : "..self.Grid.W.."\n")
-	Msg("Height : "..self.Grid.H.."\n")
-	for i=1,self.Grid.H do
-		for j=1,self.Grid.W do
-			local e = GetInGrid(self.Grid, j, i)
-			if e:IsValid() then
-				Msg("O ")
-			else
-				Msg("X ")
-			end
-		end
-		Msg("\n")
-	end
 end
 
 function WARE:StartAction()
@@ -205,20 +191,6 @@ function WARE:StartAction()
 end
 
 function WARE:EndAction()
-	Msg("Width : "..self.Grid.W.."\n")
-	Msg("Height : "..self.Grid.H.."\n")
-	for i=1,self.Grid.H do
-		for j=1,self.Grid.W do
-			local e = GetInGrid(self.Grid, j, i)
-			if e:IsValid() then
-				Msg("O ")
-			else
-				Msg("X ")
-			end
-		end
-		Msg("\n")
-	end
-	
 	if self.Remaining>0 then
 		for _,p in pairs(ents.FindByClass("prop_physics")) do
 			if p.Mine then
