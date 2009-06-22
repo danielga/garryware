@@ -8,7 +8,7 @@ Ware environment metatable starts here
 ]]
 
 local function FindBestEnvironmentByPlayerCount(list)
-	local numPlayers = team.NumPlayers(TEAM_UNASSIGNED)
+	local numPlayers = team.NumPlayers(TEAM_HUMANS)
 	local best, lastDiff, lastDiff2
 	
 	for _,v in ipairs(list) do

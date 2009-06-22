@@ -65,7 +65,7 @@ function GM:PrintCenterMessage( )
 end
 
 function GM:PrintDominations( )
-	for k,ply in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do
+	for k,ply in pairs(team.GetPlayers(TEAM_HUMANS)) do
 		if /*ply != LocalPlayer() &&*/ ply:GetNWBool("dominating",false) == true then
 			surface.SetMaterial( DominationMat )
 		
@@ -310,7 +310,7 @@ function GM:CreateScoreboard( ScoreBoard )
 	ScoreBoard:SetAsBullshitTeam( TEAM_CONNECTING )
 	
 	if ( GAMEMODE.TeamBased ) then
-		ScoreBoard:SetAsBullshitTeam( TEAM_UNASSIGNED )
+		ScoreBoard:SetAsBullshitTeam( TEAM_HUMANS )
 		ScoreBoard:SetHorizontal( true )
 	end
 

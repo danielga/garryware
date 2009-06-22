@@ -21,7 +21,7 @@ function WARE:Initialize()
 	
 	local ratio = 0.6
 	local minimum = 3
-	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*ratio),minimum,#matchcolors)
+	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_HUMANS)*ratio),minimum,#matchcolors)
 	local entposcopy = GAMEMODE:GetRandomLocations(num, ENTS_CROSS)
 	for k,v in pairs(entposcopy) do
 		local cookie = math.random(1,#matchtemp)
@@ -78,7 +78,7 @@ function WARE:Initialize()
 end
 
 function WARE:StartAction()
-	for _,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do
+	for _,v in pairs(team.GetPlayers(TEAM_HUMANS)) do
 		v:Give( "ware_weap_crowbar" )
 	end
 	return
@@ -89,7 +89,7 @@ function WARE:EndAction()
 end
 
 function WARE:Think( )
-	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		v:SetAchievedNoDestiny(0)
 	end
 	for k,v in pairs(ents.FindByClass("ware_ringzone")) do

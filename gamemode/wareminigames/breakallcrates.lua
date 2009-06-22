@@ -6,7 +6,7 @@ function WARE:Initialize()
 	
 	local ratio = 0.7
 	local minimum = 2
-	self.Num = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*ratio),minimum,64)
+	self.Num = math.Clamp(math.ceil(team.NumPlayers(TEAM_HUMANS)*ratio),minimum,64)
 	self.Broke = 0
 	
 	return
@@ -26,7 +26,7 @@ function WARE:StartAction()
 		GAMEMODE:AppendEntToBin(ent)
 		GAMEMODE:MakeAppearEffect(ent:GetPos())
 	end
-	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		v:Give( "weapon_crowbar" )
 	end
 	
@@ -36,7 +36,7 @@ end
 
 function WARE:EndAction()
 	if (self.Broke < self.Num) then
-		for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+		for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 			v:WarePlayerDestinyLose()
 		end
 	end
@@ -49,7 +49,7 @@ function WARE:PropBreak(killer, prop)
 	self.Broke = self.Broke + 1
 	
 	if (self.Broke == self.Num) then
-		for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+		for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 			v:WareApplyDestiny()
 		end
 	end

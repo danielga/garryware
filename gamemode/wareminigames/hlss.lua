@@ -5,7 +5,7 @@ WARE.OccurencesPerCycle = 2
 
 function WARE:IsPlayable()
 	local doit = false
-	if #team.GetPlayers(TEAM_UNASSIGNED) >= 14 then
+	if #team.GetPlayers(TEAM_HUMANS) >= 14 then
 		doit = true
 	end
 	return doit
@@ -19,7 +19,7 @@ function WARE:Initialize()
 end
 
 function WARE:StartAction()
-	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		v:Give( "ware_hlss" )
 	end
 	return

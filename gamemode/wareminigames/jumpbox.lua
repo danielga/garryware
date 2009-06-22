@@ -12,7 +12,7 @@ function WARE:StartAction()
 	self.PlayerLastBlock = {}
 	self.PlayerLastTime = {}
 	
-	self.PlayerList = team.GetPlayers(TEAM_UNASSIGNED)
+	self.PlayerList = team.GetPlayers(TEAM_HUMANS)
 	
 	for _,v in pairs(self.PlayerList) do
 		self.PlayerLastBlock[v] = nil
@@ -25,7 +25,7 @@ function WARE:EndAction()
 end
 
 function WARE:Think()	
-	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do		
+	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do		
 		if v:GetPos().z-self.Entground[1]:GetPos().z <= 5 then 
 			v:WarePlayerDestinyLose()
 		end

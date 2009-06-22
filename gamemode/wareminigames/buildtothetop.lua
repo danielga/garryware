@@ -32,7 +32,7 @@ function WARE:Initialize()
 		GAMEMODE:MakeAppearEffect(saw:GetPos())
 	end
 	
-	for _,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+	for _,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		v:Give("weapon_physcannon")
 	end
 end
@@ -40,7 +40,7 @@ end
 function WARE:StartAction()
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Get on the red platform !",0)
 	
-	local numberSpawns = math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*0.75)
+	local numberSpawns = math.ceil(team.NumPlayers(TEAM_HUMANS)*0.75)
 	
 	for i,pos in ipairs(GAMEMODE:GetRandomPositions(numberSpawns, ENTS_INAIR)) do
 		local platform = ents.Create("prop_physics")

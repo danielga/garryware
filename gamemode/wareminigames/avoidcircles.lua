@@ -42,7 +42,7 @@ function WARE:Initialize()
 end
 
 function WARE:StartAction()
-	for _,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do
+	for _,v in pairs(team.GetPlayers(TEAM_HUMANS)) do
 		v:Give( "ware_weap_crowbar" )
 	end
 	return

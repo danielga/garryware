@@ -35,7 +35,7 @@ local function EntityCaught(trigger,ent)
 end
 
 function WARE:Initialize()
-	local numPlayers = team.NumPlayers(TEAM_UNASSIGNED)
+	local numPlayers = team.NumPlayers(TEAM_HUMANS)
 	local numberSpawns = math.Clamp(math.ceil(numPlayers*1.5),1,table.Count(GAMEMODE:GetEnts(ENTS_INAIR)))
 	
 	self.NumHarvest = math.random(2,5)
@@ -76,7 +76,7 @@ function WARE:Initialize()
 		GAMEMODE:MakeAppearEffect(pos+Vector(0,0,100))
 	end
 	
-	for _,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do
+	for _,v in pairs(team.GetPlayers(TEAM_HUMANS)) do
 		v:Give( "weapon_physcannon" )
 	end
 end
@@ -112,7 +112,7 @@ end
 function WARE:Think()
 	if not self.NextMelonSpawn then return end
 	
-	for _,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+	for _,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		if not v.Cart then
 			v:WarePlayerDestinyLose()
 			v:StripWeapons()

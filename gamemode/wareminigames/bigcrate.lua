@@ -33,7 +33,7 @@ function WARE:StartAction()
 	land:Spawn(); 
 	GAMEMODE:AppendEntToBin(land)
 	
-	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		v:Give( "weapon_physcannon" )
 	end
 	return

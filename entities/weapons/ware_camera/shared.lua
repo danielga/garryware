@@ -51,7 +51,7 @@ function SWEP:PrimaryAttack()
 		GAMEMODE:MakeDisappearEffect( self.Owner:GetShootPos() )
 		
 		self.Weapon:SetNWFloat("phototick",CurTime())
-		for k,target in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+		for k,target in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 			
 			local direction = (target:GetPos() - self.Owner:GetShootPos()):GetNormalized()
 			local aiming  = self.Owner:GetAimVector()

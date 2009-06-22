@@ -19,7 +19,7 @@ function WARE:Initialize()
 	
 	local ratio = 0.5
 	local minimum = 4
-	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*ratio),minimum,#matchcolors)
+	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_HUMANS)*ratio),minimum,#matchcolors)
 	local entposcopy = GAMEMODE:GetRandomLocations(num, ENTS_OVERCRATE)
 	for k,v in pairs(entposcopy) do
 		local cookie = math.random(1,#matchtemp)
@@ -60,7 +60,7 @@ function WARE:Initialize()
 end
 
 function WARE:StartAction()
-	for _,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+	for _,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		v:Give("gmdm_pistol")
 		v:GiveAmmo(12, "Pistol", true)
 	end

@@ -68,7 +68,7 @@ function PANEL:Think()
 	self.NextThink = RealTime() + 0.1
 	
 	local Wins = {}
-	for k, ply in pairs( team.GetPlayers(TEAM_UNASSIGNED) ) do
+	for k, ply in pairs( team.GetPlayers(TEAM_HUMANS) ) do
 		local winNum = ply:Frags( )
 		local loseNum = ply:Deaths( )
 		if (ply:GetNWInt("ware_achieved",0) > 0) then
@@ -76,7 +76,7 @@ function PANEL:Think()
 		end
 	end
 	local Fails_2 = {}
-	for k, ply in pairs( team.GetPlayers(TEAM_UNASSIGNED) ) do
+	for k, ply in pairs( team.GetPlayers(TEAM_HUMANS) ) do
 		local winNum_2 = ply:Frags( )
 		local loseNum_2 = ply:Deaths( )
 		if (ply:GetNWInt("ware_achieved",0) == 0) then

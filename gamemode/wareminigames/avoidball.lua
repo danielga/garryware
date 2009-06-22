@@ -4,7 +4,7 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(1.5,8)
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Avoid the balls !",1)
 	
-	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		v:Give( "weapon_physcannon" )
 	end
 	
@@ -14,7 +14,7 @@ end
 function WARE:StartAction()
 	local ratio = 1.1
 	local minimum = 3
-	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*ratio),minimum,64)
+	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_HUMANS)*ratio),minimum,64)
 	local entposcopy = GAMEMODE:GetRandomLocations(num, ENTS_INAIR)
 	for k,v in pairs(entposcopy) do
 		local ent = ents.Create ("ware_avoidball");

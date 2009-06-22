@@ -122,7 +122,7 @@ function GM:RespawnAllPlayers()
 	
 	local spawns = {}
 	-- Priority goes to active players, so they don't spawn in each other
-	for _,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do
+	for _,v in pairs(team.GetPlayers(TEAM_HUMANS)) do
 		if v:GetEnvironment()~=self.CurrentEnvironment then
 			if #spawns==0 then
 				spawns = table.Copy(self.CurrentEnvironment.PlayerSpawns)
@@ -212,7 +212,7 @@ function GM:EndGame()
 		--self.GamePool = {}
 
 		--Do stuff to player
-		for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+		for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 			local achieved = v:WareApplyDestiny()
 			
 			--Reinit player
@@ -341,7 +341,7 @@ function GM:Think()
 		
 		
 		--Ends a current game
-		if team.NumPlayers(TEAM_UNASSIGNED) == 0 && self.GamesArePlaying == true then
+		if team.NumPlayers(TEAM_HUMANS) == 0 && self.GamesArePlaying == true then
 			self.GamesArePlaying = false
 			GAMEMODE:EndGame()
 			
@@ -362,7 +362,7 @@ function GM:Think()
 	
 	else
 		--Starts a new game
-		if team.NumPlayers(TEAM_UNASSIGNED) > 0 && self.GameHasEnded == false && self.GamesArePlaying == false then
+		if team.NumPlayers(TEAM_HUMANS) > 0 && self.GameHasEnded == false && self.GamesArePlaying == false then
 			self.GamesArePlaying = true
 			self.WareHaveStarted = false
 			self.ActionPhase = false
@@ -395,7 +395,7 @@ function GM:EndTheGameForOnce()
 	self.GameHasEnded = true
 	
 	--Find combos before ending the game and after saying the game has ended
-	for _,ply in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do
+	for _,ply in pairs(team.GetPlayers(TEAM_HUMANS)) do
 		local combo = ply:GetNWInt("combo",0)
 		if (ply:GetNWBool("dominating",false) == true) then			
 			for k,v in pairs(player.GetAll()) do 

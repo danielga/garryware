@@ -107,7 +107,7 @@ function WARE:StartAction()
 		GAMEMODE:DrawPlayersTextAndInitialStatus("Shoot the "..text.." !",0)
 	end
 	
-	for _,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+	for _,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		v:Give("gmdm_pistol")
 		v:GiveAmmo(12, "Pistol", true)
 	end

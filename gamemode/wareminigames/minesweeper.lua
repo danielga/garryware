@@ -208,7 +208,7 @@ function WARE:Initialize()
 	
 	local entlist = GAMEMODE:GetEnts({"light_ground","dark_ground"})
 	local maxcount = table.Count(entlist)
-	local nummines = math.ceil(math.Clamp(team.NumPlayers(TEAM_UNASSIGNED)*1.25,1,maxcount*0.3))
+	local nummines = math.ceil(math.Clamp(team.NumPlayers(TEAM_HUMANS)*1.25,1,maxcount*0.3))
 	
 	Msg(maxcount.."\n")
 	
@@ -282,7 +282,7 @@ end
 function WARE:StartAction()
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Break all crates without a mine inside !",0)
 	
-	for _,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+	for _,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		v:Give("weapon_crowbar")
 	end
 	
@@ -299,7 +299,7 @@ function WARE:EndAction()
 			end
 		end
 		
-		for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+		for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 			v:WarePlayerDestinyLose()
 		end
 	end
@@ -338,7 +338,7 @@ function WARE:PropBreak(killer, prop)
 	
 	self.Remaining = self.Remaining - removed
 	if self.Remaining<=0 then
-		for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do
+		for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do
 			for _,p in pairs(ents.FindByClass("prop_physics")) do
 				if p.Mine then
 					p.Mine = false

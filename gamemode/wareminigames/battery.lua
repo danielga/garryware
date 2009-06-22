@@ -15,7 +15,7 @@ function WARE:Initialize()
 	
 	local ratio = 1
 	local minimum = 2
-	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*ratio),minimum,64)
+	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_HUMANS)*ratio),minimum,64)
 	local entposcopy = GAMEMODE:GetRandomLocations(num, ENTS_OVERCRATE)
 	local cratelist = {}
 	for k,v in pairs(entposcopy) do
@@ -36,7 +36,7 @@ function WARE:Initialize()
 	
 	local ratio2 = 0.5
 	local minimum2 = 1
-	local num2 = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*ratio2),minimum2,num)
+	local num2 = math.Clamp(math.ceil(team.NumPlayers(TEAM_HUMANS)*ratio2),minimum2,num)
 	local entcontains = GAMEMODE:GetRandomLocations(num2, cratelist)
 	for k,v in pairs(entcontains) do
 		v.contains = true
@@ -45,7 +45,7 @@ function WARE:Initialize()
 	
 	local ratio3 = 0.5
 	local minimum3 = 1
-	local num3 = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*ratio3),minimum3,64)
+	local num3 = math.Clamp(math.ceil(team.NumPlayers(TEAM_HUMANS)*ratio3),minimum3,64)
 	local entposcopy3 = GAMEMODE:GetRandomLocations(num3, ENTS_ONCRATE)
 	for k,v in pairs(entposcopy3) do
 		local ent = ents.Create ("prop_physics");
@@ -89,7 +89,7 @@ function WARE:Initialize()
 		GAMEMODE:MakeAppearEffect(camera:GetPos())
 	end
 	
-	for _,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+	for _,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		v:Give( "weapon_physcannon" )
 	end
 	return

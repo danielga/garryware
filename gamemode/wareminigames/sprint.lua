@@ -16,7 +16,7 @@ function WARE:EndAction()
 end
 
 function WARE:Think( )
-	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		if (v:GetVelocity():Length() < self.MaxSpeed*0.8) then
 			v:WarePlayerDestinyLose( )
 		end

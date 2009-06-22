@@ -20,7 +20,7 @@ function WARE:Initialize()
 end
 
 function WARE:StartAction()
-	for k,pl in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+	for k,pl in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		pl.Barrel = ents.Create( "player_barrel" )
 		
 		pl.Barrel:SetPlayer( pl )
@@ -36,7 +36,7 @@ function WARE:StartAction()
 end
 
 function WARE:EndAction()
-	for k,pl in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+	for k,pl in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		pl:UnSpectate( )
 		pl.Barrel:Remove()
 		pl:SetEyeAngles(Angle(0,0,0))
@@ -53,7 +53,7 @@ function WARE:EndAction()
 end
 
 function WARE:Think( )
-	for k,pl in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+	for k,pl in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		if pl.Barrel then
 			pl:SetPos( pl.Barrel:GetPos() )
 			local phys = pl.Barrel:GetPhysicsObject()

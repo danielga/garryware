@@ -23,8 +23,8 @@ local MelonCratesFakeProps = {
 function WARE:Initialize()
 	local maxcount = table.Count(GAMEMODE:GetEnts(ENTS_ONCRATE))
 	
-	local numberMelonSpawns = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*0.5),1,maxcount)
-	local numberFakeSpawns = math.Clamp(team.NumPlayers(TEAM_UNASSIGNED)+1,4,maxcount-numberMelonSpawns)
+	local numberMelonSpawns = math.Clamp(math.ceil(team.NumPlayers(TEAM_HUMANS)*0.5),1,maxcount)
+	local numberFakeSpawns = math.Clamp(team.NumPlayers(TEAM_HUMANS)+1,4,maxcount-numberMelonSpawns)
 	
 	local delay = 2
 	
@@ -79,7 +79,7 @@ end
 function WARE:StartAction()
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Break a melon ! ",0)
 	
-	for _,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+	for _,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		v:Give("weapon_crowbar")
 	end
 end

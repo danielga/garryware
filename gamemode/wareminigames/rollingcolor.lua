@@ -42,7 +42,7 @@ function WARE:Initialize()
 	local ratio = 0.5
 	local minimum = 4
 	local maxcount = table.Count(GAMEMODE:GetEnts(ENTS_OVERCRATE))
-	local numberSpawns = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*ratio),minimum,maxcount)
+	local numberSpawns = math.Clamp(math.ceil(team.NumPlayers(TEAM_HUMANS)*ratio),minimum,maxcount)
 	
 	-- Randomize the colour sequence so players have to memorize it every time this minigame plays
 	local seqcopy = table.Copy(CrateColours)
@@ -79,7 +79,7 @@ function WARE:Initialize()
 end
 
 function WARE:StartAction()
-	for _,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+	for _,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		v:Give("gmdm_pistol")
 		v:GiveAmmo(12, "Pistol", true)
 	end

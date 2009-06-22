@@ -6,7 +6,7 @@ function WARE:Initialize()
 	
 	local ratio = 0.8
 	local minimum = 4
-	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*ratio),minimum,64)
+	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_HUMANS)*ratio),minimum,64)
 	local entposcopy = GAMEMODE:GetRandomLocationsAvoidBox(num, ENTS_ONCRATE, function(v) return v:IsPlayer() end, Vector(-30,-30,0), Vector(30,30,64))
 	for k,v in pairs(entposcopy) do
 		local ent = ents.Create ("prop_physics");
@@ -26,7 +26,7 @@ function WARE:StartAction()
 	self.MissingEnts = {}
 	local ratio = 0.25
 	local minimum = 1
-	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*ratio),minimum,64)
+	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_HUMANS)*ratio),minimum,64)
 	local entws = GAMEMODE:GetRandomLocations(num,ents.FindByModel("models/props_c17/furniturewashingmachine001a.mdl"))
 	
 	for k,v in pairs(entws) do

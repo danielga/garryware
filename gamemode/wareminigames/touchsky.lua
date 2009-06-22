@@ -12,7 +12,7 @@ end
 function WARE:StartAction()
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Don't touch the sky ! ",1)
 	
-	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		v:Give( "ware_velocitygun" )
 	end
 	for k,v in pairs(player.GetAll()) do 
@@ -29,7 +29,7 @@ function WARE:EndAction()
 end
 
 function WARE:Think( )
-	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		if v:GetPos().z > self.zsky then
 			v:WarePlayerDestinyLose( )
 		end

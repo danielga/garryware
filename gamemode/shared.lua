@@ -14,7 +14,7 @@ DeriveGamemode( "fretta" )
 IncludePlayerClasses()
 
 GM.Help		= "Do what she says\n\nBy : Hurricaaane and Kilburn\n\nMinigame crafters:\nHurricaaane, Kelth, Kilburn, Frostyfrog, and you?\n\nCredits goes to DasMatze and Valve for the Meet the Sniper flourish. Special thanks to : Kilburn (for minigame registering improvement), BlackOps (for improvements)"
-GM.TeamBased = false
+GM.TeamBased = true
 GM.AllowAutoTeam = true
 GM.AllowSpectating = true
 GM.SelectClass = false
@@ -52,11 +52,13 @@ GM.GamePool = {}
 
 GM.BestStreakEver = 3
 
+TEAM_HUMANS = 1
+
 function GM:CreateTeams()
 	
-	team.SetUp( TEAM_UNASSIGNED, "Players", Color( 255, 255, 100 ), true )
-	team.SetSpawnPoint( TEAM_UNASSIGNED, "info_player_start" )
-	team.SetClass( TEAM_UNASSIGNED, { "Default" } )
+	team.SetUp( TEAM_HUMANS, "Players", Color( 255, 255, 100 ), true )
+	team.SetSpawnPoint( TEAM_HUMANS, "info_player_start" )
+	team.SetClass( TEAM_HUMANS, { "Default" } )
 	
 	team.SetUp( TEAM_SPECTATOR, "Spectators", Color( 200, 200, 200 ), true )
 	team.SetSpawnPoint( TEAM_SPECTATOR, "info_player_start" )

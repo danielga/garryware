@@ -88,7 +88,7 @@ function WARE:StartAction()
 	self.PlayerAddition = {}
 	self.PlayerAlreadyHitCrate = {}
 	
-	for _,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do
+	for _,v in pairs(team.GetPlayers(TEAM_HUMANS)) do
 		self.PlayerAddition[v] = 0
 		self.PlayerAlreadyHitCrate[v] = {}
 		for i=1,5 do

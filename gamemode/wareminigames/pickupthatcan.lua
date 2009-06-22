@@ -4,7 +4,7 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(3,5)
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Pick up that can !",0)
 	
-	local numberSpawns = math.Clamp(team.NumPlayers(TEAM_UNASSIGNED),1,table.Count(GAMEMODE:GetEnts(ENTS_INAIR)))
+	local numberSpawns = math.Clamp(team.NumPlayers(TEAM_HUMANS),1,table.Count(GAMEMODE:GetEnts(ENTS_INAIR)))
 	
 	-- HAXX
 	-- GravGunOnPickedUp hook is broken, so we'll use this tricky workaround
@@ -34,7 +34,7 @@ function WARE:Initialize()
 		GAMEMODE:MakeAppearEffect(pos)
 	end
 	
-	for _,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+	for _,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		v:Give( "weapon_physcannon" )
 	end
 end

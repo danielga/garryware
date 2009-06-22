@@ -8,7 +8,7 @@ function WARE:Initialize()
 end
 
 function WARE:StartAction()
-	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		v:Give( "ware_weap_crowbar" )
 	end
 	return
@@ -19,7 +19,7 @@ function WARE:EndAction()
 end
 
 function WARE:Think( )
-	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		if (v:GetVelocity():Length() > 16) then v:WarePlayerDestinyLose( ) end
 	end
 end

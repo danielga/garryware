@@ -8,21 +8,21 @@ function WARE:Initialize()
 end
 
 function WARE:StartAction()
-	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		v:SetEyeAngles( Angle( 0,0,180 ) )
 	end
 	return
 end
 
 function WARE:EndAction()
-	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		v:SetEyeAngles( Angle( 0,0,0 ) )
 	end
 	return
 end
 
 function WARE:Think( )
-	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		v:SetAchievedNoDestiny(0)
 		
 	end

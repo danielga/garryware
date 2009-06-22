@@ -31,7 +31,7 @@ function meta:SetAchievedNoDestiny( hasAchievedInt )
 end
 
 function meta:WarePlayerDestinyWin()
-	if self:Team() != TEAM_UNASSIGNED       then return end
+	if self:Team() != TEAM_HUMANS       then return end
 	if self:GetNWInt("ware_hasdestiny") > 0 then return end
 	
 	self:SetNWInt("ware_achieved", 1 )
@@ -75,7 +75,7 @@ function meta:WarePlayerDestinyWin()
 end
 
 function meta:WarePlayerDestinyLose( )
-	if self:Team() != TEAM_UNASSIGNED then return end
+	if self:Team() != TEAM_HUMANS then return end
 	if self:GetNWInt("ware_hasdestiny") > 0 then return end
 	
 	self:SetNWInt("ware_achieved", 0 )

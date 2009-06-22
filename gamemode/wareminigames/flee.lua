@@ -14,7 +14,7 @@ end
 function WARE:StartAction()
 	local ratio = 0.7
 	local minimum = 3
-	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*ratio),minimum,64)
+	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_HUMANS)*ratio),minimum,64)
 	local entposcopy = GAMEMODE:GetRandomLocations(num, {"dark_inair","light_inair"})
 	for k,v in pairs(entposcopy) do
 		local ent = ents.Create (self.Choice);

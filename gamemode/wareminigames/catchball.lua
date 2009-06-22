@@ -6,7 +6,7 @@ function WARE:Initialize()
 
 
 	local entposcopy = table.Copy(GAMEMODE:GetEnts(ENTS_ONCRATE)) --Copying the table, and the removing elements from it
-	local numberSpawns = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*0.5),1,table.Count(entposcopy))
+	local numberSpawns = math.Clamp(math.ceil(team.NumPlayers(TEAM_HUMANS)*0.5),1,table.Count(entposcopy))
 	
 	for i = 0, numberSpawns - 1 do
 		// table.sort(entposcopy,function(a,b) return a:EntIndex() < b:EntIndex() end) --Making sure the table doesnt have holes
@@ -30,7 +30,7 @@ end
 
 function WARE:StartAction()
 	
-	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		v:Give( "weapon_physcannon" )
 	end
 	

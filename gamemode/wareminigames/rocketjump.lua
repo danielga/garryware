@@ -11,13 +11,13 @@ end
 function WARE:StartAction()
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Rocketjump onto a plate !",0)
 	
-	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		v:Give( "ware_weap_rocketjump" )
 	end
 	
 	local ratio = 0.3
 	local minimum = 1
-	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*ratio),minimum,64)
+	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_HUMANS)*ratio),minimum,64)
 	
 	local entposcopy = GAMEMODE:GetRandomLocations(num,"dark_inair")
 	for k,v in pairs(entposcopy) do

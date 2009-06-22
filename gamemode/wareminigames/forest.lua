@@ -12,7 +12,7 @@ function WARE:StartAction()
 
 	local ratio = 0.5
 	local minimum = 1
-	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*ratio),minimum,64)
+	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_HUMANS)*ratio),minimum,64)
 	local entposcopy = GAMEMODE:GetRandomLocations(num, "ground")
 	for k,v in pairs(entposcopy) do
 		local ent = ents.Create ("prop_physics")
@@ -25,7 +25,7 @@ function WARE:StartAction()
 		GAMEMODE:MakeAppearEffect(ent:GetPos())
 	end
 	local rand = math.random(1,2)
-	for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		if rand == 1 then
 			v:Give( "gmdm_pistol" )
 			v:GiveAmmo( 12, "Pistol", true )	

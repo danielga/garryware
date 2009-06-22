@@ -10,8 +10,8 @@ local Alarms = {
 function WARE:Initialize()
 	local maxcount = table.Count(GAMEMODE:GetEnts(ENTS_ONCRATE))
 	
-	local numberAlarmSpawns = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*0.5),1,maxcount)
-	local numberNormalSpawns = math.Clamp(team.NumPlayers(TEAM_UNASSIGNED)+1,4,maxcount-numberAlarmSpawns)
+	local numberAlarmSpawns = math.Clamp(math.ceil(team.NumPlayers(TEAM_HUMANS)*0.5),1,maxcount)
+	local numberNormalSpawns = math.Clamp(team.NumPlayers(TEAM_HUMANS)+1,4,maxcount-numberAlarmSpawns)
 	
 	GAMEMODE:SetWareWindupAndLength(3,8)
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Listen and get ready...",0)
@@ -53,7 +53,7 @@ end
 function WARE:StartAction()
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Shut it down ! ",0)
 	
-	for _,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do 
+	for _,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		v:Give("weapon_crowbar")
 	end
 	
