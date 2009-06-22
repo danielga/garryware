@@ -441,7 +441,7 @@ function GM:PlayerInitialSpawn( ply, id )
 
 	--Give him info about wether the game has begun and when the game ends
 	local didnotbegin = false
-	if self.NextgameStart < CurTime() then
+	if self.NextgameStart > CurTime() then
 		didnotbegin = true
 	end
 	
