@@ -39,7 +39,7 @@ function WARE:Initialize()
 	local num2 = math.Clamp(math.ceil(team.NumPlayers(TEAM_UNASSIGNED)*ratio2),minimum2,num)
 	local entcontains = GAMEMODE:GetRandomLocations(num2, cratelist)
 	for k,v in pairs(entcontains) do
-		v:SetNWInt("contains",1)
+		v.contains = true
 		--v:SetColor(255,0,0,255)
 	end
 	
@@ -111,7 +111,7 @@ function WARE:EndAction()
 end
 
 function WARE:PropBreak(pl,prop)	
-	if prop:GetNWInt("contains",0) > 0 then
+	if prop.contains == true then
 		local ent = ents.Create ("prop_physics");
 		ent:SetModel("models/Items/car_battery01.mdl")
 		ent:SetPos(prop:GetPos());
@@ -201,6 +201,15 @@ function WARE:Think()
 			end
 			
 			self.NextPlugThink = CurTime()+0.1
+		end
+	end
+	
+	for k,camera in pairs(ents.FindByClass("npc_combine_camera")) do
+		local sphere = ents.FindInSphere(camera:GetPos(),24)
+		for _,target in pairs(sphere) do
+			if target:GetClass() == "prop_physics" then
+				target:GetPhysicsObject():ApplyForceCenter((target:GetPos() - camera:GetPos()):Normalize() * 500)
+			end
 		end
 	end
 end

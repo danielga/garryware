@@ -9,6 +9,9 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(3,4)
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Don't be on the circles !",1)
 	
+	local entsky = GAMEMODE:GetEnts("dark_inair")
+	self.zsky = entsky[1]:GetPos().z
+	
 	local ratio = 0.6
 	local num = #GAMEMODE:GetEnts({"dark_ground","light_ground"})*ratio
 	local entposcopy = GAMEMODE:GetRandomLocations(num, {"dark_ground","light_ground"} )
@@ -95,6 +98,11 @@ function WARE:Think( )
 				
 				end
 			end
+		end
+	end
+	for k,ent in pairs(ents.FindByClass("ware_proj_crowbar")) do
+		if (ent:GetPos().z > self.zsky) then
+			ent:GetPhysicsObject():ApplyForceCenter(Vector(0,0,-1)*15000)
 		end
 	end
 end
