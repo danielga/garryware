@@ -123,7 +123,7 @@ function PANEL:Think()
 	if (counter > 7) then
 		local line = self.List2:AddLine( "... (".. counter - 7 ..")", "", "" )
 		line.goodness = true
-		line.destiny = false
+		line.destiny = 0
 		line.dominating = false
 	end
 	self.List2:DataLayout()

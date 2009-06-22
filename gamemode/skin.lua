@@ -40,7 +40,16 @@ function SKIN:SchemeListViewLabel( panel )
 	
 	if panel:GetParent().goodness == true then
 		if panel:GetParent().destiny > 0 then
-			colorL = Color(132,190,255,255)
+			if ( panel:GetParent().dominating == true ) then
+				local onecos = ( (math.cos( math.rad(RealTime()*360*2) ) + 1) / 2.0 )^3
+				local twocos = 1-onecos
+				local cA = Color(255,255,0,255)
+				local cB = Color(132,190,255,255)
+				
+				colorL = Color(cA.r*onecos + cB.r*twocos,cA.g*onecos + cB.g*twocos,cA.b*onecos + cB.b*twocos,255)
+			else
+				colorL = Color(132,190,255,255)
+			end
 		else
 			colorL = Color(255,255,255,255)
 		end
