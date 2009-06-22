@@ -310,7 +310,7 @@ function GM:CreateScoreboard( ScoreBoard )
 	ScoreBoard:SetAsBullshitTeam( TEAM_CONNECTING )
 	
 	if ( GAMEMODE.TeamBased ) then
-		ScoreBoard:SetAsBullshitTeam( TEAM_HUMANS )
+		ScoreBoard:SetAsBullshitTeam( TEAM_UNASSIGNED )
 		ScoreBoard:SetHorizontal( true )
 	end
 
@@ -341,6 +341,11 @@ function GM:PositionScoreboard( ScoreBoard )
 	end
 
 end
+
+function GM:UpdateHUD_Alive( InRound )
+	return false
+end
+
 
 
 local vgui_ridiculous = vgui.RegisterFile( "vgui_ridiculous.lua" )
