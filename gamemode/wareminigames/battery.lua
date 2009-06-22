@@ -145,6 +145,38 @@ function WARE:PropBreak(pl,prop)
 	end
 end
 
+local function PlugBatteryIn(batteryremove,socket)
+	if ( !ValidEntity(batteryremove) or !ValidEntity(socket) ) then return end
+	
+	batteryremove:Remove()
+	
+	
+	local battery = ents.Create ("prop_dynamic_override");
+	battery:SetModel("models/Items/car_battery01.mdl")
+	battery:SetPos(socket:GetPos() + socket:GetForward()*13 + socket:GetRight()*-13 + Vector(0,0,10))
+	battery:SetAngles(socket:GetAngles())
+	battery:Spawn();
+	GAMEMODE:AppendEntToBin(battery)
+	
+	//battery:GetPhysicsObject():EnableMotion(false)
+	//DropEntityIfHeld(battery)
+	//battery:GetPhysicsObject():ApplyForceCenter( Vector( 0, 0, 128 ) )
+
+	socket:EmitSound("npc/roller/mine/combine_mine_deploy1.wav")
+
+	local spark = ents.Create("env_spark")
+	spark:SetPos(battery:GetPos())
+	spark:SetKeyValue("MaxDelay",2)
+	spark:SetKeyValue("Magnitude",4)
+	spark:SetKeyValue("TrailLength",2)
+	spark:Spawn()
+	spark:SetParent(battery)
+	spark:Fire("SparkOnce")
+	
+	local camera = socket:GetNWEntity("camera")
+	camera:Fire("Enable")
+end
+
 function WARE:Think()
 	if self.Plugs then
 		if not self.NextPlugThink or CurTime() > self.NextPlugThink then
@@ -155,33 +187,13 @@ function WARE:Think()
 					if v:GetModel() == "models/items/car_battery01.mdl" && w:GetNWInt("isoccupied",0) == 0 then
 						local Owner = v.BatteryOwner
 						if Owner and Owner:IsPlayer() then
-							GAMEMODE:MakeAppearEffect(v:GetPos())
-							w:SetNWInt("isoccupied",1)
-							//DropEntityIfHeld(v)
-							v:GetPhysicsObject():EnableMotion(false)
-							v:SetPos(w:GetPos() + w:GetForward()*13 + w:GetRight()*-13 + Vector(0,0,10))
-							v:SetAngles(w:GetAngles())
-							//v:GetPhysicsObject():ApplyForceCenter( Vector( 0, 0, 128 ) )
-
-							
-							w:EmitSound("npc/roller/mine/combine_mine_deploy1.wav")
-						
-							local spark = ents.Create("env_spark")
-							spark:SetPos(v:GetPos())
-							spark:SetKeyValue("MaxDelay",2)
-							spark:SetKeyValue("Magnitude",4)
-							spark:SetKeyValue("TrailLength",2)
-							spark:Spawn()
-							spark:SetParent(v)
-							spark:Fire("SparkOnce")
-						
 							Owner:StripWeapons()
-							
-							local camera = w:GetNWEntity("camera")
-							camera:Fire("Enable")
-							
-							
 							Owner:WarePlayerDestinyWin( )
+							w:SetNWInt("isoccupied",1)
+							
+							GAMEMODE:MakeAppearEffect(v:GetPos())
+							
+							timer.Simple(0.05,PlugBatteryIn,v,w)
 						end
 					end
 				end
