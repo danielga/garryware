@@ -1,4 +1,16 @@
 WARE.Author = "Kilburn"
+WARE.Room = "empty"
+
+local Colors = {
+	{0,0,255},
+	{0,255,0},
+	{255,0,0},
+	{0,0,100},
+	{100,0,0},
+	{0,100,100},
+	{100,100,0},
+	{20,20,20},
+}
 
 --[[ MAP STRUCTURE
 (should probably make this into a module, may be useful for other minigames)
@@ -22,14 +34,17 @@ y = average Y of this row
 ]]
 
 -- Maximum error margin for including props in the grid
-local Tolerancy = 20
+local Tolerancy = 10
 
 local function CreateGrid()
 	return {[-1]={}, [0]={}, W=0,H=0}
 end
 
 local function InsertRow(grid, y)
-	table.insert(grid, y, {[-1]=0, [0]=0})
+	local t = {[-1]=0, [0]=0}
+	for i=1,grid.W do t[i]=NULL end
+	
+	table.insert(grid, y, t)
 	grid.H = grid.H + 1
 end
 
@@ -112,32 +127,93 @@ local function InsertInGrid(grid, prop)
 	AddItem(grid, a, b, prop)
 end
 
+local function Uncover(p)
+	if not p:IsValid() then return end
+	
+	local num = p.Neighbours
+	
+	if num>0 then
+		local textent = ents.Create("ware_text")
+		textent:SetPos(p:GetPos())
+		textent:Spawn()
+		
+		GAMEMODE:AppendEntToBin(textent)
+		GAMEMODE:MakeAppearEffect(p:GetPos())
+		
+		textent:SetEntityText(tostring(num))
+		
+		local c = Colors[num] or Colors[8]
+		
+		timer.Simple(0.1, function(t)
+			umsg.Start("EntityTextChangeColor")
+				umsg.Entity(t)
+				umsg.Long(c[1])
+				umsg.Long(c[2])
+				umsg.Long(c[3])
+				umsg.Long(255)
+			umsg.End()
+		end, textent)
+	end
+end
+
+local function Floodfill(grid, x, y)
+	local removed = 0
+	local Q = {}
+	table.insert(Q, {x,y})
+	while Q[1] do
+		local n = Q[1]
+		local p = GetInGrid(grid, n[1], n[2])
+		local num
+		
+		if p:IsValid() then
+			num = p.Neighbours
+			Uncover(p)
+			p:Remove()
+			removed = removed + 1
+		end
+		
+		table.remove(Q, 1)
+		
+		if num==0 then
+			for i=n[1]-1,n[1]+1 do
+				for j=n[2]-1,n[2]+1 do
+					if i~=n[1] or j~=n[2] then
+						local q = GetInGrid(grid, i, j)
+						if q:IsValid() then
+							if q.Neighbours==0 then
+								table.insert(Q, {i,j})
+							else
+								Uncover(q)
+							end
+							q:Remove()
+							removed = removed + 1
+						end
+					end
+				end
+			end
+		end
+	end
+	return removed
+end
+
 -----------------------------------------------------------------------------------------------
 
-local Colors = {
-	{0,0,255},
-	{0,255,0},
-	{255,0,0},
-	{0,0,100},
-	{100,0,0},
-	{0,100,100},
-	{100,100,0},
-	{20,20,20},
-}
-
 function WARE:Initialize()
-	local maxcount = table.Count(GAMEMODE:GetEnts(ENTS_ONCRATE))
-	local nummines = math.ceil(math.Clamp(team.NumPlayers(TEAM_UNASSIGNED)*1.25,1,maxcount*0.5))
-	
 	GAMEMODE:SetWareWindupAndLength(2,25)
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Work as a team, keyword: \"minesweeper\" !",0)
+	
+	local entlist = GAMEMODE:GetEnts({"light_ground","dark_ground"})
+	local maxcount = table.Count(entlist)
+	local nummines = math.ceil(math.Clamp(team.NumPlayers(TEAM_UNASSIGNED)*1.25,1,maxcount*0.3))
+	
+	Msg(maxcount.."\n")
 	
 	self.Grid = CreateGrid()
 	self.Remaining = maxcount
 	
-	for k,v in pairs(GAMEMODE:GetEnts(ENTS_ONCRATE)) do
+	for k,v in pairs(entlist) do
 		local pos = v:GetPos()
-		pos = pos + Vector(0,0,30)
+		pos = pos + Vector(0,0,v:OBBMins().z)
 		
 		local prop = ents.Create("prop_physics")
 		prop:SetModel("models/props_junk/wood_crate001a.mdl")
@@ -157,12 +233,32 @@ function WARE:Initialize()
 		InsertInGrid(self.Grid, prop)
 	end
 	
+	Msg(self.Grid.W.." , "..self.Grid.H.."\n")
+	for i=1,self.Grid.H do
+		for j=1,self.Grid.W do
+			local p = GetInGrid(self.Grid, j, i)
+			if not p then
+				Msg("N ")
+			elseif p:IsValid() then
+				Msg("O ")
+			else
+				Msg("X ")
+			end
+		end
+		Msg("\n")
+	end
+	
+	local dbg = (GetConVarNumber("ware_debug")==2)
+	
 	for i=1,nummines do
 		local x,y = math.random(1,self.Grid.W), math.random(1,self.Grid.H)
 		local p = GetInGrid(self.Grid, x, y)
 		
 		if p:IsValid() and not p.Mine then
 			p.Mine = true
+			if dbg then
+				p:SetColor(255,200,200,255)
+			end
 			p:SetHealth(100000)
 			self.Remaining = self.Remaining - 1
 			
@@ -176,6 +272,7 @@ function WARE:Initialize()
 			end
 		end
 	end
+	
 end
 
 function WARE:StartAction()
@@ -233,31 +330,10 @@ function WARE:PropBreak(killer, prop)
 	
 	local num = prop.Neighbours
 	
-	if num>0 then
-		local textent = ents.Create("ware_text")
-		textent:SetPos(prop:GetPos())
-		textent:Spawn()
-		
-		GAMEMODE:AppendEntToBin(textent)
-		GAMEMODE:MakeAppearEffect(prop:GetPos())
-		
-		textent:SetEntityText(tostring(num))
-		
-		local c = Colors[num] or Colors[8]
-		
-		timer.Simple(0.1, function(t)
-			umsg.Start("EntityTextChangeColor")
-				umsg.Entity(t)
-				umsg.Long(c[1])
-				umsg.Long(c[2])
-				umsg.Long(c[3])
-				umsg.Long(255)
-			umsg.End()
-		end, textent)
-	end
+	local removed = Floodfill(self.Grid, pos.x, pos.y)
 	
-	self.Remaining = self.Remaining - 1
-	if self.Remaining==0 then
+	self.Remaining = self.Remaining - removed
+	if self.Remaining<=0 then
 		for k,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do
 			for _,p in pairs(ents.FindByClass("prop_physics")) do
 				if p.Mine then
