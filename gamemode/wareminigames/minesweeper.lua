@@ -1,6 +1,10 @@
 WARE.Author = "Kilburn"
 WARE.Room = "empty"
 
+function WARE:IsPlayable()
+	return false
+end
+
 local Colors = {
 	{0,0,255},
 	{0,255,0},
