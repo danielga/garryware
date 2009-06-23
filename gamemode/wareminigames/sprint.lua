@@ -1,7 +1,7 @@
 WARE.Author = "Frostyfrog"
 
 function WARE:Initialize()
-	GAMEMODE:SetWareWindupAndLength(2,5)
+	GAMEMODE:SetWareWindupAndLength(2.5,5)
 	
 	self.MaxSpeed = 320
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Don't stop sprinting !",1)

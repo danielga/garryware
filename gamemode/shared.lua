@@ -1,14 +1,14 @@
 include( "ply_extension.lua" )
 
 GM.Name 	= "Garry Ware"
-GM.Author 	= "Hurricaaane (Ha3)"
+GM.Author 	= "Hurricaaane (Ha3) and Kilburn"
 GM.Email 	= ""
 GM.Website 	= ""
 
 DeriveGamemode( "fretta" )
 IncludePlayerClasses()
 
-GM.Help		= "Do what she says\n\nBy : Hurricaaane and Kilburn\n\nMinigame crafters:\nHurricaaane, Kelth, Kilburn, Frostyfrog, and you?\n\nCredits goes to DasMatze and Valve for the Meet the Sniper flourish. Special thanks to : Kilburn (for minigame registering improvement), BlackOps (for improvements)"
+GM.Help		= "Rules :\n- Do what she says\n- Have fun, this is not a game where you have to kill everyone still alive\n\nBy : Hurricaaane and Kilburn\n\nMinigame crafters:\nHurricaaane, Kelth, Kilburn, Frostyfrog, xandar, and you?\n\nCredits goes to DasMatze and Valve for the Meet the Sniper flourish.\nOriginal sound effects from Valve 'Team Fortress 2' game, and are property of Valve.\nSpecial thanks to : Kilburn (for minigame registering improvement), BlackOps (for improvements)"
 GM.TeamBased = true
 GM.AllowAutoTeam = true
 GM.AllowSpectating = true
