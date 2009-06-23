@@ -1,4 +1,3 @@
-
 WARE.Author = "Kilburn"
 WARE.Room = "empty"
 
@@ -254,7 +253,7 @@ function WARE:EntityTakeDamage(ent,inf,att,amount,info)
 		
 		-- Everyone has failed, show the mines and end the game
 		local fail = true
-		for _,v in pairs(team.GetPlayers(TEAM_HUMAN)) do
+		for _,v in pairs(team.GetPlayers(TEAM_HUMANS)) do
 			if not self.Losers[v] then
 				fail = false
 				break
