@@ -18,7 +18,7 @@ local ActIndex = {}
 	ActIndex[ "melee" ] 		= ACT_HL2MP_IDLE_MELEE
 	ActIndex[ "slam" ] 			= ACT_HL2MP_IDLE_SLAM
 	ActIndex[ "normal" ]		= ACT_HL2MP_IDLE
-
+	
 function SWEP:SetWeaponHoldType( t )
 
 	local index = ActIndex[ t ]
@@ -211,5 +211,16 @@ end
    Name: Deploy
 ---------------------------------------------------------*/
 function SWEP:Deploy()
+
+	// If it's silenced, we need to play a different anim
+	if( self.SupportsSilencer and self:GetNetworkedBool( "Silenced" ) == true ) then
+		self:SendWeaponAnim( ACT_VM_DRAW_SILENCED )
+	else
+		self:SendWeaponAnim( ACT_VM_DRAW )
+	end
+
+// omitted some shit
+	
+	// Quick switch
 	return true
-end
+end 
