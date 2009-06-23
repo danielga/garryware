@@ -4,11 +4,6 @@ WARE.Room = "empty"
 local ColorEmpty = Color(50,50,50,255)
 local ColorFull = Color(0,255,0,255)
 
-//Temporary disable
-function WARE:IsPlayable()
-	return false
-end
-
 local function RemoveCartVictory(cart)
 	if cart and cart:IsValid() then
 		GAMEMODE:MakeDisappearEffect(cart:GetPos())
