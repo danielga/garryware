@@ -9,14 +9,19 @@ AddCSLuaFile( "vgui_clockgame.lua" )
 AddCSLuaFile( "vgui_waitscreen.lua" )
 AddCSLuaFile( "skin.lua" )
 AddCSLuaFile( "tables.lua" )
+AddCSLuaFile( "ply_extension.lua" )
 
 include( "shared.lua" )
 include( "admin.lua" )
 include( "tables.lua" )
-include( "ply_extension.lua" )
+--include( "ply_extension.lua" )
 
 include( "init_effects.lua" )
 include( "init_entitygathering.lua" )
+
+include( "minigames_module.lua" )
+include( "environment_module.lua" )
+include( "entitymap_module.lua" )
 
 resource.AddFile("sound/ware/crit_hit1.wav")
 resource.AddFile("sound/ware/crit_hit2.wav")

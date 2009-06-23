@@ -1,9 +1,4 @@
-if( SERVER ) then
-	AddCSLuaFile( "ply_extension.lua" );
-end
-include( "ply_extension.lua" );
-include( "minigames_module.lua" )
-include( "environment_module.lua" )
+include( "ply_extension.lua" )
 
 GM.Name 	= "Garry Ware"
 GM.Author 	= "Hurricaaane (Ha3)"
