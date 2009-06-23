@@ -1,7 +1,11 @@
 
-AddCSLuaFile( "cl_init.lua" )
 AddCSLuaFile( "shared.lua" )
+
+AddCSLuaFile( "cl_init.lua" )
+AddCSLuaFile( "cl_hud.lua" )
 AddCSLuaFile( "cl_postprocess.lua" )
+AddCSLuaFile( "cl_usermsg.lua" )
+
 AddCSLuaFile( "vgui_ridiculous.lua" )
 AddCSLuaFile( "vgui_transitscreen.lua" )
 AddCSLuaFile( "vgui_clock.lua" )
