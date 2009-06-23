@@ -9,6 +9,8 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(3,4)
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Don't be on the circles !",1)
 	
+	self.LastThinkDo = 0
+	
 	local entsky = GAMEMODE:GetEnts("dark_inair")
 	self.zsky = entsky[1]:GetPos().z
 	
@@ -56,6 +58,9 @@ end
 
 
 function WARE:Think( )
+	if (CurTime() < (self.LastThinkDo + 0.1)) then return end
+	self.LastThinkDo = CurTime()
+	
 	for k,ring in pairs(ents.FindByClass("ware_ringzone")) do
 		local sphere = ents.FindInSphere(ring:GetPos(),self.CircleRadius)
 		for _,target in pairs(sphere) do
