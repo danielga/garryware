@@ -103,7 +103,7 @@ function WARE:EntityTakeDamage(ent,inf,att,amount,info)
 		end
 	else
 	
-		local goodent = pool.Crates[pool.PlayerCurrentCrate[att]]
+		local goodent = pool.Crates[pool.Sequence[pool.PlayerCurrentCrate[att]]]
 		umsg.Start("EntityTextChangeColor", rp)
 			umsg.Entity( goodent.AssociatedText )
 			umsg.Long( 255 )
