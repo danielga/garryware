@@ -3,6 +3,9 @@ GM.NewWareSound =  	Sound("ware/game_new.mp3")
 GM.LoseWareSound = 	Sound("ware/game_lose.mp3")
 GM.WinWareSound =  	Sound("ware/game_win.mp3")
 
+GM.EveryoneWonSound =  	Sound("npc/metropolice/vo/on1.wav")
+GM.EveryoneLostSound = 	Sound("ambient/alarms/klaxon1.wav")
+
 GM.Left1 = 	Sound("ware/announcer_begins_1sec.mp3")
 GM.Left2 = 	Sound("ware/announcer_begins_2sec.mp3")
 GM.Left3 = 	Sound("ware/announcer_begins_3sec.mp3")

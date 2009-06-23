@@ -81,6 +81,47 @@ function GM:DrawPlayersTextAndInitialStatus(text , initialAchievedInt)
 	end
 end
 
+function GM:CheckAllPlayersStatus()
+	if #team.GetPlayers(TEAM_HUMANS) < 2 then return end
+	
+	local playertable = team.GetPlayers(TEAM_HUMANS)
+	
+	--Has everyone validated their status ?
+	local i = 1
+	while ( (i <= #playertable) and (playertable[i]:GetNWInt("ware_hasdestiny",0) == 1) ) do
+		i = i + 1
+	end
+	if (i <= #playertable) then print("destiny isnt at 1") return false end
+	
+	--Do everyone have the same status ?
+	local probable = playertable[1]:GetNWInt("ware_achieved",0)
+	i = 2
+	while ( (i <= #playertable) and (playertable[i]:GetNWInt("ware_achieved",0) == probable) ) do
+		i = i + 1
+	end
+	if (i <= #playertable) then print("achieved isnt the same") return false end
+	
+	
+	local rp = RecipientFilter()
+	rp:AddAllPlayers( )
+	umsg.Start("EventEveryoneState", rp)
+		umsg.Long(probable)
+	umsg.End()
+	
+	local message = ""
+	if (probable > 0) then
+		message = "Everyone won !"
+	else
+		message = "Everyone failed !"
+	end
+	
+	for k,v in pairs(player.GetAll()) do
+		v:PrintMessage( HUD_PRINTCENTER , message )
+	end
+	
+	return true
+end
+
 /*
 function GM:StreamParticlesToClient(tableClients,materialpath,number,duration,data)
 	datastream.StreamToClients(

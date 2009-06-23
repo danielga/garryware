@@ -39,7 +39,12 @@ function meta:WarePlayerDestinyWin()
 	self:EmitSound(GAMEMODE.WinOther)
 	self:AddFrags( 1 )
 	
-	self:PrintMessage(HUD_PRINTCENTER , "Success !")
+	local everyoneStatusIsTheSame = GAMEMODE:CheckAllPlayersStatus()
+	if (not everyoneStatusIsTheSame) then
+		self:PrintMessage(HUD_PRINTCENTER , "Success !")
+	end
+	
+	
 	local rp = RecipientFilter()
 	rp:AddPlayer( self )
 	umsg.Start("EventDestinySet", rp)
@@ -83,8 +88,13 @@ function meta:WarePlayerDestinyLose( )
 	
 	self:EmitSound(GAMEMODE.LoseOther)
 	self:AddDeaths( 1 )
+
+	local everyoneStatusIsTheSame = GAMEMODE:CheckAllPlayersStatus()
+	if (not everyoneStatusIsTheSame) then
+		self:PrintMessage(HUD_PRINTCENTER , "Fail !")
+	end
 	
-	self:PrintMessage(HUD_PRINTCENTER , "Fail !")
+	
 	local rp = RecipientFilter()
 	rp:AddPlayer( self )
 	umsg.Start("EventDestinySet", rp)

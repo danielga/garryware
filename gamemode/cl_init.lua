@@ -5,25 +5,6 @@ include( 'cl_usermsg.lua' )
 include( 'skin.lua' )
 include( "tables.lua" )
 
-Sound("ware/game_new.mp3")
-Sound("ware/game_lose.mp3")
-Sound("ware/game_win.mp3")
-
-Sound("ware/announcer_begins_1sec.mp3")
-Sound("ware/announcer_begins_2sec.mp3")
-Sound("ware/announcer_begins_3sec.mp3")
-Sound("ware/announcer_begins_4sec.mp3")
-Sound("ware/announcer_begins_5sec.mp3")
-
-Sound("ware/crit_hit1.wav")
-Sound("ware/crit_hit2.wav")
-Sound("ware/crit_hit3.wav")
-Sound("ware/crit_hit4.wav")
-Sound("ware/crit_hit5.wav")
-
-Sound("ware/crit_hit_other.wav")
-
-
 /*
 MusCursor = 1
 MusGame = { {"........a4..a4..........a4..a4..","weapons/wrench_hit_build_fail.wav"} ,

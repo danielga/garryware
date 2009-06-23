@@ -74,6 +74,80 @@ local function EventDestinySet( m )
 end
 usermessage.Hook( "EventDestinySet", EventDestinySet )
 
+
+
+local function GetPitchFromNote( notes, noteindex )
+	local NoPitch = false
+	local Octave = 0
+	local OctaveSt = ""
+	local Pitch = 100
+	local Highness = 0
+	local Pnum = 0
+	
+	local Offset = 0
+	local Note = notes:sub( noteindex*2 - 1 , noteindex*2 - 1 )
+	print( Note )
+	if (Note != ".") then
+		OctaveSt = notes:sub( noteindex*2 , noteindex*2 )
+	end
+	if (OctaveSt == "0") then Octave = 0 end
+	if (OctaveSt == "1") then Octave = 1 end
+	if (OctaveSt == "2") then Octave = 2 end
+	if (OctaveSt == "3") then Octave = 3 end
+	if (OctaveSt == "4") then Octave = 4 end
+	if (OctaveSt == "5") then Octave = 5 end
+	if (OctaveSt == "6") then Octave = 6 end
+	if (OctaveSt == "7") then Octave = 7 end
+	if (OctaveSt == "8") then Octave = 8 end
+	if (OctaveSt == "9") then Octave = 9 end
+	
+	if     (Note == "c") then Pnum = -9+(12*(Octave-4))
+	elseif (Note == "d") then Pnum = -7+(12*(Octave-4))
+	elseif (Note == "e") then Pnum = -5+(12*(Octave-4))
+	elseif (Note == "f") then Pnum = -4+(12*(Octave-4))
+	elseif (Note == "g") then Pnum = -2+(12*(Octave-4))
+	elseif (Note == "a") then Pnum =  0+(12*(Octave-4))
+	elseif (Note == "b") then Pnum =  2+(12*(Octave-4))
+	
+	elseif (Note == "C") then Pnum = -9+(12*(Octave-4))+1
+	elseif (Note == "D") then Pnum = -7+(12*(Octave-4))+1
+	elseif (Note == "F") then Pnum = -4+(12*(Octave-4))+1
+	elseif (Note == "G") then Pnum = -2+(12*(Octave-4))+1
+	elseif (Note == "A") then Pnum =  0+(12*(Octave-4))+1
+	else NoPitch = true Pnum = 0 end
+
+	if (NoPitch == true) then
+		Pitch = 0
+	else
+		Highness = Pnum + Offset
+		Pitch = 2^(Highness/12)
+	end
+	
+	Pitch = Pitch * 100
+	print( tostring(Pitch) )
+	return Pitch
+end
+
+
+local function PlayEveryoneSound( Destiny , iteration )
+	if (Destiny > 0) then
+		LocalPlayer():EmitSound( GAMEMODE.EveryoneWonSound , 100 , GetPitchFromNote("g3a3b3c4..", iteration ) )
+	else
+		LocalPlayer():EmitSound( GAMEMODE.EveryoneLostSound , 100 , GetPitchFromNote("g4F4f4e4D4", iteration ) )
+	end
+end
+
+local function EventEveryoneState( m )
+	local Destiny = m:ReadLong()
+	
+	for i=1,5 do
+		timer.Simple(i*0.17, PlayEveryoneSound , Destiny , i )
+	end
+end
+usermessage.Hook( "EventEveryoneState", EventEveryoneState )
+
+
+
 local function EventEndgameSet( m )
 	local Destiny = m:ReadLong()
 	if (Destiny > 0) then
