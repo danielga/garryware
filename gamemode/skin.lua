@@ -1,5 +1,7 @@
 local SKIN = {}
 
+surface.CreateFont( "Verdana", 16, 400, false, false, "WARERidiculous" ) 
+
 function SKIN:PaintListView( panel )
 
 	if ( panel.IsWare ) then
@@ -36,7 +38,7 @@ function SKIN:PaintListViewLine( panel )
 end
 
 function SKIN:SchemeListViewLabel( panel )
-	panel:SetFont( "WAREScore" )
+	panel:SetFont( "WARERidiculous" )
 	
 	if panel:GetParent().goodness == true then
 		if panel:GetParent().destiny > 0 then
@@ -64,7 +66,7 @@ function SKIN:SchemeListViewLabel( panel )
 	panel:SetColor(colorL)
 end
 function SKIN:SchemeListViewColumn( panel )
-	panel.Header:SetFont( "WAREScore" )
+	panel.Header:SetFont( "WARERidiculous" )
 	panel.Header:SetColor(Color(255,255,255,255))
 end
 

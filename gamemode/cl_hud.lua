@@ -1,6 +1,6 @@
 
 surface.CreateFont( "coolvetica", 48, 400, true, false, "WAREIns" ) 
-surface.CreateFont( "Verdana", 16, 400, false, false, "WAREScore" ) 
+surface.CreateFont( "Verdana", 16, 400, true, false, "WAREScore" ) 
 
 /*----------------------------------
 HUD Centermsg

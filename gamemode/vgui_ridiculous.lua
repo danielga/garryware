@@ -194,9 +194,11 @@ function PANEL:Paint()
 	surface.SetDrawColor( 250,165,165,255 )
 	surface.DrawTexturedRectRotated(self:GetWide()-self.Minispacing, 14, 24, 24, 0)
 
+	draw.SimpleText( self.Wincount , "WAREScore", self.Minispacing+1             , 14+1, Color( 0, 0, 0, 128 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER);
 	draw.SimpleText( self.Wincount , "WAREScore", self.Minispacing               , 14, Color( 255, 255, 255, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER);
 	
-	draw.SimpleText( self.Failcount, "WAREScore", self:GetWide()-self.Minispacing, 14, Color( 255, 255, 255, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER);
+	draw.SimpleText( self.Failcount, "WAREScore", self:GetWide()-self.Minispacing+1, 14+1, Color( 0, 0, 0, 128 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER);
+	draw.SimpleText( self.Failcount, "WAREScore", self:GetWide()-self.Minispacing  , 14  , Color( 255, 255, 255, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER);
 	
 	if hasdestiny > 0 then
 		surface.SetTexture( self.LockTexID )
