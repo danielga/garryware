@@ -6,7 +6,11 @@ include( 'shared.lua' )
 function ENT:Initialize()
 	self:SetMoveType(MOVETYPE_NONE)
 	self:SetNotSolid(true)
+	self.Enabled = true
 end
+
+function ENT:Enable() self.Enabled = true end
+function ENT:Disable() self.Enabled = false end
 
 function ENT:Setup(mins, maxs, callback, filter, iswhitelist)
 	self:SetNetworkedVector("mins", mins)
@@ -41,6 +45,7 @@ function ENT:IsInBox(pos)
 end
 
 function ENT:Think(ent)
+	if not self.Enabled then return end
 	if not self.TouchCallback then return end
 	local pos = self:GetPos()
 	
