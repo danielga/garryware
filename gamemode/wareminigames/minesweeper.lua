@@ -40,6 +40,18 @@ local function Flag(p)
 	GAMEMODE:MakeLandmarkEffect(p:GetPos()+Vector(0,0,18))
 end
 
+-- Spawn a mine on a crate
+local function Mine(p)
+	local mine = ents.Create("prop_dynamic")
+	mine:SetModel("models/props_combine/combine_mine01.mdl")
+	mine:SetPos(p:GetPos()+Vector(0,0,20))
+	mine:Spawn()
+	
+	mine:SetParent(p)
+	
+	GAMEMODE:MakeAppearEffect(p:GetPos()+Vector(0,0,18))
+end
+
 -- Spawn a number showing how many mines there are around this crate
 local function Uncover(p)
 	if not p:IsValid() then return end
@@ -164,7 +176,6 @@ function WARE:Initialize()
 			end
 		end
 	end
-	
 end
 
 function WARE:StartAction()
@@ -203,7 +214,7 @@ end
 function WARE:Think()
 	-- Because using the crowbar is just impractical
 	-- Stand on a crate, it breaks (or blows you up if it's a mine)
-	if self.Victory then return end
+	if self.GameOver then return end
 	
 	for _,v in pairs(ents.FindByClass("player")) do
 		if not self.Losers[v] then
@@ -240,6 +251,30 @@ function WARE:EntityTakeDamage(ent,inf,att,amount,info)
 		
 		att:WarePlayerDestinyLose( )
 		att:StripWeapons()
+		
+		-- Everyone has failed, show the mines and end the game
+		local fail = true
+		for _,v in pairs(team.GetPlayers(TEAM_HUMAN)) do
+			if not self.Losers[v] then
+				fail = false
+				break
+			end
+		end
+		
+		if fail then
+			self.GameOver = true
+			for _,p in pairs(ents.FindByClass("prop_physics")) do
+				if p.Mine then
+					p.Mine = false
+					p:SetColor(255,0,0,255)
+					Mine(p)
+				end
+			end
+			
+			if GAMEMODE.NextgameEnd>CurTime()+3 then
+				GAMEMODE:SetNextGameEnd(CurTime()+3)
+			end
+		end
 	end
 end
 
@@ -271,17 +306,22 @@ function WARE:PropBreak(killer, prop)
 	end
 	
 	-- Everyone has won, yay, defuse the mines and add a flag
-	if self.NumMines==remaining then
-		self.Victory = true
+	if self.NumMines>=remaining then
+		self.GameOver = true
 		for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do
-			for _,p in pairs(ents.FindByClass("prop_physics")) do
-				if p.Mine then
-					p.Mine = false
-					p:SetColor(0,255,0,255)
-					Flag(p)
-				end
-			end
 			v:WareApplyDestiny()
+		end
+		
+		for _,p in pairs(ents.FindByClass("prop_physics")) do
+			if p.Mine then
+				p.Mine = false
+				p:SetColor(0,255,0,255)
+				Flag(p)
+			end
+		end
+		
+		if GAMEMODE.NextgameEnd>CurTime()+3 then
+			GAMEMODE:SetNextGameEnd(CurTime()+3)
 		end
 	end
 end

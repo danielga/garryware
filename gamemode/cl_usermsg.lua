@@ -38,8 +38,8 @@ local function NextGameTimes( m )
 	NextgameEnd = m:ReadFloat()
 	WarmupLen = m:ReadFloat()
 	WareLen = m:ReadFloat()
-	local ShouldReinitAnnounce = m:ReadBool() or false
-	if (ShouldReinitAnnounce) then TickAnnounce = 5 end
+	local ShouldKeepAnnounce = m:ReadBool() or false
+	if not ShouldKeepAnnounce then TickAnnounce = 5 end
 	--TickAnnounce = 5
 	if (NextwarmupEnd != 0) then
 		LocalPlayer():EmitSound( GAMEMODE.NewWareSound , 40 )

@@ -11,6 +11,16 @@ function ENTMAP:InsertRow(y)
 	
 	table.insert(self, y, t)
 	self.H = self.H + 1
+	
+	-- Update the position of every prop in the grid
+	for i=y+1,self.H do
+		for j=1,self.W do
+			local p = self:Get(j,i)
+			if p:IsValid() and self[p] then
+				self[p].y = self[p].y + 1
+			end
+		end
+	end
 end
 
 -- Insert an empty column
@@ -21,6 +31,16 @@ function ENTMAP:InsertColumn(x)
 		table.insert(self[i], x, NULL)
 	end
 	self.W = self.W + 1
+	
+	-- Update the position of every prop in the grid
+	for i=x+1,self.W do
+		for j=1,self.H do
+			local p = self:Get(i,j)
+			if p:IsValid() and self[p] then
+				self[p].x = self[p].x + 1
+			end
+		end
+	end
 end
 
 -- Add a prop (will recalculate the average X and Y for the matching row and column as well)
@@ -121,7 +141,24 @@ function ENTMAP:Height() return self.H end
 function ENTMAP:GetTolerancy() return self.Tolerancy end
 function ENTMAP:SetTolerancy(t) self.Tolerancy = t end
 
-local ent_map_meta = {__index=ENTMAP}
+-- Debugging
+local function ent_map_tostring(self)
+	local str = "Entity map: "..self.W.." x "..self.H.."\n"
+	for j=1,self.H do
+		for i=1,self.W do
+			if self:Get(i,j):IsValid() then
+				str = str.."1 "
+			else
+				str = str.."0 "
+			end
+		end
+		str = str.."\n"
+	end
+	
+	return str
+end
+
+local ent_map_meta = {__index=ENTMAP, __tostring=ent_map_tostring}
 
 function Create()
 	local grid = {[-1]={}, [0]={}, W=0,H=0,Tolerancy=DefaultTolerancy}

@@ -208,7 +208,30 @@ function GM:PickRandomGame()
 	umsg.End()
 	--print("---"..CurTime() + self.Windup.."---"..self.NextgameEnd.."---"..self.Windup.."---"..self.WareLen)
 end
+
+function GM:SetNextGameEnd(time)
+	if not self.WareHaveStarted or not self.ActionPhase then return end
 	
+	local t = CurTime()
+	
+	-- prevent dividing by zero
+	if t-time~=0 and t-self.NextgameEnd~=0 then
+		self.WareLen = self.WareLen * (t - time) / (t - self.NextgameEnd)
+	end
+	
+	self.NextgameEnd = time
+	
+	local rp = RecipientFilter()
+	rp:AddAllPlayers()
+	umsg.Start("NextGameTimes", rp)
+		umsg.Float( 0 )
+		umsg.Float( self.NextgameEnd )
+		umsg.Float( self.Windup )
+		umsg.Float( self.WareLen )
+		umsg.Bool( true )
+	umsg.End()
+end
+
 function GM:EndGame()
 	if self.WareHaveStarted == true then
 		--Destroy all
