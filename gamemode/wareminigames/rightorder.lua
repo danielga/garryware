@@ -56,10 +56,10 @@ function WARE:StartAction()
 	local croissant = math.random(0,1)
 	if (croissant == 1) then
 		self.Sequence = {1, 2, 3, 4, 5}
-		GAMEMODE:DrawPlayersTextAndInitialStatus("In the ascendant order ! (1 , 2 , 3...)",0)
+		GAMEMODE:DrawPlayersTextAndInitialStatus("In the ascending order ! (1 , 2 , 3...)",0)
 	else
 		self.Sequence = {5, 4, 3, 2, 1}
-		GAMEMODE:DrawPlayersTextAndInitialStatus("In the descendant order ! (3 , 2 , 1...)",0)
+		GAMEMODE:DrawPlayersTextAndInitialStatus("In the descending order ! (3 , 2 , 1...)",0)
 	end
 	
 	self.PlayerCurrentCrate = {}
