@@ -1,4 +1,4 @@
-WARE.Author = "Kelth"
+WARE.Author = "Hurricaaane (Ha3)"
 WARE.Room = "empty"
 
 function WARE:Initialize()

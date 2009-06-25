@@ -186,14 +186,14 @@ VGUI Overrides
 function GM:AddScoreboardWon( ScoreBoard )
 
 	local f = function( ply ) return ply:Frags() end
-	ScoreBoard:AddColumn( "Won", 30, f, 0.5, nil, 6, 6 )
+	ScoreBoard:AddColumn( "Won", 50, f, 0.5, nil, 6, 6 )
 
 end
 
 function GM:AddScoreboardFailed( ScoreBoard )
 
 	local f = function( ply ) return ply:Deaths() end
-	ScoreBoard:AddColumn( "Failed", 30, f, 0.5, nil, 6, 6 )
+	ScoreBoard:AddColumn( "Failed", 50, f, 0.5, nil, 6, 6 )
 
 end
 
@@ -204,11 +204,11 @@ function GM:AddScoreboardStreak( ScoreBoard )
 		local combomax = ply:GetNWInt("combo_max")
 		local sufstring = ""
 		if (combo == combomax) then
-			sufstring = " .."
+			sufstring = "Ongoing "
 		end
-		return combomax .. sufstring
+		return sufstring .. combomax
 	end
-	ScoreBoard:AddColumn( "Best Streak", 55, f, 0.5, nil, 6, 6 )
+	ScoreBoard:AddColumn( "Best Streak", 80, f, 0.5, nil, 6, 6 )
 
 end
 
@@ -292,7 +292,7 @@ end
 function GM:PositionScoreboard( ScoreBoard )
 
 	if ( GAMEMODE.TeamBased ) then
-		ScoreBoard:SetSize( 800, ScrH() - 50 )
+		ScoreBoard:SetSize( 780, ScrH() - 50 )
 		ScoreBoard:SetPos( (ScrW() - ScoreBoard:GetWide()) * 0.5,  25 )
 	else
 		ScoreBoard:SetSize( 600, ScrH() - 64 )

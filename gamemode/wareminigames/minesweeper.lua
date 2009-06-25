@@ -1,6 +1,15 @@
 WARE.Author = "Kilburn"
 WARE.Room = "empty"
 
+function WARE:IsPlayable()
+	local doit = false
+	if #team.GetPlayers(TEAM_HUMANS) <= 12 then
+		doit = true
+	end
+	return doit
+end
+
+
 -----------------------------------------------------------------------------------------------
 -- Minigame local variables and functions
 
