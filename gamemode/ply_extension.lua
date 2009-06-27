@@ -26,13 +26,14 @@ end
 function meta:SetAchievedNoDestiny( hasAchievedInt )
 	--You can't change the achieved status on someone who has a destiny
 	--because he already earned the points
-	if self:GetNWInt("ware_hasdestiny") > 0 then return end
+	if self:GetNWInt("ware_hasdestiny") > 0 then return false end
 	self:SetNWInt("ware_achieved",hasAchievedInt)
+	return true
 end
 
 function meta:WarePlayerDestinyWin()
-	if self:Team() != TEAM_HUMANS       then return end
-	if self:GetNWInt("ware_hasdestiny") > 0 then return end
+	if self:Team() != TEAM_HUMANS           then return false end
+	if self:GetNWInt("ware_hasdestiny") > 0 then return false end
 	
 	self:SetNWInt("ware_achieved", 1 )
 	self:SetNWInt("ware_hasdestiny", 1 )
@@ -77,11 +78,13 @@ function meta:WarePlayerDestinyWin()
 			umsg.End()
 		end
 	end
+	
+	return true
 end
 
 function meta:WarePlayerDestinyLose( )
-	if self:Team() != TEAM_HUMANS then return end
-	if self:GetNWInt("ware_hasdestiny") > 0 then return end
+	if self:Team() != TEAM_HUMANS then return false end
+	if self:GetNWInt("ware_hasdestiny") > 0 then return false end
 	
 	self:SetNWInt("ware_achieved", 0 )
 	self:SetNWInt("ware_hasdestiny", 1 )
@@ -120,6 +123,8 @@ function meta:WarePlayerDestinyLose( )
 	end
 	local combo = 0
 	self:SetNWInt("combo",combo)
+	
+	return true
 end
 
 function meta:WareApplyDestiny( )
