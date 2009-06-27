@@ -86,7 +86,7 @@ local function GetPitchFromNote( notes, noteindex )
 	
 	local Offset = 0
 	local Note = notes:sub( noteindex*2 - 1 , noteindex*2 - 1 )
-	print( Note )
+	//print( Note )
 	if (Note != ".") then
 		OctaveSt = notes:sub( noteindex*2 , noteindex*2 )
 	end
@@ -124,7 +124,7 @@ local function GetPitchFromNote( notes, noteindex )
 	end
 	
 	Pitch = Pitch * 100
-	print( tostring(Pitch) )
+	//print( tostring(Pitch) )
 	return Pitch
 end
 
