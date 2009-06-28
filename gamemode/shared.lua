@@ -42,6 +42,7 @@ GM.NextgameEnd = 0
 GM.Windup = 2
 GM.WareLen = 100
 GM.TickAnnounce = 0
+GM.SelectColor = true
 
 GM.GamePool = {}
 
