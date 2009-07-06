@@ -2,18 +2,22 @@ WARE.Author = "Hurricaaane (Ha3)"
 WARE.Room = "none"
 
 function WARE:Initialize()
-	GAMEMODE:SetWareWindupAndLength(0,8)
+
+	GAMEMODE:SetWareWindupAndLength(2,8)
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Prepare to type in the chat ...",0)
 	
-	local a = math.random(10,99)
-	local b = math.random(10,99)
-	self.WareSolution = a + b
-	GAMEMODE:DrawPlayersTextAndInitialStatus("Calculate and say : "..a.." + "..b.." = ?",0)
-	for k,v in pairs(player.GetAll()) do 
-		v:ChatPrint( "Calculate and say : "..a.." + "..b.." = ?" )  
-	end
 end
 
 function WARE:StartAction()
+
+	local a = math.random(10,99)
+	local b = math.random(10,99)
+	self.WareSolution = a + b
+
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Calculate : "..a.." + "..b.." = ?",0)
+	for k,v in pairs(player.GetAll()) do 
+		v:ChatPrint( "Calculate : "..a.." + "..b.." = ?" )  
+	end
 	
 end
 

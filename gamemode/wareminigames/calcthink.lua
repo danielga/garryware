@@ -2,8 +2,14 @@ WARE.Author = "Hurricaaane (Ha3)"
 WARE.Room = "none"
 
 function WARE:Initialize()
-	GAMEMODE:SetWareWindupAndLength(0,8)
+
+	GAMEMODE:SetWareWindupAndLength(2,8)
+	GAMEMODE:DrawPlayersTextAndInitialStatus("Prepare to type in the chat ...",0)
 	
+end
+
+function WARE:StartAction()
+
 	local init = math.random(2,19)
 	local mul = math.random(2,2)
 	local negative = math.random(0,1)
@@ -26,14 +32,11 @@ function WARE:Initialize()
 		three = two + add
 		self.WareSolution = three + add
 	end
-	
+
 	GAMEMODE:DrawPlayersTextAndInitialStatus("Think : "..one.." , "..two.." , "..three.." , ?",0)
 	for k,v in pairs(player.GetAll()) do 
 		v:ChatPrint( "Think : "..one.." , "..two.." , "..three.." , ?" )  
 	end
-end
-
-function WARE:StartAction()
 	
 end
 
