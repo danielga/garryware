@@ -9,7 +9,7 @@ WARE.OccurencesPerCycle = 2
 //DISABLED THIS WARE BECAUSE IT HAS BECOME TECHNICALLY IMPOSSIBLE TO LOSE//
 //DISABLED THIS WARE BECAUSE IT HAS BECOME TECHNICALLY IMPOSSIBLE TO LOSE//
 //DISABLED THIS WARE BECAUSE IT HAS BECOME TECHNICALLY IMPOSSIBLE TO LOSE//
-//DISABLED THIS WARE BECAUSE IT HAS BECOME TECHNICALLY IMPOSSIBLE TO LOSE//
+//DISABLED THIS WARE BECAUSE IT HAS BECOME TECHNICALLY IMPOSSIBLE TO LOSE// 
 //DISABLED THIS WARE BECAUSE IT HAS BECOME TECHNICALLY IMPOSSIBLE TO LOSE//
 ///////////////////////////////////////////////////////////////////////////
 
@@ -17,6 +17,7 @@ function WARE:IsPlayable()
 	return false
 end
 
+/*
 function WARE:IsPlayable()
 	local doit = false
 	if #team.GetPlayers(TEAM_HUMANS) >= 14 then
@@ -24,6 +25,7 @@ function WARE:IsPlayable()
 	end
 	return doit
 end
+*/
 
 function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(1.5,2)
