@@ -16,7 +16,7 @@ AddCSLuaFile( "tables.lua" )
 AddCSLuaFile( "ply_extension.lua" )
 
 include( "shared.lua" )
-include( "admin.lua" )
+//include( "admin.lua" )
 include( "tables.lua" )
 --include( "ply_extension.lua" )
 
