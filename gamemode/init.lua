@@ -91,7 +91,7 @@ function GM:CheckAllPlayersStatus()
 	while ( (i <= #playertable) and (playertable[i]:GetNWInt("ware_hasdestiny",0) == 1) ) do
 		i = i + 1
 	end
-	if (i <= #playertable) then print("destiny isnt at 1") return false end
+	if (i <= #playertable) then /*print("destiny isnt at 1")*/ return false end
 	
 	--Do everyone have the same status ?
 	local probable = playertable[1]:GetNWInt("ware_achieved",0)
@@ -99,7 +99,7 @@ function GM:CheckAllPlayersStatus()
 	while ( (i <= #playertable) and (playertable[i]:GetNWInt("ware_achieved",0) == probable) ) do
 		i = i + 1
 	end
-	if (i <= #playertable) then print("achieved isnt the same") return false end
+	if (i <= #playertable) then /*print("achieved isnt the same")*/ return false end
 	
 	
 	local rp = RecipientFilter()
