@@ -125,6 +125,7 @@ function WARE:EntityTakeDamage(ent,inf,att,amount,info)
 	
 	if pool.Sequence[pool.PlayerCurrentCrate[att]] == ent.CrateID then
 		pool.PlayerCurrentCrate[att] = pool.PlayerCurrentCrate[att] + 1
+		att:SendHitConfirmation()
 		if not pool.Sequence[pool.PlayerCurrentCrate[att]] then
 			att:ApplyWin( )
 			att:StripWeapons()

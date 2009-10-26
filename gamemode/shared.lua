@@ -24,7 +24,7 @@ GM.AllowSpectating = true
 GM.SelectClass = false
 
 GM.SecondsBetweenTeamSwitches = 3
-GM.GameLength = 8.0 + 25.0/60.0
+GM.GameLength = 8.0 + 47.0/60.0
 GM.NotEnoughTimeCap = 20
 
 GM.NoPlayerSuicide = false
@@ -57,6 +57,7 @@ GM.TickAnnounce = 0
 GM.SelectColor = true
 
 GM.BestStreakEver = 3
+GM.NumberOfWaresPlayed = -1
 
 
 GM.ModelPrecacheTable = {}

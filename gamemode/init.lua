@@ -259,13 +259,15 @@ function GM:PickRandomGame()
 		
 	else
 		self.Minigame = ware_mod.CreateInstance("_empty")
-		self:SetWareWindupAndLength(0,3)
+		self:SetWareWindupAndLength(0, 3)
 		
 	GAMEMODE:SetPlayersInitialStatus( false )
 	GAMEMODE:DrawInstructions( "Error with minigame \""..self.NextGameName.."\"." )
 		
 	end
 	self.NextgameEnd = CurTime() + self.Windup + self.WareLen
+	
+	self.NumberOfWaresPlayed = self.NumberOfWaresPlayed + 1
 	
 	--Send info about ware
 	local rp = RecipientFilter()
@@ -388,18 +390,21 @@ function GM:PickRandomGameName( first )
 	if GetConVar("ware_debug"):GetInt() == 1 then
 		self.NextGameName = GetConVar("ware_debugname"):GetString()
 		env = ware_env.FindEnvironment(ware_mod.Get(self.NextGameName).Room) or self.CurrentEnvironment
+	elseif first and (GetConVar("ware_debug"):GetInt() % 2 == 0) then
+		self.NextGameName = "_intro"
+		env = ware_env.FindEnvironment(ware_mod.Get(self.NextGameName).Room) or self.CurrentEnvironment
 	else
 		self.NextGameName, env = ware_mod.GetRandomGameName()
 	end
 	
 	if env ~= self.CurrentEnvironment then
 		self.CurrentEnvironment = env
-		if not first then
+		//if not first then
 			self.NextgameStart = self.NextgameStart + 1.3
 			self.NextPlayerRespawn = CurTime() + 2.8
-		else
-			self.NextPlayerRespawn = CurTime() + 1
-		end
+		//else
+		//	self.NextPlayerRespawn = CurTime() + 1
+		//end
 	end
 end
 
@@ -488,9 +493,9 @@ function GM:Think()
 				umsg.Float( 0 )
 				umsg.Float( 0 )
 			umsg.End()
-		elseif self.FirstTimePickGame and CurTime()>self.FirstTimePickGame then
+		elseif self.FirstTimePickGame and CurTime() > self.FirstTimePickGame then
 			-- Game has just started, pick the first game
-			self:PickRandomGameName()
+			self:PickRandomGameName( true )
 			self.FirstTimePickGame = nil
 		end
 	
@@ -505,7 +510,7 @@ function GM:Think()
 				self:SetNextGameStartsIn( 4 )
 				self.FirstTimePickGame = 1.3
 			else
-				self:SetNextGameStartsIn( 22 )
+				self:SetNextGameStartsIn( 27 )
 				self.FirstTimePickGame = 19.3
 			end
 			SendUserMessage( "WaitShow" )

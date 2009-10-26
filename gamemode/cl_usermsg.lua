@@ -196,6 +196,12 @@ local function EndOfGamemode( m )
 end
 usermessage.Hook( "EndOfGamemode", EndOfGamemode )
 
+local function SpecialFlourish( m )
+	timer.Simple( 2.80 , function () AmbientMusic[1]:ChangeVolume( 0.0 ) end )
+	timer.Simple( 2.00 , PlayEnding )
+end
+usermessage.Hook( "SpecialFlourish", SpecialFlourish )
+
 
 local function HitConfirmation( m )
 	LocalPlayer():EmitSound( GAMEMODE.WASND.Confirmation )
