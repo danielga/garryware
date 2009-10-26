@@ -86,6 +86,7 @@ function DHI_ReceiveInstructions( usrmsg )
 	
 	else
 		DHI_REF_InstructionElement.BackColorSet = DHI_REF_InstructionElement.BackColor
+		DHI_REF_InstructionElement.TextColorSet = DHI_REF_InstructionElement.TextColor
 	
 	end
 		
