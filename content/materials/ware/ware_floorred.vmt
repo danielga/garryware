@@ -1,9 +1,0 @@
-"Lightmappedgeneric"
-{
-	"$basetexture" "ware/ware_floor"
-	"$color" "[.6 .1 .1]"
-	"$detail" "ware/detail"
-	"$detailscale" "1.9"
-	"$detailblendmode" "0"
-	"$detailblendfactor" "1"
-}
