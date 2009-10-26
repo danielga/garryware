@@ -1,5 +1,12 @@
 
 PANEL.Base = "DPanel"
+PANEL.HTMLCONTENTS = ""
+
+local HTMLPANEL = nil
+
+local function GetUpdateInfo( contents , size )
+	if HTMLPANEL then HTMLPANEL:SetHTML( contents ) end
+end
 
 /*---------------------------------------------------------
    Name: gamemode:Init
@@ -12,7 +19,9 @@ function PANEL:Init()
 	self:SetPaintBackground( false )
 
 	self.Info = vgui.Create( "HTML" , DPanel)
-	self.Info:OpenURL("http://www.assembla.com/spaces/garryware/documents/cIq5KWlY0r3OXWeJe5afGb/download/garryware.html")  
+	//self.Info:OpenURL("http://www.assembla.com/spaces/garryware/documents/cIq5KWlY0r3OXWeJe5afGb/download/garryware.html")
+	HTMLPANEL = self.Info
+	
 	self.Info:SetSize( 400, 250 )
 	self.Info:SetPos(ScrW() - 420 , 92)
 	
@@ -25,10 +34,6 @@ function PANEL:Init()
 	self.WinnerSubtitle:SetColor( color_white )
 	
 	self:SetVisible( false )
-end
-
-function PANEL:SetInfo( message )
-	self.Info:SetHTML( message )
 end
 
 /*---------------------------------------------------------
@@ -57,6 +62,8 @@ function PANEL:Show()
 	self:SetVisible( true )
 	
 	self.Info:SetVisible( true )
+	
+	http.Get( "http://www.assembla.com/spaces/garryware/documents/cIq5KWlY0r3OXWeJe5afGb/download/garryware.html", "", GetUpdateInfo )
 
 end
 
