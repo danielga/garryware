@@ -1,0 +1,25 @@
+"Gamemode"
+{
+	"name"		"GarryWare Two"
+	"version"	"2"
+
+	"author_name"	"Hurricaaane and Kilburn"
+	"author_email"	""
+	"author_url"	""
+	
+	"icon"		""
+	"info"		""
+	"hide"		"0"
+
+	"fretta_maps"
+	{
+		"1"	"^wa_"
+	}
+	"mappattern"
+	{
+		"1"	"^wa_"
+	}
+
+	"selectable"	"1"
+	"description"	"GarryWare"
+}
