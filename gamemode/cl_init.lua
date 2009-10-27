@@ -31,8 +31,8 @@ function WARE_SortTable( plyA, plyB )
 			return plyA:Frags() > plyB:Frags()
 		end
 	else
-		return plyA:GetAchieved() and (plyA:GetLocked() and not plyB:GetLocked())
-		       or not(plyA:GetAchieved()) and (not plyA:GetLocked() and plyB:GetLocked())
+		return ((plyA:GetAchieved() or false) and (plyA:GetLocked() and not plyB:GetLocked())
+		       or not(plyA:GetAchieved() or false) and (not plyA:GetLocked() and plyB:GetLocked())) or false
 	end
 end
 
