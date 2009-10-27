@@ -229,7 +229,7 @@ function GM:CreateScoreboard( ScoreBoard )
 		ScoreBoard:SetHorizontal( true )
 	end
 
-	ScoreBoard:SetSkin( "SimpleSkin" )
+	ScoreBoard:SetSkin( "ware" )
 
 	self:AddScoreboardAvatar( ScoreBoard )		 //1
 	self:AddScoreboardWantsChange( ScoreBoard )	 //2
@@ -258,6 +258,10 @@ function GM:PositionScoreboard( ScoreBoard )
 end
 
 function GM:UpdateHUD_Alive( InRound )
+	return false
+end
+
+function GM:UpdateHUD_Dead( whatever )
 	return false
 end
 

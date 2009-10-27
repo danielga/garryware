@@ -8,6 +8,10 @@ include( "overv_chataddtext.lua" )
 
 include( 'cl_dhinlinegware_base.lua' )
 
+
+include( 'cl_splashscreen.lua' )
+include( 'vgui/vgui_scoreboard.lua' )
+
 function WARE_SortTable( plyA, plyB )
 	if ( not(plyA) or not(plyB) ) then return false end
 	

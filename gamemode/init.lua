@@ -6,6 +6,11 @@ AddCSLuaFile( "cl_hud.lua" )
 AddCSLuaFile( "cl_postprocess.lua" )
 AddCSLuaFile( "cl_usermsg.lua" )
 
+//Fretta VGUI replacements ->>
+AddCSLuaFile( "cl_splashscreen.lua" )
+AddCSLuaFile( "vgui/vgui_scoreboard.lua" )
+// <<-
+
 AddCSLuaFile( "vgui_transitscreen.lua" )
 AddCSLuaFile( "vgui_clock.lua" )
 AddCSLuaFile( "vgui_clockgame.lua" )
@@ -55,6 +60,10 @@ resource.AddFile("materials/sprites/ware_clock_two.vmt")
 resource.AddFile("materials/sprites/ware_clock_two.vtf")
 resource.AddFile("materials/sprites/ware_trotter.vmt")
 resource.AddFile("materials/sprites/ware_trotter.vtf")
+resource.AddFile("materials/vgui/ware/garryware_two_logo.vmt")
+resource.AddFile("materials/vgui/ware/garryware_two_logo.vtf")
+resource.AddFile("materials/vgui/ware/garryware_two_logo_alone.vmt")
+resource.AddFile("materials/vgui/ware/garryware_two_logo_alone.vtf")
 
 --MAP
 resource.AddFile("materials/ware/detail.vtf")
