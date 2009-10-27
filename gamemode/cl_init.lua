@@ -14,6 +14,7 @@ include( 'vgui/vgui_scoreboard.lua' )
 
 function WARE_SortTable( plyA, plyB )
 	if ( not(plyA) or not(plyB) ) then return false end
+	if ( not(ValidEntity(plyA)) or not(ValidEntity(plyB)) ) then return false end
 	
 	if ( plyA:GetLocked() == plyB:GetLocked() ) then
 		if ( plyA:Frags() == plyB:Frags() ) then
