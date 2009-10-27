@@ -3,7 +3,7 @@ WARE.Author = "Kelth"
 function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(0.8,6)
 	
-	GAMEMODE:SetPlayersInitialStatus( true )
+	GAMEMODE:SetPlayersInitialStatus( false )
 	GAMEMODE:DrawInstructions( "Catch a ball !" )
 	
 	local ratio = 0.5
