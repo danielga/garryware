@@ -169,6 +169,8 @@ function GM:CheckGlobalStatus( endOfGameBypassValidation )
 	end
 	if (i <= #playertable) then
 		return false
+	elseif probableStatus == nil then
+		return false
 	end
 	
 	// Note from Ha3 : Omg, check the usermessage types next time. 1 hour waste

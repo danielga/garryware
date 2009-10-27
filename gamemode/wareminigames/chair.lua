@@ -20,16 +20,15 @@ end
 
 function WARE:StartAction()
 
-	local entsTable = GAMEMODE:GetEnts(ENTS_ONCRATE)
+	local entsNum = #GAMEMODE:GetEnts(ENTS_ONCRATE)
 	
 	local ratio = 0.5
 	local minimum = 1
 	local numRealChairs = math.Clamp( math.ceil(team.NumPlayers(TEAM_HUMANS)*ratio) , minimum, 64)
 	
-	local invNumPropsToSpawn = #entsTable - math.Clamp( math.Clamp( math.ceil(#entsTable * 0.7) , minimum, 64), 1, 3 )
-	for k=1,invNumPropsToSpawn do
-		table.remove(entsTable, math.random(1, #entsTable) )
-	end
+	local numPropsToSpawn = math.Clamp( numRealChairs + math.ceil(entsNum * 0.3) , numRealChairs, 64)
+	
+	local entsTable = GAMEMODE:GetRandomLocations(numPropsToSpawn, ENTS_ONCRATE)
 	
 	for k=1,numRealChairs do
 		local myLocation = table.remove(entsTable, math.random(1, #entsTable) )
