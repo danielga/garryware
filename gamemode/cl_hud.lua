@@ -156,8 +156,8 @@ end
 function GM:AddScoreboardStreak( ScoreBoard )
 
 	local f = function( ply )
-		local combo = ply:GetNWInt("combo")
-		local combomax = ply:GetNWInt("combo_max")
+		local combo = ply:GetCombo()
+		local combomax = ply:GetBestCombo()
 		local sufstring = ""
 		if (combo == combomax) then
 			sufstring = "Ongoing "
@@ -185,7 +185,7 @@ function GM:AddScoreboardAward( ScoreBoard )
 		
 		local besstring = ""
 		local beststreak = false
-		local combomax = ply:GetNWInt("combo_max")
+		local combomax = ply:GetBestCombo()
 		
 		if ( ( totalplayed >= 5 ) and ( ( ply:Frags() / totalplayed ) >= 0.65 ) ) then
 			quastring = "Talented 65%"
@@ -203,7 +203,7 @@ function GM:AddScoreboardAward( ScoreBoard )
 			quastring = "AFK ? <15%"
 		end
 		
-		if ( GAMEMODE.BestStreakEver == combomax ) then
+		if ( GAMEMODE:GetBestStreak() == combomax ) then
 			besstring = "Best Streak"
 			beststreak = true
 		end
