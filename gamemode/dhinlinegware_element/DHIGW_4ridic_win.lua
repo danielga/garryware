@@ -39,6 +39,15 @@ function ELEMENT:DrawFunction( )
 		self.TableRefreshTime = CurTime()
 	end
 	
+	local k = 1
+	while k <= #self.PlayerTable then
+		if not(self.PlayerTable[k] and ValidEntity(self.PlayerTable[k])) then
+			table.remove(self.PlayerTable, k)
+		else
+			k = k + 1
+		end
+	end
+	
 	if #self.PlayerTable > 1 then
 		table.sort( self.PlayerTable , WARE_SortTable )
 	end
