@@ -41,8 +41,8 @@ function ELEMENT:DrawFunction( )
 	end
 
 	local k = 1
-	while k <= #self.PlayerTable then
-		if not(self.PlayerTable[k] and ValidEntity(self.PlayerTable[k])) then
+	while k <= #self.PlayerTable do
+		if not (self.PlayerTable[k] and ValidEntity(self.PlayerTable[k])) then
 			table.remove(self.PlayerTable, k)
 		else
 			k = k + 1

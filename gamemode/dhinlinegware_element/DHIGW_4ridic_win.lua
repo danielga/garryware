@@ -7,6 +7,7 @@ ELEMENT.SizeY = 20
 
 ELEMENT.LockedColor    = Color(255,255,255,220)
 ELEMENT.UnstableColor  = Color(192,0,0,192)
+
 ELEMENT.WinColor  = Color(128,128,255,192)
 ELEMENT.LoseColor = Color(255,64,64,192)
 ELEMENT.MysteryColor  = Color(128,255,255,192)
@@ -40,7 +41,7 @@ function ELEMENT:DrawFunction( )
 	end
 	
 	local k = 1
-	while k <= #self.PlayerTable then
+	while k <= #self.PlayerTable do
 		if not(self.PlayerTable[k] and ValidEntity(self.PlayerTable[k])) then
 			table.remove(self.PlayerTable, k)
 		else
