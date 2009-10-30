@@ -599,7 +599,8 @@ local function dhinlinegware_DrawElements()
 	for k,name in pairs( dhinlinegware_dat.STOR_ElementNamesTable ) do
 		local ELEMENT = dhinlinegware.Get(name)
 		if (ELEMENT and ( dhinlinegware_GetStyleVar( "dhinlinegware_element_" .. name ) > 0 ) and ELEMENT.DrawFunction) then
-			ELEMENT:DrawFunction( )
+			local bOkay, strErr = pcall(ELEMENT.DrawFunction, ELEMENT)
+			if not bOkay then print(strErr .. " [DHINLINE ERROR]") end
 		end
 	end
 end
