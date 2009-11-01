@@ -63,7 +63,7 @@ function WARE:Think( )
 		end
 	end
 
-	if (CurTime() < (self.LastThinkDo + 0.1)) then return end
+	if (CurTime() < (self.LastThinkDo + 0.05)) then return end
 	self.LastThinkDo = CurTime()
 	
 	for k,ring in pairs(self.Circles) do
@@ -71,7 +71,7 @@ function WARE:Think( )
 		
 		for _,target in pairs(sphere) do			
 			if (target:IsPlayer() and target:IsWarePlayer()) or ( target:GetClass() == "ware_proj_crowbar" ) then
-				if (CurTime() > (ring.LastActTime + 0.2)) then
+				if (CurTime() > (ring.LastActTime + 0.15)) then
 					ring.LastActTime = CurTime()
 					ring:EmitSound("ambient/levels/labs/electric_explosion1.wav")
 					
