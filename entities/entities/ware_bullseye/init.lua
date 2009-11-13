@@ -35,17 +35,23 @@ function ENT:PhysicsCollide( data, physobj )
 		self.Entity:EmitSound( "Rubber.BulletImpact" )
 	end
 	
+	local overrideVeloMod = false
+	if (GAMEMODE.Minigame and GAMEMODE.Minigame.WarePhysicsCollideStream) then
+		overrideVeloMod = GAMEMODE.Minigame:WarePhysicsCollideStream( self, data, physobj ) or false
+	end
 	
-	// Bounce like a bouncy ball
-	local LastSpeed = math.max( data.OurOldVelocity:Length(), data.Speed )
-	local NewVelocity = physobj:GetVelocity()
-	NewVelocity:Normalize()
-	
-	LastSpeed = math.max( NewVelocity:Length(), LastSpeed )
-	
-	local TargetVelocity = NewVelocity * LastSpeed * 0.85
-	
-	physobj:SetVelocity( TargetVelocity )
+	if not overrideVeloMod then
+		// Bounce like a bouncy ball
+		local LastSpeed = math.max( data.OurOldVelocity:Length(), data.Speed )
+		local NewVelocity = physobj:GetVelocity()
+		NewVelocity:Normalize()
+		
+		LastSpeed = math.max( NewVelocity:Length(), LastSpeed )
+		
+		local TargetVelocity = NewVelocity * LastSpeed * 0.85
+		
+		physobj:SetVelocity( TargetVelocity )
+	end
 	
 end
 
