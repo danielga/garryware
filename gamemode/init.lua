@@ -54,6 +54,8 @@ for _,file in pairs(file.FindInLua(hudPath .. "*.lua")) do
 	//print("ADDED TO CLIENT : "..hudPath .. file)
 end
 
+resource.AddFile("materials/refract_ring.vmt")
+resource.AddFile("materials/refract_ring.vtf")
 resource.AddFile("materials/sprites/ware_bullseye.vmt")
 resource.AddFile("materials/sprites/ware_bullseye.vtf")
 resource.AddFile("materials/sprites/ware_clock_two.vmt")
