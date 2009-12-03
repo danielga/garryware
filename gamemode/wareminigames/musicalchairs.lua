@@ -47,7 +47,7 @@ function WARE:Initialize()
 		
 		local dynaba = ents.Create ("prop_dynamic_override")
 		dynaba:SetModel( self.Models[2] )
-		dynaba:SetPos( pod:GetPos() + Vector(0,0,86) )
+		dynaba:SetPos( pod:GetPos() + pod:GetAngles():Up() * 86 + pod:GetAngles():Forward() * 9 )
 		dynaba:SetCollisionGroup(COLLISION_GROUP_WEAPON)
 		dynaba:Spawn()
 		dynaba:SetParent(pod)
