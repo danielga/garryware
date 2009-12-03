@@ -11,10 +11,9 @@ function WARE:GetModelList()
 end
 
 function WARE:IsPlayable()
-	--DEBUGGING
-	--if team.NumPlayers(TEAM_HUMANS) >= 2 then
-	--	return true
-	--end
+	if team.NumPlayers(TEAM_HUMANS) >= 2 then
+		return true
+	end
 	return false
 end
 
