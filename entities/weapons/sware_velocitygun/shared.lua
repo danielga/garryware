@@ -16,7 +16,7 @@ SWEP.Primary.ClipSize		= -1				// Size of a clip
 SWEP.Primary.DefaultClip	= -1				// Default number of bullets in a clip
 SWEP.Primary.Automatic		= false				// Automatic/Semi Auto
 SWEP.Primary.Ammo			= "none"
-SWEP.ReloadSound = Sound( "Weapon_Pistol.Reload" )
+SWEP.ShootSound = Sound( "Weapon_AR2.Single" )
 
 function SWEP:PrimaryAttack()
 
@@ -24,7 +24,7 @@ function SWEP:PrimaryAttack()
 	self.Weapon:SetNextSecondaryFire( CurTime() + 0.1 )
 
 	if ( not self:CanShootWeapon() ) then return end
-	if ( not self:CanPrimaryAttack() ) then return end
+	--if ( not self:CanPrimaryAttack() ) then return end
 
 	self.Weapon:EmitSound(self.ShootSound)
 	
