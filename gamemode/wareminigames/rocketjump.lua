@@ -18,7 +18,7 @@ function WARE:StartAction()
 	GAMEMODE:DrawInstructions( "Rocketjump onto a plate !" )
 	
 	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
-		v:Give( "ware_weap_rocketjump" )
+		v:Give( "sware_rocketjump" )
 	end
 	
 	local ratio = 0.3

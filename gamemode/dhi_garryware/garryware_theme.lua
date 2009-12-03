@@ -1,4 +1,4 @@
-THEME.Name = "DepthHUD Classic"
+THEME.Name = "GarryWare Theme"
 
 
 THEME.GenericBoxHeight = ScrH()
@@ -28,8 +28,10 @@ function THEME:Load()
 	self:AddParameter("basecolor", { Type = "color", Defaults = {"255","0","0","255"} } )
 	self:AddParameter("backcolor", { Type = "color", Defaults = {"255","255","0","255"} } )
 	
-	dhinline.PrimeColorFromTable( self.BaseColor, self:GetParameterSettings("basecolor") )
-	dhinline.PrimeColorFromTable( self.BackColor, self:GetParameterSettings("backcolor") )
+	dhonline.PrimeColorFromTable( self.BaseColor, self:GetParameterSettings("basecolor") )
+	dhonline.PrimeColorFromTable( self.BackColor, self:GetParameterSettings("backcolor") )
+	
+	dhonline.SetVar("dhonline_core_ui_spacing", 0)
 
 	surface.CreateFont("Trebuchet MS", 36, 0   , 0, false, "dhigwfont_num_nb" )
 	surface.CreateFont("Trebuchet MS", 26, 0   , 0, false, "dhigwfont_nummedium_nb" )
@@ -98,7 +100,7 @@ end
 function THEME:Draw_RAW_GWBox(xAbs, yAbs, width, height, extraBorder, backColor, borderColor)
 
 	backColor = backColor or self:GetColorReference("backcolor")
-	borderColor = borderColor or self:GetColorReference("base")
+	borderColor = borderColor or self:GetColorReference("basecolor")
 	
 	local widthBR, heightBR = width, height
 	

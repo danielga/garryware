@@ -21,7 +21,7 @@ end
 
 function WARE:StartAction()
 	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
-		v:Give( "ware_hlss" )
+		v:Give( "sware_hlss" )
 	end
 end
 

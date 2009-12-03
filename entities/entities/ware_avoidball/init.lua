@@ -31,7 +31,7 @@ end
 function ENT:PhysicsCollide( data, physobj )
 	
 	// Play sound on bounce
-	if (data.Speed > 80 && data.DeltaTime > 0.2 ) then
+	if (data.Speed > 80 and data.DeltaTime > 0.2 ) then
 		self.Entity:EmitSound( "Rubber.BulletImpact" )
 	end
 	

@@ -117,7 +117,7 @@ function WARE:StartAction()
 	end
 	
 	for _,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
-		v:Give("gmdm_pistol")
+		v:Give("sware_pistol")
 		v:GiveAmmo(12, "Pistol", true)
 	end
 end

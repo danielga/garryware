@@ -21,7 +21,7 @@ Sound("ware/local_won2.wav"),
 Sound("ware/local_won3.wav"),
 Sound("ware/local_won2.wav"),
 Sound("ware/local_won3.wav")}
-//Repeating 2 and 3 for more chances of playing
+// Repeating 2 and 3 for more chances of playing
 
 GM.WASND.TBL_LocalLose = {
 Sound("ware/local_lose2.wav"),

@@ -4,7 +4,7 @@ AddCSLuaFile("shared.lua")
 include('shared.lua')
 
 function ENT:Initialize()
-	self.Entity:SetModel("models/Weapons/W_missile_launch.mdl")
+	self.Entity:SetModel("models/weapons/w_crowbar.mdl")
 	self.Entity:PhysicsInit( SOLID_VPHYSICS )
 	self.Entity:SetMoveType( MOVETYPE_VPHYSICS )
 	self.Entity:SetSolid( SOLID_VPHYSICS )
@@ -15,9 +15,12 @@ function ENT:Initialize()
 	phys:EnableDrag(true)
 	phys:SetMass(80)
 	phys:SetMaterial("crowbar")
+	phys:AddAngleVelocity(Angle(math.random(-600,600),math.random(-600,600),math.random(-600,600))) 
 	if (phys:IsValid()) then
 		phys:Wake()
 	end
+	
+	self.Entity:SetNetworkedInt("lasttimehit",CurTime()+20)
 	
 	if (CLIENT) then return end
 	GAMEMODE:AppendEntToBin(self.Entity)
@@ -33,21 +36,15 @@ function ENT:OnTakeDamage( dmginfo )
 end
 
 function ENT:PhysicsCollide( data, physobj )
-	self.Entity:EmitSound("ambient/levels/labs/electric_explosion1.wav")
-	
-	local effectdata = EffectData( )
-		effectdata:SetOrigin( self.Entity:GetPos( ) + data.HitNormal * 16 )
-		effectdata:SetNormal( (self.Entity:GetPos() - data.HitPos):Normalize() )
-	util.Effect( "waveexplo", effectdata, true, true )
-
-	for i,target in ipairs(ents.FindInSphere( self.Entity:GetPos(), 64 )) do
-		if(target!=self.Entity) then
-			if(target:IsPlayer()) then
-				target:SetVelocity(target:GetVelocity()*(-1) + (target:GetPos() + Vector(0,0,32) - self.Entity:GetPos()):Normalize() * 500)
-			end
+	if (data.Speed > 50 and data.DeltaTime > 0.2 ) then
+		self.Entity:EmitSound("Weapon_Crowbar.Melee_HitWorld",data.Speed/2)
+	    self.Entity:SetNetworkedInt("lasttimehit",CurTime())
+	end
+	if (data.Speed > 512 and ValidEntity(data.HitEntity)) then
+		if (data.HitEntity:IsPlayer() or data.HitEntity:IsNPC()) then
+		   self.Entity:EmitSound("weapons/hitbod1.wav",data.Speed*1.5)
 		end
 	end
-	self.Entity:Remove()
 end 
 
 function ENT:Think()

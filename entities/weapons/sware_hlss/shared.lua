@@ -14,7 +14,6 @@ SWEP.WorldModel			= "models/weapons/w_pistol.mdl"
 
 function SWEP:Initialize()
 
-	self:GMDMInit()
 	self:SetWeaponHoldType( "pistol" )
 	
 end
@@ -47,7 +46,7 @@ end
 
 function SWEP:Think()
 	if (CLIENT) then
-		if GetConVar("voice_inputfromfile"):GetInt() > 0 && self.Owner:IsSpeaking( ) then
+		if GetConVar("voice_inputfromfile"):GetInt() > 0 and self.Owner:IsSpeaking( ) then
 			RunConsoleCommand("cware_hlss")
 		end
 	end

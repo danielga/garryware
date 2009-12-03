@@ -65,7 +65,7 @@ function WARE:StartAction()
 	local useCrowbar = math.random(0,1) > 0
 	for k,ply in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		if useCrowbar then
-			ply:Give( "gmdm_pistol" )
+			ply:Give( "sware_pistol" )
 			ply:GiveAmmo( 12, "Pistol", true )	
 		else
 			ply:Give( "weapon_crowbar" )

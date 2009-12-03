@@ -51,7 +51,7 @@ end
 
 function WARE:StartAction()
 	for _,v in pairs(team.GetPlayers(TEAM_HUMANS)) do
-		v:Give( "ware_weap_rocketjump" )
+		v:Give( "sware_rocketjump" )
 	end
 	
 	return

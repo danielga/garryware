@@ -104,7 +104,7 @@ function WARE:StartAction()
 	self.PlayerCurrentCrate = {}
 	
 	for _,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
-		v:Give("gmdm_pistol")
+		v:Give("sware_pistol")
 		v:GiveAmmo(12, "Pistol", true)
 		self.PlayerCurrentCrate[v] = 1
 	end

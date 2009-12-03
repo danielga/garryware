@@ -50,7 +50,7 @@ function GM:Think()
 	self.BaseClass:Think()
 	
 	-- Announcer ticks.
-	if (TickAnnounce > 0 && CurTime() < NextgameEnd ) then
+	if (TickAnnounce > 0 and CurTime() < NextgameEnd ) then
 		if (CurTime() > (NextgameEnd - (WareLen / 6) * TickAnnounce )) then
 			if GAMEMODE.WASND.TimeLeft[TickAnnounce] then
 				LocalPlayer():EmitSound( GAMEMODE.WASND.TimeLeft[TickAnnounce] )

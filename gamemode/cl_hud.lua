@@ -80,7 +80,7 @@ end
 
 function GM:OnScreenParticlesMake(myData)
 	local materialpath,number,duration,posx,posy,sizemin,sizemax,sizeendmin,sizeendmax,dir_angle = myData[1], myData[2], myData[3], myData[4], myData[5], myData[6], myData[7], myData[8], myData[9], myData[10]
-	local diffusemin,diffusemax,distancemin,distancemax,color,colorend,gravity,resist = myData[11], myData[12], myData[13], myData[14], myData[15], myData[16], myData[17], myData[8]
+	local diffusemin,diffusemax,distancemin,distancemax,color,colorend,gravity,resist = myData[11], myData[12], myData[13], myData[14], myData[15], myData[16], myData[17], myData[18]
 
 	local sprite
 	local randang
@@ -292,7 +292,7 @@ function GM:HUDDrawTargetID()
 	
 	local MouseX, MouseY = gui.MousePos()
 	
-	if ( MouseX == 0 && MouseY == 0 ) then
+	if ( MouseX == 0 and MouseY == 0 ) then
 	
 		MouseX = ScrW() / 2
 		MouseY = ScrH() / 2

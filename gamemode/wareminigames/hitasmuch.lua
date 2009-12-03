@@ -19,7 +19,7 @@ function WARE:Initialize()
 	GAMEMODE:DrawInstructions( "Hit the bullseye most times !" )
 	
 	for k,ply in pairs(team.GetPlayers(TEAM_HUMANS)) do 
-		ply:Give( "gmdm_pistol" )
+		ply:Give( "sware_pistol" )
 		ply:GiveAmmo( 12, "Pistol", true )	
 		ply.BULLSEYE_Hit = 0
 	end

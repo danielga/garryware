@@ -72,7 +72,7 @@ end
 
 function WARE:StartAction()
 	for _,ply in pairs(team.GetPlayers(TEAM_HUMANS)) do 
-		ply:Give("ware_weap_crowbar")
+		ply:Give("sware_crowbar")
 	end
 	
 end

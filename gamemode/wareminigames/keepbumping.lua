@@ -44,7 +44,7 @@ end
 
 function WARE:StartAction()
 	for _,v in pairs(team.GetPlayers(TEAM_HUMANS)) do
-		v:Give( "ware_weap_crowbar" )
+		v:Give( "sware_crowbar" )
 	end
 	
 	return
@@ -70,7 +70,7 @@ function WARE:Think( )
 		local sphere = ents.FindInSphere(ring:GetPos(),self.CircleRadius)
 		
 		for _,target in pairs(sphere) do			
-			if (target:IsPlayer() and target:IsWarePlayer()) or ( target:GetClass() == "ware_proj_crowbar" ) then
+			if (target:IsPlayer() and target:IsWarePlayer()) or ( target:GetClass() == "swent_crowbar" ) then
 				if (CurTime() > (ring.LastActTime + 0.15)) then
 					ring.LastActTime = CurTime()
 					ring:EmitSound("ambient/levels/labs/electric_explosion1.wav")

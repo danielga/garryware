@@ -77,7 +77,7 @@ function GM:CalcView( ply, origin, angle, fov )
 end
 
 function GM:GetMotionBlurValues( x, y, fwd, spin )
-	if( ValidEntity( LocalPlayer() ) and ( !LocalPlayer():IsOnGround() or LocalPlayer():KeyDown( IN_SPEED ) )) then
+	if( ValidEntity( LocalPlayer() ) and ( not LocalPlayer():IsOnGround() or LocalPlayer():KeyDown( IN_SPEED ) )) then
 		fwd = fwd * 5
 	end
 	

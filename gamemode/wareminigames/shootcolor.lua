@@ -69,7 +69,7 @@ end
 
 function WARE:StartAction()
 	for _,ply in pairs(team.GetPlayers(TEAM_HUMANS)) do 
-		ply:Give("gmdm_pistol")
+		ply:Give("sware_pistol")
 		ply:GiveAmmo(12, "Pistol", true)
 	end
 	

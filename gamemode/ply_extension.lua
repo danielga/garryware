@@ -1,8 +1,8 @@
 
 local meta = FindMetaTable( "Player" )
-if (!meta) then return end 
+if (not meta) then return end 
 
-meta.OldPrintMessage = meta.PrintMessage;
+meta.OldPrintMessage = meta.PrintMessage
 
 -- Only useful when game starts since we're assuming every player is in the same environment
 function meta:GetEnvironment()
@@ -189,7 +189,7 @@ function meta:PrintComboMessagesAndEffects( compareCombo )
 	end
 end
 
-function meta:InterruptCombo()
+function meta:InterruptCombo( )
 	local myOldCombo = self:GetCombo()
 	self:SetNWInt("combo", 0)
 	
@@ -217,12 +217,12 @@ function meta:Recoil( pitch, yaw )
 
 	// On the client it can sometimes process the same usercmd twice
 	// This function returns true if it's the first time we're doing this usercmd
-	if ( !SinglePlayer() && !IsFirstTimePredicted() ) then return end
+	if ( not SinglePlayer() and not IsFirstTimePredicted() ) then return end
 
 	// People shouldn't really be playing in SP
 	// But if they are they won't get recoil because the weapons aren't predicted
 	// So the clientside stuff never fires the recoil
-	if ( SERVER && SinglePlayer() ) then 
+	if ( SERVER and SinglePlayer() ) then 
 	
 		// Please don't call SendLua in multiplayer games. This uses a lot of bandwidth
 		self:SendLua( "LocalPlayer():Recoil("..pitch..","..yaw..")" )
@@ -282,5 +282,5 @@ function meta:Think( )
 end
 
 function meta:IsObserver()
-	return ( self:Team() == TEAM_SPECTATOR && self:GetObserverMode() > OBS_MODE_NONE )
+	return ( self:Team() == TEAM_SPECTATOR and self:GetObserverMode() > OBS_MODE_NONE )
 end

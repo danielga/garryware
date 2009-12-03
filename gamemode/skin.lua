@@ -72,8 +72,8 @@ SKIN.colButtonBorderShadow		= Color( 0, 0, 0, 100 )
 SKIN.fontButton					= "Default"
 
 -- enum for draw order
-DM_ORDER_LATESTATTOP = 1;
-DM_ORDER_LATESTATBOTTOM = 2;
+DM_ORDER_LATESTATTOP = 1
+DM_ORDER_LATESTATBOTTOM = 2
 
 -- basic deathmsg appearance settings
 SKIN.deathMessageBackgroundCol			= Color( 46, 43, 42, 220 )
@@ -115,7 +115,7 @@ function SKIN:PaintCancelButton( panel )
 		
 		if ( panel:GetDisabled() ) then
 			col = self.control_color_dark
-		elseif ( panel.Depressed || panel:GetSelected() ) then
+		elseif ( panel.Depressed or panel:GetSelected() ) then
 			col = self.control_color_active
 		elseif ( panel.Hovered ) then
 			col = self.control_color_highlight
@@ -130,7 +130,7 @@ function SKIN:PaintCancelButton( panel )
 				col.g = math.Clamp( col.g * 0.7, 0, 255 )
 				col.b = math.Clamp( col.b * 0.7, 0, 255 )
 				col.a = 20
-			elseif ( panel.Depressed || panel:GetSelected() ) then
+			elseif ( panel.Depressed or panel:GetSelected() ) then
 				col.r = math.Clamp( col.r + 100, 0, 255 )
 				col.g = math.Clamp( col.g + 100, 0, 255 )
 				col.b = math.Clamp( col.b + 100, 0, 255 )
@@ -155,7 +155,7 @@ function SKIN:PaintOverCancelButton( panel )
 	local w, h = panel:GetSize()
 	
 	if ( panel.m_bBorder ) then
-		self:DrawLinedButtonBorder( 0, 0, w, h, panel.Depressed || panel:GetSelected() )
+		self:DrawLinedButtonBorder( 0, 0, w, h, panel.Depressed or panel:GetSelected() )
 	end
 
 end
@@ -224,7 +224,7 @@ function SKIN:PaintScorePanelLine( panel )
 	local Tall = panel:GetTall()
 	local BoxHeight = 21
 	
-	if ( !IsValid( panel.pPlayer ) || !panel.pPlayer:Alive() ) then
+	if ( not IsValid( panel.pPlayer ) or !panel.pPlayer:Alive() ) then
 		draw.RoundedBox( 4, 0, Tall*0.5 - BoxHeight*0.5, panel:GetWide(), BoxHeight, Color( 60, 60, 60, 255 ) )
 		return
 	end
@@ -296,7 +296,7 @@ end
 
 function SKIN:PaintScorePanelLabel( panel )
 
-	if ( !IsValid( panel.pPlayer ) || !panel.pPlayer:Alive() ) then
+	if ( not IsValid( panel.pPlayer ) or !panel.pPlayer:Alive() ) then
 		panel:SetAlpha( 125 )
 	else
 		panel:SetAlpha( 255 )
@@ -385,7 +385,7 @@ function SKIN:PaintGamemodeButton( panel )
 	
 	if ( panel:GetDisabled() ) then
 		col = Color( 0, 0, 0, 10 )
-	elseif ( panel.Depressed || panel:GetSelected() ) then
+	elseif ( panel.Depressed or panel:GetSelected() ) then
 		col = Color( 255, 255, 255, 50 )
 	elseif ( panel.Hovered ) then
 		col = Color( 255, 255, 255, 20 )
@@ -418,7 +418,7 @@ function SKIN:PaintPanelButton( panel )
 	
 	if ( panel:GetDisabled() ) then
 		col = Color( 100, 100, 100, 255 )
-	elseif ( panel.Depressed || panel:GetSelected() ) then
+	elseif ( panel.Depressed or panel:GetSelected() ) then
 		col = Color( 150, 210, 255, 255 )
 	elseif ( panel.Hovered ) then
 		col = Color( 200, 200, 200, 255 )
@@ -434,7 +434,7 @@ end
 function SKIN:PaintOverPanelButton( panel )
 
 	local w, h = panel:GetSize()
-	self:DrawLinedButtonBorder( 0, 0, w, h, panel.Depressed || panel:GetSelected() )
+	self:DrawLinedButtonBorder( 0, 0, w, h, panel.Depressed or panel:GetSelected() )
 
 end
 

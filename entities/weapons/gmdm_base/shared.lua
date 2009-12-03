@@ -1,3 +1,8 @@
+////////////////////////////////////////////////
+// -- Garry's Mod Deathmatch Weapon Base      //
+// by SteveUK                                 //
+//--------------------------------------------//
+////////////////////////////////////////////////
 
 SWEP.ViewModelFOV	= 55
 
@@ -8,15 +13,15 @@ SWEP.Primary.Ammo = "Buckshot"
 
 SWEP.HoldType = "smg"
 
-SWEP.AllowRicochet = true;
-SWEP.AllowPenetration = true;
+SWEP.AllowRicochet = true
+SWEP.AllowPenetration = true
 
-SWEP.PenetrationMax = 32;
-SWEP.PenetrationMaxWood = 128;
-SWEP.MaxRicochet = 5;
-SWEP.ImpactEffects = true;
+SWEP.PenetrationMax = 32
+SWEP.PenetrationMaxWood = 128
+SWEP.MaxRicochet = 1
+SWEP.ImpactEffects = true
 
-SWEP.CanSprintAndShoot = false;
+SWEP.CanSprintAndShoot = false
 
 function SWEP:Initialize()
 
@@ -30,29 +35,29 @@ function SWEP:Initialize()
 	self.Weapon:SetNetworkedBool( "Ironsights", false )
 end
 
-SWEP.SprayTime = 0.1;
-SWEP.SprayAccuracy = 0.5;
+SWEP.SprayTime = 0.1
+SWEP.SprayAccuracy = 0.5
 
 function SWEP:GetStanceAccuracyBonus( )
 
 	if( self.Owner:IsNPC() ) then
-		return 0.8;
+		return 0.8
 	end
 	
 	if( self.ConstantAccuracy ) then
-		return 1.0;
+		return 1.0
 	end
 	
-	local LastAccuracy = self.LastAccuracy or 0;
-	local Accuracy = 1.0;
-	local LastShoot = GMDMLastShoot;
+	local LastAccuracy = self.LastAccuracy or 0
+	local Accuracy = 1.0
+	local LastShoot = GMDMLastShoot
 	
 	local speed = self.Owner:GetVelocity():Length()
 	-- 200 walk, 500 sprint, 705 noclip
 	local speedperc = math.Clamp( math.abs( speed / 705 ), 0, 1 )	
 	
 	if( CurTime() <= LastShoot + self.SprayTime ) then
-		Accuracy = Accuracy * self.SprayAccuracy;
+		Accuracy = Accuracy * self.SprayAccuracy
 	end
 	
 	if( speed > 10 ) then -- moving
@@ -60,11 +65,11 @@ function SWEP:GetStanceAccuracyBonus( )
 	end
 	
 	if( self.Owner:KeyDown( IN_DUCK ) == true ) then -- ducking moving forward
-		Accuracy = Accuracy * 1.75;
+		Accuracy = Accuracy * 1.75
 	end
 
 	if( self.Owner:KeyDown( IN_LEFT ) or self.Owner:KeyDown( IN_RIGHT ) ) then -- just strafing
-		Accuracy = Accuracy * 0.95;
+		Accuracy = Accuracy * 0.95
 	end
 	
 	if( LastAccuracy != 0 ) then
@@ -75,19 +80,15 @@ function SWEP:GetStanceAccuracyBonus( )
 		end
 	end
 	
-	self.LastAccuracy = Accuracy;
-	return Accuracy;
+	self.LastAccuracy = Accuracy
+	return Accuracy
 	
 end
 
-	
-/*---------------------------------------------------------
-   Name: SWEP:PrimaryAttack( )
-   Desc: +attack1 has been pressed
----------------------------------------------------------*/
+
 function SWEP:GMDMShootBullet( dmg, snd, pitch, yaw, numbul, cone )
 
-	if( !self ) then return end
+	if( not self ) then return end
 	
 	numbul 	= numbul 	or 1
 	cone 	= cone 		or 0.01
@@ -100,7 +101,7 @@ function SWEP:GMDMShootBullet( dmg, snd, pitch, yaw, numbul, cone )
 		self:GMDMShootBulletEx( dmg, numbul, cone, 1 )
 	end
 	
-	if !IsFirstTimePredicted() then return end
+	if not IsFirstTimePredicted() then return end
 
 	if( snd != nil ) then
 		self.Weapon:EmitSound( snd )
@@ -117,10 +118,10 @@ function SWEP:GMDMShootBullet( dmg, snd, pitch, yaw, numbul, cone )
 		effectdata:SetStart( self.Owner:GetShootPos() )
 		effectdata:SetNormal( self.Owner:GetAimVector() )
 		effectdata:SetAttachment( 1 )
-	util.Effect( "gunsmoke", effectdata )
+	util.Effect( "GMDM_GunSmoke", effectdata )
 	
-	//if ( SinglePlayer() && CLIENT ) then return end
-	//if ( !SinglePlayer() && SERVER ) then return end
+	//if ( SinglePlayer() and CLIENT ) then return end
+	//if ( not SinglePlayer() and SERVER ) then return end
 	
 	//util.ScreenShake( self.Owner:GetShootPos(), 100, 0.2, 0.5, 256 )
 	
@@ -130,86 +131,15 @@ end
 
 
 function SWEP:BulletPenetrate( bouncenum, attacker, tr, dmginfo, isplayer )
-/*
-	
-	--if( !SERVER ) then return end
-	// Don't go through metal
-	if ( ( tr.MatType == MAT_METAL and self.AllowRicochet == true ) or tr.MatType == MAT_SAND ) then return false end
-
-	// Don't go through more than 3 times
-	if ( bouncenum > 3 ) then return false end
-	
-	// Direction (and length) that we are gonna penetrate
-	local PeneDir = tr.Normal * self.PenetrationMax;
-	
-	if( tr.MatType == MAT_DIRT or tr.MatType == MAT_WOOD or tr.MatType == MAT_FLESH or tr.MatType == MAT_ALIENFLESH ) then -- dirt == plaster, and wood should be easier to penetrate so increase the distance
-		PeneDir = tr.Normal * self.PenetrationMaxWood;
-	end
-		
-		
-	local PeneTrace = {}
-	   PeneTrace.endpos = tr.HitPos
-	   PeneTrace.start = tr.HitPos + PeneDir
-	   PeneTrace.mask = MASK_SHOT
-	   PeneTrace.filter = { self.Owner }
-	   
-	local PeneTrace = util.TraceLine( PeneTrace ) 
-	
-	// Bullet didn't penetrate.
-	if ( PeneTrace.StartSolid || PeneTrace.Fraction >= 1.0 || tr.Fraction <= 0.0 ) then return false end
-	
-	-- Damage multiplier depending on surface
-	local fDamageMulti = 0.5;
-	
-	if( tr.MatType == MAT_CONCRETE ) then
-		fDamageMulti = 0.3;
-	elseif( tr.MatType == MAT_WOOD ) then
-		fDamageMulti = 0.8;
-	elseif( tr.MatType == MAT_FLESH || tr.MatType == MAT_ALIENFLESH ) then
-		fDamageMulti = 0.9;
-	end
-		
-	// Fire bullet from the exit point using the original tradjectory
-	local bullet = 
-	{	
-		Num 		= 1,
-		Src 		= PeneTrace.HitPos,
-		Dir 		= tr.Normal,	
-		Spread 		= Vector( 0, 0, 0 ),
-		Tracer		= 1,
-		TracerName 	= "Tracer",
-		Force		= 5,
-		Damage		= (dmginfo:GetDamage()*0.9),
-		AmmoType 	= "Pistol",
-		HullSize	= 2
-	}
-	
-	bullet.Callback    = function( a, b, c ) if( self.RicochetCallback ) then return self:RicochetCallback( bouncenum+1, a, b, c ) end end
-	
-	local effectdata = EffectData()
-	effectdata:SetOrigin( PeneTrace.HitPos )
-	effectdata:SetNormal ( PeneTrace.Normal )
-	util.Effect( "Impact", effectdata, true, true ) 
-	
-	timer.Simple( 0.05, attacker.FireBullets, attacker, bullet, true )
-	attacker:SetNetworkedInt( "BulletType", 1 ) -- 1 = wallbang
-
-	return true
-*/
 end
 
 function SWEP:RicochetCallback( bouncenum, attacker, tr, dmginfo )
 
-	if( !self ) then return end
+	if( not self ) then return end
 	
-	local DoDefaultEffect = false;
-	if ( !tr.HitWorld ) then DoDefaultEffect = true end
+	local DoDefaultEffect = false
+	if ( not tr.HitWorld ) then DoDefaultEffect = true end
 	if ( tr.HitSky ) then return end
-	
-	// Can we go through whatever we hit?
-	if ( self.AllowPenetration == true and self:BulletPenetrate( bouncenum, attacker, tr, dmginfo ) ) then
-		return { damage = false, effects = false }
-	end
 	
 	if ( tr.MatType != MAT_METAL ) then
 
@@ -219,9 +149,7 @@ function SWEP:RicochetCallback( bouncenum, attacker, tr, dmginfo )
 				effectdata:SetOrigin( tr.HitPos )
 				effectdata:SetNormal( tr.HitNormal )
 				effectdata:SetScale( dmginfo:GetDamage() / 10000 )
-			util.Effect( "hitsmoke", effectdata )
-			
-			--util.Decal( "EnergyBall.Impact", tr.HitPos + tr.HitNormal, tr.HitPos + tr.HitNormal * -20 + VectorRand() * 15 )
+			util.Effect( "GMDM_HitSmoke", effectdata )			
 			
 			if ( SERVER ) then
 				util.ScreenShake( tr.HitPos, 100, 0.2, 1, 128 )
@@ -229,7 +157,8 @@ function SWEP:RicochetCallback( bouncenum, attacker, tr, dmginfo )
 			
 		end
 
-	return end
+		return
+	end
 	
 	if( self.AllowRicochet == false ) then return { damage = true, effects = DoDefaultEffect } end
 	
@@ -247,7 +176,7 @@ function SWEP:RicochetCallback( bouncenum, attacker, tr, dmginfo )
 		Dir 		= Dir,	
 		Spread 		= Vector( 0.05, 0.05, 0 ),
 		Tracer		= 1,
-		TracerName 	= "rico_trace",
+		TracerName 	= "GMDM_RicochetTrace",
 		Force		= 5,
 		Damage		= damage,
 		AmmoType 	= "Pistol",
@@ -259,7 +188,7 @@ function SWEP:RicochetCallback( bouncenum, attacker, tr, dmginfo )
 	bullet.Callback    = function( a, b, c ) if( self.RicochetCallback ) then return self:RicochetCallback( bouncenum+1, a, b, c ) end end
 	
 	timer.Simple( 0.05, attacker.FireBullets, attacker, bullet, true )
-	attacker:SetNetworkedInt( "BulletType", 2 ) -- 2 = ricochet
+	attacker:SetNetworkedInt( "BulletType", 2 ) -- 2 = Ricochet
 	
 	return { damage = true, effects = DoDefaultEffect }
 		
@@ -273,7 +202,6 @@ function SWEP:WeaponKilledPlayer( pl, dmginfo )
 end
 
 function SWEP:NoteGMDMShot()
-
 	GMDMLastShoot = CurTime()
 	
 	// No prediction in SP. Make sure it knows when we last shot.
@@ -283,68 +211,53 @@ function SWEP:NoteGMDMShot()
 
 end
 
-/*---------------------------------------------------------
-   Name: SWEP:Reload( )
-   Desc: Reload is being pressed
----------------------------------------------------------*/
 function SWEP:Reload()
-	self.Weapon:DefaultReload( ACT_VM_RELOAD )
+	local canReload = self.Weapon:DefaultReload( ACT_VM_RELOAD )
+	if canReload and self.Weapon.CustomReload then
+		self.Weapon:CustomReload()
+	end
 end
 
-/*---------------------------------------------------------
-   Name: SWEP:CanShootWeapon()
----------------------------------------------------------*/
 function SWEP:CanShootWeapon()
 
 	if( self.Owner:IsNPC() ) then
 		return true
 	end
 	
-	// Cannot fire weapon if we were running less than 0.3 seconds ago
+	// Cannot fire weapon if we were running less than 0.1 second ago.
 	if( self.CanSprintAndShoot == false ) then
 		if( self.Owner:KeyDown( IN_SPEED ) ) then return false end
-		if ( self.LastSprintTime && CurTime() - self.LastSprintTime < 0.1 ) then return false end
+		if ( self.LastSprintTime and CurTime() - self.LastSprintTime < 0.1 ) then return false end
 	end
 	
 	return true
 
 end
 
-/*---------------------------------------------------------
-   Name: SWEP:Think( )
-   Desc: Called every frame
----------------------------------------------------------*/
 function SWEP:Think()
 
 	// Keep track of the last time we were running while holding this weapon..
-	if ( self.Owner && self.Owner:KeyDown( IN_SPEED ) ) then
+	if ( self.Owner and self.Owner:KeyDown( IN_SPEED ) ) then
 		self.LastSprintTime = CurTime()
 	end
 
 end
 
+////////////////////////////////////////////////
+// Return true to allow the weapon to holster.
 
-/*---------------------------------------------------------
-   Name: SWEP:Holster( weapon_to_swap_to )
-   Desc: Weapon wants to holster
-   RetV: Return true to allow the weapon to holster
----------------------------------------------------------*/
 function SWEP:Holster( wep )
 	return true
 end
 
-/*---------------------------------------------------------
-   Name: SWEP:Deploy( )
-   Desc: Whip it out
----------------------------------------------------------*/
 function SWEP:Deploy()
 	return true
 end
 
-/*---------------------------------------------------------
-   Name: SWEP:ShootBullet( )
-   Desc: A convenience function to shoot bullets
----------------------------------------------------------*/
+
+////////////////////////////////////////////////
+// A convenience function to shoot bullets
+
 function SWEP:GMDMShootBulletEx( damage, num_bullets, aimcone, tracerfreq )
 	
 	if( self.SupportsSilencer and self.Weapon:GetNetworkedBool( "Silenced", false ) == true ) then
@@ -356,11 +269,11 @@ function SWEP:GMDMShootBulletEx( damage, num_bullets, aimcone, tracerfreq )
 	self.Owner:SetAnimation( PLAYER_ATTACK1 )			// 3rd Person Animation
 	
 	/* 
-	   this seems to partially fix the "stream of bullets",
+	   This seems to partially fix the "stream of bullets",
 	   but even when it's protected, the tracer is still seen multiple times,
-	   the p228 is especially bad
+	   the p228 is especially bad.
 	*/
-	if !IsFirstTimePredicted() then return end
+	if not IsFirstTimePredicted() then return end
 
 	local bullet = {}
 	bullet.Num 		= num_bullets
@@ -375,7 +288,6 @@ function SWEP:GMDMShootBulletEx( damage, num_bullets, aimcone, tracerfreq )
 	bullet.HullSize	= 4
 	bullet.Callback    = function( a, b, c ) return self:RicochetCallback_Redirect( a, b, c ) end
 	
-	//timer.Simple( 0.01, self.Owner.FireBullets, self.Owner, bullet )
 	self.Owner:FireBullets( bullet )
 	
 end
@@ -387,3 +299,6 @@ end
 function SWEP:CustomAmmoCount()
 	return 0
 end
+
+////////////////////////////////////////////////
+////////////////////////////////////////////////

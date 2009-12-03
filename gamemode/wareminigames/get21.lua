@@ -105,7 +105,7 @@ function WARE:StartAction()
 		for i=1,5 do
 			self.PlayerAlreadyHitCrate[v][i] = false
 		end
-		v:Give("gmdm_pistol")
+		v:Give("sware_pistol")
 		v:GiveAmmo(12, "Pistol", true)
 	end
 end

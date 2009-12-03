@@ -42,7 +42,7 @@ function ENT:Think()
 
 	if ( SERVER ) then
 	
-		if ( !IsValid(self.m_pPlayer) ) then self:Remove() return end
+		if ( not IsValid(self.m_pPlayer) ) then self:Remove() return end
 	
 		self:GetPhysicsObject():Wake()
 	
@@ -60,7 +60,7 @@ end
 ---------------------------------------------------------*/
 function ENT:PhysicsSimulate( phys, deltatime )
 
-	if ( !IsValid(self.m_pPlayer) ) then return SIM_NOTHING end
+	if ( not IsValid(self.m_pPlayer) ) then return SIM_NOTHING end
 
 	local ply = self.m_pPlayer
 	local vMove = Vector(0,0,0)
@@ -71,7 +71,7 @@ function ENT:PhysicsSimulate( phys, deltatime )
 	if ( ply:KeyDown( IN_MOVELEFT ) ) then vMove = vMove - aEyes:Right() end
 	if ( ply:KeyDown( IN_MOVERIGHT ) ) then vMove = vMove + aEyes:Right() end
 	
-	vMove.z = 0;
+	vMove.z = 0
 	
 	vMove:Normalize()
 	vMove = vMove * 750000 * deltatime
@@ -94,7 +94,7 @@ end
 /*
 function ENT:PhysicsCollide( data, physobj )
 
-	if ( IsValid( data.HitEntity ) && data.HitEntity:GetClass() == "prop_physics" ) then
+	if ( IsValid( data.HitEntity ) and data.HitEntity:GetClass() == "prop_physics" ) then
 	
 		data.HitEntity:Fire( "break", "", 0 )
 		physobj:SetVelocityInstantaneous( data.OurOldVelocity )

@@ -35,7 +35,7 @@ function WARE:Initialize()
 	lua_run:Spawn()
 	
 	local ratio = 1
-	local minimum = 2
+	local minimum = 1
 	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_HUMANS)*ratio),minimum,64)
 	local entposcopy = GAMEMODE:GetRandomLocations(num, ENTS_OVERCRATE)
 	local cratelist = {}
@@ -53,16 +53,19 @@ function WARE:Initialize()
 		
 		GAMEMODE:AppendEntToBin(ent)
 		GAMEMODE:MakeAppearEffect(ent:GetPos())
+		
+		ent.contains = true
 	end
 	
-	local ratio2 = 0.5
+	// DISABLED : Now all crates contain a battery.
+	--[[local ratio2 = 0.5
 	local minimum2 = 1
 	local num2 = math.Clamp(math.ceil(team.NumPlayers(TEAM_HUMANS)*ratio2),minimum2,num)
 	local entcontains = GAMEMODE:GetRandomLocations(num2, cratelist)
 	for k,v in pairs(entcontains) do
 		v.contains = true
 		--v:SetColor(255,0,0,255)
-	end
+	end]]--
 	
 	local ratio3 = 0.5
 	local minimum3 = 1
@@ -167,7 +170,7 @@ function WARE:PropBreak(pl,prop)
 end
 
 local function PlugBatteryIn(batteryremove, socket)
-	if ( !ValidEntity(batteryremove) or !ValidEntity(socket) ) then return end
+	if ( not ValidEntity(batteryremove) or not ValidEntity(socket) ) then return end
 	
 	batteryremove:Remove()
 	

@@ -23,7 +23,7 @@ function WARE:StartAction()
 	GAMEMODE:DrawInstructions( "Don't reach the sky !" )
 	
 	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
-		v:Give( "ware_velocitygun" )
+		v:Give( "sware_velocitygun" )
 	end
 	for k,v in pairs(player.GetAll()) do 
 		v:SetGravity(-0.1)

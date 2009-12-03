@@ -50,7 +50,7 @@ function ENT:PhysicsCollide( data, physobj )
 
 	--New code from BlackOps
 	for i,v in ipairs(ents.FindInSphere( self.Entity:GetPos(), 60 )) do
-		if(v!=self.Entity) then
+		if(v != self.Entity) then
 			if(v:IsPlayer()) then
 				if(v == self.Entity:GetOwner()) then
 					v:SetVelocity(v:GetAimVector() * -500, 0)

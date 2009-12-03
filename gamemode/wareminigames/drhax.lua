@@ -53,7 +53,7 @@ function WARE:Initialize()
 	end
 	
 	for k,ply in pairs(team.GetPlayers(TEAM_HUMANS)) do 
-		ply:Give("ware_weap_rocketpush")
+		ply:Give("sware_rocketpush")
 	end
 end
 

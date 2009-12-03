@@ -1,68 +1,47 @@
+////////////////////////////////////////////////
+// -- Garry's Mod Deathmatch Weapon Base      //
+// by SteveUK                                 //
+//--------------------------------------------//
+////////////////////////////////////////////////
 
 include('shared.lua')
 include('cl_hud.lua')
-// Variables that are only ever used on the client
+// Variables that are only ever used on the client.
 
-SWEP.PrintName			= "GMDM Weapon"			
-SWEP.Slot				= 3		// Slot in the weapon selection menu
-SWEP.SlotPos			= 6		// Position in the slot
-SWEP.DrawAmmo			= true	// Should draw the default HL2 ammo counter
-SWEP.DrawCrosshair		= true 	// Should draw the default crosshair
+SWEP.PrintName			= "Garry's Mod Deathmatch Weapon"			
+SWEP.Slot				= 3	
+SWEP.SlotPos			= 6
+SWEP.DrawAmmo			= true
+SWEP.DrawCrosshair		= false
 
-SWEP.Spawnable			= true	// Is spawnable via GMOD's spawn menu
-SWEP.AdminSpawnable		= true	// Is spawnable by admins
+SWEP.Spawnable			= true
+SWEP.AdminSpawnable		= true
 
-SWEP.WepSelectIcon			= surface.GetTextureID( "weapons/swep" )	// Weapon Selection Menu texture
-
-function SWEP:GMDMInit()
-
-	// Nothing.
-	self.Weapon:SetRenderBoundsWS( self.Weapon:GetPos() - Vector()*256, self.Weapon:GetPos() + Vector()*256 )
-	
-end
+SWEP.WepSelectIcon			= surface.GetTextureID( "weapons/swep" )
 
 function SWEP:SetWeaponHoldType( t )
 	// Just a fake function so we can define 
-	// weapon holds in shared files without errors
+	// weapon holds in shared files without errors.
 end
 
 function SWEP:PrintWeaponInfo( x, y, alpha )
 end
 
-
-/*---------------------------------------------------------
-   Name: SWEP:FreezeMovement()
-   Desc: Return true to freeze moving the view
----------------------------------------------------------*/
 function SWEP:FreezeMovement()
 	return false
 end
 
-/*---------------------------------------------------------
-   Name: OnRestore
-   Desc: Called immediately after a "load"
----------------------------------------------------------*/
 function SWEP:OnRestore()
 end
 
-/*---------------------------------------------------------
-   Name: OnRemove
-   Desc: Called just before entity is deleted
----------------------------------------------------------*/
 function SWEP:OnRemove()
 end
 
-/*---------------------------------------------------------
-   Name: SWEP:ViewModelDrawn()
-   Desc: Called straight after the viewmodel has been drawn
----------------------------------------------------------*/
 function SWEP:DrawWorldModel()
 
 	if ( self.Owner ) then
 		self.Weapon:DrawModel()
 	return end
-	
-	GAMEMODE:DrawPickupWorldModel( self.Weapon, false )
 
 end
 
@@ -73,7 +52,6 @@ function SWEP:DrawWorldModelTranslucent()
 		self.Weapon:DrawModel()
 	return end
 	
-	GAMEMODE:DrawPickupWorldModel( self.Weapon, true )
 
 end
 
@@ -83,14 +61,14 @@ SWEP.RunArmOffset = Vector( 10, 16, 16 )
 function SWEP:GetViewModelPosition( pos, ang )
 
 	local Owner = self.Owner
-	if (!Owner) then return pos, ang end
+	if (not Owner) then return pos, ang end
 	
 	local DashDelta = 0
 	
-	// If we're running, or have just stopped running, lerp between the 
+	// If we're running, or have just stopped running, lerp between the anims.
 	if ( self.Owner:KeyDown( IN_SPEED ) ) then
 		
-		if (!self.DashStartTime) then
+		if (not self.DashStartTime) then
 			self.DashStartTime = CurTime()
 		end
 		
@@ -133,3 +111,6 @@ function SWEP:GetViewModelPosition( pos, ang )
 	return pos, ang
 
 end
+
+////////////////////////////////////////////////
+////////////////////////////////////////////////
