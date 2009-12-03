@@ -1,6 +1,6 @@
 
 if (SERVER) then
-   AddCSLuaFile ("shared.lua");
+   AddCSLuaFile ("shared.lua")
 end
 
 SWEP.Base	   = "gmdm_base"
@@ -19,7 +19,7 @@ function SWEP:Initialize()
 	
 end
 
-local ShootSound = Sound ("weapons/slam/throw.wav");
+local ShootSound = Sound ("weapons/slam/throw.wav")
 
 SWEP.RunArmAngle  = Angle( 70, 0, 0 )
 SWEP.RunArmOffset = Vector( 25, 4, 0 )
@@ -27,15 +27,15 @@ SWEP.Delay = 0.3
 SWEP.TickDelay = 0.1
 
 function SWEP:ThrowCrowbar(shotPower)
-	local tr = self.Owner:GetEyeTrace();
+	local tr = self.Owner:GetEyeTrace()
 
 	if (!SERVER) then return end;
 
-	local ent = ents.Create ("ware_proj_crowbar");	
+	local ent = ents.Create ("ware_proj_crowbar")	
 
 	local Forward = self.Owner:EyeAngles():Forward()
 	ent:SetPos( self.Owner:GetShootPos() + Forward * 32 )
-	ent:SetAngles(self.Owner:EyeAngles());
+	ent:SetAngles(self.Owner:EyeAngles())
 	ent:Spawn()
 	ent:SetOwner(self.Owner)
 	ent:Activate()
@@ -51,7 +51,7 @@ function SWEP:ThrowCrowbar(shotPower)
 											"trails/physbeam.vmt" ) //strTexture
 	
 	local phys = ent:GetPhysicsObject()
-	phys:ApplyForceCenter (self.Owner:GetAimVector():GetNormalized() * shotPower);
+	phys:ApplyForceCenter (self.Owner:GetAimVector():GetNormalized() * shotPower)
 end
 
 /*---------------------------------------------------------
@@ -69,11 +69,11 @@ function SWEP:PrimaryAttack()
 	
 	if ( !self:CanShootWeapon() ) then return end
 	
-	self.Weapon:EmitSound (ShootSound);
+	self.Weapon:EmitSound (ShootSound)
 	
 	if (CLIENT) then return end
-	self:ThrowCrowbar(100000);
-	self.Owner:StripWeapon("ware_weap_crowbar");
+	self:ThrowCrowbar(100000)
+	self.Owner:StripWeapon("ware_weap_crowbar")
 end
 
 /*---------------------------------------------------------

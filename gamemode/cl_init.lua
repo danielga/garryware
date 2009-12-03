@@ -1,3 +1,12 @@
+////////////////////////////////////////////////
+// -- GarryWare Two                           //
+// by Hurricaaane (Ha3)                       //
+//  and Kilburn_                              //
+// http://www.youtube.com/user/Hurricaaane    //
+//--------------------------------------------//
+// Clientside Initialization                  //
+////////////////////////////////////////////////
+
 include( 'shared.lua' )
 include( 'cl_hud.lua' )
 include( 'cl_postprocess.lua' )
@@ -6,7 +15,7 @@ include( 'skin.lua' )
 include( "tables.lua" )
 include( "overv_chataddtext.lua" )
 
-include( 'cl_dhinlinegware_base.lua' )
+include("sh_dhonline_autorun.lua")
 
 
 include( 'cl_splashscreen.lua' )
@@ -40,8 +49,9 @@ end
 function GM:Think()
 	self.BaseClass:Think()
 	
+	-- Announcer ticks.
 	if (TickAnnounce > 0 && CurTime() < NextgameEnd ) then
-		if (CurTime() > (NextgameEnd - (WareLen/6)*TickAnnounce )) then
+		if (CurTime() > (NextgameEnd - (WareLen / 6) * TickAnnounce )) then
 			if GAMEMODE.WASND.TimeLeft[TickAnnounce] then
 				LocalPlayer():EmitSound( GAMEMODE.WASND.TimeLeft[TickAnnounce] )
 			end

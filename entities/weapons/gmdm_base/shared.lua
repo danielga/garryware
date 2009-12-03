@@ -49,14 +49,14 @@ function SWEP:GetStanceAccuracyBonus( )
 	
 	local speed = self.Owner:GetVelocity():Length()
 	-- 200 walk, 500 sprint, 705 noclip
-	local speedperc = math.Clamp( math.abs( speed / 705 ), 0, 1 );	
+	local speedperc = math.Clamp( math.abs( speed / 705 ), 0, 1 )	
 	
 	if( CurTime() <= LastShoot + self.SprayTime ) then
 		Accuracy = Accuracy * self.SprayAccuracy;
 	end
 	
 	if( speed > 10 ) then -- moving
-		Accuracy = Accuracy * ( ( ( 1 - speedperc ) + 0.1 ) / 1.5 );
+		Accuracy = Accuracy * ( ( ( 1 - speedperc ) + 0.1 ) / 1.5 )
 	end
 	
 	if( self.Owner:KeyDown( IN_DUCK ) == true ) then -- ducking moving forward
@@ -93,7 +93,7 @@ function SWEP:GMDMShootBullet( dmg, snd, pitch, yaw, numbul, cone )
 	cone 	= cone 		or 0.01
 	
 	if( self.Owner and self.Owner:IsPlayer() ) then
-		self.Owner:SetNetworkedInt( "BulletType", 0 ); -- 0 = normal hit (no ricochet or wallbang)
+		self.Owner:SetNetworkedInt( "BulletType", 0 ) -- 0 = normal hit (no ricochet or wallbang)
 	end
 	
 	if( self.GMDMShootBulletEx ) then
@@ -192,7 +192,7 @@ function SWEP:BulletPenetrate( bouncenum, attacker, tr, dmginfo, isplayer )
 	util.Effect( "Impact", effectdata, true, true ) 
 	
 	timer.Simple( 0.05, attacker.FireBullets, attacker, bullet, true )
-	attacker:SetNetworkedInt( "BulletType", 1 ); -- 1 = wallbang
+	attacker:SetNetworkedInt( "BulletType", 1 ) -- 1 = wallbang
 
 	return true
 */
@@ -259,7 +259,7 @@ function SWEP:RicochetCallback( bouncenum, attacker, tr, dmginfo )
 	bullet.Callback    = function( a, b, c ) if( self.RicochetCallback ) then return self:RicochetCallback( bouncenum+1, a, b, c ) end end
 	
 	timer.Simple( 0.05, attacker.FireBullets, attacker, bullet, true )
-	attacker:SetNetworkedInt( "BulletType", 2 ); -- 2 = ricochet
+	attacker:SetNetworkedInt( "BulletType", 2 ) -- 2 = ricochet
 	
 	return { damage = true, effects = DoDefaultEffect }
 		
@@ -269,7 +269,7 @@ function SWEP:RicochetCallback_Redirect( a, b, c ) return self:RicochetCallback(
 
 
 function SWEP:WeaponKilledPlayer( pl, dmginfo )
-	Msg( "[GMDM] Weapon " .. self:GetClass() .. " owned by " .. self:GetOwner():Name() .. " killed player " .. pl:Name() .. "\n" );
+	Msg( "[GMDM] Weapon " .. self:GetClass() .. " owned by " .. self:GetOwner():Name() .. " killed player " .. pl:Name() .. "\n" )
 end
 
 function SWEP:NoteGMDMShot()
@@ -288,7 +288,7 @@ end
    Desc: Reload is being pressed
 ---------------------------------------------------------*/
 function SWEP:Reload()
-	self.Weapon:DefaultReload( ACT_VM_RELOAD );
+	self.Weapon:DefaultReload( ACT_VM_RELOAD )
 end
 
 /*---------------------------------------------------------

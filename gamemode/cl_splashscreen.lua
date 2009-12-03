@@ -69,19 +69,19 @@ function PANEL:Paint()
 	local Fade = RealTime() - self.FadeInTime
 	if ( Fade < 3 ) then
 	
-		Fade = 1- (Fade / 3);
-		surface.SetDrawColor( 0,0, 0, Fade * 255 );
-		surface.DrawRect( 0, 0, self:GetWide(), self:GetTall() );
+		Fade = 1- (Fade / 3)
+		surface.SetDrawColor( 0,0, 0, Fade * 255 )
+		surface.DrawRect( 0, 0, self:GetWide(), self:GetTall() )
 	
 	end
 	
 	
 	local CenterY = ScrH() / 2.0
 	
-	surface.SetDrawColor( 0, 0, 0, 200 );
-	surface.DrawRect( 0, 0, self:GetWide(), CenterY - 180 );
+	surface.SetDrawColor( 0, 0, 0, 200 )
+	surface.DrawRect( 0, 0, self:GetWide(), CenterY - 180 )
 	
-	surface.DrawRect( 0, CenterY + 180, self:GetWide(), self:GetTall() - ( CenterY+ 180 ) );
+	surface.DrawRect( 0, CenterY + 180, self:GetWide(), self:GetTall() - ( CenterY+ 180 ) )
 	
 	GAMEMODE:PaintSplashScreen( self:GetWide(), self:GetTall() )
 

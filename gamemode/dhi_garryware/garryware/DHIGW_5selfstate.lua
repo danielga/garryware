@@ -1,4 +1,4 @@
-ELEMENT.Name = "SELFSTATE"
+ELEMENT.Name = "5"
 ELEMENT.DefaultOff = false
 ELEMENT.DefaultGridPosX = 8
 ELEMENT.DefaultGridPosY = 0

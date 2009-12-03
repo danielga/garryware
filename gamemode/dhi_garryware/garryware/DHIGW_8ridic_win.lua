@@ -1,4 +1,4 @@
-ELEMENT.Name = "WINRID"
+ELEMENT.Name = "8WIN"
 ELEMENT.DefaultOff = false
 ELEMENT.DefaultGridPosX = 5
 ELEMENT.DefaultGridPosY = 1.5
@@ -42,7 +42,7 @@ function ELEMENT:DrawFunction( )
 	
 	local k = 1
 	while k <= #self.PlayerTable do
-		if not(self.PlayerTable[k] and ValidEntity(self.PlayerTable[k])) then
+		if not (self.PlayerTable[k] and ValidEntity(self.PlayerTable[k])) then
 			table.remove(self.PlayerTable, k)
 		else
 			k = k + 1
@@ -54,7 +54,7 @@ function ELEMENT:DrawFunction( )
 	end
 	
 	for k,ply in pairs(self.PlayerTable) do
-		self:DrawGWPreProgrammedRidiculousBox(k, ply, self.TextColor, self.WinColor, self.LoseColor, self.MysteryColor, self.GoldColorBack, self.GoldColor, self.UnstableColor, self.LockedColor)
+		self:DrawGWPreProgrammedRidiculousBox(k, ply, self.TextColor, self.WinColor, self.LoseColor, (not ply:IsOnHold() and self.MysteryColor) or self.HoldColor, self.GoldColorBack, self.GoldColor, self.UnstableColor, self.LockedColor)
 		
 		if (k >= 5) then break end // Horror museum
 	end

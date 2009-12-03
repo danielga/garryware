@@ -40,16 +40,16 @@ function WARE:Initialize()
 	local entposcopy = GAMEMODE:GetRandomLocations(num, ENTS_OVERCRATE)
 	local cratelist = {}
 	for k,v in pairs(entposcopy) do
-		local ent = ents.Create ("prop_physics");
+		local ent = ents.Create ("prop_physics")
 		ent:SetModel( self.Models[MDL_CRATE] )
-		ent:SetPos(v:GetPos() + Vector(0,0,16));
-		ent:Spawn();
+		ent:SetPos(v:GetPos() + Vector(0,0,16))
+		ent:Spawn()
 		
 		table.insert(cratelist,ent)
 		
 		local phys = ent:GetPhysicsObject()
 		phys:Wake()
-		phys:ApplyForceCenter(VectorRand() * 256);
+		phys:ApplyForceCenter(VectorRand() * 256)
 		
 		GAMEMODE:AppendEntToBin(ent)
 		GAMEMODE:MakeAppearEffect(ent:GetPos())
@@ -69,7 +69,7 @@ function WARE:Initialize()
 	local num3 = math.Clamp(math.ceil(team.NumPlayers(TEAM_HUMANS)*ratio3),minimum3,64)
 	local entposcopy3 = GAMEMODE:GetRandomLocations(num3, ENTS_ONCRATE)
 	for k,v in pairs(entposcopy3) do
-		local ent = ents.Create ("prop_physics");
+		local ent = ents.Create ("prop_physics")
 		ent:SetModel( self.Models[MDL_PLUGHOLDER] )
 		ent:PhysicsInit(SOLID_VPHYSICS)
 		ent:SetSolid(SOLID_VPHYSICS)
@@ -133,23 +133,23 @@ end
 
 function WARE:PropBreak(pl,prop)	
 	if prop.contains == true then
-		local ent = ents.Create ("prop_physics");
+		local ent = ents.Create ("prop_physics")
 		ent:SetModel( self.Models[MDL_BATTERY] )
-		ent:SetPos(prop:GetPos());
-		ent:Spawn();
+		ent:SetPos(prop:GetPos())
+		ent:Spawn()
 		
 		ent:Fire("AddOutput", "OnPhysGunPickup luarun,RunCode")
 		
-		local ent2 = ents.Create ("prop_physics");
+		local ent2 = ents.Create ("prop_physics")
 		ent2:SetModel( MDLLIST[MDL_BATTERYDONGLE] )
-		ent2:SetPos(ent:GetPos() + ent:GetForward()*-8);
-		ent2:Spawn();
+		ent2:SetPos(ent:GetPos() + ent:GetForward()*-8)
+		ent2:Spawn()
 		ent2:SetParent(ent)
 
 		local phys = ent:GetPhysicsObject()
 		phys:Wake()
 		phys:AddAngleVelocity(Angle(math.random(200,300),math.random(200,300),math.random(200,300)))
-		phys:ApplyForceCenter(VectorRand() * 64);
+		phys:ApplyForceCenter(VectorRand() * 64)
 		
 		GAMEMODE:AppendEntToBin(ent)
 		GAMEMODE:MakeAppearEffect(ent:GetPos())
@@ -172,11 +172,11 @@ local function PlugBatteryIn(batteryremove, socket)
 	batteryremove:Remove()
 	
 	
-	local battery = ents.Create ("prop_dynamic_override");
+	local battery = ents.Create ("prop_dynamic_override")
 	battery:SetModel( MDLLIST[MDL_BATTERY] )
 	battery:SetPos(socket:GetPos() + socket:GetForward()*13 + socket:GetRight()*-13 + Vector(0,0,10))
 	battery:SetAngles(socket:GetAngles())
-	battery:Spawn();
+	battery:Spawn()
 	GAMEMODE:AppendEntToBin(battery)
 	
 	//battery:GetPhysicsObject():EnableMotion(false)

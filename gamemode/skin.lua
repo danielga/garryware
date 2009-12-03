@@ -76,9 +76,9 @@ DM_ORDER_LATESTATTOP = 1;
 DM_ORDER_LATESTATBOTTOM = 2;
 
 -- basic deathmsg appearance settings
-SKIN.deathMessageBackgroundCol			= Color( 46, 43, 42, 220 );
-SKIN.deathMessageBackgroundLocal		= Color( 75, 75, 75, 200 ); -- this is the colour that the background is when the local player is involved in the deathmsg, so it stands out.
-SKIN.deathMessageActionColor			= Color( 200, 200, 200 );
+SKIN.deathMessageBackgroundCol			= Color( 46, 43, 42, 220 )
+SKIN.deathMessageBackgroundLocal		= Color( 75, 75, 75, 200 ) -- this is the colour that the background is when the local player is involved in the deathmsg, so it stands out.
+SKIN.deathMessageActionColor			= Color( 200, 200, 200 )
 
 local matBlurScreen = Material( "pp/blurscreen" )
 
@@ -369,7 +369,7 @@ end
 
 function SKIN:SchemeGameNoticeLabel( panel )
 
-	panel:SetFont( "FRETTA_NOTIFY" );
+	panel:SetFont( "FRETTA_NOTIFY" )
 	DLabel.ApplySchemeSettings( panel )
 	
 end

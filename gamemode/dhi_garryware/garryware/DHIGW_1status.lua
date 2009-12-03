@@ -1,4 +1,4 @@
-ELEMENT.Name = "StatusS"
+ELEMENT.Name = "1"
 ELEMENT.DefaultOff = false
 ELEMENT.DefaultGridPosX = 8
 ELEMENT.DefaultGridPosY = 10
@@ -59,6 +59,23 @@ function ELEMENT:DrawFunction( )
 	)
 end
 
+DHI_WinParticles = {
+	{"effects/yellowflare",35,2,ScrW()*0,ScrH(),20,20,50,70,-45,-60,60,64,256,Color(128,255,128,255),Color(0,255,0,0),5,1},
+	{"effects/yellowflare",5,2,ScrW()*0,ScrH(),10,10,20,30,-45,-60,60,256,512,Color(255,255,255,255),Color(255,255,255,0),10,1},
+	{"gui/silkicons/check_on.vmt",5,2,ScrW()*0,ScrH(),16,16,32,32,-45,-60,60,64,128,Color(255,255,255,255),Color(255,255,255,0),0,0.2}
+}
+DHI_FailParticles = {
+	{"effects/yellowflare",35,2,ScrW()*0,ScrH(),20,20,50,70,-45,-60,60,64,256,Color(128,255,128,255),Color(0,255,0,0),5,1},
+	{"effects/yellowflare",35,2,ScrW()*0,ScrH(),20,20,50,70,-45,-60,60,64,256,Color(255,128,128,255),Color(255,0,0,0),5,1},
+	{"gui/silkicons/check_off.vmt",5,2,ScrW()*0,ScrH(),16,16,32,32,-45,-60,60,64,128,Color(255,255,255,255),Color(255,255,255,0),0,0.2}
+}
+
+function DHI_MakeParticlesFromTable( myTablePtr )
+	for k,particle in pairs(myTablePtr) do
+		GAMEMODE:OnScreenParticlesMake(particle)
+	end
+end
+
 function DHI_ReceiveStatuses( usrmsg )
 	DHI_REF_StatusElement.UpdateTime = RealTime()
 	DHI_REF_StatusElement.RemainDuration = 3.0
@@ -69,16 +86,12 @@ function DHI_ReceiveStatuses( usrmsg )
 		if yourStatus then
 			LocalPlayer():EmitSound( table.Random(GAMEMODE.WASND.TBL_LocalWon) )
 		
-			HUDMakeParticles("effects/yellowflare",35,2,ScrW()*0,ScrH(),20,20,50,70,-45,-60,60,64,256,Color(128,255,128,255),Color(0,255,0,0),5,1)
-			HUDMakeParticles("effects/yellowflare",5,2,ScrW()*0,ScrH(),10,10,20,30,-45,-60,60,256,512,Color(255,255,255,255),Color(255,255,255,0),10,1)
-			HUDMakeParticles("gui/silkicons/check_on.vmt",5,2,ScrW()*0,ScrH(),16,16,32,32,-45,-60,60,64,128,Color(255,255,255,255),Color(255,255,255,0),0,0.2)
+			DHI_MakeParticlesFromTable( DHI_WinParticles )
 			
 		else
 			LocalPlayer():EmitSound( table.Random(GAMEMODE.WASND.TBL_LocalLose) )
 		
-			HUDMakeParticles("effects/yellowflare",35,2,ScrW()*0,ScrH(),20,20,50,70,-45,-60,60,64,256,Color(255,128,128,255),Color(255,0,0,0),5,1)
-			HUDMakeParticles("effects/yellowflare",5,2,ScrW()*0,ScrH(),10,10,20,30,-45,-60,60,256,512,Color(255,255,255,255),Color(255,255,255,0),10,1)
-			HUDMakeParticles("gui/silkicons/check_off.vmt",5,2,ScrW()*0,ScrH(),16,16,32,32,-45,-60,60,64,128,Color(255,255,255,255),Color(255,255,255,0),0,0.2)
+			DHI_MakeParticlesFromTable( DHI_FailParticles )
 			
 		end
 		
@@ -87,7 +100,7 @@ function DHI_ReceiveStatuses( usrmsg )
 	end
 	DHI_REF_StatusElement.BackColorSet = (yourStatus and DHI_REF_StatusElement.BackWinColorSet) or DHI_REF_StatusElement.BackLoseColorSet
 	
-	surface.SetFont( dhinlinegware_GetAppropriateFont(DHI_REF_StatusElement.Text, 2) )
+	surface.SetFont( DHI_REF_StatusElement.Theme:GetAppropriateFont(DHI_REF_StatusElement.Text, 2) )
 	local wB, hB = surface.GetTextSize( DHI_REF_StatusElement.Text )
 	
 	DHI_REF_StatusElement:ChangeSmootherTarget("width", 44 + wB)

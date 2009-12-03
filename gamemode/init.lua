@@ -1,25 +1,14 @@
+////////////////////////////////////////////////
+// -- GarryWare Two                           //
+// by Hurricaaane (Ha3)                       //
+//  and Kilburn_                              //
+// http://www.youtube.com/user/Hurricaaane    //
+//--------------------------------------------//
+// Serverside Initialization                  //
+////////////////////////////////////////////////
 
-AddCSLuaFile( "shared.lua" )
 
-AddCSLuaFile( "cl_init.lua" )
-AddCSLuaFile( "cl_hud.lua" )
-AddCSLuaFile( "cl_postprocess.lua" )
-AddCSLuaFile( "cl_usermsg.lua" )
-
-//Fretta VGUI replacements ->>
-AddCSLuaFile( "cl_splashscreen.lua" )
-AddCSLuaFile( "vgui/vgui_scoreboard.lua" )
-// <<-
-
-AddCSLuaFile( "vgui_transitscreen.lua" )
-AddCSLuaFile( "vgui_clock.lua" )
-AddCSLuaFile( "vgui_clockgame.lua" )
-AddCSLuaFile( "vgui_waitscreen.lua" )
-AddCSLuaFile( "skin.lua" )
-AddCSLuaFile( "tables.lua" )
-AddCSLuaFile( "ply_extension.lua" )
-AddCSLuaFile( "garbage_module.lua" )
-AddCSLuaFile( "overv_chataddtext.lua" )
+include( "sv_filelist.lua" )
 
 include( "shared.lua" )
 include( "tables.lua" )
@@ -32,65 +21,43 @@ include( "minigames_module.lua" )
 include( "environment_module.lua" )
 include( "entitymap_module.lua" )
 
-for k,stringOrTable in pairs(GM.WASND) do
-	if type(stringOrTable) == "string" then
-		resource.AddFile("sound/" .. stringOrTable)
-		
-	elseif type(stringOrTable) == "table" then
-		for l,sString in pairs(stringOrTable) do
-			resource.AddFile("sound/" .. sString)
-		end
-		
-	end
-end
+-- It AddCS itselfs.
+include("sh_dhonline_autorun.lua")
 
+-- Serverside Vars
+GM.GamesArePlaying = false
+GM.GameHasEnded = false
+GM.WareHaveStarted = false
+GM.ActionPhase = false
 
-AddCSLuaFile( "cl_dhinlinegware_base.lua" )
-AddCSLuaFile( "cl_dhinlinegware_element.lua" )
+--DEBUG
+CreateConVar( "ware_debug", 0, {FCVAR_ARCHIVE} )
+CreateConVar( "ware_debugname", "", {FCVAR_ARCHIVE} )
 
-local hudPath = string.Replace(GM.Folder, "gamemodes/", "") .. "/gamemode/dhinlinegware_element/"
-for _,file in pairs(file.FindInLua(hudPath .. "*.lua")) do
-	AddCSLuaFile(hudPath .. file)
-	//print("ADDED TO CLIENT : "..hudPath .. file)
-end
+--[[
+ware_debug 0 : Plays normal mode.
+ware_debug 1 : Plays continuously <ware_debugname>, waiting time stripped.
+ware_debug 2 : Plays normal mode, waiting time stripped.
+ware_debug 2 : Plays normal mode, waiting time stripped, intro sequence skipped.
+( Please don't skip gamemode intro, it is actually
+required to make sure players have loaded some files )
+]]--
 
-resource.AddFile("materials/refract_ring.vmt")
-resource.AddFile("materials/refract_ring.vtf")
-resource.AddFile("materials/sprites/ware_bullseye.vmt")
-resource.AddFile("materials/sprites/ware_bullseye.vtf")
-resource.AddFile("materials/sprites/ware_clock_two.vmt")
-resource.AddFile("materials/sprites/ware_clock_two.vtf")
-resource.AddFile("materials/sprites/ware_trotter.vmt")
-resource.AddFile("materials/sprites/ware_trotter.vtf")
-resource.AddFile("materials/vgui/ware/garryware_two_logo.vmt")
-resource.AddFile("materials/vgui/ware/garryware_two_logo.vtf")
-resource.AddFile("materials/vgui/ware/garryware_two_logo_alone.vmt")
-resource.AddFile("materials/vgui/ware/garryware_two_logo_alone.vtf")
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+// Ware general open functions.
 
---MAP
-resource.AddFile("materials/ware/detail.vtf")
-resource.AddFile("materials/ware/ware_crate.vmt")
-resource.AddFile("materials/ware/ware_crate.vtf")
-resource.AddFile("materials/ware/ware_crate2.vmt")
-resource.AddFile("materials/ware/ware_crate2.vtf")
-resource.AddFile("materials/ware/ware_floor.vtf")
-resource.AddFile("materials/ware/ware_floorred.vmt")
-resource.AddFile("materials/ware/ware_wallorange.vmt")
-resource.AddFile("materials/ware/ware_wallwhite.vtf")
-
-
---Initialization functions
 function GM:SetWareWindupAndLength(windup , len)
 	self.Windup  = windup
 	self.WareLen = len
 end
 
 function GM:DrawInstructions( sInstructions , optColorPointer , optTextColorPointer )
-	local rp = RecipientFilter();
-	rp:AddAllPlayers( );
+	local rp = RecipientFilter()
+	rp:AddAllPlayers( )
 			
-	umsg.Start( "gw_instructions", rp );
-	umsg.String( sInstructions );
+	umsg.Start( "gw_instructions", rp )
+	umsg.String( sInstructions )
 	// If there is no color, no chars about the color are passed.
 	umsg.Bool( optColorPointer != nil )
 	if (optColorPointer != nil) then
@@ -110,16 +77,6 @@ function GM:DrawInstructions( sInstructions , optColorPointer , optTextColorPoin
 			umsg.Char( optTextColorPointer.a - 128 )
 		end
 	end
-	umsg.End();
-end
-
-function GM:SendEntityTextColor( rpfilterOrPlayer, entity, r, g, b, a )
-	umsg.Start("EntityTextChangeColor", rpfilterOrPlayer)
-		umsg.Entity( entity )
-		umsg.Char( r - 128 )
-		umsg.Char( g - 128 )
-		umsg.Char( b - 128 )
-		umsg.Char( a - 128 )
 	umsg.End()
 end
 
@@ -134,6 +91,37 @@ function GM:SetPlayersInitialStatus(isAchievedNilIfMystery)
 	end
 	
 end
+
+function GM:SendEntityTextColor( rpfilterOrPlayer, entity, r, g, b, a )
+	umsg.Start("EntityTextChangeColor", rpfilterOrPlayer)
+		umsg.Entity( entity )
+		umsg.Char( r - 128 )
+		umsg.Char( g - 128 )
+		umsg.Char( b - 128 )
+		umsg.Char( a - 128 )
+	umsg.End()
+end
+
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+// Entity trash bin functions.
+
+function GM:AppendEntToBin( ent )
+	table.insert(GAMEMODE.WareEnts,ent)
+end
+
+function GM:RemoveEnts()
+	for k,v in pairs(GAMEMODE.WareEnts) do
+		if (ValidEntity(v)) then
+			GAMEMODE:MakeDisappearEffect(v:GetPos())
+			v:Remove()
+		end
+	end
+end
+
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+// Ware internal functions.
 
 function GM:HasEveryoneLocked()
 	local playertable = team.GetPlayers(TEAM_HUMANS)
@@ -162,7 +150,6 @@ function GM:CheckGlobalStatus( endOfGameBypassValidation )
 		if not GAMEMODE:HasEveryoneLocked() then return false end
 	end
 	
-	
 	// Do everyone have the same status ?
 	local probableStatus = playertable[1]:GetAchieved()
 	i = 2
@@ -175,13 +162,16 @@ function GM:CheckGlobalStatus( endOfGameBypassValidation )
 		return false
 	end
 	
-	// Note from Ha3 : Omg, check the usermessage types next time. 1 hour waste
-	local rp = RecipientFilter()
-	rp:AddAllPlayers( )
-	umsg.Start("gw_yourstatus", rp)
-		umsg.Bool(probableStatus)
-		umsg.Bool(true)
-	umsg.End()
+	-- TEST : Re-test this.
+	if not (endOfGameBypassValidation and GAMEMODE:HasEveryoneLocked()) then
+		// Note from Ha3 : OMG, check the usermessage types next time. 1 hour waste
+		local rp = RecipientFilter()
+		rp:AddAllPlayers( )
+		umsg.Start("gw_yourstatus", rp)
+			umsg.Bool(probableStatus)
+			umsg.Bool(true)
+		umsg.End()
+	end
 	
 	return true , probableStatus
 end
@@ -195,70 +185,14 @@ function GM:SendEveryoneEvent( probable )
 	umsg.End()
 end
 
---Bin functions
-function GM:AppendEntToBin( ent )
-	table.insert(GAMEMODE.WareEnts,ent)
-end
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+// Ware cycles.
 
-function GM:RemoveEnts()
-	for k,v in pairs(GAMEMODE.WareEnts) do
-		if (ValidEntity(v)) then
-			GAMEMODE:MakeDisappearEffect(v:GetPos())
-			v:Remove()
-		end
-	end
-end
-
-function GM:RespawnAllPlayers()
-	if not self.CurrentEnvironment then return end
-	
-	local rp = RecipientFilter()
-	
-	local spawns = {}
-	
-	-- Priority goes to active players, so they don't spawn in each other
-	for _,v in pairs(team.GetPlayers(TEAM_HUMANS)) do
-		if v:GetEnvironment()~=self.CurrentEnvironment then
-			if #spawns==0 then
-				spawns = table.Copy(self.CurrentEnvironment.PlayerSpawns)
-			end
-		
-			GAMEMODE:MakeDisappearEffect(v:GetPos())
-			local loc = table.remove(spawns, math.random(1,#spawns))
-			
-			v.ForcedSpawn = loc
-			v:Spawn()
-			
-			GAMEMODE:MakeAppearEffect(loc:GetPos())
-			GAMEMODE:MakeLandmarkEffect(loc:GetPos())
-			
-			rp:AddPlayer(v)
-		end
-	end
-	
-	for _,v in pairs(team.GetPlayers(TEAM_SPECTATOR)) do
-		if v:GetEnvironment()~=self.CurrentEnvironment then
-			if #spawns==0 then
-				spawns = table.Copy(self.CurrentEnvironment.PlayerSpawns)
-			end
-		
-			local loc = table.remove(spawns, math.random(1,#spawns))
-			
-			v.ForcedSpawn = loc
-			v:Spawn()
-			
-			rp:AddPlayer(v)
-		end
-	end
-	
-	SendUserMessage("PlayerTeleported", rp)
-end
-
--- Minigame essentials
 function GM:PickRandomGame()
 	self.WareHaveStarted = true
 	
-	--Standard initialization
+	-- Standard initialization
 	for k,v in pairs(player.GetAll()) do 
 		v:SetLockedSpecialInteger(0)
 		v:StripWeapons()
@@ -266,7 +200,7 @@ function GM:PickRandomGame()
 	
 	self.Minigame = ware_mod.CreateInstance(self.NextGameName)
 	
-	--Ware is initialized
+	-- Ware is initialized
 	if self.Minigame and self.Minigame.Initialize and self.Minigame.StartAction then
 		self.Minigame:Initialize()
 		
@@ -282,7 +216,7 @@ function GM:PickRandomGame()
 	
 	self.NumberOfWaresPlayed = self.NumberOfWaresPlayed + 1
 	
-	--Send info about ware
+	-- Send info about ware
 	local rp = RecipientFilter()
 	rp:AddAllPlayers()
 	umsg.Start("NextGameTimes", rp)
@@ -298,7 +232,7 @@ function GM:SetNextGameEnd(time)
 	
 	local t = CurTime()
 	
-	-- Prevent dividing by zero
+	-- Prevents dividing by zero
 	if (t - time ~= 0) and (t - self.NextgameEnd ~= 0) then
 		self.WareLen = self.WareLen * (t - time) / (t - self.NextgameEnd)
 	end
@@ -336,7 +270,7 @@ function GM:EndGame()
 			self:SendEveryoneEvent( probable )
 		end
 		
-		--Do stuff to player
+		-- Generic stuff on player.
 		local rpWin = RecipientFilter()
 		local rpLose = RecipientFilter()
 		for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
@@ -349,21 +283,21 @@ function GM:EndGame()
 				rpLose:AddPlayer(v)
 			end
 			
-			--Reinit player
+			-- Reinit player
 			v:StripWeapons()
 			v:RemoveAllAmmo( )
 			v:Give("weapon_physcannon")
 			
-			--Clear decals
+			-- Clear decals
 			v:ConCommand("r_cleardecals")
 		end
 		
-		// Send positive message to the RP list of winners
+		// Send positive message to the RP list of winners.
 		umsg.Start("EventEndgameTrigger", rpWin)
 			umsg.Bool( true )
 		umsg.End()
 		
-		// Send negative message to the RP list of winners
+		// Send negative message to the RP list of losers.
 		umsg.Start("EventEndgameTrigger", rpLose)
 			umsg.Bool( false )
 		umsg.End()
@@ -443,14 +377,12 @@ function GM:UnhookTriggers()
 	end
 end
 
---Include NAO !!!
-IncludeMinigames()
 
---DEBUG
-CreateConVar( "ware_debug", 0, {FCVAR_ARCHIVE} )
-CreateConVar( "ware_debugname", "", {FCVAR_ARCHIVE} )
 
---Thinking and overrides
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+// Ware game times.
+
 function GM:SetNextGameStartsIn( delay )
 	self.NextgameStart = CurTime() + delay
 	SendUserMessage( "GameStartTime" , nil, self.NextgameStart )
@@ -460,21 +392,22 @@ function GM:Think()
 	self.BaseClass:Think()
 	
 	if (self.GamesArePlaying == true) then
-		--Starts a new ware
 		if (self.WareHaveStarted == false) then
+			-- Starts a new ware
 			if (CurTime() > self.NextgameStart) then
-				GAMEMODE:PickRandomGame()
+				self:PickRandomGame()
 				SendUserMessage("WaitHide")
 			end
 			
+			-- Eventually, respawn all players
 			if self.NextPlayerRespawn and CurTime() > self.NextPlayerRespawn then
-				GAMEMODE:RespawnAllPlayers()
+				self:RespawnAllPlayers()
 				self.NextPlayerRespawn = nil
 			end
 		
-		--Starts the action
 		else
-			if CurTime() > (self.NextgameStart + self.Windup) && self.ActionPhase == false then
+			-- Starts the action
+			if CurTime() > (self.NextgameStart + self.Windup) and self.ActionPhase == false then
 				if self.Minigame then
 					self:HookTriggers()
 					if self.Minigame.StartAction then
@@ -485,19 +418,20 @@ function GM:Think()
 				self.ActionPhase = true
 			end
 			
+			-- Ends the current ware
 			if (CurTime() > self.NextgameEnd) then
-				GAMEMODE:EndGame()
+				self:EndGame()
 			end
 		end
 		
 		
 		
-		--Ends a current game
-		if team.NumPlayers(TEAM_HUMANS) == 0 && self.GamesArePlaying == true then
+		-- Ends a current game, because of lack of players
+		if team.NumPlayers(TEAM_HUMANS) == 0 and self.GamesArePlaying == true then
 			self.GamesArePlaying = false
 			GAMEMODE:EndGame()
 			
-			--Send info about ware
+			-- Send info about ware
 			local rp = RecipientFilter()
 			rp:AddAllPlayers()
 			umsg.Start("NextGameTimes", rp)
@@ -506,6 +440,7 @@ function GM:Think()
 				umsg.Float( 0 )
 				umsg.Float( 0 )
 			umsg.End()
+			
 		elseif self.FirstTimePickGame and CurTime() > self.FirstTimePickGame then
 			-- Game has just started, pick the first game
 			self:PickRandomGameName( true )
@@ -513,13 +448,13 @@ function GM:Think()
 		end
 	
 	else
-		--Starts a new game
-		if team.NumPlayers(TEAM_HUMANS) > 0 && self.GameHasEnded == false && self.GamesArePlaying == false then
+		-- Starts a new game
+		if team.NumPlayers(TEAM_HUMANS) > 0 and self.GameHasEnded == false and self.GamesArePlaying == false then
 			self.GamesArePlaying = true
 			self.WareHaveStarted = false
 			self.ActionPhase = false
 			
-			if (GetConVar("ware_debug"):GetInt() > 0) then
+			if ( GetConVar("ware_debug"):GetInt() > 0 ) then
 				self:SetNextGameStartsIn( 4 )
 				self.FirstTimePickGame = 1.3
 			else
@@ -529,18 +464,11 @@ function GM:Think()
 			SendUserMessage( "WaitShow" )
 		end
 	end
-	
-	--Adverts
-	/*
-	if (self.NexttimeAdvert - CurTime()) < 0 then
-		for k,v in pairs(player.GetAll()) do 
-			v:ChatPrint( "This gamemode is called Garry Ware, keep track of it on http://www.facepunch.com/showthread.php?p=14682019" ) 
-			v:ChatPrint( "You can also code your own minigames ! Get documented on the Facepunch thread !" ) 
-		end
-		self.NexttimeAdvert = CurTime() + math.random(60*3,60*5)
-	end
-	*/
 end
+
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+// Fretta end-of-game / Vote overrides.
 
 function GM:EndTheGameForOnce()
 	if self.GameHasEnded == true then return end
@@ -575,14 +503,18 @@ end
 function GM:EndOfGame( bGamemodeVote )
 	self:EndTheGameForOnce()
 	
-	self.BaseClass:EndOfGame( bGamemodeVote );
+	self.BaseClass:EndOfGame( bGamemodeVote )
 end
 
 function GM:StartGamemodeVote()
 	self:EndTheGameForOnce()
 	
-	self.BaseClass:StartGamemodeVote();
+	self.BaseClass:StartGamemodeVote()
 end
+
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+// Model List.
 
 function GM:SendModelList( ply )
 	if #self.ModelPrecacheTable <= 0 then return end
@@ -608,6 +540,10 @@ function GM:SendModelList( ply )
 		
 	end
 end
+
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+// Player related.
 
 function GM:PlayerInitialSpawn( ply, id )
 	self.BaseClass:PlayerInitialSpawn( ply, id )
@@ -663,6 +599,57 @@ function GM:PlayerSelectSpawn(ply)
 	return spawns[math.random(1,#spawns)]
 end
 
+
+function GM:PlayerDeath( victim, weapon, killer )
+	self.BaseClass:PlayerDeath()
+	victim:ApplyLose()
+end
+
+function GM:RespawnAllPlayers()
+	if not self.CurrentEnvironment then return end
+	
+	local rp = RecipientFilter()
+	
+	local spawns = {}
+	
+	-- Priority goes to active players, so they don't spawn in each other
+	for _,v in pairs(team.GetPlayers(TEAM_HUMANS)) do
+		if v:GetEnvironment()~=self.CurrentEnvironment then
+			if #spawns==0 then
+				spawns = table.Copy(self.CurrentEnvironment.PlayerSpawns)
+			end
+		
+			GAMEMODE:MakeDisappearEffect(v:GetPos())
+			local loc = table.remove(spawns, math.random(1,#spawns))
+			
+			v.ForcedSpawn = loc
+			v:Spawn()
+			
+			GAMEMODE:MakeAppearEffect(loc:GetPos())
+			GAMEMODE:MakeLandmarkEffect(loc:GetPos())
+			
+			rp:AddPlayer(v)
+		end
+	end
+	
+	for _,v in pairs(team.GetPlayers(TEAM_SPECTATOR)) do
+		if v:GetEnvironment()~=self.CurrentEnvironment then
+			if #spawns==0 then
+				spawns = table.Copy(self.CurrentEnvironment.PlayerSpawns)
+			end
+		
+			local loc = table.remove(spawns, math.random(1,#spawns))
+			
+			v.ForcedSpawn = loc
+			v:Spawn()
+			
+			rp:AddPlayer(v)
+		end
+	end
+	
+	SendUserMessage("PlayerTeleported", rp)
+end
+
 function GM:InitPostEntity( )
 	self.BaseClass:InitPostEntity()
 	
@@ -674,7 +661,6 @@ function GM:InitPostEntity( )
 	self.GameHasEnded = false
 	
 	self.NextgameStart = CurTime() + 8
-	self.NexttimeAdvert = CurTime() + 32
 	
 	self.TimeWhenGameEnds = CurTime() + self.GameLength * 60.0
 	
@@ -707,7 +693,7 @@ function GM:InitPostEntity( )
 end
 
 /*
-// Silent fall damage leg break sound ?
+-- (Ha3) Silent fall damage leg break sound ? Didn't work.
 function GM:EntityTakeDamage( ent, inflictor, attacker, amount, dmginfo )
 	if ent:IsPlayer() and dmginfo:IsFallDamage() then
 		dmginfo:ScaleDamage( 0 )
@@ -716,7 +702,69 @@ function GM:EntityTakeDamage( ent, inflictor, attacker, amount, dmginfo )
 end
 */
 
-function LoseWareOnPlayerDeath( victim, weapon, killer )
-	victim:ApplyLose()
+
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+// Minigame Inclusion.
+
+function IncludeMinigames()
+	local path = string.Replace(GM.Folder, "gamemodes/", "").."/gamemode/wareminigames/"
+	local names = {}
+	local authors = {}
+	local str = ""
+	for _,file in pairs(file.FindInLua(path.."*.lua")) do
+		WARE = {}
+		
+		--AddCSLuaFile(path..file)
+		include(path..file)
+		
+		local gamename = string.Replace(file, ".lua", "")
+		ware_mod.Register(gamename, WARE)
+	end
+	
+	print("__________\n")
+	names = ware_mod.GetNamesTable()
+	str = "Added wares ("..#names..") : "
+	for k,v in pairs(names) do
+		str = str.."\""..v.."\" "
+	end
+	print(str)
+	
+	authors = ware_mod.GetAuthorTable()
+	str = "Author [wares] : "
+	for k,v in pairs(authors) do
+		str = str.." "..k.." ["..v.." wares]  "
+	end
+	print(str)
+	print("__________\n")
 end
-hook.Add( "PlayerDeath", "LoseWareOnPlayerDeath", LoseWareOnPlayerDeath );
+
+function RemoveUnplayableMinigames()
+	local names = ware_mod.GetNamesTable()
+	local removed = {}
+	
+	for _,v in pairs(ware_mod.GetNamesTable()) do
+		if not ware_env.HasEnvironment(ware_mod.Get(v).Room) then
+			table.insert(removed,v)
+			ware_mod.Remove(v)
+		end
+	end
+	
+	print("__________\n")
+	str = "Removed wares ("..#removed..") : "
+	for k,v in pairs(removed) do
+		str = str.."\""..v.."\" "
+	end
+	print(str)
+	print("__________\n")
+end
+
+
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+// Start up.
+
+IncludeMinigames()
+
+////////////////////////////////////////////////
+////////////////////////////////////////////////

@@ -23,7 +23,7 @@ function WARE:Initialize()
 	local entposcopy = GAMEMODE:GetRandomLocations(num, {"dark_ground","light_ground"} )
 	
 	for k,v in pairs(entposcopy) do
-		local ent = ents.Create("ware_ringzone_preset");
+		local ent = ents.Create("ware_ringzone_preset")
 		ent:SetPos(v:GetPos() + Vector(0,0,4) )
 		ent:SetAngles(Angle(0,0,0))
 		ent:Spawn()

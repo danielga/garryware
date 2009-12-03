@@ -6,7 +6,7 @@
 
 // Don't draw Weapon Selection crap.
 function SWEP:DrawWeaponSelection( x, y, wide, tall, alpha )
-	killicon.Draw( x + (wide/2), y + (tall*0.4), self:GetClass(), alpha );
+	killicon.Draw( x + (wide/2), y + (tall*0.4), self:GetClass(), alpha )
 end
 
 function SWEP:ViewModelDrawn()
@@ -14,16 +14,16 @@ end
 
 function SWEP:DrawCrosshairBit( x, y, width, height )
 
-	surface.SetDrawColor( 196, 150, 10, 255 );
-	surface.DrawRect( x, y, width, height );
+	surface.SetDrawColor( 196, 150, 10, 255 )
+	surface.DrawRect( x, y, width, height )
 	
-	surface.SetDrawColor( 255, 255, 255, 255 );	
-	surface.DrawRect( x+1, y+1, width-2, height-2 );
+	surface.SetDrawColor( 255, 255, 255, 255 )	
+	surface.DrawRect( x+1, y+1, width-2, height-2 )
 	
 end
 
-cl_gmdm_xhair_scale = CreateClientConVar( "crosshair_scale", 1, true, false );
-cl_gmdm_crosshair = GetConVar( "crosshair" );
+cl_gmdm_xhair_scale = CreateClientConVar( "crosshair_scale", 1, true, false )
+cl_gmdm_crosshair = GetConVar( "crosshair" )
 
 function SWEP:DrawCrosshairHUD()
 	
@@ -48,14 +48,14 @@ function SWEP:DrawCrosshairHUD()
 		self.Primary.Cone = 0.02;
 	end
 	
-	local gap = ( 10 + (self.Primary.Cone * ( 260 * (ScrH()/720) ) ) * (1/self:GetStanceAccuracyBonus())) * cl_gmdm_xhair_scale:GetFloat();
+	local gap = ( 10 + (self.Primary.Cone * ( 260 * (ScrH()/720) ) ) * (1/self:GetStanceAccuracyBonus())) * cl_gmdm_xhair_scale:GetFloat()
 	
 	--local scopetime = self.ScopeTime or 1;
-	--gap = gap * (1/scopetime);
+	--gap = gap * (1/scopetime)
 	
-	--local LastShootTime = self.Weapon:GetNetworkedFloat( "LastShootTime", 0 );
+	--local LastShootTime = self.Weapon:GetNetworkedFloat( "LastShootTime", 0 )
 	
-	gap = math.Clamp( gap, 0, (ScrH()/2)-100 );
+	gap = math.Clamp( gap, 0, (ScrH()/2)-100 )
 	local length = ( gap + 15 ) * 0.6
 
 	self:DrawCrosshairBit( x - gap - length, y - 1, length, 3 ) -- left

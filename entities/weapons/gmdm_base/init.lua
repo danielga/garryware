@@ -191,7 +191,7 @@ end
    Desc: NPC tried to fire primary attack
 ---------------------------------------------------------*/
 function SWEP:NPCShoot_Primary( ShootPos, ShootDir )
-	Msg( "Trying to shoot GMDM weapon\n");
+	Msg( "Trying to shoot GMDM weapon\n")
 	self:PrimaryAttack()
 
 end
@@ -202,7 +202,7 @@ end
    Desc: NPC tried to fire secondary attack
 ---------------------------------------------------------*/
 function SWEP:NPCShoot_Secondary( ShootPos, ShootDir )
-	Msg( "Trying to shoot GMDM weapon\n");
+	Msg( "Trying to shoot GMDM weapon\n")
 	self:PrimaryAttack()
 
 end

@@ -50,7 +50,7 @@ function WARE:StartAction()
 		table.insert( self.MissingEnts, ent.LocationOrigin )
 		ent:Remove()
 		
-		local land = ents.Create ("gmod_landmarkonremove");
+		local land = ents.Create ("gmod_landmarkonremove")
 		land:SetPos( ent.LocationOrigin:GetPos() )
 		land:Spawn()
 		GAMEMODE:AppendEntToBin( land )

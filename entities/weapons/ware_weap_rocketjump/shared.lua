@@ -1,6 +1,6 @@
 
 if (SERVER) then
-   AddCSLuaFile ("shared.lua");
+   AddCSLuaFile ("shared.lua")
 end
 
 SWEP.Base				= "gmdm_base"
@@ -19,7 +19,7 @@ function SWEP:Initialize()
 	
 end
 
-local ShootSound = Sound ("npc/env_headcrabcanister/launch.wav");
+local ShootSound = Sound ("npc/env_headcrabcanister/launch.wav")
 
 SWEP.RunArmAngle  = Angle( -20, 0, 0 )
 SWEP.RunArmOffset = Vector( 0, -4, 0 )
@@ -27,16 +27,16 @@ SWEP.Delay = 0.75
 SWEP.TickDelay = 0.1
 
 function SWEP:Throw(shotPower)
-	local tr = self.Owner:GetEyeTrace();
+	local tr = self.Owner:GetEyeTrace()
 
 	if (!SERVER) then return end;
 
-	local ent = ents.Create("ware_proj_rocketjump");	
+	local ent = ents.Create("ware_proj_rocketjump")	
 
 	local Forward = self.Owner:EyeAngles():Forward()
 	ent:SetPos( self.Owner:GetShootPos() + Forward * 0 )
-	ent:SetAngles (self.Owner:EyeAngles());
-	ent:Spawn();
+	ent:SetAngles (self.Owner:EyeAngles())
+	ent:Spawn()
 	ent:SetOwner(self.Owner)
 	ent:Activate( )
 	
@@ -51,7 +51,7 @@ function SWEP:Throw(shotPower)
 											"trails/tube.vmt" ) //strTexture
 	
 	local phys = ent:GetPhysicsObject()
-	phys:ApplyForceCenter (self.Owner:GetAimVector():GetNormalized() * shotPower);
+	phys:ApplyForceCenter (self.Owner:GetAimVector():GetNormalized() * shotPower)
 end
 
 /*---------------------------------------------------------
@@ -69,12 +69,12 @@ function SWEP:PrimaryAttack()
 	
 	if ( !self:CanShootWeapon() ) then return end
 	
-	self.Weapon:EmitSound(ShootSound);
+	self.Weapon:EmitSound(ShootSound)
 	
 	self:TakePrimaryAmmo( 1 )
 	
 	if (CLIENT) then return end
-	self:Throw(5000000);
+	self:Throw(5000000)
 end
 
 /*---------------------------------------------------------

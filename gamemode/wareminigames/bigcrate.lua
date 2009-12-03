@@ -37,7 +37,7 @@ function WARE:StartAction()
 		local land = ents.Create("gmod_landmarkonremove")
 		land:SetPos(ent:GetPos())
 		land:SetParent(ent)
-		land:Spawn();
+		land:Spawn()
 		
 		GAMEMODE:AppendEntToBin(land)
 	end

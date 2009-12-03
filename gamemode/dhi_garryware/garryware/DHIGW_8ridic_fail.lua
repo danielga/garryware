@@ -1,4 +1,4 @@
-ELEMENT.Name = "FAILRID"
+ELEMENT.Name = "8FAIL"
 ELEMENT.DefaultOff = false
 ELEMENT.DefaultGridPosX = 16 - 5
 ELEMENT.DefaultGridPosY = 1.5

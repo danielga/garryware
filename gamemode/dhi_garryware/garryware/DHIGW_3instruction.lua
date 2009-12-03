@@ -1,4 +1,4 @@
-ELEMENT.Name = "INSTRUCTIONS"
+ELEMENT.Name = "3"
 ELEMENT.DefaultOff = false
 ELEMENT.DefaultGridPosX = 8
 ELEMENT.DefaultGridPosY = 12
@@ -93,7 +93,7 @@ function DHI_ReceiveInstructions( usrmsg )
 		
 	
 	
-	surface.SetFont( dhinlinegware_GetAppropriateFont(DHI_REF_InstructionElement.Text, 2) )
+	surface.SetFont( DHI_REF_InstructionElement.Theme:GetAppropriateFont(DHI_REF_InstructionElement.Text, 2) )
 	local wB, hB = surface.GetTextSize( DHI_REF_InstructionElement.Text )
 	
 	DHI_REF_InstructionElement:ChangeSmootherTarget("width", 44 + wB)

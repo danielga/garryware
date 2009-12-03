@@ -3,19 +3,19 @@ surface.CreateFont( "coolvetica", 48, 400, true, false, "WAREIns" )
 surface.CreateFont( "coolvetica", 36, 400, true, false, "WAREDom" )
 surface.CreateFont( "Verdana", 16, 400, true, false, "WAREScore" ) 
 
-/*----------------------------------
-HUD Dominations
-------------------------------------*/
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+// HUD Combos
 
-local DominationMat = Material("sprites/ware_clock_two")
+GM.StreakstickMat = Material("sprites/ware_clock_two")
 local LightColor = nil
 local PosToScreen = nil
 local NewWorldPos = Vector(0,0,0)
 
-function GM:PrintDominations( )
+function GM:PrintStreaksticks( )
 	for k,ply in pairs(team.GetPlayers(TEAM_HUMANS)) do
 		if ply:GetCombo() >= 3 then
-			surface.SetMaterial( DominationMat )
+			surface.SetMaterial( self.StreakstickMat )
 		
 			GC_VectorCopy(NewWorldPos, ply:GetPos())
 			NewWorldPos.z = NewWorldPos.z + 96
@@ -34,36 +34,61 @@ function GM:PrintDominations( )
 	end
 end
 
+function GM:DrawWareText()
+	self.Ent_WareTexts = {}
+	self.Ent_WareTexts = ents.FindByClass("ware_text")
+	
+	-- Draw farthest first.
+	for k,v in pairs(self.Ent_WareTexts) do
+		v.Ent_EyeDistance = (v:GetPos() - EyePos()):Length()
+	end
+	table.sort(self.Ent_WareTexts, function(a, b) return a.Ent_EyeDistance > b.Ent_EyeDistance end)
+	
+	for k,v in pairs(self.Ent_WareTexts) do
+		local pos_toscreen = v:GetPos():ToScreen()
+		
+		draw.SimpleTextOutlined( v:GetNWString("text","") , "WAREIns", pos_toscreen.x, pos_toscreen.y, v.TextColor, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color( 0, 0, 0, v.TextColor.a ) )
+	end
+end
 
 
-/*----------------------------------
-HUD Particles
-------------------------------------*/
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+// HUD Particles.
 
-HUDParticleThinkTime = CurTime()
-HUDParticles = {}
+GM.OnScreenParticlesThinkTime = CurTime()
+GM.OnScreenParticlesList = {}
 
-function HUDThinkAboutParticles()
-	if CurTime() - HUDParticleThinkTime > 0.05 then
-		for k,sprite in pairs(HUDParticles) do
+function GM:OnScreenParticlesThink()
+	if CurTime() - self.OnScreenParticlesThinkTime > 0.05 then
+		for k,sprite in pairs(self.OnScreenParticlesList) do
 			if sprite:IsValid() == false then
-				table.remove(HUDParticles,k)
+				table.remove(self.OnScreenParticlesList,k)
+				
 			else
 				local sx,sy = sprite:GetPos()
 				sprite.Velocity.y = sprite.Velocity.y + sprite.grav
 				sprite:MoveTo(sx + (sprite.Velocity.x*0.1)*sprite.resist, sy + (sprite.Velocity.y*0.1)*sprite.resist, 0.0001/FrameTime(),0)
+			
 			end
+			
 		end
+		
 	end
+	
 end
 
-function HUDMakeParticles(materialpath,number,duration,posx,posy,sizemin,sizemax,sizeendmin,sizeendmax,dir_angle,diffusemin,diffusemax,distancemin,distancemax,color,colorend,gravity,resist)
+function GM:OnScreenParticlesMake(myData)
+	local materialpath,number,duration,posx,posy,sizemin,sizemax,sizeendmin,sizeendmax,dir_angle = myData[1], myData[2], myData[3], myData[4], myData[5], myData[6], myData[7], myData[8], myData[9], myData[10]
+	local diffusemin,diffusemax,distancemin,distancemax,color,colorend,gravity,resist = myData[11], myData[12], myData[13], myData[14], myData[15], myData[16], myData[17], myData[8]
+
 	local sprite
 	local randang
 	local distance
 	local sizeto
 	local materialdec = Material(materialpath)
-	for i=1,number do
+	
+	for i = 1, number do
 		sprite = CreateSprite( materialdec )
 		sprite:SetTerm( duration )
 		sprite:SetPos( posx, posy )
@@ -86,75 +111,57 @@ function HUDMakeParticles(materialpath,number,duration,posx,posy,sizemin,sizemax
 		
 		sprite:SetZPos(-128)
 		
-		table.insert(HUDParticles,sprite)
+		table.insert(self.OnScreenParticlesList, sprite)
 	end
 end
 
-/*
-local function RemoteMakeParticles( m )
-	local data = m:GetDecodedData()
-	HUDMakeParticles(data.materialpath,data.number,data.duration,data.posx_rel*ScrW(),data.posy*ScrH(),data.sizemin,data.sizemax,data.sizeendmin,data.sizeendmax,data.dir_angle,data.diffusemin,data.diffusemax,data.distancemin,data.distancemax,data.color,data.colorend,data.gravity,data.resist)
-end
-datastream.Hook( "RemoteMakeParticles", RemoteMakeParticles )
-*/
-
-function GM:PrintCommonParticles( )
-	return
-end
-
-/*----------------------------------
-HUD Paint
-------------------------------------*/
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+// Paint.
 
 function GM:HUDPaint()
-	self.BaseClass:HUDPaint();
+	self.BaseClass:HUDPaint()
 	
-	self:PrintDominations();
-	//self:PrintCommonParticles();
-	HUDThinkAboutParticles()
+	self:PrintStreaksticks()
+	self:OnScreenParticlesThink()
+	self:DrawWareText()
+	
+	dhonline.HUDPaint()
 end
 
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+// HUD Overrides.
 
-
-/*----------------------------------
-HUD Overrides
-------------------------------------*/
-
-function HideThings( name )
+function GW_HUDShouldDraw( name )
 	if (name == "CHudHealth" or name == "CHudBattery" or name == "CHudWeaponSelection") then
 		return false
 	end
 end
-hook.Add( "HUDShouldDraw", "HideThings", HideThings )
+hook.Add("HUDShouldDraw","GW_HUDShouldDraw",GW_HUDShouldDraw)
 
-function GM:HUDWeaponPickedUp( wep )
+function GW_HUDWeaponPickedUp( wep )
 	return false
 end
+hook.Add("HUDWeaponPickedUp","GW_HUDWeaponPickedUp",GW_HUDWeaponPickedUp)
 
-
-
-
-/*----------------------------------
-VGUI Overrides
-------------------------------------*/
-
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+// VGUI Overrides.
 
 function GM:AddScoreboardWon( ScoreBoard )
-
 	local f = function( ply ) return ply:Frags() end
 	ScoreBoard:AddColumn( "Won", 50, f, 0.5, nil, 6, 6 )
 
 end
 
 function GM:AddScoreboardFailed( ScoreBoard )
-
 	local f = function( ply ) return ply:Deaths() end
 	ScoreBoard:AddColumn( "Failed", 50, f, 0.5, nil, 6, 6 )
 
 end
 
 function GM:AddScoreboardStreak( ScoreBoard )
-
 	local f = function( ply )
 		local combo = ply:GetCombo()
 		local combomax = ply:GetBestCombo()
@@ -171,13 +178,6 @@ end
 function GM:AddScoreboardAward( ScoreBoard )
 
 	local f = function( ply ) 	
-	
-		/*local combomax = ply:GetNWInt("combo_max")
-		local av = vgui.Create( "DImage" )
-			av:SetSize( 16, 16 )
-			av:SetVisible( GAMEMODE.BestStreakEver == combomax )
-			av:SetImage( "gui/silkicons/star" )
-			return av*/
 			
 		local quastring = ""
 		local quartiers = false
@@ -231,17 +231,17 @@ function GM:CreateScoreboard( ScoreBoard )
 
 	ScoreBoard:SetSkin( "ware" )
 
-	self:AddScoreboardAvatar( ScoreBoard )		 //1
+	self:AddScoreboardAvatar( ScoreBoard )		  //1
 	self:AddScoreboardWantsChange( ScoreBoard )	 //2
-	self:AddScoreboardName( ScoreBoard )	     //3
-	self:AddScoreboardWon( ScoreBoard )          //4
-	self:AddScoreboardFailed( ScoreBoard )       //5
-	self:AddScoreboardStreak( ScoreBoard )	     //6
-	self:AddScoreboardAward( ScoreBoard )		 //7
-	self:AddScoreboardPing( ScoreBoard )     //8
+	self:AddScoreboardName( ScoreBoard )	    //3
+	self:AddScoreboardWon( ScoreBoard )        //4
+	self:AddScoreboardFailed( ScoreBoard )    //5
+	self:AddScoreboardStreak( ScoreBoard )	 //6
+	self:AddScoreboardAward( ScoreBoard )  //7
+	self:AddScoreboardPing( ScoreBoard )  //8
 		
 	// Here we sort by these columns (and descending), in this order. You can define up to 4
-	ScoreBoard:SetSortColumns( { 4, true, 5, false, 3, false } )
+	ScoreBoard:SetSortColumns( { 4, true, 6, true, 5, false, 3, false } )
 
 end
 
@@ -266,10 +266,11 @@ function GM:UpdateHUD_Dead( whatever )
 end
 
 
-/*---------------------------------------------------------
-   Name: gamemode:HUDDrawTargetID( )
-   Desc: Draw the target id (the name of the player you're currently looking at)
----------------------------------------------------------*/
+
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+// Draw the target id (the name of the player you're currently looking at)
+
 function GM:HUDDrawTargetID()
 
 	local tr = utilx.GetPlayerTrace( LocalPlayer(), LocalPlayer():GetCursorAimVector() )
@@ -311,7 +312,7 @@ function GM:HUDDrawTargetID()
 	
 	y = y + h + 5
 	
-	local text = trace.Entity:Frags() .. "W / " .. trace.Entity:Deaths() .. "F / " .. trace.Entity:GetBestCombo() .. "BC"
+	local text = trace.Entity:Frags() .. " Win, " .. trace.Entity:Deaths() .. " Fail / " .. trace.Entity:GetBestCombo() .. " Best Combo"
 	local font = "TargetIDSmall"
 	
 	surface.SetFont( font )

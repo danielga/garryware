@@ -1,4 +1,4 @@
-ELEMENT.Name = "AMMO"
+ELEMENT.Name = "9"
 ELEMENT.DefaultOff = false
 ELEMENT.DefaultGridPosX = 15
 ELEMENT.DefaultGridPosY = 15
