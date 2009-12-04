@@ -625,9 +625,6 @@ function GM:RespawnAllPlayers()
 			v.ForcedSpawn = loc
 			v:Spawn()
 			
-			GAMEMODE:MakeAppearEffect(loc:GetPos())
-			GAMEMODE:MakeLandmarkEffect(loc:GetPos())
-			
 			rp:AddPlayer(v)
 		end
 	end
