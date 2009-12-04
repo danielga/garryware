@@ -605,7 +605,7 @@ function GM:PlayerDeath( victim, weapon, killer )
 	victim:ApplyLose()
 end
 
-function GM:RespawnAllPlayers()
+function GM:RespawnAllPlayers( bNoMusicEvent )
 	if not self.CurrentEnvironment then return end
 	
 	local rp = RecipientFilter()
@@ -644,7 +644,7 @@ function GM:RespawnAllPlayers()
 		end
 	end
 	
-	SendUserMessage("PlayerTeleported", rp)
+	SendUserMessage("PlayerTeleported", rp, bNoMusicEvent or false)
 end
 
 function GM:InitPostEntity( )

@@ -135,9 +135,10 @@ end
 usermessage.Hook( "EventEveryoneState", EventEveryoneState )
 
 local function PlayerTeleported( m )
-	LocalPlayer():EmitSound( GAMEMODE.WASND.GlobalWareningTeleport , 60 )
+	if not m:ReadBool() then
+		LocalPlayer():EmitSound( GAMEMODE.WASND.GlobalWareningTeleport , 60 )
+	end
 	LocalPlayer():EmitSound( table.Random(GAMEMODE.WASND.TBL_Teleport) , 40 )
-	// LocalPlayer():EmitSound( GAMEMODE.WASND.GlobalWareningReport )
 end
 usermessage.Hook( "PlayerTeleported", PlayerTeleported )
 
