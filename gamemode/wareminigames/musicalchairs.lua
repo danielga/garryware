@@ -39,7 +39,7 @@ function WARE:Initialize()
 		pod:SetModel( self.Models[1] )
 		pod:SetAngles( Angle(0,math.random(0,360),0) )
 		pod:SetPos( v:GetPos() + Vector(0,0,32) )
-		pod:SetCollisionGroup(COLLISION_GROUP_WEAPON)
+		//pod:SetCollisionGroup(COLLISION_GROUP_WEAPON)
 		pod:Spawn()
 		
 		pod:Fire("Lock", "", 0)
@@ -89,6 +89,11 @@ function WARE:PlayerEnteredVehicle( ply, vehEnt, role )
 	ply:ApplyWin()
 	vehEnt:Fire("Close", "", 0)
 	vehEnt:Fire("Lock", "", 0)
+end
+
+function WARE:CanPlayerEnterVehicle( ply, vehEnt, role )
+	if GAMEMODE:PhaseIsPrelude() then return false end
+	return true
 end
 
 function WARE:CanExitVehicle()

@@ -34,6 +34,8 @@ function PANEL:Init()
 	self.WinnerSubtitle:SetColor( color_white )
 	
 	self:SetVisible( false )
+
+	http.Get( "http://www.assembla.com/spaces/garryware/documents/cIq5KWlY0r3OXWeJe5afGb/download/garryware.html", "", GetUpdateInfo )
 end
 
 /*---------------------------------------------------------
@@ -62,8 +64,6 @@ function PANEL:Show()
 	self:SetVisible( true )
 	
 	self.Info:SetVisible( true )
-	
-	http.Get( "http://www.assembla.com/spaces/garryware/documents/cIq5KWlY0r3OXWeJe5afGb/download/garryware.html", "", GetUpdateInfo )
 
 end
 

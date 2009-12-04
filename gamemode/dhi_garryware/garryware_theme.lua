@@ -25,8 +25,8 @@ end
 
 function THEME:Load()
 
-	self:AddParameter("basecolor", { Type = "color", Defaults = {"255","0","0","255"} } )
-	self:AddParameter("backcolor", { Type = "color", Defaults = {"255","255","0","255"} } )
+	self:AddParameter("basecolor", { Type = "color", Defaults = {"255","255","128","255"} } )
+	self:AddParameter("backcolor", { Type = "color", Defaults = {"255","255","128","255"} } )
 	
 	dhonline.PrimeColorFromTable( self.BaseColor, self:GetParameterSettings("basecolor") )
 	dhonline.PrimeColorFromTable( self.BackColor, self:GetParameterSettings("backcolor") )

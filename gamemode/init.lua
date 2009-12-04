@@ -647,8 +647,28 @@ function GM:RespawnAllPlayers( bNoMusicEvent )
 	SendUserMessage("PlayerTeleported", rp, bNoMusicEvent or false)
 end
 
+function GM:WareRoomCheckup()
+	if #ents.FindByClass("func_wareroom")==0 then
+		for _,v in pairs(ents.FindByClass("gmod_warelocation")) do
+			v:SetNotSolid(true)
+		end
+		return
+	end
+	
+	for _,v in pairs(ents.FindByClass("info_player_start")) do
+		-- That's not a real ware location, but a dummy entity for making info_player_start entities detectable
+		-- by the trigger
+		local temp = ents.Create("gmod_warelocation")
+		temp:SetPos(v:GetPos())
+		temp:Spawn()
+		temp.PlayerStart = v
+	end
+end
+
 function GM:InitPostEntity( )
 	self.BaseClass:InitPostEntity()
+	
+	self:WareRoomCheckup()
 	
 	RemoveUnplayableMinigames()
 

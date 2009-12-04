@@ -133,17 +133,16 @@ end
 ////////////////////////////////////////////////
 // HUD Overrides.
 
-function GW_HUDShouldDraw( name )
+function GM:HUDShouldDraw( name )
 	if (name == "CHudHealth" or name == "CHudBattery" or name == "CHudWeaponSelection") then
 		return false
 	end
+	return true
 end
-hook.Add("HUDShouldDraw","GW_HUDShouldDraw",GW_HUDShouldDraw)
 
-function GW_HUDWeaponPickedUp( wep )
+function GM:HUDWeaponPickedUp( wep )
 	return false
 end
-hook.Add("HUDWeaponPickedUp","GW_HUDWeaponPickedUp",GW_HUDWeaponPickedUp)
 
 ////////////////////////////////////////////////
 ////////////////////////////////////////////////

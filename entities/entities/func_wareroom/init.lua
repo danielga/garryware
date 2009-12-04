@@ -42,6 +42,7 @@ function ENT:EndTouch(ent)
 	end
 end
 
+--[[
 hook.Add("InitPostEntity", "WareRoomsInit", function()
 	if #ents.FindByClass("func_wareroom")==0 then
 		for _,v in pairs(ents.FindByClass("gmod_warelocation")) do
@@ -59,3 +60,4 @@ hook.Add("InitPostEntity", "WareRoomsInit", function()
 		temp.PlayerStart = v
 	end
 end)
+]]--

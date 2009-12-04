@@ -46,6 +46,18 @@ function WARE_SortTable( plyA, plyB )
 	end
 end
 
+function GM:CreateAmbientMusic()
+	for k,path in pairs(GAMEMODE.WASND.THL_AmbientMusic) do
+		AmbientMusic[k] = CreateSound(LocalPlayer(), path)
+	end
+end
+
+function GM:InitPostEntity()
+	self.BaseClass:InitPostEntity()
+	
+	self:CreateAmbientMusic()
+end
+
 function GM:Think()
 	self.BaseClass:Think()
 	

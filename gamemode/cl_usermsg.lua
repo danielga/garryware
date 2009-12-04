@@ -57,15 +57,6 @@ local function ServerJoinInfo( m )
 end
 usermessage.Hook( "ServerJoinInfo", ServerJoinInfo )
 
-
-
-local function CreateAmbientMusic()
-	for k,path in pairs(GAMEMODE.WASND.THL_AmbientMusic) do
-		AmbientMusic[k] = CreateSound(LocalPlayer(), path)
-	end
-end
-hook.Add( "InitPostEntity" , "CreateAmbientMusic" , CreateAmbientMusic )
-
 local function EnableMusic()
 	if AmbientMusicIsOn then
 		AmbientMusic[1]:Stop()
