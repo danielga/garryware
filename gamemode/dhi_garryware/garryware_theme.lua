@@ -31,7 +31,7 @@ function THEME:Load()
 	dhonline.PrimeColorFromTable( self.BaseColor, self:GetParameterSettings("basecolor") )
 	dhonline.PrimeColorFromTable( self.BackColor, self:GetParameterSettings("backcolor") )
 	
-	dhonline.SetVar("dhonline_core_ui_spacing", 0)
+	dhonline.SetVar("dhonline_core_ui_spacing", 0.3)
 
 	surface.CreateFont("Trebuchet MS", 36, 0   , 0, false, "dhigwfont_num_nb" )
 	surface.CreateFont("Trebuchet MS", 26, 0   , 0, false, "dhigwfont_nummedium_nb" )
