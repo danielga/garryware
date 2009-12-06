@@ -100,7 +100,8 @@ local function NextGameTimes( m )
 		local musicID = m:ReadChar()
 		LocalPlayer():EmitSound( GAMEMODE.WASND.TBL_GlobalWareningNew[musicID] , 60 )
 		AmbientMusicIsOn = true
-		timer.Simple( GAMEMODE.WADAT.StartFlourishTime, EnableMusic )
+		EnableMusic()
+		--timer.Simple( GAMEMODE.WADAT.StartFlourishTime, EnableMusic )
 	end
 end
 usermessage.Hook( "NextGameTimes", NextGameTimes )

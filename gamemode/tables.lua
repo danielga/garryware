@@ -1,7 +1,7 @@
 GM.WASND = {}
 GM.WADAT = {}
 GM.WADAT.EndFlourishTime = 2.56
-GM.WADAT.StartFlourishTime = 0 or 2.56
+--GM.WADAT.StartFlourishTime = 0 or 2.56
 GM.WADAT.StartFlourishLength = 2.56
 GM.WADAT.TransitFlourishTime = 1.3
 GM.WADAT.EndingFlourishDelayAfterStart = 2.26
