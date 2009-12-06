@@ -11,7 +11,9 @@ function WARE:Initialize()
 	GAMEMODE:DrawInstructions( "A new GarryWare game starts !" )
 	
 	self.Entground = GAMEMODE:GetEnts(ENTS_CROSS)
-	SendUserMessage( "SpecialFlourish" )
+	umsg.Start("SpecialFlourish")
+		umsg.Char( math.random(1, #GAMEMODE.WASND.TBL_GlobalWareningEnding ) )
+	umsg.End()
 	
 	for k,ply in pairs(team.GetPlayers(TEAM_HUMANS)) do
 		ply:SetAchievedSpecialInteger( -1 )

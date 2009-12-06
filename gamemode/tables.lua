@@ -1,11 +1,52 @@
 GM.WASND = {}
+GM.WADAT = {}
+GM.WADAT.EndFlourishTime = 2.56
+GM.WADAT.StartFlourishTime = 0 or 2.56
+GM.WADAT.StartFlourishLength = 2.56
+GM.WADAT.TransitFlourishTime = 1.3
+GM.WADAT.EndingFlourishDelayAfterStart = 2.26
+GM.WADAT.EndingFlourishDelayAfterEnd = 2.0
+GM.WADAT.EndingFlourishTime = 1.3
 
-GM.WASND.GlobalWareningNew    = Sound("ware/game_new_two.mp3")
-GM.WASND.GlobalWareningWin    = Sound("ware/game_win_two.mp3")
-GM.WASND.GlobalWareningLose   = Sound("ware/game_lose_two.mp3")
+GM.WASND.THL_AmbientMusic = {
+Sound("ware/exp_loop_1.wav")
+}
+
+GM.WASND.TBL_GlobalWareningNew    = {
+Sound("ware/exp_game_new_1.mp3"),
+Sound("ware/exp_game_new_2.mp3"),
+Sound("ware/exp_game_new_3.mp3"),
+Sound("ware/exp_game_new_4.mp3"),
+Sound("ware/exp_game_new_5.mp3")
+}
+
+GM.WASND.TBL_GlobalWareningWin    = {
+Sound("ware/exp_game_win_1.mp3"),
+Sound("ware/exp_game_win_2.mp3"),
+Sound("ware/exp_game_win_3.mp3")
+}
+
+GM.WASND.TBL_GlobalWareningLose   = {
+Sound("ware/exp_game_lose_1.mp3"),
+Sound("ware/exp_game_lose_2.mp3"),
+Sound("ware/exp_game_lose_3.mp3")
+}
+
 GM.WASND.GlobalWareningReport = Sound("ware/game_report.mp3")
-GM.WASND.GlobalWareningTeleport = Sound("ware/game_teleport.mp3")
-GM.WASND.GlobalWareningEnding   = Sound("ware/game_ending.mp3")
+
+--[[
+GM.WASND.TBL_GlobalWareningReport = {
+Sound("ware/game_report.mp3")
+}
+]]--
+
+GM.WASND.TBL_GlobalWareningTeleport = {
+Sound("ware/exp_game_transit_1.mp3"),
+Sound("ware/exp_game_transit_2.mp3")
+}
+GM.WASND.TBL_GlobalWareningEnding   = {
+Sound("ware/game_ending.mp3")
+}
 
 
 GM.WASND.TimeLeft = {}
@@ -34,10 +75,6 @@ GM.WASND.OtherLose = Sound("ware/other_lose1.wav")
 
 GM.WASND.EveryoneWon  = Sound("ware/everyone_won1.wav")
 GM.WASND.EveryoneLost = Sound("ware/everyone_lose1.wav")
-
-GM.WASND.THL_AmbientMusic = {
-Sound("ware/amb_playmus_1.wav")
-}
 
 GM.WASND.TBL_Teleport = {
 Sound("ambient/machines/teleport1.wav"),

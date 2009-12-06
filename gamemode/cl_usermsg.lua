@@ -57,11 +57,18 @@ local function ServerJoinInfo( m )
 end
 usermessage.Hook( "ServerJoinInfo", ServerJoinInfo )
 
+local function EnableMusicVolume()
+	if AmbientMusicIsOn then
+		AmbientMusic[1]:ChangeVolume( 0.7 )
+	end
+end
+
 local function EnableMusic()
 	if AmbientMusicIsOn then
 		AmbientMusic[1]:Stop()
 		AmbientMusic[1]:Play()
-		AmbientMusic[1]:ChangeVolume( 0.3 )
+		AmbientMusic[1]:ChangeVolume( 0.05 )
+		timer.Simple( GAMEMODE.WADAT.StartFlourishLength * 0.7 , EnableMusicVolume )
 	end
 end
 
@@ -72,8 +79,8 @@ local function DisableMusic()
 	end
 end
 
-local function PlayEnding()
-	LocalPlayer():EmitSound( GAMEMODE.WASND.GlobalWareningEnding , 60 )
+local function PlayEnding( musicID )
+	LocalPlayer():EmitSound( GAMEMODE.WASND.TBL_GlobalWareningEnding[musicID] , 60 )
 	AmbientMusicIsOn = true
 	AmbientMusic[1]:Stop( )
 	timer.Simple( 7.24, EnableMusic )
@@ -84,27 +91,31 @@ local function NextGameTimes( m )
 	NextgameEnd   = m:ReadFloat()
 	WarmupLen     = m:ReadFloat()
 	WareLen       = m:ReadFloat()
-	local ShouldKeepAnnounce = m:ReadBool() or false
+	local ShouldKeepAnnounce = m:ReadBool()
+	
 	if not ShouldKeepAnnounce then TickAnnounce = 5 end
 	
 	if (NextwarmupEnd != 0) then
-		LocalPlayer():EmitSound( GAMEMODE.WASND.GlobalWareningNew , 60 )
+	
+		local musicID = m:ReadChar()
+		LocalPlayer():EmitSound( GAMEMODE.WASND.TBL_GlobalWareningNew[musicID] , 60 )
 		AmbientMusicIsOn = true
-		timer.Simple( 2.67, EnableMusic )
+		timer.Simple( GAMEMODE.WADAT.StartFlourishTime, EnableMusic )
 	end
 end
 usermessage.Hook( "NextGameTimes", NextGameTimes )
 
 local function EventEndgameTrigger( m )
 	local achieved = m:ReadBool()
+	local musicID = m:ReadChar()
 	
 	AmbientMusicIsOn = false
 	timer.Simple( 0.5, DisableMusic )
 	
 	if (achieved) then
-		LocalPlayer():EmitSound( GAMEMODE.WASND.GlobalWareningWin , 60 )
+		LocalPlayer():EmitSound( GAMEMODE.WASND.TBL_GlobalWareningWin[ musicID ] , 60 )
 	else
-		LocalPlayer():EmitSound( GAMEMODE.WASND.GlobalWareningLose , 60 )
+		LocalPlayer():EmitSound( GAMEMODE.WASND.TBL_GlobalWareningLose[ musicID ] , 60 )
 	end
 end
 usermessage.Hook( "EventEndgameTrigger", EventEndgameTrigger )
@@ -127,7 +138,8 @@ usermessage.Hook( "EventEveryoneState", EventEveryoneState )
 
 local function PlayerTeleported( m )
 	if not m:ReadBool() then
-		LocalPlayer():EmitSound( GAMEMODE.WASND.GlobalWareningTeleport , 60 )
+		local musicID = m:ReadChar()
+		LocalPlayer():EmitSound( GAMEMODE.WASND.TBL_GlobalWareningTeleport[ musicID ] , 60 )
 	end
 	LocalPlayer():EmitSound( table.Random(GAMEMODE.WASND.TBL_Teleport) , 40 )
 end
@@ -189,8 +201,9 @@ end
 usermessage.Hook( "EndOfGamemode", EndOfGamemode )
 
 local function SpecialFlourish( m )
-	timer.Simple( 2.80 , function () AmbientMusic[1]:ChangeVolume( 0.0 ) end )
-	timer.Simple( 2.00 , PlayEnding )
+	local musicID = m:ReadChar()
+	timer.Simple( GAMEMODE.WADAT.EndingFlourishDelayAfterEnd + 0.4 , function () AmbientMusic[1]:ChangeVolume( 0.0 ) end )
+	timer.Simple( GAMEMODE.WADAT.EndingFlourishDelayAfterEnd , PlayEnding, musicID )
 end
 usermessage.Hook( "SpecialFlourish", SpecialFlourish )
 

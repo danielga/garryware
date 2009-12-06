@@ -174,7 +174,6 @@ function meta:PrintComboMessagesAndEffects( compareCombo )
 		
 		//self:EmitSound( GAMEMODE.WASND.TBL_LocalWon[1] , 100 , 125 )
 		self:EmitSound( GAMEMODE.WASND.GlobalWareningReport , 84 )
-		self:EmitSound( GAMEMODE.WASND.GlobalWareningReport )
 		
 	elseif (compareCombo >= 3) and (compareCombo == self:GetBestCombo()) then 
 		GAMEMODE:PrintInfoMessage( self:GetName(), " scored his ", "Own Best Streak of " .. compareCombo .. " wares !" )

@@ -23,7 +23,7 @@ GM.Help		=
 - Have fun, this is not a game where you have to kill everyone still alive
 By : Hurricaaane and Kilburn
 
-Credits goes to Valve for the Meet the Sniper flourish, DasMatze for the sound mix.
+Music by The Hamster Alliance ( http://www.hamsteralliance.com/ ).
 Original sound effects from Valve 'Team Fortress 2' game.
 Special thanks to : Kilburn (for minigame registering improvement), BlackOps (for improvements)]]
 

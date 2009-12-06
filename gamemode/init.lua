@@ -224,6 +224,8 @@ function GM:PickRandomGame()
 		umsg.Float( self.NextgameEnd )
 		umsg.Float( self.Windup )
 		umsg.Float( self.WareLen )
+		umsg.Bool( false )
+		umsg.Char( math.random(1, #GAMEMODE.WASND.TBL_GlobalWareningNew ) )
 	umsg.End()
 end
 
@@ -247,6 +249,7 @@ function GM:SetNextGameEnd(time)
 		umsg.Float( self.Windup )
 		umsg.Float( self.WareLen )
 		umsg.Bool( true )
+		umsg.Char( math.random(1, #GAMEMODE.WASND.TBL_GlobalWareningNew ) )
 	umsg.End()
 end
 
@@ -295,11 +298,13 @@ function GM:EndGame()
 		// Send positive message to the RP list of winners.
 		umsg.Start("EventEndgameTrigger", rpWin)
 			umsg.Bool( true )
+			umsg.Char( math.random(1, #GAMEMODE.WASND.TBL_GlobalWareningWin ) )
 		umsg.End()
 		
 		// Send negative message to the RP list of losers.
 		umsg.Start("EventEndgameTrigger", rpLose)
 			umsg.Bool( false )
+			umsg.Char( math.random(1, #GAMEMODE.WASND.TBL_GlobalWareningLose ) )
 		umsg.End()
 		
 		if (team.NumPlayers(TEAM_SPECTATOR) != 0) then
@@ -312,11 +317,12 @@ function GM:EndGame()
 			end
 			umsg.Start("EventEndgameTrigger", rpSpec)
 				umsg.Bool( false )
+				umsg.Char( math.random(1, #GAMEMODE.WASND.TBL_GlobalWareningLose ) )
 			umsg.End()
 		end
 	end
 	
-	self.NextgameStart = CurTime() + 2.8
+	self.NextgameStart = CurTime() + self.WADAT.EndFlourishTime
 	SendUserMessage( "Transit" )
 	
 	// Reinitialize
@@ -347,8 +353,8 @@ function GM:PickRandomGameName( first )
 	if env ~= self.CurrentEnvironment then
 		self.CurrentEnvironment = env
 		//if not first then
-			self.NextgameStart = self.NextgameStart + 1.3
-			self.NextPlayerRespawn = CurTime() + 2.8
+			self.NextgameStart = self.NextgameStart + self.WADAT.TransitFlourishTime
+			self.NextPlayerRespawn = CurTime() + self.WADAT.EndFlourishTime
 		//else
 		//	self.NextPlayerRespawn = CurTime() + 1
 		//end
@@ -439,6 +445,7 @@ function GM:Think()
 				umsg.Float( 0 )
 				umsg.Float( 0 )
 				umsg.Float( 0 )
+				umsg.Bool( false )
 			umsg.End()
 			
 		elseif self.FirstTimePickGame and CurTime() > self.FirstTimePickGame then
@@ -484,7 +491,9 @@ function GM:EndTheGameForOnce()
 	GAMEMODE:EndGame()
 	
 	--Send info about VGUI
-	SendUserMessage( "EndOfGamemode" )
+	umsg.Start("SpecialFlourish")
+		umsg.Char( math.random(1, #GAMEMODE.WASND.TBL_GlobalWareningEnding ) )
+	umsg.End()
 	
 	--Send info about ware
 	local rp = RecipientFilter()
@@ -494,6 +503,7 @@ function GM:EndTheGameForOnce()
 		umsg.Float( 0 )
 		umsg.Float( 0 )
 		umsg.Float( 0 )
+		umsg.Bool( false )
 	umsg.End()
 	umsg.Start("BestStreakEverBreached", rp)
 		umsg.Long( self.BestStreakEver )
@@ -644,7 +654,10 @@ function GM:RespawnAllPlayers( bNoMusicEvent )
 		end
 	end
 	
-	SendUserMessage("PlayerTeleported", rp, bNoMusicEvent or false)
+	umsg.Start("PlayerTeleported", rp)
+		umsg.Bool(bNoMusicEvent or false)
+		umsg.Char( math.random(1, #GAMEMODE.WASND.TBL_GlobalWareningTeleport ) )
+	umsg.End()
 end
 
 function GM:WareRoomCheckup()
