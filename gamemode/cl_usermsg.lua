@@ -67,7 +67,7 @@ local function EnableMusic()
 	if AmbientMusicIsOn then
 		AmbientMusic[1]:Stop()
 		AmbientMusic[1]:Play()
-		AmbientMusic[1]:ChangeVolume( 0.05 )
+		AmbientMusic[1]:ChangeVolume( 0.1 )
 		timer.Simple( GAMEMODE.WADAT.StartFlourishLength * 0.7 , EnableMusicVolume )
 	end
 end

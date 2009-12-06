@@ -134,7 +134,7 @@ end
 // HUD Overrides.
 
 function GM:HUDShouldDraw( name )
-	if (name == "CHudHealth" or name == "CHudBattery" or name == "CHudWeaponSelection") then
+	if (name == "CHudHealth" or name == "CHudBattery" or name == "CHudWeaponSelection" or name == "CHudAmmo" or name == "CHudSecondaryAmmo") then
 		return false
 	end
 	return true
