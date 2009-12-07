@@ -8,8 +8,6 @@
 ////////////////////////////////////////////////
 
 
-include( "sv_filelist.lua" )
-
 include( "shared.lua" )
 include( "tables.lua" )
 
@@ -20,6 +18,8 @@ include( "overv_chataddtext.lua" )
 include( "minigames_module.lua" )
 include( "environment_module.lua" )
 include( "entitymap_module.lua" )
+
+include( "sv_filelist.lua" )
 
 -- It AddCS itselfs.
 include("sh_dhonline_autorun.lua")
