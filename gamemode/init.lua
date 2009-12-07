@@ -38,7 +38,7 @@ CreateConVar( "ware_debugname", "", {FCVAR_ARCHIVE} )
 ware_debug 0 : Plays normal mode.
 ware_debug 1 : Plays continuously <ware_debugname>, waiting time stripped.
 ware_debug 2 : Plays normal mode, waiting time stripped.
-ware_debug 2 : Plays normal mode, waiting time stripped, intro sequence skipped.
+ware_debug 3 : Plays normal mode, waiting time stripped, intro sequence skipped.
 ( Please don't skip gamemode intro, it is actually
 required to make sure players have loaded some files )
 ]]--
