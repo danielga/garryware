@@ -1,6 +1,6 @@
 "Gamemode"
 {
-	"name"		"GarryWare Two"
+	"name"		"GarryWare Two (He2)"
 	"version"	"2"
 
 	"author_name"	"Hurricaaane and Kilburn"
@@ -21,5 +21,5 @@
 	}
 
 	"selectable"	"1"
-	"description"	"GarryWare"
+	"description"	"GarryWare Two - Do what she says."
 }
