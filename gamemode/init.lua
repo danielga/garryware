@@ -581,8 +581,12 @@ end
 function GM:PlayerSpawn(ply)
 	self.BaseClass:PlayerSpawn( ply )
 	
-	ply:SetAchievedSpecialInteger( -1 )
-	ply:SetLockedSpecialInteger( 1 )
+	ply:CrosshairDisable()
+	
+	if (ply._forcespawntime or 0) < (CurTime() - 0.3) then
+		ply:SetAchievedSpecialInteger( -1 )
+		ply:SetLockedSpecialInteger( 1 )
+	end
 	
 	// > wat <
 	// NOTE from Ha3 : kilburn have written this, and I don't know what it means. Commented it out.
@@ -615,7 +619,7 @@ function GM:PlayerDeath( victim, weapon, killer )
 	victim:ApplyLose()
 end
 
-function GM:RespawnAllPlayers( bNoMusicEvent )
+function GM:RespawnAllPlayers( bNoMusicEvent, bForce )
 	if not self.CurrentEnvironment then return end
 	
 	local rp = RecipientFilter()
@@ -624,7 +628,7 @@ function GM:RespawnAllPlayers( bNoMusicEvent )
 	
 	-- Priority goes to active players, so they don't spawn in each other
 	for _,v in pairs(team.GetPlayers(TEAM_HUMANS)) do
-		if v:GetEnvironment()~=self.CurrentEnvironment then
+		if bForce or (v:GetEnvironment()~=self.CurrentEnvironment) then
 			if #spawns==0 then
 				spawns = table.Copy(self.CurrentEnvironment.PlayerSpawns)
 			end
@@ -633,7 +637,8 @@ function GM:RespawnAllPlayers( bNoMusicEvent )
 			local loc = table.remove(spawns, math.random(1,#spawns))
 			
 			v.ForcedSpawn = loc
-			v:Spawn()
+			if bForce then v._forcespawntime = CurTime() end
+			v:Spawn( )
 			
 			rp:AddPlayer(v)
 		end
