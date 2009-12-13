@@ -21,7 +21,7 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(6,6)
 	
 	GAMEMODE:SetPlayersInitialStatus( false )
-	GAMEMODE:DrawInstructions( "Stay near a pod !" )
+	GAMEMODE:DrawInstructions( "Stay near a pod!" )
 	
 	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		v:Give( "sware_rocketpush" )
@@ -68,7 +68,7 @@ function WARE:Initialize()
 end
 
 function WARE:StartAction()
-	GAMEMODE:DrawInstructions( "Get in a pod !" )
+	GAMEMODE:DrawInstructions( "Get in a pod!" )
 	
 	for k,pod in pairs(self.Pods) do
 		pod:Fire("Unlock", "", 0)

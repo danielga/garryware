@@ -25,7 +25,7 @@ function WARE:Initialize()
 	self.TimesToHit = 1
 	
 	GAMEMODE:SetPlayersInitialStatus( false )
-	GAMEMODE:DrawInstructions( "Hit the bullseye !" )
+	GAMEMODE:DrawInstructions( "Hit the bullseye!" )
 	
 	-- HAXX
 	-- GravGunOnPickedUp hook is broken, so we'll use this tricky workaround

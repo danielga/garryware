@@ -4,7 +4,7 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(3.5,2)
 	
 	GAMEMODE:SetPlayersInitialStatus( true )
-	GAMEMODE:DrawInstructions( "Don't move !" )
+	GAMEMODE:DrawInstructions( "Don't move!" )
 	return
 end
 

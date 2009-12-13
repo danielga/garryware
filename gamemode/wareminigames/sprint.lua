@@ -5,7 +5,7 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(2.5,5)
 	
 	GAMEMODE:SetPlayersInitialStatus( true )
-	GAMEMODE:DrawInstructions( "Don't stop sprinting !" )
+	GAMEMODE:DrawInstructions( "Don't stop sprinting!" )
 end
 
 function WARE:StartAction()

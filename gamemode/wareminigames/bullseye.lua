@@ -6,7 +6,7 @@ function WARE:Initialize()
 	self.TimesToHit = math.random(2,5)
 	
 	GAMEMODE:SetPlayersInitialStatus( false )
-	GAMEMODE:DrawInstructions( "Hit the bullseye exactly "..self.TimesToHit.." times !" )
+	GAMEMODE:DrawInstructions( "Hit the bullseye exactly "..self.TimesToHit.." times!" )
 	
 	for k,ply in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		ply:Give( "sware_pistol" )

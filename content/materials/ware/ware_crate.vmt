@@ -3,4 +3,8 @@
 	// Original shader: BaseTimesLightmap
 	"$basetexture" "ware/ware_crate"
 	"$surfaceprop" "concrete"
+	"$detail" "ware/detail"
+	"$detailscale" "1.9"
+	"$detailblendmode" "0"
+	"$detailblendfactor" "1"
 }

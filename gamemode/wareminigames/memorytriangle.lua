@@ -19,7 +19,7 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(5,3.5)
 	
 	GAMEMODE:SetPlayersInitialStatus( false )
-	GAMEMODE:DrawInstructions( "Memorize !" )
+	GAMEMODE:DrawInstructions( "Memorize!" )
 	
 	self.Crates = {}
 	
@@ -108,12 +108,12 @@ function WARE:StartAction()
 	if (what_property_color == 1) then
 		local text = self.PossibleColours[self.RolledColor[self.WinnerID]][1]
 
-		GAMEMODE:DrawInstructions( "Shoot the ".. text .." one !" , self.PossibleColours[self.RolledColor[self.WinnerID]][2])
+		GAMEMODE:DrawInstructions( "Shoot the ".. text .." one!" , self.PossibleColours[self.RolledColor[self.WinnerID]][2])
 		
 	else
 		local text = self.RolledNumber[self.WinnerID]
 
-		GAMEMODE:DrawInstructions( "Shoot the "..text.." !" )
+		GAMEMODE:DrawInstructions( "Shoot the "..text.."!" )
 	end
 	
 	for _,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 

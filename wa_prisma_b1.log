@@ -1,0 +1,2511 @@
+
+
+
+materialPath: d:\steam\steamapps\hurricaaane@hotmail.com\half-life 2 episode two\ep2\materials
+Loading D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.vmf
+fixing up env_cubemap materials on brush sides...
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10Processing areas...done (0)
+Building Faces...done (0)
+Chop Details...done (0)
+Find Visible Detail Sides...
+Merged 6 detail faces...done (0)
+Merging details...done (0)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (1)
+writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt...Building visibility clusters...
+done (0)
+Creating default LDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Creating default HDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (1) (419288 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 1106 texinfos to 982
+Reduced 8 texdatas to 8 (144 bytes to 144)
+Writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+2 seconds elapsed
+
+
+
+2 threads
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt
+  96 portalclusters
+ 186 numportals
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10Optimized: 0 visible clusters (0.00%)
+Total clusters visible: 1538
+Average clusters visible: 16
+Building PAS...
+Average clusters audible: 16
+visdatasize:2344  compressed from 3072
+writing d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+0 seconds elapsed
+
+
+
+[Reading texlights from 'lights.rad']
+[48 texlights parsed from 'lights.rad']
+
+Loading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+3742 faces
+544966 square feet [78475216.00 square inches]
+0 Displacements
+0 Square Feet [0.00 Square Inches]
+3742 patches before subdivision
+56102 patches after subdivision
+8 direct lights
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10transfers 5216359, max 765
+transfer lists:  39.8 megs
+0...1...2...3...4...5...6...7...8...9...10	Bounce #1 added RGB(911175, 861474, 763562)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #2 added RGB(385951, 310164, 272697)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #3 added RGB(129253, 86568, 76429)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #4 added RGB(50364, 30134, 26560)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #5 added RGB(19292, 9906, 8744)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #6 added RGB(7723, 3503, 3090)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #7 added RGB(3112, 1229, 1085)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #8 added RGB(1278, 444, 392)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #9 added RGB(529, 161, 142)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #10 added RGB(221, 59, 52)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #11 added RGB(93, 22, 19)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #12 added RGB(40, 8, 7)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #13 added RGB(17, 3, 3)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #14 added RGB(7, 1, 1)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #15 added RGB(3, 0, 0)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #16 added RGB(1, 0, 0)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #17 added RGB(1, 0, 0)
+Build Patch/Sample Hash Table(s).....Done<0.0401 sec>
+0...1...2...3...4...5...6...7...8...9...10FinalLightFace Done
+0 of 0 (0% of) surface lights went in leaf ambient cubes.
+0...1...2...3...4...5...6...7...8...9...10Writing leaf ambient...done
+Ready to Finish
+
+Object names       Objects/Maxobjs  Memory / Maxmem  Fullness 
+------------       ---------------  ---------------  -------- 
+models                   8/1024          384/49152    ( 0.8%) 
+brushes               1099/8192        13188/98304    (13.4%) 
+brushsides            7958/65536       63664/524288   (12.1%) 
+planes                2298/65536       45960/1310720  ( 3.5%) 
+vertexes              5415/65536       64980/786432   ( 8.3%) 
+nodes                  414/65536       13248/2097152  ( 0.6%) 
+texinfos               982/12288       70704/884736   ( 8.0%) 
+texdata                  8/2048          256/65536    ( 0.4%) 
+dispinfos                0/0               0/0        ( 0.0%) 
+disp_verts               0/0               0/0        ( 0.0%) 
+disp_tris                0/0               0/0        ( 0.0%) 
+disp_lmsamples           0/0               0/0        ( 0.0%) 
+faces                 3742/65536      209552/3670016  ( 5.7%) 
+hdr faces                0/65536           0/3670016  ( 0.0%) 
+origfaces             3270/65536      183120/3670016  ( 5.0%) 
+leaves                 423/65536       13536/2097152  ( 0.6%) 
+leaffaces             3961/65536        7922/131072   ( 6.0%) 
+leafbrushes           1482/65536        2964/131072   ( 2.3%) 
+areas                    9/256            72/2048     ( 3.5%) 
+surfedges            29716/512000     118864/2048000  ( 5.8%) 
+edges                15926/256000      63704/1024000  ( 6.2%) 
+LDR worldlights          2/8192          176/720896   ( 0.0%) 
+HDR worldlights          0/8192            0/720896   ( 0.0%) 
+leafwaterdata            0/32768           0/393216   ( 0.0%) 
+waterstrips            184/32768        1840/327680   ( 0.6%) 
+waterverts               0/65536           0/786432   ( 0.0%) 
+waterindices          3480/65536        6960/131072   ( 5.3%) 
+cubemapsamples           6/1024           96/16384    ( 0.6%) 
+overlays                 0/512             0/180224   ( 0.0%) 
+LDR lightdata         [variable]     1107584/0        ( 0.0%) 
+HDR lightdata         [variable]           0/0        ( 0.0%) 
+visdata               [variable]        2344/16777216 ( 0.0%) 
+entdata               [variable]      103231/393216   (26.3%) 
+LDR ambient table      423/65536        1692/262144   ( 0.6%) 
+HDR ambient table      423/65536        1692/262144   ( 0.6%) 
+LDR leaf ambient      1053/65536       29484/1835008  ( 1.6%) 
+HDR leaf ambient       423/65536       11844/1835008  ( 0.6%) 
+occluders                0/0               0/0        ( 0.0%) 
+occluder polygons        0/0               0/0        ( 0.0%) 
+occluder vert ind        0/0               0/0        ( 0.0%) 
+detail props          [variable]           1/12       ( 8.3%) 
+static props          [variable]           1/12       ( 8.3%) 
+pakfile               [variable]      739433/0        ( 0.0%) 
+physics               [variable]      419288/4194304  (10.0%) 
+physics terrain       [variable]           2/1048576  ( 0.0%) 
+
+Level flags = 0
+
+Total triangle count: 8992
+Writing d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+1 minute, 12 seconds elapsed
+
+
+
+[Reading texlights from 'lights.rad']
+[48 texlights parsed from 'lights.rad']
+
+Loading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+3742 faces
+544966 square feet [78475216.00 square inches]
+0 Displacements
+0 Square Feet [0.00 Square Inches]
+3742 patches before subdivision
+56102 patches after subdivision
+8 direct lights
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10transfers 5216359, max 765
+transfer lists:  39.8 megs
+0...1...2...3...4...5...6...7...8...9...10	Bounce #1 added RGB(445534, 418549, 365788)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #2 added RGB(189356, 151144, 131177)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #3 added RGB(63403, 42121, 36687)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #4 added RGB(24723, 14671, 12760)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #5 added RGB(9472, 4820, 4198)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #6 added RGB(3793, 1705, 1484)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #7 added RGB(1529, 598, 521)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #8 added RGB(628, 216, 188)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #9 added RGB(260, 78, 68)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #10 added RGB(109, 29, 25)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #11 added RGB(46, 11, 9)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #12 added RGB(19, 4, 3)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #13 added RGB(8, 1, 1)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #14 added RGB(4, 1, 0)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #15 added RGB(2, 0, 0)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #16 added RGB(1, 0, 0)
+Build Patch/Sample Hash Table(s).....Done<0.0447 sec>
+0...1...2...3...4...5...6...7...8...9...10FinalLightFace Done
+0 of 0 (0% of) surface lights went in leaf ambient cubes.
+0...1...2...3...4...5...6...7...8...9...10Writing leaf ambient...done
+Ready to Finish
+
+Object names       Objects/Maxobjs  Memory / Maxmem  Fullness 
+------------       ---------------  ---------------  -------- 
+models                   8/1024          384/49152    ( 0.8%) 
+brushes               1099/8192        13188/98304    (13.4%) 
+brushsides            7958/65536       63664/524288   (12.1%) 
+planes                2298/65536       45960/1310720  ( 3.5%) 
+vertexes              5415/65536       64980/786432   ( 8.3%) 
+nodes                  414/65536       13248/2097152  ( 0.6%) 
+texinfos               982/12288       70704/884736   ( 8.0%) 
+texdata                  8/2048          256/65536    ( 0.4%) 
+dispinfos                0/0               0/0        ( 0.0%) 
+disp_verts               0/0               0/0        ( 0.0%) 
+disp_tris                0/0               0/0        ( 0.0%) 
+disp_lmsamples           0/0               0/0        ( 0.0%) 
+faces                 3742/65536      209552/3670016  ( 5.7%) 
+hdr faces             3742/65536      209552/3670016  ( 5.7%) 
+origfaces             3270/65536      183120/3670016  ( 5.0%) 
+leaves                 423/65536       13536/2097152  ( 0.6%) 
+leaffaces             3961/65536        7922/131072   ( 6.0%) 
+leafbrushes           1482/65536        2964/131072   ( 2.3%) 
+areas                    9/256            72/2048     ( 3.5%) 
+surfedges            29716/512000     118864/2048000  ( 5.8%) 
+edges                15926/256000      63704/1024000  ( 6.2%) 
+LDR worldlights          2/8192          176/720896   ( 0.0%) 
+HDR worldlights          2/8192          176/720896   ( 0.0%) 
+leafwaterdata            0/32768           0/393216   ( 0.0%) 
+waterstrips            184/32768        1840/327680   ( 0.6%) 
+waterverts               0/65536           0/786432   ( 0.0%) 
+waterindices          3480/65536        6960/131072   ( 5.3%) 
+cubemapsamples           6/1024           96/16384    ( 0.6%) 
+overlays                 0/512             0/180224   ( 0.0%) 
+LDR lightdata         [variable]     1107584/0        ( 0.0%) 
+HDR lightdata         [variable]     1107584/0        ( 0.0%) 
+visdata               [variable]        2344/16777216 ( 0.0%) 
+entdata               [variable]      103231/393216   (26.3%) 
+LDR ambient table      423/65536        1692/262144   ( 0.6%) 
+HDR ambient table      423/65536        1692/262144   ( 0.6%) 
+LDR leaf ambient      1053/65536       29484/1835008  ( 1.6%) 
+HDR leaf ambient      1037/65536       29036/1835008  ( 1.6%) 
+occluders                0/0               0/0        ( 0.0%) 
+occluder polygons        0/0               0/0        ( 0.0%) 
+occluder vert ind        0/0               0/0        ( 0.0%) 
+detail props          [variable]           1/12       ( 8.3%) 
+static props          [variable]           1/12       ( 8.3%) 
+pakfile               [variable]      739433/0        ( 0.0%) 
+physics               [variable]      419288/4194304  (10.0%) 
+physics terrain       [variable]           2/1048576  ( 0.0%) 
+
+Level flags = 0
+
+Total triangle count: 8992
+Writing d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+1 minute, 10 seconds elapsed
+
+
+
+materialPath: d:\steam\steamapps\hurricaaane@hotmail.com\half-life 2 episode two\ep2\materials
+Loading D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.vmf
+fixing up env_cubemap materials on brush sides...
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10Processing areas...done (0)
+Building Faces...done (0)
+Chop Details...done (0)
+Find Visible Detail Sides...
+Merged 6 detail faces...done (0)
+Merging details...done (0)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (0)
+writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt...Building visibility clusters...
+done (0)
+Creating default LDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Creating default HDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (1) (419288 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 1106 texinfos to 982
+Reduced 8 texdatas to 8 (144 bytes to 144)
+Writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+2 seconds elapsed
+
+
+
+2 threads
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt
+  96 portalclusters
+ 186 numportals
+0...1...2...3...4...5...6...7...8...9...10Optimized: 0 visible clusters (0.00%)
+Total clusters visible: 1542
+Average clusters visible: 16
+Building PAS...
+Average clusters audible: 16
+visdatasize:2344  compressed from 3072
+writing d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+0 seconds elapsed
+
+
+
+[Reading texlights from 'lights.rad']
+[48 texlights parsed from 'lights.rad']
+
+Loading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+3742 faces
+544966 square feet [78475216.00 square inches]
+0 Displacements
+0 Square Feet [0.00 Square Inches]
+3742 patches before subdivision
+56102 patches after subdivision
+8 direct lights
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10transfers 5216359, max 765
+transfer lists:  39.8 megs
+0...1...2...3...4...5...6...7...8...9...10	Bounce #1 added RGB(914044, 864905, 767254)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #2 added RGB(386678, 310899, 273504)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #3 added RGB(129643, 86923, 76808)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #4 added RGB(50500, 30235, 26669)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #5 added RGB(19352, 9945, 8785)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #6 added RGB(7747, 3515, 3104)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #7 added RGB(3122, 1234, 1090)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #8 added RGB(1282, 446, 394)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #9 added RGB(531, 162, 143)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #10 added RGB(222, 59, 52)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #11 added RGB(94, 22, 19)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #12 added RGB(40, 8, 7)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #13 added RGB(17, 3, 3)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #14 added RGB(7, 1, 1)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #15 added RGB(3, 0, 0)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #16 added RGB(1, 0, 0)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #17 added RGB(1, 0, 0)
+Build Patch/Sample Hash Table(s).....Done<0.2446 sec>
+0...1...2...3...4...5...6...7...8...9...10FinalLightFace Done
+0 of 0 (0% of) surface lights went in leaf ambient cubes.
+0...1...2...3...4...5...6...7...8...9...10Writing leaf ambient...done
+Ready to Finish
+
+Object names       Objects/Maxobjs  Memory / Maxmem  Fullness 
+------------       ---------------  ---------------  -------- 
+models                   8/1024          384/49152    ( 0.8%) 
+brushes               1099/8192        13188/98304    (13.4%) 
+brushsides            7958/65536       63664/524288   (12.1%) 
+planes                2298/65536       45960/1310720  ( 3.5%) 
+vertexes              5415/65536       64980/786432   ( 8.3%) 
+nodes                  414/65536       13248/2097152  ( 0.6%) 
+texinfos               982/12288       70704/884736   ( 8.0%) 
+texdata                  8/2048          256/65536    ( 0.4%) 
+dispinfos                0/0               0/0        ( 0.0%) 
+disp_verts               0/0               0/0        ( 0.0%) 
+disp_tris                0/0               0/0        ( 0.0%) 
+disp_lmsamples           0/0               0/0        ( 0.0%) 
+faces                 3742/65536      209552/3670016  ( 5.7%) 
+hdr faces                0/65536           0/3670016  ( 0.0%) 
+origfaces             3270/65536      183120/3670016  ( 5.0%) 
+leaves                 423/65536       13536/2097152  ( 0.6%) 
+leaffaces             3961/65536        7922/131072   ( 6.0%) 
+leafbrushes           1482/65536        2964/131072   ( 2.3%) 
+areas                    9/256            72/2048     ( 3.5%) 
+surfedges            29716/512000     118864/2048000  ( 5.8%) 
+edges                15926/256000      63704/1024000  ( 6.2%) 
+LDR worldlights          2/8192          176/720896   ( 0.0%) 
+HDR worldlights          0/8192            0/720896   ( 0.0%) 
+leafwaterdata            0/32768           0/393216   ( 0.0%) 
+waterstrips            184/32768        1840/327680   ( 0.6%) 
+waterverts               0/65536           0/786432   ( 0.0%) 
+waterindices          3480/65536        6960/131072   ( 5.3%) 
+cubemapsamples           6/1024           96/16384    ( 0.6%) 
+overlays                 0/512             0/180224   ( 0.0%) 
+LDR lightdata         [variable]     1107584/0        ( 0.0%) 
+HDR lightdata         [variable]           0/0        ( 0.0%) 
+visdata               [variable]        2344/16777216 ( 0.0%) 
+entdata               [variable]      103231/393216   (26.3%) 
+LDR ambient table      423/65536        1692/262144   ( 0.6%) 
+HDR ambient table      423/65536        1692/262144   ( 0.6%) 
+LDR leaf ambient      1049/65536       29372/1835008  ( 1.6%) 
+HDR leaf ambient       423/65536       11844/1835008  ( 0.6%) 
+occluders                0/0               0/0        ( 0.0%) 
+occluder polygons        0/0               0/0        ( 0.0%) 
+occluder vert ind        0/0               0/0        ( 0.0%) 
+detail props          [variable]           1/12       ( 8.3%) 
+static props          [variable]           1/12       ( 8.3%) 
+pakfile               [variable]      739433/0        ( 0.0%) 
+physics               [variable]      419288/4194304  (10.0%) 
+physics terrain       [variable]           2/1048576  ( 0.0%) 
+
+Level flags = 0
+
+Total triangle count: 8992
+Writing d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+48 seconds elapsed
+
+
+
+materialPath: d:\steam\steamapps\hurricaaane@hotmail.com\half-life 2 episode two\ep2\materials
+Loading D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.vmf
+fixing up env_cubemap materials on brush sides...
+0...1...2...3...4...5...6...7...8...9...10**** leaked ****
+Entity info_player_start (1312.00 -2265.72 192.00) leaked!
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (5024.0 -2048.0 -8.0)
+Leaf 0 contents: CONTENTS_SOLID 
+Leaf 1 contents: 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (4512.0 -2048.0 -8.0)
+Leaf 0 contents: CONTENTS_SOLID 
+Leaf 1 contents: 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (4608.0 -2048.0 -848.0)
+Leaf 0 contents: CONTENTS_SOLID 
+Leaf 1 contents: 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (4380.0 -2048.0 112.0)
+Leaf 0 contents: CONTENTS_SOLID 
+Leaf 1 contents: 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (4112.0 -2048.0 112.0)
+Leaf 0 contents: CONTENTS_SOLID 
+Leaf 1 contents: 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (4101.3 -2048.0 74.7)
+Leaf 0 contents: CONTENTS_SOLID 
+Leaf 1 contents: 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (5012.0 -2048.0 112.0)
+Leaf 0 contents: CONTENTS_SOLID 
+Leaf 1 contents: 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (4772.0 -2048.0 112.0)
+Leaf 0 contents: CONTENTS_SOLID 
+Leaf 1 contents: 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+*** Suppressing further FindPortalSide errors.... ***
+Processing areas...done (0)
+Building Faces...done (1)
+Chop Details...done (0)
+Find Visible Detail Sides...
+Merged 6 detail faces...done (0)
+Merging details...done (0)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (1)
+Creating default LDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Creating default HDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (1) (418768 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 1092 texinfos to 989
+Reduced 8 texdatas to 8 (144 bytes to 144)
+Writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+2 seconds elapsed
+
+
+
+2 threads
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt
+LoadPortals: couldn't read d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt
+
+
+
+[Reading texlights from 'lights.rad']
+[48 texlights parsed from 'lights.rad']
+
+Loading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+No vis information, direct lighting only.
+4544 faces
+759707 square feet [109397912.00 square inches]
+0 Displacements
+0 Square Feet [0.00 Square Inches]
+8 direct lights
+0...1...2...3...4...5...6...7...8...9...10Build Patch/Sample Hash Table(s).....Done<0.2489 sec>
+0...1...2...3...4...5...6...7...8...9...10FinalLightFace Done
+0 of 0 (0% of) surface lights went in leaf ambient cubes.
+0...1...2...3...4...5...6...7...8...9...10Writing leaf ambient...done
+Ready to Finish
+
+Object names       Objects/Maxobjs  Memory / Maxmem  Fullness 
+------------       ---------------  ---------------  -------- 
+models                   8/1024          384/49152    ( 0.8%) 
+brushes               1094/8192        13128/98304    (13.4%) 
+brushsides            7923/65536       63384/524288   (12.1%) 
+planes                2304/65536       46080/1310720  ( 3.5%) 
+vertexes              6594/65536       79128/786432   (10.1%) 
+nodes                 1198/65536       38336/2097152  ( 1.8%) 
+texinfos               989/12288       71208/884736   ( 8.0%) 
+texdata                  8/2048          256/65536    ( 0.4%) 
+dispinfos                0/0               0/0        ( 0.0%) 
+disp_verts               0/0               0/0        ( 0.0%) 
+disp_tris                0/0               0/0        ( 0.0%) 
+disp_lmsamples           0/0               0/0        ( 0.0%) 
+faces                 4544/65536      254464/3670016  ( 6.9%) 
+hdr faces                0/65536           0/3670016  ( 0.0%) 
+origfaces             3678/65536      205968/3670016  ( 5.6%) 
+leaves                1207/65536       38624/2097152  ( 1.8%) 
+leaffaces             5117/65536       10234/131072   ( 7.8%) 
+leafbrushes           1566/65536        3132/131072   ( 2.4%) 
+areas                    9/256            72/2048     ( 3.5%) 
+surfedges            35295/512000     141180/2048000  ( 6.9%) 
+edges                18970/256000      75880/1024000  ( 7.4%) 
+LDR worldlights          2/8192          176/720896   ( 0.0%) 
+HDR worldlights          0/8192            0/720896   ( 0.0%) 
+leafwaterdata            0/32768           0/393216   ( 0.0%) 
+waterstrips            267/32768        2670/327680   ( 0.8%) 
+waterverts               0/65536           0/786432   ( 0.0%) 
+waterindices          5526/65536       11052/131072   ( 8.4%) 
+cubemapsamples           6/1024           96/16384    ( 0.6%) 
+overlays                 0/512             0/180224   ( 0.0%) 
+LDR lightdata         [variable]     1671576/0        ( 0.0%) 
+HDR lightdata         [variable]           0/0        ( 0.0%) 
+visdata               [variable]           0/16777216 ( 0.0%) 
+entdata               [variable]      104448/393216   (26.6%) 
+LDR ambient table     1207/65536        4828/262144   ( 1.8%) 
+HDR ambient table     1207/65536        4828/262144   ( 1.8%) 
+LDR leaf ambient      9156/65536      256368/1835008  (14.0%) 
+HDR leaf ambient      1207/65536       33796/1835008  ( 1.8%) 
+occluders                0/0               0/0        ( 0.0%) 
+occluder polygons        0/0               0/0        ( 0.0%) 
+occluder vert ind        0/0               0/0        ( 0.0%) 
+detail props          [variable]           1/12       ( 8.3%) 
+static props          [variable]           1/12       ( 8.3%) 
+pakfile               [variable]      739433/0        ( 0.0%) 
+physics               [variable]      418768/4194304  (10.0%) 
+physics terrain       [variable]           2/1048576  ( 0.0%) 
+
+Level flags = 0
+
+Total triangle count: 11310
+Writing d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+2 minutes, 49 seconds elapsed
+
+
+
+materialPath: d:\steam\steamapps\hurricaaane@hotmail.com\half-life 2 episode two\ep2\materials
+Loading D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.vmf
+fixing up env_cubemap materials on brush sides...
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10Processing areas...done (0)
+Building Faces...done (0)
+Chop Details...done (0)
+Find Visible Detail Sides...
+Merged 6 detail faces...done (0)
+Merging details...done (0)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (0)
+writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt...Building visibility clusters...
+done (0)
+Creating default LDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Creating default HDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (0) (418832 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 1092 texinfos to 982
+Reduced 8 texdatas to 8 (144 bytes to 144)
+Writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+2 seconds elapsed
+
+
+
+2 threads
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt
+  96 portalclusters
+ 186 numportals
+0...1...2...3...4...5...6...7...8...9...10Optimized: 0 visible clusters (0.00%)
+Total clusters visible: 1542
+Average clusters visible: 16
+Building PAS...
+Average clusters audible: 16
+visdatasize:2344  compressed from 3072
+writing d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+0 seconds elapsed
+
+
+
+[Reading texlights from 'lights.rad']
+[48 texlights parsed from 'lights.rad']
+
+Loading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+3730 faces
+544966 square feet [78475224.00 square inches]
+0 Displacements
+0 Square Feet [0.00 Square Inches]
+3730 patches before subdivision
+56082 patches after subdivision
+8 direct lights
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10transfers 5212138, max 765
+transfer lists:  39.8 megs
+0...1...2...3...4...5...6...7...8...9...10	Bounce #1 added RGB(913955, 864817, 767161)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #2 added RGB(386618, 310845, 273452)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #3 added RGB(129622, 86905, 76791)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #4 added RGB(50493, 30229, 26663)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #5 added RGB(19350, 9943, 8783)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #6 added RGB(7746, 3515, 3103)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #7 added RGB(3122, 1234, 1090)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #8 added RGB(1282, 445, 393)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #9 added RGB(531, 162, 143)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #10 added RGB(222, 59, 52)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #11 added RGB(94, 22, 19)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #12 added RGB(40, 8, 7)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #13 added RGB(17, 3, 3)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #14 added RGB(7, 1, 1)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #15 added RGB(3, 0, 0)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #16 added RGB(1, 0, 0)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #17 added RGB(1, 0, 0)
+Build Patch/Sample Hash Table(s).....Done<0.2458 sec>
+0...1...2...3...4...5...6...7...8...9...10FinalLightFace Done
+0 of 0 (0% of) surface lights went in leaf ambient cubes.
+0...1...2...3...4...5...6...7...8...9...10Writing leaf ambient...done
+Ready to Finish
+
+Object names       Objects/Maxobjs  Memory / Maxmem  Fullness 
+------------       ---------------  ---------------  -------- 
+models                   8/1024          384/49152    ( 0.8%) 
+brushes               1094/8192        13128/98304    (13.4%) 
+brushsides            7924/65536       63392/524288   (12.1%) 
+planes                2302/65536       46040/1310720  ( 3.5%) 
+vertexes              5402/65536       64824/786432   ( 8.2%) 
+nodes                  414/65536       13248/2097152  ( 0.6%) 
+texinfos               982/12288       70704/884736   ( 8.0%) 
+texdata                  8/2048          256/65536    ( 0.4%) 
+dispinfos                0/0               0/0        ( 0.0%) 
+disp_verts               0/0               0/0        ( 0.0%) 
+disp_tris                0/0               0/0        ( 0.0%) 
+disp_lmsamples           0/0               0/0        ( 0.0%) 
+faces                 3730/65536      208880/3670016  ( 5.7%) 
+hdr faces                0/65536           0/3670016  ( 0.0%) 
+origfaces             3265/65536      182840/3670016  ( 5.0%) 
+leaves                 423/65536       13536/2097152  ( 0.6%) 
+leaffaces             3944/65536        7888/131072   ( 6.0%) 
+leafbrushes           1473/65536        2946/131072   ( 2.2%) 
+areas                    9/256            72/2048     ( 3.5%) 
+surfedges            29662/512000     118648/2048000  ( 5.8%) 
+edges                15896/256000      63584/1024000  ( 6.2%) 
+LDR worldlights          2/8192          176/720896   ( 0.0%) 
+HDR worldlights          0/8192            0/720896   ( 0.0%) 
+leafwaterdata            0/32768           0/393216   ( 0.0%) 
+waterstrips            179/32768        1790/327680   ( 0.5%) 
+waterverts               0/65536           0/786432   ( 0.0%) 
+waterindices          3408/65536        6816/131072   ( 5.2%) 
+cubemapsamples           6/1024           96/16384    ( 0.6%) 
+overlays                 0/512             0/180224   ( 0.0%) 
+LDR lightdata         [variable]     1107556/0        ( 0.0%) 
+HDR lightdata         [variable]           0/0        ( 0.0%) 
+visdata               [variable]        2344/16777216 ( 0.0%) 
+entdata               [variable]      104448/393216   (26.6%) 
+LDR ambient table      423/65536        1692/262144   ( 0.6%) 
+HDR ambient table      423/65536        1692/262144   ( 0.6%) 
+LDR leaf ambient      1052/65536       29456/1835008  ( 1.6%) 
+HDR leaf ambient       423/65536       11844/1835008  ( 0.6%) 
+occluders                0/0               0/0        ( 0.0%) 
+occluder polygons        0/0               0/0        ( 0.0%) 
+occluder vert ind        0/0               0/0        ( 0.0%) 
+detail props          [variable]           1/12       ( 8.3%) 
+static props          [variable]           1/12       ( 8.3%) 
+pakfile               [variable]      739433/0        ( 0.0%) 
+physics               [variable]      418832/4194304  (10.0%) 
+physics terrain       [variable]           2/1048576  ( 0.0%) 
+
+Level flags = 0
+
+Total triangle count: 8968
+Writing d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+51 seconds elapsed
+
+
+
+materialPath: d:\steam\steamapps\hurricaaane@hotmail.com\half-life 2 episode two\ep2\materials
+Loading D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.vmf
+fixing up env_cubemap materials on brush sides...
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10Processing areas...done (0)
+Building Faces...done (0)
+Chop Details...done (0)
+Find Visible Detail Sides...done (0)
+Merging details...done (0)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (0)
+writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt...Building visibility clusters...
+done (0)
+Creating default LDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Creating default HDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (1) (414832 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 1069 texinfos to 954
+Reduced 8 texdatas to 8 (144 bytes to 144)
+Writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+2 seconds elapsed
+
+
+
+2 threads
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt
+  96 portalclusters
+ 185 numportals
+0...1...2...3...4...5...6...7...8...9...10Optimized: 0 visible clusters (0.00%)
+Total clusters visible: 1542
+Average clusters visible: 16
+Building PAS...
+Average clusters audible: 16
+visdatasize:2344  compressed from 3072
+writing d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+0 seconds elapsed
+
+
+
+[Reading texlights from 'lights.rad']
+[48 texlights parsed from 'lights.rad']
+
+Loading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+3654 faces
+544950 square feet [78472816.00 square inches]
+0 Displacements
+0 Square Feet [0.00 Square Inches]
+3654 patches before subdivision
+56006 patches after subdivision
+8 direct lights
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10transfers 5166188, max 800
+transfer lists:  39.4 megs
+0...1...2...3...4...5...6...7...8...9...10	Bounce #1 added RGB(921321, 873705, 774774)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #2 added RGB(389993, 314808, 276858)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #3 added RGB(130764, 88129, 77837)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #4 added RGB(50918, 30651, 27024)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #5 added RGB(19505, 10086, 8905)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #6 added RGB(7804, 3564, 3146)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #7 added RGB(3143, 1251, 1104)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #8 added RGB(1290, 451, 399)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #9 added RGB(534, 164, 145)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #10 added RGB(223, 60, 53)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #11 added RGB(94, 22, 20)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #12 added RGB(40, 8, 7)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #13 added RGB(17, 3, 3)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #14 added RGB(7, 1, 1)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #15 added RGB(3, 0, 0)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #16 added RGB(1, 0, 0)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #17 added RGB(1, 0, 0)
+Build Patch/Sample Hash Table(s).....Done<0.2622 sec>
+0...1...2...3...4...5...6...7...8...9...10FinalLightFace Done
+0 of 0 (0% of) surface lights went in leaf ambient cubes.
+0...1...2...3...4...5...6...7...8...9...10Writing leaf ambient...done
+Ready to Finish
+
+Object names       Objects/Maxobjs  Memory / Maxmem  Fullness 
+------------       ---------------  ---------------  -------- 
+models                   8/1024          384/49152    ( 0.8%) 
+brushes               1084/8192        13008/98304    (13.2%) 
+brushsides            7880/65536       63040/524288   (12.0%) 
+planes                2322/65536       46440/1310720  ( 3.5%) 
+vertexes              5288/65536       63456/786432   ( 8.1%) 
+nodes                  414/65536       13248/2097152  ( 0.6%) 
+texinfos               954/12288       68688/884736   ( 7.8%) 
+texdata                  8/2048          256/65536    ( 0.4%) 
+dispinfos                0/0               0/0        ( 0.0%) 
+disp_verts               0/0               0/0        ( 0.0%) 
+disp_tris                0/0               0/0        ( 0.0%) 
+disp_lmsamples           0/0               0/0        ( 0.0%) 
+faces                 3654/65536      204624/3670016  ( 5.6%) 
+hdr faces                0/65536           0/3670016  ( 0.0%) 
+origfaces             3193/65536      178808/3670016  ( 4.9%) 
+leaves                 423/65536       13536/2097152  ( 0.6%) 
+leaffaces             3869/65536        7738/131072   ( 5.9%) 
+leafbrushes           1462/65536        2924/131072   ( 2.2%) 
+areas                    9/256            72/2048     ( 3.5%) 
+surfedges            29073/512000     116292/2048000  ( 5.7%) 
+edges                15600/256000      62400/1024000  ( 6.1%) 
+LDR worldlights          2/8192          176/720896   ( 0.0%) 
+HDR worldlights          0/8192            0/720896   ( 0.0%) 
+leafwaterdata            0/32768           0/393216   ( 0.0%) 
+waterstrips            181/32768        1810/327680   ( 0.6%) 
+waterverts               0/65536           0/786432   ( 0.0%) 
+waterindices          3429/65536        6858/131072   ( 5.2%) 
+cubemapsamples           6/1024           96/16384    ( 0.6%) 
+overlays                 0/512             0/180224   ( 0.0%) 
+LDR lightdata         [variable]     1105916/0        ( 0.0%) 
+HDR lightdata         [variable]           0/0        ( 0.0%) 
+visdata               [variable]        2344/16777216 ( 0.0%) 
+entdata               [variable]      104531/393216   (26.6%) 
+LDR ambient table      423/65536        1692/262144   ( 0.6%) 
+HDR ambient table      423/65536        1692/262144   ( 0.6%) 
+LDR leaf ambient      1063/65536       29764/1835008  ( 1.6%) 
+HDR leaf ambient       423/65536       11844/1835008  ( 0.6%) 
+occluders                0/0               0/0        ( 0.0%) 
+occluder polygons        0/0               0/0        ( 0.0%) 
+occluder vert ind        0/0               0/0        ( 0.0%) 
+detail props          [variable]           1/12       ( 8.3%) 
+static props          [variable]           1/12       ( 8.3%) 
+pakfile               [variable]      739433/0        ( 0.0%) 
+physics               [variable]      414832/4194304  ( 9.9%) 
+physics terrain       [variable]           2/1048576  ( 0.0%) 
+
+Level flags = 0
+
+Total triangle count: 8819
+Writing d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+53 seconds elapsed
+
+
+
+materialPath: d:\steam\steamapps\hurricaaane@hotmail.com\half-life 2 episode two\ep2\materials
+Loading D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.vmf
+fixing up env_cubemap materials on brush sides...
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10Processing areas...done (0)
+Building Faces...done (0)
+Chop Details...done (0)
+Find Visible Detail Sides...done (0)
+Merging details...done (0)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (0)
+writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt...Building visibility clusters...
+done (0)
+Creating default LDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Creating default HDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (0) (414832 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 1069 texinfos to 954
+Reduced 8 texdatas to 8 (144 bytes to 144)
+Writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+2 seconds elapsed
+
+
+
+2 threads
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt
+  96 portalclusters
+ 185 numportals
+0...1...2...3...4...5...6...7...8...9...10Optimized: 0 visible clusters (0.00%)
+Total clusters visible: 1542
+Average clusters visible: 16
+Building PAS...
+Average clusters audible: 16
+visdatasize:2344  compressed from 3072
+writing d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+0 seconds elapsed
+
+
+
+[Reading texlights from 'lights.rad']
+[48 texlights parsed from 'lights.rad']
+
+Loading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+3654 faces
+544950 square feet [78472816.00 square inches]
+0 Displacements
+0 Square Feet [0.00 Square Inches]
+3654 patches before subdivision
+56006 patches after subdivision
+8 direct lights
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10transfers 5166188, max 800
+transfer lists:  39.4 megs
+0...1...2...3...4...5...6...7...8...9...10	Bounce #1 added RGB(921321, 873705, 774774)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #2 added RGB(389993, 314808, 276858)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #3 added RGB(130764, 88129, 77837)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #4 added RGB(50918, 30651, 27024)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #5 added RGB(19505, 10086, 8905)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #6 added RGB(7804, 3564, 3146)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #7 added RGB(3143, 1251, 1104)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #8 added RGB(1290, 451, 399)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #9 added RGB(534, 164, 145)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #10 added RGB(223, 60, 53)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #11 added RGB(94, 22, 20)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #12 added RGB(40, 8, 7)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #13 added RGB(17, 3, 3)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #14 added RGB(7, 1, 1)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #15 added RGB(3, 0, 0)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #16 added RGB(1, 0, 0)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #17 added RGB(1, 0, 0)
+Build Patch/Sample Hash Table(s).....Done<0.0058 sec>
+0...1...2...3...4...5...6...7...8...9...10FinalLightFace Done
+0 of 0 (0% of) surface lights went in leaf ambient cubes.
+0...1...2...3...4...5...6...7...8...9...10Writing leaf ambient...done
+Ready to Finish
+
+Object names       Objects/Maxobjs  Memory / Maxmem  Fullness 
+------------       ---------------  ---------------  -------- 
+models                   8/1024          384/49152    ( 0.8%) 
+brushes               1084/8192        13008/98304    (13.2%) 
+brushsides            7880/65536       63040/524288   (12.0%) 
+planes                2322/65536       46440/1310720  ( 3.5%) 
+vertexes              5288/65536       63456/786432   ( 8.1%) 
+nodes                  414/65536       13248/2097152  ( 0.6%) 
+texinfos               954/12288       68688/884736   ( 7.8%) 
+texdata                  8/2048          256/65536    ( 0.4%) 
+dispinfos                0/0               0/0        ( 0.0%) 
+disp_verts               0/0               0/0        ( 0.0%) 
+disp_tris                0/0               0/0        ( 0.0%) 
+disp_lmsamples           0/0               0/0        ( 0.0%) 
+faces                 3654/65536      204624/3670016  ( 5.6%) 
+hdr faces                0/65536           0/3670016  ( 0.0%) 
+origfaces             3193/65536      178808/3670016  ( 4.9%) 
+leaves                 423/65536       13536/2097152  ( 0.6%) 
+leaffaces             3869/65536        7738/131072   ( 5.9%) 
+leafbrushes           1462/65536        2924/131072   ( 2.2%) 
+areas                    9/256            72/2048     ( 3.5%) 
+surfedges            29073/512000     116292/2048000  ( 5.7%) 
+edges                15600/256000      62400/1024000  ( 6.1%) 
+LDR worldlights          2/8192          176/720896   ( 0.0%) 
+HDR worldlights          0/8192            0/720896   ( 0.0%) 
+leafwaterdata            0/32768           0/393216   ( 0.0%) 
+waterstrips            181/32768        1810/327680   ( 0.6%) 
+waterverts               0/65536           0/786432   ( 0.0%) 
+waterindices          3429/65536        6858/131072   ( 5.2%) 
+cubemapsamples           6/1024           96/16384    ( 0.6%) 
+overlays                 0/512             0/180224   ( 0.0%) 
+LDR lightdata         [variable]     1105916/0        ( 0.0%) 
+HDR lightdata         [variable]           0/0        ( 0.0%) 
+visdata               [variable]        2344/16777216 ( 0.0%) 
+entdata               [variable]      104430/393216   (26.6%) 
+LDR ambient table      423/65536        1692/262144   ( 0.6%) 
+HDR ambient table      423/65536        1692/262144   ( 0.6%) 
+LDR leaf ambient      1063/65536       29764/1835008  ( 1.6%) 
+HDR leaf ambient       423/65536       11844/1835008  ( 0.6%) 
+occluders                0/0               0/0        ( 0.0%) 
+occluder polygons        0/0               0/0        ( 0.0%) 
+occluder vert ind        0/0               0/0        ( 0.0%) 
+detail props          [variable]           1/12       ( 8.3%) 
+static props          [variable]           1/12       ( 8.3%) 
+pakfile               [variable]      739433/0        ( 0.0%) 
+physics               [variable]      414832/4194304  ( 9.9%) 
+physics terrain       [variable]           2/1048576  ( 0.0%) 
+
+Level flags = 0
+
+Total triangle count: 8819
+Writing d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+51 seconds elapsed
+
+
+
+materialPath: d:\steam\steamapps\hurricaaane@hotmail.com\half-life 2 episode two\ep2\materials
+Loading D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.vmf
+fixing up env_cubemap materials on brush sides...
+0...1...2...3...4...5...6...7...8...9...10**** leaked ****
+Entity func_wareroom (1680.00 -3728.00 288.00) leaked!
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (4096.0 -1536.0 -728.0)
+Leaf 0 contents: CONTENTS_SOLID 
+Leaf 1 contents: 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (4096.0 -1536.0 584.0)
+Leaf 0 contents: CONTENTS_SOLID 
+Leaf 1 contents: 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (4108.0 -1024.0 56.0)
+Leaf 0 contents: 
+Leaf 1 contents: CONTENTS_SOLID 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (4512.0 -1024.0 -627.2)
+Leaf 0 contents: 
+Leaf 1 contents: CONTENTS_SOLID 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (4101.3 -1024.0 149.3)
+Leaf 0 contents: 
+Leaf 1 contents: CONTENTS_SOLID 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (4101.3 -1024.0 234.7)
+Leaf 0 contents: 
+Leaf 1 contents: CONTENTS_SOLID 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (4612.0 -1024.0 240.0)
+Leaf 0 contents: 
+Leaf 1 contents: CONTENTS_SOLID 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (4608.0 -1024.0 600.0)
+Leaf 0 contents: 
+Leaf 1 contents: CONTENTS_SOLID 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+*** Suppressing further FindPortalSide errors.... ***
+Processing areas...done (0)
+Building Faces...done (0)
+Chop Details...done (0)
+Find Visible Detail Sides...done (0)
+Merging details...done (0)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (1)
+Creating default LDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Creating default HDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (1) (413568 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 1080 texinfos to 961
+Reduced 8 texdatas to 8 (144 bytes to 144)
+Writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+1 second elapsed
+
+
+
+2 threads
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt
+LoadPortals: couldn't read d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt
+
+
+
+[Reading texlights from 'lights.rad']
+[48 texlights parsed from 'lights.rad']
+
+Loading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+No vis information, direct lighting only.
+4497 faces
+759442 square feet [109359712.00 square inches]
+0 Displacements
+0 Square Feet [0.00 Square Inches]
+8 direct lights
+0...1...2...3...4...5...6...7...8...9...10Build Patch/Sample Hash Table(s).....Done<0.0543 sec>
+0...1...2...3...4...5...6...7...8...9...10FinalLightFace Done
+0 of 0 (0% of) surface lights went in leaf ambient cubes.
+0...1...2...3...4...5...6...7...8...9...10Writing leaf ambient...done
+Ready to Finish
+
+Object names       Objects/Maxobjs  Memory / Maxmem  Fullness 
+------------       ---------------  ---------------  -------- 
+models                   8/1024          384/49152    ( 0.8%) 
+brushes               1084/8192        13008/98304    (13.2%) 
+brushsides            7874/65536       62992/524288   (12.0%) 
+planes                2324/65536       46480/1310720  ( 3.5%) 
+vertexes              6509/65536       78108/786432   ( 9.9%) 
+nodes                 1242/65536       39744/2097152  ( 1.9%) 
+texinfos               961/12288       69192/884736   ( 7.8%) 
+texdata                  8/2048          256/65536    ( 0.4%) 
+dispinfos                0/0               0/0        ( 0.0%) 
+disp_verts               0/0               0/0        ( 0.0%) 
+disp_tris                0/0               0/0        ( 0.0%) 
+disp_lmsamples           0/0               0/0        ( 0.0%) 
+faces                 4497/65536      251832/3670016  ( 6.9%) 
+hdr faces                0/65536           0/3670016  ( 0.0%) 
+origfaces             3609/65536      202104/3670016  ( 5.5%) 
+leaves                1251/65536       40032/2097152  ( 1.9%) 
+leaffaces             5082/65536       10164/131072   ( 7.8%) 
+leafbrushes           1583/65536        3166/131072   ( 2.4%) 
+areas                   10/256            80/2048     ( 3.9%) 
+surfedges            34824/512000     139296/2048000  ( 6.8%) 
+edges                18729/256000      74916/1024000  ( 7.3%) 
+LDR worldlights          2/8192          176/720896   ( 0.0%) 
+HDR worldlights          0/8192            0/720896   ( 0.0%) 
+leafwaterdata            0/32768           0/393216   ( 0.0%) 
+waterstrips            281/32768        2810/327680   ( 0.9%) 
+waterverts               0/65536           0/786432   ( 0.0%) 
+waterindices          5772/65536       11544/131072   ( 8.8%) 
+cubemapsamples           6/1024           96/16384    ( 0.6%) 
+overlays                 0/512             0/180224   ( 0.0%) 
+LDR lightdata         [variable]     1670584/0        ( 0.0%) 
+HDR lightdata         [variable]           0/0        ( 0.0%) 
+visdata               [variable]           0/16777216 ( 0.0%) 
+entdata               [variable]      104327/393216   (26.5%) 
+LDR ambient table     1251/65536        5004/262144   ( 1.9%) 
+HDR ambient table     1251/65536        5004/262144   ( 1.9%) 
+LDR leaf ambient      9453/65536      264684/1835008  (14.4%) 
+HDR leaf ambient      1251/65536       35028/1835008  ( 1.9%) 
+occluders                0/0               0/0        ( 0.0%) 
+occluder polygons        0/0               0/0        ( 0.0%) 
+occluder vert ind        0/0               0/0        ( 0.0%) 
+detail props          [variable]           1/12       ( 8.3%) 
+static props          [variable]           1/12       ( 8.3%) 
+pakfile               [variable]      739429/0        ( 0.0%) 
+physics               [variable]      413568/4194304  ( 9.9%) 
+physics terrain       [variable]           2/1048576  ( 0.0%) 
+
+Level flags = 0
+
+Total triangle count: 11206
+Writing d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+2 minutes, 52 seconds elapsed
+
+
+
+materialPath: d:\steam\steamapps\hurricaaane@hotmail.com\half-life 2 episode two\ep2\materials
+Loading D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.vmf
+fixing up env_cubemap materials on brush sides...
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10Processing areas...done (1)
+Building Faces...done (0)
+Chop Details...done (0)
+Find Visible Detail Sides...done (0)
+Merging details...done (1)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (0)
+writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt...Building visibility clusters...
+done (0)
+Creating default LDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Creating default HDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (1) (414832 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 1069 texinfos to 954
+Reduced 8 texdatas to 8 (144 bytes to 144)
+Writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+1 second elapsed
+
+
+
+2 threads
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt
+  96 portalclusters
+ 185 numportals
+0...1...2...3...4...5...6...7...8...9...10Optimized: 0 visible clusters (0.00%)
+Total clusters visible: 1542
+Average clusters visible: 16
+Building PAS...
+Average clusters audible: 16
+visdatasize:2344  compressed from 3072
+writing d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+0 seconds elapsed
+
+
+
+[Reading texlights from 'lights.rad']
+[48 texlights parsed from 'lights.rad']
+
+Loading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+3654 faces
+544950 square feet [78472816.00 square inches]
+0 Displacements
+0 Square Feet [0.00 Square Inches]
+3654 patches before subdivision
+56006 patches after subdivision
+8 direct lights
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10transfers 5166188, max 800
+transfer lists:  39.4 megs
+0...1...2...3...4...5...6...7...8...9...10	Bounce #1 added RGB(921321, 873705, 774774)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #2 added RGB(389993, 314808, 276858)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #3 added RGB(130764, 88129, 77837)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #4 added RGB(50918, 30651, 27024)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #5 added RGB(19505, 10086, 8905)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #6 added RGB(7804, 3564, 3146)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #7 added RGB(3143, 1251, 1104)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #8 added RGB(1290, 451, 399)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #9 added RGB(534, 164, 145)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #10 added RGB(223, 60, 53)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #11 added RGB(94, 22, 20)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #12 added RGB(40, 8, 7)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #13 added RGB(17, 3, 3)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #14 added RGB(7, 1, 1)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #15 added RGB(3, 0, 0)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #16 added RGB(1, 0, 0)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #17 added RGB(1, 0, 0)
+Build Patch/Sample Hash Table(s).....Done<0.0464 sec>
+0...1...2...3...4...5...6...7...8...9...10FinalLightFace Done
+0 of 0 (0% of) surface lights went in leaf ambient cubes.
+0...1...2...3...4...5...6...7...8...9...10Writing leaf ambient...done
+Ready to Finish
+
+Object names       Objects/Maxobjs  Memory / Maxmem  Fullness 
+------------       ---------------  ---------------  -------- 
+models                   8/1024          384/49152    ( 0.8%) 
+brushes               1084/8192        13008/98304    (13.2%) 
+brushsides            7880/65536       63040/524288   (12.0%) 
+planes                2322/65536       46440/1310720  ( 3.5%) 
+vertexes              5288/65536       63456/786432   ( 8.1%) 
+nodes                  414/65536       13248/2097152  ( 0.6%) 
+texinfos               954/12288       68688/884736   ( 7.8%) 
+texdata                  8/2048          256/65536    ( 0.4%) 
+dispinfos                0/0               0/0        ( 0.0%) 
+disp_verts               0/0               0/0        ( 0.0%) 
+disp_tris                0/0               0/0        ( 0.0%) 
+disp_lmsamples           0/0               0/0        ( 0.0%) 
+faces                 3654/65536      204624/3670016  ( 5.6%) 
+hdr faces                0/65536           0/3670016  ( 0.0%) 
+origfaces             3193/65536      178808/3670016  ( 4.9%) 
+leaves                 423/65536       13536/2097152  ( 0.6%) 
+leaffaces             3869/65536        7738/131072   ( 5.9%) 
+leafbrushes           1462/65536        2924/131072   ( 2.2%) 
+areas                    9/256            72/2048     ( 3.5%) 
+surfedges            29073/512000     116292/2048000  ( 5.7%) 
+edges                15600/256000      62400/1024000  ( 6.1%) 
+LDR worldlights          2/8192          176/720896   ( 0.0%) 
+HDR worldlights          0/8192            0/720896   ( 0.0%) 
+leafwaterdata            0/32768           0/393216   ( 0.0%) 
+waterstrips            181/32768        1810/327680   ( 0.6%) 
+waterverts               0/65536           0/786432   ( 0.0%) 
+waterindices          3429/65536        6858/131072   ( 5.2%) 
+cubemapsamples           6/1024           96/16384    ( 0.6%) 
+overlays                 0/512             0/180224   ( 0.0%) 
+LDR lightdata         [variable]     1105916/0        ( 0.0%) 
+HDR lightdata         [variable]           0/0        ( 0.0%) 
+visdata               [variable]        2344/16777216 ( 0.0%) 
+entdata               [variable]      104430/393216   (26.6%) 
+LDR ambient table      423/65536        1692/262144   ( 0.6%) 
+HDR ambient table      423/65536        1692/262144   ( 0.6%) 
+LDR leaf ambient      1063/65536       29764/1835008  ( 1.6%) 
+HDR leaf ambient       423/65536       11844/1835008  ( 0.6%) 
+occluders                0/0               0/0        ( 0.0%) 
+occluder polygons        0/0               0/0        ( 0.0%) 
+occluder vert ind        0/0               0/0        ( 0.0%) 
+detail props          [variable]           1/12       ( 8.3%) 
+static props          [variable]           1/12       ( 8.3%) 
+pakfile               [variable]      739433/0        ( 0.0%) 
+physics               [variable]      414832/4194304  ( 9.9%) 
+physics terrain       [variable]           2/1048576  ( 0.0%) 
+
+Level flags = 0
+
+Total triangle count: 8819
+Writing d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+50 seconds elapsed
+
+
+
+materialPath: d:\steam\steamapps\hurricaaane@hotmail.com\half-life 2 episode two\ep2\materials
+Loading D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.vmf
+fixing up env_cubemap materials on brush sides...
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10Processing areas...done (1)
+Building Faces...done (0)
+Chop Details...done (1)
+Find Visible Detail Sides...done (0)
+Merging details...done (0)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (1)
+writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt...Building visibility clusters...
+done (0)
+Creating default LDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Creating default HDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (1) (415096 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 1065 texinfos to 953
+Reduced 8 texdatas to 8 (144 bytes to 144)
+Writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+2 seconds elapsed
+
+
+
+2 threads
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt
+  96 portalclusters
+ 185 numportals
+0...1...2...3...4...5...6...7...8...9...10Optimized: 0 visible clusters (0.00%)
+Total clusters visible: 1542
+Average clusters visible: 16
+Building PAS...
+Average clusters audible: 16
+visdatasize:2344  compressed from 3072
+writing d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+0 seconds elapsed
+
+
+
+[Reading texlights from 'lights.rad']
+[48 texlights parsed from 'lights.rad']
+
+Loading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+3661 faces
+544952 square feet [78473216.00 square inches]
+0 Displacements
+0 Square Feet [0.00 Square Inches]
+3661 patches before subdivision
+56013 patches after subdivision
+8 direct lights
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10transfers 5200372, max 805
+transfer lists:  39.7 megs
+0...1...2...3...4...5...6...7...8...9...10	Bounce #1 added RGB(923481, 872120, 769087)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #2 added RGB(389770, 313323, 274268)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #3 added RGB(129959, 87259, 76622)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #4 added RGB(50456, 30281, 26539)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #5 added RGB(19273, 9936, 8716)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #6 added RGB(7693, 3505, 3072)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #7 added RGB(3091, 1228, 1076)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #8 added RGB(1265, 443, 388)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #9 added RGB(522, 160, 140)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #10 added RGB(218, 59, 52)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #11 added RGB(91, 22, 19)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #12 added RGB(39, 8, 7)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #13 added RGB(16, 3, 3)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #14 added RGB(7, 1, 1)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #15 added RGB(3, 0, 0)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #16 added RGB(1, 0, 0)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #17 added RGB(1, 0, 0)
+Build Patch/Sample Hash Table(s).....Done<0.0482 sec>
+0...1...2...3...4...5...6...7...8...9...10FinalLightFace Done
+0 of 0 (0% of) surface lights went in leaf ambient cubes.
+0...1...2...3...4...5...6...7...8...9...10Writing leaf ambient...done
+Ready to Finish
+
+Object names       Objects/Maxobjs  Memory / Maxmem  Fullness 
+------------       ---------------  ---------------  -------- 
+models                   8/1024          384/49152    ( 0.8%) 
+brushes               1084/8192        13008/98304    (13.2%) 
+brushsides            7880/65536       63040/524288   (12.0%) 
+planes                2368/65536       47360/1310720  ( 3.6%) 
+vertexes              5296/65536       63552/786432   ( 8.1%) 
+nodes                  414/65536       13248/2097152  ( 0.6%) 
+texinfos               953/12288       68616/884736   ( 7.8%) 
+texdata                  8/2048          256/65536    ( 0.4%) 
+dispinfos                0/0               0/0        ( 0.0%) 
+disp_verts               0/0               0/0        ( 0.0%) 
+disp_tris                0/0               0/0        ( 0.0%) 
+disp_lmsamples           0/0               0/0        ( 0.0%) 
+faces                 3661/65536      205016/3670016  ( 5.6%) 
+hdr faces                0/65536           0/3670016  ( 0.0%) 
+origfaces             3200/65536      179200/3670016  ( 4.9%) 
+leaves                 423/65536       13536/2097152  ( 0.6%) 
+leaffaces             3884/65536        7768/131072   ( 5.9%) 
+leafbrushes           1466/65536        2932/131072   ( 2.2%) 
+areas                    9/256            72/2048     ( 3.5%) 
+surfedges            29129/512000     116516/2048000  ( 5.7%) 
+edges                15624/256000      62496/1024000  ( 6.1%) 
+LDR worldlights          2/8192          176/720896   ( 0.0%) 
+HDR worldlights          0/8192            0/720896   ( 0.0%) 
+leafwaterdata            0/32768           0/393216   ( 0.0%) 
+waterstrips            181/32768        1810/327680   ( 0.6%) 
+waterverts               0/65536           0/786432   ( 0.0%) 
+waterindices          3429/65536        6858/131072   ( 5.2%) 
+cubemapsamples           6/1024           96/16384    ( 0.6%) 
+overlays                 0/512             0/180224   ( 0.0%) 
+LDR lightdata         [variable]     1106196/0        ( 0.0%) 
+HDR lightdata         [variable]           0/0        ( 0.0%) 
+visdata               [variable]        2344/16777216 ( 0.0%) 
+entdata               [variable]      104430/393216   (26.6%) 
+LDR ambient table      423/65536        1692/262144   ( 0.6%) 
+HDR ambient table      423/65536        1692/262144   ( 0.6%) 
+LDR leaf ambient      1063/65536       29764/1835008  ( 1.6%) 
+HDR leaf ambient       423/65536       11844/1835008  ( 0.6%) 
+occluders                0/0               0/0        ( 0.0%) 
+occluder polygons        0/0               0/0        ( 0.0%) 
+occluder vert ind        0/0               0/0        ( 0.0%) 
+detail props          [variable]           1/12       ( 8.3%) 
+static props          [variable]           1/12       ( 8.3%) 
+pakfile               [variable]      739433/0        ( 0.0%) 
+physics               [variable]      415096/4194304  ( 9.9%) 
+physics terrain       [variable]           2/1048576  ( 0.0%) 
+
+Level flags = 0
+
+Total triangle count: 8833
+Writing d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+52 seconds elapsed
+
+
+
+materialPath: d:\steam\steamapps\hurricaaane@hotmail.com\half-life 2 episode two\ep2\materials
+Loading D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.vmf
+fixing up env_cubemap materials on brush sides...
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10Processing areas...done (0)
+Building Faces...done (0)
+Chop Details...done (0)
+Find Visible Detail Sides...done (0)
+Merging details...done (0)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (0)
+writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt...Building visibility clusters...
+done (0)
+Creating default LDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Creating default HDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (1) (415096 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 1066 texinfos to 954
+Reduced 8 texdatas to 8 (144 bytes to 144)
+Writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+2 seconds elapsed
+
+
+
+materialPath: d:\steam\steamapps\hurricaaane@hotmail.com\half-life 2 episode two\ep2\materials
+Loading D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.vmf
+fixing up env_cubemap materials on brush sides...
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10Processing areas...done (0)
+Building Faces...done (0)
+Chop Details...done (0)
+Find Visible Detail Sides...done (0)
+Merging details...done (0)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (0)
+writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt...Building visibility clusters...
+done (0)
+Creating default LDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Creating default HDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (0) (415000 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 1065 texinfos to 953
+Reduced 8 texdatas to 8 (144 bytes to 144)
+Writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+2 seconds elapsed
+
+
+
+materialPath: d:\steam\steamapps\hurricaaane@hotmail.com\half-life 2 episode two\ep2\materials
+Loading D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.vmf
+fixing up env_cubemap materials on brush sides...
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10Processing areas...done (0)
+Building Faces...done (0)
+Chop Details...done (0)
+Find Visible Detail Sides...done (0)
+Merging details...done (0)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (0)
+writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt...Building visibility clusters...
+done (0)
+Creating default LDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Creating default HDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (1) (415096 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 1065 texinfos to 953
+Reduced 8 texdatas to 8 (144 bytes to 144)
+Writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+2 seconds elapsed
+
+
+
+materialPath: d:\steam\steamapps\hurricaaane@hotmail.com\half-life 2 episode two\ep2\materials
+Loading D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.vmf
+fixing up env_cubemap materials on brush sides...
+0...1...2...3...4...5...6...7...8...9...10**** leaked ****
+Entity func_wareroom (672.00 -3744.00 288.00) leaked!
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (5024.0 -2048.0 -8.0)
+Leaf 0 contents: CONTENTS_SOLID 
+Leaf 1 contents: 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (4512.0 -2048.0 -8.0)
+Leaf 0 contents: CONTENTS_SOLID 
+Leaf 1 contents: 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (4608.0 -2048.0 -848.0)
+Leaf 0 contents: CONTENTS_SOLID 
+Leaf 1 contents: 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (4380.0 -2048.0 112.0)
+Leaf 0 contents: CONTENTS_SOLID 
+Leaf 1 contents: 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (4112.0 -2048.0 112.0)
+Leaf 0 contents: CONTENTS_SOLID 
+Leaf 1 contents: 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (4101.3 -2048.0 74.7)
+Leaf 0 contents: CONTENTS_SOLID 
+Leaf 1 contents: 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (5012.0 -2048.0 112.0)
+Leaf 0 contents: CONTENTS_SOLID 
+Leaf 1 contents: 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (4772.0 -2048.0 112.0)
+Leaf 0 contents: CONTENTS_SOLID 
+Leaf 1 contents: 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+*** Suppressing further FindPortalSide errors.... ***
+Processing areas...done (0)
+Building Faces...done (0)
+Chop Details...done (0)
+Find Visible Detail Sides...done (0)
+Merging details...done (1)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (0)
+Creating default LDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Creating default HDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (1) (414952 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 1071 texinfos to 957
+Reduced 8 texdatas to 8 (144 bytes to 144)
+Writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+1 second elapsed
+
+
+
+materialPath: d:\steam\steamapps\hurricaaane@hotmail.com\half-life 2 episode two\ep2\materials
+Loading D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.vmf
+fixing up env_cubemap materials on brush sides...
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10Processing areas...done (0)
+Building Faces...done (0)
+Chop Details...done (0)
+Find Visible Detail Sides...done (0)
+Merging details...done (0)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (0)
+writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt...Building visibility clusters...
+done (0)
+Creating default LDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Creating default HDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (0) (415064 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 1073 texinfos to 961
+Reduced 8 texdatas to 8 (144 bytes to 144)
+Writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+2 seconds elapsed
+
+
+
+materialPath: d:\steam\steamapps\hurricaaane@hotmail.com\half-life 2 episode two\ep2\materials
+Loading D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.vmf
+fixing up env_cubemap materials on brush sides...
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10Processing areas...done (0)
+Building Faces...done (1)
+Chop Details...done (1)
+Find Visible Detail Sides...done (1)
+Merging details...done (1)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (1)
+writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt...Building visibility clusters...
+done (0)
+Creating default LDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Creating default HDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (1) (415096 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 1075 texinfos to 963
+Reduced 8 texdatas to 8 (144 bytes to 144)
+Writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+1 second elapsed
+
+
+
+materialPath: d:\steam\steamapps\hurricaaane@hotmail.com\half-life 2 episode two\ep2\materials
+Loading D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.vmf
+fixing up env_cubemap materials on brush sides...
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10Processing areas...done (0)
+Building Faces...done (0)
+Chop Details...done (0)
+Find Visible Detail Sides...done (0)
+Merging details...done (0)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (0)
+writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt...Building visibility clusters...
+done (0)
+Creating default LDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Creating default HDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (1) (415096 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 1075 texinfos to 963
+Reduced 8 texdatas to 8 (144 bytes to 144)
+Writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+1 second elapsed
+
+
+
+2 threads
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt
+  96 portalclusters
+ 185 numportals
+0...1...2...3...4...5...6...7...8...9...10Optimized: 0 visible clusters (0.00%)
+Total clusters visible: 1542
+Average clusters visible: 16
+Building PAS...
+Average clusters audible: 16
+visdatasize:2344  compressed from 3072
+writing d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+0 seconds elapsed
+
+
+
+materialPath: d:\steam\steamapps\hurricaaane@hotmail.com\half-life 2 episode two\ep2\materials
+Loading D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.vmf
+fixing up env_cubemap materials on brush sides...
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10Processing areas...done (0)
+Building Faces...done (0)
+Chop Details...done (0)
+Find Visible Detail Sides...done (0)
+Merging details...done (1)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (1)
+writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt...Building visibility clusters...
+done (0)
+Creating default LDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Creating default HDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (1) (415032 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 1077 texinfos to 965
+Reduced 8 texdatas to 8 (144 bytes to 144)
+Writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+1 second elapsed
+
+
+
+2 threads
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt
+  96 portalclusters
+ 185 numportals
+0...1...2...3...4...5...6...7...8...9...10Optimized: 0 visible clusters (0.00%)
+Total clusters visible: 1542
+Average clusters visible: 16
+Building PAS...
+Average clusters audible: 16
+visdatasize:2344  compressed from 3072
+writing d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+0 seconds elapsed
+
+
+
+materialPath: d:\steam\steamapps\hurricaaane@hotmail.com\half-life 2 episode two\ep2\materials
+Loading D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.vmf
+fixing up env_cubemap materials on brush sides...
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10Processing areas...done (0)
+Building Faces...done (0)
+Chop Details...done (0)
+Find Visible Detail Sides...done (0)
+Merging details...done (0)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (0)
+writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt...Building visibility clusters...
+done (0)
+Creating default LDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Creating default HDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (0) (415096 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 1075 texinfos to 963
+Reduced 8 texdatas to 8 (144 bytes to 144)
+Writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+2 seconds elapsed
+
+
+
+2 threads
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt
+  96 portalclusters
+ 185 numportals
+0...1...2...3...4...5...6...7...8...9...10Optimized: 0 visible clusters (0.00%)
+Total clusters visible: 1542
+Average clusters visible: 16
+Building PAS...
+Average clusters audible: 16
+visdatasize:2344  compressed from 3072
+writing d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+0 seconds elapsed
+
+
+
+materialPath: d:\steam\steamapps\hurricaaane@hotmail.com\half-life 2 episode two\ep2\materials
+Loading D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.vmf
+fixing up env_cubemap materials on brush sides...
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10Processing areas...done (0)
+Building Faces...done (0)
+Chop Details...done (0)
+Find Visible Detail Sides...done (0)
+Merging details...done (0)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (0)
+writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt...Building visibility clusters...
+done (0)
+Creating default LDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Creating default HDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (1) (415096 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 1090 texinfos to 978
+Reduced 8 texdatas to 8 (144 bytes to 144)
+Writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+2 seconds elapsed
+
+
+
+2 threads
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt
+  96 portalclusters
+ 185 numportals
+0...1...2...3...4...5...6...7...8...9...10Optimized: 0 visible clusters (0.00%)
+Total clusters visible: 1542
+Average clusters visible: 16
+Building PAS...
+Average clusters audible: 16
+visdatasize:2344  compressed from 3072
+writing d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+0 seconds elapsed
+
+
+
+materialPath: d:\steam\steamapps\hurricaaane@hotmail.com\half-life 2 episode two\ep2\materials
+Loading D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.vmf
+fixing up env_cubemap materials on brush sides...
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10Processing areas...done (0)
+Building Faces...done (0)
+Chop Details...done (0)
+Find Visible Detail Sides...done (0)
+Merging details...done (0)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (0)
+writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt...Building visibility clusters...
+done (0)
+Creating default LDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Creating default HDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (1) (415160 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 1075 texinfos to 963
+Reduced 8 texdatas to 8 (144 bytes to 144)
+Writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+2 seconds elapsed
+
+
+
+2 threads
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt
+  96 portalclusters
+ 185 numportals
+0...1...2...3...4...5...6...7...8...9...10Optimized: 0 visible clusters (0.00%)
+Total clusters visible: 1542
+Average clusters visible: 16
+Building PAS...
+Average clusters audible: 16
+visdatasize:2344  compressed from 3072
+writing d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+0 seconds elapsed
+
+
+
+materialPath: d:\steam\steamapps\hurricaaane@hotmail.com\half-life 2 episode two\ep2\materials
+Loading D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.vmf
+fixing up env_cubemap materials on brush sides...
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10Processing areas...done (0)
+Building Faces...done (0)
+Chop Details...done (0)
+Find Visible Detail Sides...done (0)
+Merging details...done (0)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (0)
+writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt...Building visibility clusters...
+done (0)
+Creating default LDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Creating default HDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (0) (415096 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 1075 texinfos to 963
+Reduced 8 texdatas to 8 (144 bytes to 144)
+Writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+2 seconds elapsed
+
+
+
+2 threads
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt
+  96 portalclusters
+ 185 numportals
+0...1...2...3...4...5...6...7...8...9...10Optimized: 0 visible clusters (0.00%)
+Total clusters visible: 1542
+Average clusters visible: 16
+Building PAS...
+Average clusters audible: 16
+visdatasize:2344  compressed from 3072
+writing d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+0 seconds elapsed
+
+
+
+materialPath: d:\steam\steamapps\hurricaaane@hotmail.com\half-life 2 episode two\ep2\materials
+Loading D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.vmf
+fixing up env_cubemap materials on brush sides...
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10Processing areas...done (0)
+Building Faces...done (1)
+Chop Details...done (0)
+Find Visible Detail Sides...done (0)
+Merging details...done (1)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (1)
+writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt...Building visibility clusters...
+done (0)
+Creating default LDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Creating default HDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (1) (415160 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 1075 texinfos to 963
+Reduced 8 texdatas to 8 (144 bytes to 144)
+Writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+1 second elapsed
+
+
+
+2 threads
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt
+  96 portalclusters
+ 185 numportals
+0...1...2...3...4...5...6...7...8...9...10Optimized: 0 visible clusters (0.00%)
+Total clusters visible: 1542
+Average clusters visible: 16
+Building PAS...
+Average clusters audible: 16
+visdatasize:2344  compressed from 3072
+writing d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+0 seconds elapsed
+
+
+
+materialPath: d:\steam\steamapps\hurricaaane@hotmail.com\half-life 2 episode two\ep2\materials
+Loading D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.vmf
+fixing up env_cubemap materials on brush sides...
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10Processing areas...done (0)
+Building Faces...done (1)
+Chop Details...done (1)
+Find Visible Detail Sides...done (1)
+Merging details...done (0)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (1)
+writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt...Building visibility clusters...
+done (0)
+Creating default LDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Creating default HDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (1) (415128 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 1075 texinfos to 963
+Reduced 8 texdatas to 8 (144 bytes to 144)
+Writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+1 second elapsed
+
+
+
+2 threads
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt
+  96 portalclusters
+ 185 numportals
+0...1...2...3...4...5...6...7...8...9...10Optimized: 0 visible clusters (0.00%)
+Total clusters visible: 1542
+Average clusters visible: 16
+Building PAS...
+Average clusters audible: 16
+visdatasize:2344  compressed from 3072
+writing d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+0 seconds elapsed
+
+
+
+materialPath: d:\steam\steamapps\hurricaaane@hotmail.com\half-life 2 episode two\ep2\materials
+Loading D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.vmf
+fixing up env_cubemap materials on brush sides...
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10Processing areas...done (0)
+Building Faces...done (0)
+Chop Details...done (0)
+Find Visible Detail Sides...done (0)
+Merging details...done (0)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (0)
+writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt...Building visibility clusters...
+done (0)
+Creating default LDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Creating default HDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (1) (415128 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 1075 texinfos to 963
+Reduced 8 texdatas to 8 (144 bytes to 144)
+Writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+2 seconds elapsed
+
+
+
+2 threads
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt
+  96 portalclusters
+ 185 numportals
+0...1...2...3...4...5...6...7...8...9...10Optimized: 0 visible clusters (0.00%)
+Total clusters visible: 1542
+Average clusters visible: 16
+Building PAS...
+Average clusters audible: 16
+visdatasize:2344  compressed from 3072
+writing d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+0 seconds elapsed
+
+
+
+materialPath: d:\steam\steamapps\hurricaaane@hotmail.com\half-life 2 episode two\ep2\materials
+Loading D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.vmf
+fixing up env_cubemap materials on brush sides...
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10Processing areas...done (0)
+Building Faces...done (0)
+Chop Details...done (0)
+Find Visible Detail Sides...done (0)
+Merging details...done (0)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (0)
+writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt...Building visibility clusters...
+done (0)
+Creating default LDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Creating default HDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (1) (415128 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 1075 texinfos to 963
+Reduced 8 texdatas to 8 (144 bytes to 144)
+Writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+2 seconds elapsed
+
+
+
+2 threads
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt
+  96 portalclusters
+ 185 numportals
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10Optimized: 0 visible clusters (0.00%)
+Total clusters visible: 1538
+Average clusters visible: 16
+Building PAS...
+Average clusters audible: 16
+visdatasize:2344  compressed from 3072
+writing d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+0 seconds elapsed
+
+
+
+[Reading texlights from 'lights.rad']
+[48 texlights parsed from 'lights.rad']
+
+Loading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+3661 faces
+544952 square feet [78473216.00 square inches]
+0 Displacements
+0 Square Feet [0.00 Square Inches]
+3661 patches before subdivision
+56013 patches after subdivision
+8 direct lights
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10transfers 5200321, max 807
+transfer lists:  39.7 megs
+0...1...2...3...4...5...6...7...8...9...10	Bounce #1 added RGB(911308, 858062, 755552)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #2 added RGB(388416, 311507, 272424)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #3 added RGB(128963, 86112, 75508)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #4 added RGB(50154, 29963, 26227)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #5 added RGB(19121, 9799, 8583)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #6 added RGB(7631, 3458, 3027)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #7 added RGB(3063, 1209, 1058)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #8 added RGB(1253, 436, 381)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #9 added RGB(517, 158, 138)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #10 added RGB(215, 58, 51)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #11 added RGB(90, 21, 19)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #12 added RGB(38, 8, 7)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #13 added RGB(16, 3, 3)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #14 added RGB(7, 1, 1)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #15 added RGB(3, 0, 0)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #16 added RGB(1, 0, 0)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #17 added RGB(1, 0, 0)
+Build Patch/Sample Hash Table(s).....Done<0.3420 sec>
+0...1.
+
+
+materialPath: d:\steam\steamapps\hurricaaane@hotmail.com\half-life 2 episode two\ep2\materials
+Loading D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.vmf
+fixing up env_cubemap materials on brush sides...
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10Processing areas...done (0)
+Building Faces...done (0)
+Chop Details...done (0)
+Find Visible Detail Sides...done (0)
+Merging details...done (0)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (0)
+writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt...Building visibility clusters...
+done (0)
+Creating default LDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Creating default HDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (0) (415128 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 1075 texinfos to 963
+Reduced 8 texdatas to 8 (144 bytes to 144)
+Writing D:\Steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+2 seconds elapsed
+
+
+
+2 threads
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+reading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.prt
+  96 portalclusters
+ 185 numportals
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10Optimized: 0 visible clusters (0.00%)
+Total clusters visible: 1538
+Average clusters visible: 16
+Building PAS...
+Average clusters audible: 16
+visdatasize:2344  compressed from 3072
+writing d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+0 seconds elapsed
+
+
+
+[Reading texlights from 'lights.rad']
+[48 texlights parsed from 'lights.rad']
+
+Loading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+3661 faces
+544952 square feet [78473216.00 square inches]
+0 Displacements
+0 Square Feet [0.00 Square Inches]
+3661 patches before subdivision
+56013 patches after subdivision
+8 direct lights
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10transfers 5200321, max 807
+transfer lists:  39.7 megs
+0...1...2...3...4...5...6...7...8...9...10	Bounce #1 added RGB(911307, 858062, 755552)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #2 added RGB(388416, 311507, 272424)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #3 added RGB(128963, 86112, 75508)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #4 added RGB(50154, 29963, 26227)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #5 added RGB(19121, 9799, 8583)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #6 added RGB(7631, 3458, 3027)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #7 added RGB(3063, 1209, 1058)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #8 added RGB(1253, 436, 381)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #9 added RGB(517, 158, 138)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #10 added RGB(215, 58, 51)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #11 added RGB(90, 21, 19)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #12 added RGB(38, 8, 7)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #13 added RGB(16, 3, 3)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #14 added RGB(7, 1, 1)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #15 added RGB(3, 0, 0)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #16 added RGB(1, 0, 0)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #17 added RGB(1, 0, 0)
+Build Patch/Sample Hash Table(s).....Done<0.3388 sec>
+0...1...2...3...4...5...6...7...8...9...10FinalLightFace Done
+0 of 0 (0% of) surface lights went in leaf ambient cubes.
+0...1...2...3...4...5...6...7...8...9...10Writing leaf ambient...done
+Ready to Finish
+
+Object names       Objects/Maxobjs  Memory / Maxmem  Fullness 
+------------       ---------------  ---------------  -------- 
+models                   8/1024          384/49152    ( 0.8%) 
+brushes               1084/8192        13008/98304    (13.2%) 
+brushsides            7880/65536       63040/524288   (12.0%) 
+planes                2446/65536       48920/1310720  ( 3.7%) 
+vertexes              5296/65536       63552/786432   ( 8.1%) 
+nodes                  414/65536       13248/2097152  ( 0.6%) 
+texinfos               963/12288       69336/884736   ( 7.8%) 
+texdata                  8/2048          256/65536    ( 0.4%) 
+dispinfos                0/0               0/0        ( 0.0%) 
+disp_verts               0/0               0/0        ( 0.0%) 
+disp_tris                0/0               0/0        ( 0.0%) 
+disp_lmsamples           0/0               0/0        ( 0.0%) 
+faces                 3661/65536      205016/3670016  ( 5.6%) 
+hdr faces                0/65536           0/3670016  ( 0.0%) 
+origfaces             3200/65536      179200/3670016  ( 4.9%) 
+leaves                 423/65536       13536/2097152  ( 0.6%) 
+leaffaces             3884/65536        7768/131072   ( 5.9%) 
+leafbrushes           1466/65536        2932/131072   ( 2.2%) 
+areas                    9/256            72/2048     ( 3.5%) 
+surfedges            29129/512000     116516/2048000  ( 5.7%) 
+edges                15624/256000      62496/1024000  ( 6.1%) 
+LDR worldlights          2/8192          176/720896   ( 0.0%) 
+HDR worldlights          0/8192            0/720896   ( 0.0%) 
+leafwaterdata            0/32768           0/393216   ( 0.0%) 
+waterstrips            181/32768        1810/327680   ( 0.6%) 
+waterverts               0/65536           0/786432   ( 0.0%) 
+waterindices          3429/65536        6858/131072   ( 5.2%) 
+cubemapsamples           7/1024          112/16384    ( 0.7%) 
+overlays                 0/512             0/180224   ( 0.0%) 
+LDR lightdata         [variable]     1105496/0        ( 0.0%) 
+HDR lightdata         [variable]           0/0        ( 0.0%) 
+visdata               [variable]        2344/16777216 ( 0.0%) 
+entdata               [variable]      104430/393216   (26.6%) 
+LDR ambient table      423/65536        1692/262144   ( 0.6%) 
+HDR ambient table      423/65536        1692/262144   ( 0.6%) 
+LDR leaf ambient      1062/65536       29736/1835008  ( 1.6%) 
+HDR leaf ambient       423/65536       11844/1835008  ( 0.6%) 
+occluders                0/0               0/0        ( 0.0%) 
+occluder polygons        0/0               0/0        ( 0.0%) 
+occluder vert ind        0/0               0/0        ( 0.0%) 
+detail props          [variable]           1/12       ( 8.3%) 
+static props          [variable]           1/12       ( 8.3%) 
+pakfile               [variable]      845062/0        ( 0.0%) 
+physics               [variable]      415128/4194304  ( 9.9%) 
+physics terrain       [variable]           2/1048576  ( 0.0%) 
+
+Level flags = 0
+
+Total triangle count: 8833
+Writing d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+1 minute, 11 seconds elapsed
+
+
+
+[Reading texlights from 'lights.rad']
+[48 texlights parsed from 'lights.rad']
+
+Loading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+3661 faces
+544952 square feet [78473216.00 square inches]
+0 Displacements
+0 Square Feet [0.00 Square Inches]
+3661 patches before subdivision
+56013 patches after subdivision
+8 direct lights
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10transfers 5200321, max 807
+transfer lists:  39.7 megs
+0...1...2...3...4...5...6...7...8...9...10	Bounce #1 added RGB(446335, 417883, 363151)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #2 added RGB(190816, 152084, 131398)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #3 added RGB(63357, 42001, 36370)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #4 added RGB(24657, 14624, 12644)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #5 added RGB(9402, 4782, 4136)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #6 added RGB(3754, 1688, 1459)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #7 added RGB(1507, 590, 510)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #8 added RGB(617, 213, 184)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #9 added RGB(254, 77, 66)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #10 added RGB(106, 28, 24)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #11 added RGB(44, 10, 9)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #12 added RGB(19, 4, 3)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #13 added RGB(8, 1, 1)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #14 added RGB(3, 1, 0)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #15 added RGB(1, 0, 0)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #16 added RGB(1, 0, 0)
+Build Patch/Sample Hash Table(s).....Done<0.0584 sec>
+0...1...2...3...4...5...6...7...8...9...10FinalLightFace Done
+0 of 0 (0% of) surface lights went in leaf ambient cubes.
+0...1...2...3...4...5...6...7...8...9...10Writing leaf ambient...done
+Ready to Finish
+
+Object names       Objects/Maxobjs  Memory / Maxmem  Fullness 
+------------       ---------------  ---------------  -------- 
+models                   8/1024          384/49152    ( 0.8%) 
+brushes               1084/8192        13008/98304    (13.2%) 
+brushsides            7880/65536       63040/524288   (12.0%) 
+planes                2446/65536       48920/1310720  ( 3.7%) 
+vertexes              5296/65536       63552/786432   ( 8.1%) 
+nodes                  414/65536       13248/2097152  ( 0.6%) 
+texinfos               963/12288       69336/884736   ( 7.8%) 
+texdata                  8/2048          256/65536    ( 0.4%) 
+dispinfos                0/0               0/0        ( 0.0%) 
+disp_verts               0/0               0/0        ( 0.0%) 
+disp_tris                0/0               0/0        ( 0.0%) 
+disp_lmsamples           0/0               0/0        ( 0.0%) 
+faces                 3661/65536      205016/3670016  ( 5.6%) 
+hdr faces             3661/65536      205016/3670016  ( 5.6%) 
+origfaces             3200/65536      179200/3670016  ( 4.9%) 
+leaves                 423/65536       13536/2097152  ( 0.6%) 
+leaffaces             3884/65536        7768/131072   ( 5.9%) 
+leafbrushes           1466/65536        2932/131072   ( 2.2%) 
+areas                    9/256            72/2048     ( 3.5%) 
+surfedges            29129/512000     116516/2048000  ( 5.7%) 
+edges                15624/256000      62496/1024000  ( 6.1%) 
+LDR worldlights          2/8192          176/720896   ( 0.0%) 
+HDR worldlights          2/8192          176/720896   ( 0.0%) 
+leafwaterdata            0/32768           0/393216   ( 0.0%) 
+waterstrips            181/32768        1810/327680   ( 0.6%) 
+waterverts               0/65536           0/786432   ( 0.0%) 
+waterindices          3429/65536        6858/131072   ( 5.2%) 
+cubemapsamples           7/1024          112/16384    ( 0.7%) 
+overlays                 0/512             0/180224   ( 0.0%) 
+LDR lightdata         [variable]     1105496/0        ( 0.0%) 
+HDR lightdata         [variable]     1105496/0        ( 0.0%) 
+visdata               [variable]        2344/16777216 ( 0.0%) 
+entdata               [variable]      104430/393216   (26.6%) 
+LDR ambient table      423/65536        1692/262144   ( 0.6%) 
+HDR ambient table      423/65536        1692/262144   ( 0.6%) 
+LDR leaf ambient      1062/65536       29736/1835008  ( 1.6%) 
+HDR leaf ambient      1050/65536       29400/1835008  ( 1.6%) 
+occluders                0/0               0/0        ( 0.0%) 
+occluder polygons        0/0               0/0        ( 0.0%) 
+occluder vert ind        0/0               0/0        ( 0.0%) 
+detail props          [variable]           1/12       ( 8.3%) 
+static props          [variable]           1/12       ( 8.3%) 
+pakfile               [variable]      845062/0        ( 0.0%) 
+physics               [variable]      415128/4194304  ( 9.9%) 
+physics terrain       [variable]           2/1048576  ( 0.0%) 
+
+Level flags = 0
+
+Total triangle count: 8833
+Writing d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.bsp
+1 minute, 11 seconds elapsed
+
+
+
+materialPath: d:\steam\steamapps\hurricaaane@hotmail.com\half-life 2 episode two\ep2\materials
+Loading d:\steam\steamapps\hurricaaane@hotmail.com\garrysmod\garrysmod\gamemodes\garryware_svn\wa_prisma_b1.vmf
+0 seconds elapsed

@@ -10,7 +10,7 @@ end
 function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(5, 6)
 	GAMEMODE:SetPlayersInitialStatus( nil )
-	GAMEMODE:DrawInstructions( "Watch the props..." )
+	GAMEMODE:DrawInstructions( "Watch the props ..." )
 	
 	local ratio = 0.8
 	local minimum = 4
@@ -36,7 +36,7 @@ function WARE:Initialize()
 end
 
 function WARE:StartAction()
-	GAMEMODE:DrawInstructions( "Stand on a missing prop !" )
+	GAMEMODE:DrawInstructions( "Stand on a missing prop!" )
 	
 	self.MissingEnts = {}
 	local ratio = 0.25

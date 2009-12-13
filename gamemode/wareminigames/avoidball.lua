@@ -4,7 +4,7 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(1.5,8)
 	
 	GAMEMODE:SetPlayersInitialStatus( true )
-	GAMEMODE:DrawInstructions( "Dodge the balls !" )
+	GAMEMODE:DrawInstructions( "Dodge the balls!" )
 	
 	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		v:Give( "weapon_physcannon" )

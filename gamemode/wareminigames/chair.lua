@@ -15,7 +15,7 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(0.7,6)
 	
 	GAMEMODE:SetPlayersInitialStatus( false )
-	GAMEMODE:DrawInstructions( "Break a chair !" )
+	GAMEMODE:DrawInstructions( "Break a chair!" )
 end
 
 function WARE:StartAction()

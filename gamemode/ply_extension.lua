@@ -170,13 +170,13 @@ end
 
 function meta:PrintComboMessagesAndEffects( compareCombo )
 	if (compareCombo == GAMEMODE:GetBestStreak()) then
-		GAMEMODE:PrintInfoMessage( self:GetName(), " equalized a ", "Server Best Streak of " .. compareCombo .. " Wares !" )
+		GAMEMODE:PrintInfoMessage( self:GetName(), " equalized a ", "Server Best Streak of " .. compareCombo .. " Wares!" )
 		
 		//self:EmitSound( GAMEMODE.WASND.TBL_LocalWon[1] , 100 , 125 )
 		self:EmitSound( GAMEMODE.WASND.GlobalWareningReport , 84 )
 		
 	elseif (compareCombo >= 3) and (compareCombo == self:GetBestCombo()) then 
-		GAMEMODE:PrintInfoMessage( self:GetName(), " scored his ", "Own Best Streak of " .. compareCombo .. " wares !" )
+		GAMEMODE:PrintInfoMessage( self:GetName(), " scored his ", "Own Best Streak of " .. compareCombo .. " wares!" )
 		
 		//self:EmitSound( GAMEMODE.WASND.TBL_LocalWon[2] , 100 , 119 )
 		self:EmitSound( GAMEMODE.WASND.GlobalWareningReport )

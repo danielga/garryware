@@ -9,7 +9,7 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(3, 4)
 
 	GAMEMODE:SetPlayersInitialStatus( true )
-	GAMEMODE:DrawInstructions( "Don't be on the circles !" )
+	GAMEMODE:DrawInstructions( "Don't be on the circles!" )
 	
 	self.Circles = {}
 	

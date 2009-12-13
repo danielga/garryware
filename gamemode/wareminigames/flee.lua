@@ -31,7 +31,7 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(2, 8)
 	
 	GAMEMODE:SetPlayersInitialStatus( true )
-	GAMEMODE:DrawInstructions( "Flee !" )
+	GAMEMODE:DrawInstructions( "Flee!" )
 	
 	local ratio = 0.7
 	local minimum = 3

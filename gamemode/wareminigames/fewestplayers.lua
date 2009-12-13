@@ -22,7 +22,7 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(1, 6)
 
 	GAMEMODE:SetPlayersInitialStatus( false )
-	GAMEMODE:DrawInstructions( "Get on the circle with fewest players !" )
+	GAMEMODE:DrawInstructions( "Get on the circle with fewest players!" )
 	
 	self.Circles = {}
 	

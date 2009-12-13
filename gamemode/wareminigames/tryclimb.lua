@@ -5,7 +5,7 @@ function WARE:Initialize()
 	
 
 	GAMEMODE:SetPlayersInitialStatus( false )
-	GAMEMODE:DrawInstructions( "Try to climb on the boxes !" )
+	GAMEMODE:DrawInstructions( "Try to climb on the boxes!" )
 end
 
 function WARE:StartAction()

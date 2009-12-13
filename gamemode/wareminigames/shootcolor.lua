@@ -63,7 +63,7 @@ function WARE:Initialize()
 	self.SelectedColorID = selected
 	
 	GAMEMODE:SetPlayersInitialStatus( false )
-	GAMEMODE:DrawInstructions( "Shoot the ".. self.PossibleColors[selected][1] .." prop !" , self.PossibleColors[selected][2] or nil, self.PossibleColors[selected][3] or nil )
+	GAMEMODE:DrawInstructions( "Shoot the ".. self.PossibleColors[selected][1] .." prop!" , self.PossibleColors[selected][2] or nil, self.PossibleColors[selected][3] or nil )
 	
 end
 

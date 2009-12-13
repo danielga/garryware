@@ -8,7 +8,7 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(4, 6)
 	
 	GAMEMODE:SetPlayersInitialStatus( true )
-	GAMEMODE:DrawInstructions( "A new GarryWare game starts !" )
+	GAMEMODE:DrawInstructions( "A new GarryWare game starts!" )
 	
 	self.Entground = GAMEMODE:GetEnts(ENTS_CROSS)
 	umsg.Start("SpecialFlourish")
@@ -44,7 +44,7 @@ local function spawnModel( iModel , modelCount , delay )
 end
 
 function WARE:StartAction()
-	GAMEMODE:DrawInstructions( "Rules are easy : Do what it tells you to do !" )
+	GAMEMODE:DrawInstructions( "Rules are easy : Do what it tells you to do!" )
 	local modelCount = #GAMEMODE.ModelPrecacheTable
 	
 	if modelCount > 0 then
@@ -58,7 +58,7 @@ function WARE:StartAction()
 end
 
 function WARE:EndAction()
-	GAMEMODE:DrawInstructions( "Game begins now ! Have fun !" )
+	GAMEMODE:DrawInstructions( "Game begins now ! Have fun!" )
 
 end
 

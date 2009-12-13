@@ -9,7 +9,7 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(4, 6)
 
 	GAMEMODE:SetPlayersInitialStatus( true )
-	GAMEMODE:DrawInstructions( "Keep bumping !" )
+	GAMEMODE:DrawInstructions( "Keep bumping!" )
 	
 	//TEST
 	GAMEMODE:HookTriggers()

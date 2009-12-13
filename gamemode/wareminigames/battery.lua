@@ -24,7 +24,7 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(0,12)
 	
 	GAMEMODE:SetPlayersInitialStatus( false )
-	GAMEMODE:DrawInstructions( "Find a battery and plug it !" )
+	GAMEMODE:DrawInstructions( "Find a battery and plug it!" )
 	
 	-- HAXX
 	-- GravGunOnPickedUp hook is broken, so we'll use this tricky workaround

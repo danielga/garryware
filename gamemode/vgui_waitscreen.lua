@@ -74,9 +74,9 @@ function PANEL:Think()
 	if (timeleft > 0) then 
 		local text = ""
 		if (timeleft > 1) then text = "s" end
-		self.WinnerSubtitle:SetText( "Game begins in "..timeleft.." second"..text.." !")
+		self.WinnerSubtitle:SetText( "Game begins in "..timeleft.." second"..text.."!")
 	else
-		self.WinnerSubtitle:SetText( "Game begins !")
+		self.WinnerSubtitle:SetText( "Game begins!")
 	end
 	
 	self:InvalidateLayout()

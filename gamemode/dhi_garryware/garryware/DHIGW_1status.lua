@@ -82,7 +82,7 @@ function DHI_ReceiveStatuses( usrmsg )
 	local yourStatus = usrmsg:ReadBool() or false
 	local isServerGlobal = usrmsg:ReadBool() or false
 	if not(isServerGlobal) then
-		DHI_REF_StatusElement.Text = ((yourStatus and "Success !") or "Fail !")
+		DHI_REF_StatusElement.Text = ((yourStatus and "Success!") or "Fail!")
 		if yourStatus then
 			LocalPlayer():EmitSound( table.Random(GAMEMODE.WASND.TBL_LocalWon) )
 		
@@ -96,7 +96,7 @@ function DHI_ReceiveStatuses( usrmsg )
 		end
 		
 	else
-		DHI_REF_StatusElement.Text = ((yourStatus and "Everyone won !") or "Everyone failed !")
+		DHI_REF_StatusElement.Text = ((yourStatus and "Everyone won!") or "Everyone failed!")
 	end
 	DHI_REF_StatusElement.BackColorSet = (yourStatus and DHI_REF_StatusElement.BackWinColorSet) or DHI_REF_StatusElement.BackLoseColorSet
 	

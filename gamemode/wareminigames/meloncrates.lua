@@ -95,7 +95,7 @@ function WARE:Initialize()
 end
 
 function WARE:StartAction()
-	GAMEMODE:DrawInstructions( "Break a melon !" )
+	GAMEMODE:DrawInstructions( "Break a melon!" )
 	
 	for _,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		v:Give("weapon_crowbar")

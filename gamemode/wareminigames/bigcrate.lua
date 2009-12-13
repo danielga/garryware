@@ -10,7 +10,7 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(0.7,7.5)
 	
 	GAMEMODE:SetPlayersInitialStatus( false )
-	GAMEMODE:DrawInstructions( "Punt the biggest crate !" )
+	GAMEMODE:DrawInstructions( "Punt the biggest crate!" )
 	
 	return
 end

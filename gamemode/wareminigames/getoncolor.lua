@@ -66,7 +66,7 @@ function WARE:Initialize()
 	end
 	
 	GAMEMODE:SetPlayersInitialStatus( false )
-	GAMEMODE:DrawInstructions( "Get on the ".. self.PossibleColors[selected][1] .." circle !" , self.PossibleColors[selected][2] or nil, self.PossibleColors[selected][3] or nil )
+	GAMEMODE:DrawInstructions( "Get on the ".. self.PossibleColors[selected][1] .." circle!" , self.PossibleColors[selected][2] or nil, self.PossibleColors[selected][3] or nil )
 	
 end
 

@@ -14,7 +14,7 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(1.5,2)
 	
 	GAMEMODE:SetPlayersInitialStatus( true )
-	GAMEMODE:DrawInstructions( "Don't use HLSS !" )
+	GAMEMODE:DrawInstructions( "Don't use HLSS!" )
 	
 	return
 end

@@ -53,7 +53,7 @@ function WARE:Initialize()
 end
 
 function WARE:StartAction()
-	GAMEMODE:DrawInstructions( "Get on the red platform !" )
+	GAMEMODE:DrawInstructions( "Get on the red platform!" )
 	
 	local numberSpawns = math.ceil(team.NumPlayers(TEAM_HUMANS) * 0.75)
 	

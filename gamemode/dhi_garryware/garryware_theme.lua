@@ -18,7 +18,7 @@ function THEME:GetColorReference( sColorLitteral )
 	elseif sColorLitteral == "backcolor" then return self.BackColor
 	elseif sColorLitteral == "badcolor" then return self.BadColor end
 	
-	print(">-- Classic Theme ERROR : Requested color ".. sColorLitteral .. " that doesn't exist !")
+	print(">-- Classic Theme ERROR : Requested color ".. sColorLitteral .. " that doesn't exist!")
 	
 	return self.ErrorColor
 end

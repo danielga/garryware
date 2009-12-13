@@ -10,7 +10,7 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(0.7,6)
 	
 	GAMEMODE:SetPlayersInitialStatus( false )
-	GAMEMODE:DrawInstructions( "Work as a team ! Be useful !" )
+	GAMEMODE:DrawInstructions( "Work as a team! Be useful!" )
 	
 	local ratio = 0.7
 	local minimum = 2
@@ -19,7 +19,7 @@ function WARE:Initialize()
 end
 
 function WARE:StartAction()
-	GAMEMODE:DrawInstructions( "Break all crates !" )
+	GAMEMODE:DrawInstructions( "Break all crates!" )
 
 	local entposcopy = GAMEMODE:GetRandomLocationsAvoidBox(self.Num, ENTS_ONCRATE, function(v) return v:IsPlayer() end, Vector(-30,-30,0), Vector(30,30,64))
 	

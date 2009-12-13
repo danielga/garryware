@@ -19,8 +19,8 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(self.NumberSpawns * 0.4, self.NumberSpawns * 1.7)
 	
 	GAMEMODE:SetPlayersInitialStatus( false )
-	//GAMEMODE:DrawInstructions("Shoot all " .. self.NumberSpawns .." crates in the right order !" )
-	GAMEMODE:DrawInstructions("Shoot in the right order !" )
+	//GAMEMODE:DrawInstructions("Shoot all " .. self.NumberSpawns .." crates in the right order!" )
+	GAMEMODE:DrawInstructions("Shoot in the right order!" )
 	
 	self.Crates = {}
 	self.Numbers = {}
@@ -67,13 +67,13 @@ function WARE:StartAction()
 			table.insert( self.Sequence , k )
 		end
 		GAMEMODE:DrawInstructions( "In the ascending order ! (1 , 2 , 3...)" )
-		GAMEMODE:PrintInfoMessage( "Sequence order", " is ", "ascending (1 , 2 , 3...) !" )
+		GAMEMODE:PrintInfoMessage( "Sequence order", " is ", "ascending (1 , 2 , 3...)!" )
 	else
 		for k=self.NumberSpawns,1,-1 do
 			table.insert( self.Sequence , k )
 		end
 		GAMEMODE:DrawInstructions( "In the descending order ! (3 , 2 , 1...)" )
-		GAMEMODE:PrintInfoMessage( "Sequence order", " is ", "descending (3 , 2 , 1...) !" )
+		GAMEMODE:PrintInfoMessage( "Sequence order", " is ", "descending (3 , 2 , 1...)!" )
 	end
 	
 	self.PlayerCurrentCrate = {}
@@ -95,8 +95,8 @@ function WARE:EndAction()
 		end
 	end
 	
-	GAMEMODE:PrintInfoMessage( "Sequence", " was ", message .." !" )
-	GAMEMODE:DrawInstructions( "Sequence was ".. message .." !" , self.CorrectColor)
+	GAMEMODE:PrintInfoMessage( "Sequence", " was ", message .."!" )
+	GAMEMODE:DrawInstructions( "Sequence was ".. message .."!" , self.CorrectColor)
 end
 
 function WARE:EntityTakeDamage(ent,inf,att,amount,info)

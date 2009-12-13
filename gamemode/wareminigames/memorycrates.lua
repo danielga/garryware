@@ -63,7 +63,7 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(numberSpawns + delay, numberSpawns)
 	
 	GAMEMODE:SetPlayersInitialStatus( false )
-	GAMEMODE:DrawInstructions( "Watch carefully !" )
+	GAMEMODE:DrawInstructions( "Watch carefully!" )
 	
 	self.Crates = {}
 	
@@ -99,7 +99,7 @@ function WARE:Initialize()
 end
 
 function WARE:StartAction()
-	GAMEMODE:DrawInstructions( "Repeat !" )
+	GAMEMODE:DrawInstructions( "Repeat!" )
 	
 	self.PlayerCurrentCrate = {}
 	

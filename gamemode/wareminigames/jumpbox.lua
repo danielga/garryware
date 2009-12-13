@@ -5,7 +5,7 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(3, self.Duration)
 	
 	GAMEMODE:SetPlayersInitialStatus( true )
-	GAMEMODE:DrawInstructions( "Don't stop sprint-jumping from box to box !" )
+	GAMEMODE:DrawInstructions( "Don't stop sprint-jumping from box to box!" )
 	
 	self.Entground = GAMEMODE:GetEnts(ENTS_CROSS)
 end

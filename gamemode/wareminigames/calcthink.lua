@@ -48,8 +48,8 @@ function WARE:StartAction()
 end
 
 function WARE:EndAction()
-	GAMEMODE:DrawInstructions( "Answer was "..self.WareSolution.." !" , self.CorrectColor)
-	GAMEMODE:PrintInfoMessage( "Answer", " was ", self.WareSolution.." !" )
+	GAMEMODE:DrawInstructions( "Answer was "..self.WareSolution.."!" , self.CorrectColor)
+	GAMEMODE:PrintInfoMessage( "Answer", " was ", self.WareSolution.."!" )
 end
 
 function WARE:PlayerSay(ply, text, say)
@@ -70,7 +70,7 @@ function WARE:PlayerSay(ply, text, say)
 			chat.AddText( self.ChatBleh, ply:GetName(), self.ChatRegular, " has found ", self.ChatBleh, "the correct answer ... but no need to say it twice." )
 			
 		else
-			chat.AddText( self.ChatBleh, ply:GetName(), self.ChatRegular, " has found ", self.ChatCorrect, "the correct answer !" )
+			chat.AddText( self.ChatBleh, ply:GetName(), self.ChatRegular, " has found ", self.ChatCorrect, "the correct answer!" )
 		end
 		return false
 		
@@ -79,7 +79,7 @@ function WARE:PlayerSay(ply, text, say)
 		
 		if string.find(text, tostring(self.WareSolution)) then
 			local txtReplace = string.Replace(text, tostring(self.WareSolution), "<answer>")
-			chat.AddText( self.ChatBleh, ply:GetName(), self.ChatRegular, " said \"" .. txtReplace .. "\" ... ", self.ChatWrong, "not quite right !" )
+			chat.AddText( self.ChatBleh, ply:GetName(), self.ChatRegular, " said \"" .. txtReplace .. "\" ... ", self.ChatWrong, "not quite right!" )
 
 			return false
 		end

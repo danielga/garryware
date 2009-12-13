@@ -11,11 +11,11 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(1,9)
 	
 	GAMEMODE:SetPlayersInitialStatus( false )
-	GAMEMODE:DrawInstructions( "Look up !" )
+	GAMEMODE:DrawInstructions( "Look up!" )
 end
 
 function WARE:StartAction()
-	GAMEMODE:DrawInstructions( "Rocketjump onto a plate !" )
+	GAMEMODE:DrawInstructions( "Rocketjump onto a plate!" )
 	
 	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		v:Give( "sware_rocketjump" )

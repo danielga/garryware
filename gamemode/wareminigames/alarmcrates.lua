@@ -69,7 +69,7 @@ function WARE:Initialize()
 end
 
 function WARE:StartAction()
-	GAMEMODE:DrawInstructions( "Shut it down !" )
+	GAMEMODE:DrawInstructions( "Shut it down!" )
 	
 	for _,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		v:Give("weapon_crowbar")

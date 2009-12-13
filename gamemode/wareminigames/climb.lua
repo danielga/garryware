@@ -4,7 +4,7 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(1.5,3)
 	
 	GAMEMODE:SetPlayersInitialStatus( true )
-	GAMEMODE:DrawInstructions( "Get on the boxes !" )
+	GAMEMODE:DrawInstructions( "Get on the boxes!" )
 	
 end
 

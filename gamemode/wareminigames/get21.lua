@@ -26,7 +26,7 @@ function WARE:Initialize()
 	
 	GAMEMODE:SetWareWindupAndLength(1,9)
 	GAMEMODE:SetPlayersInitialStatus( false )
-	GAMEMODE:DrawInstructions( "Get 21 !" )
+	GAMEMODE:DrawInstructions( "Get 21!" )
 	
 	self.Crates = {}
 	
@@ -120,8 +120,8 @@ function WARE:EndAction()
 		end
 	end
 
-	GAMEMODE:PrintInfoMessage( "Possible combination", " was ", message .." !" )
-	GAMEMODE:DrawInstructions( "Possible combination was ".. message .." !" , self.CorrectColor)
+	GAMEMODE:PrintInfoMessage( "Possible combination", " was ", message .."!" )
+	GAMEMODE:DrawInstructions( "Possible combination was ".. message .."!" , self.CorrectColor)
 end
 
 function WARE:EntityTakeDamage(ent,inf,att,amount,info)
