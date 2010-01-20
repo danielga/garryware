@@ -23,7 +23,7 @@ function WARE:StartAction()
 	
 	for _,v in pairs(self.PlayerList) do
 		self.PlayerLastBlock[v] = nil
-		self.PlayerSwapCount[v] = 0
+		self.PlayerSwapCount[v] = -1
 		--self.PlayerLastTime[v] = CurTime()
 	end
 end
