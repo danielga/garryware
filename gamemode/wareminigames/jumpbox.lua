@@ -1,8 +1,8 @@
 WARE.Author = "xandar"
-WARE.Duration = 5.0
+WARE.Duration = 7.0
 
 function WARE:Initialize()
-	GAMEMODE:SetWareWindupAndLength(3, self.Duration)
+	GAMEMODE:SetWareWindupAndLength(0, self.Duration)
 	
 	GAMEMODE:SetPlayersInitialStatus( false )
 	GAMEMODE:DrawInstructions( "Sprint-jump from box to box twice!" )
