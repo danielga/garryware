@@ -4,23 +4,27 @@ WARE.Duration = 5.0
 function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(3, self.Duration)
 	
-	GAMEMODE:SetPlayersInitialStatus( true )
-	GAMEMODE:DrawInstructions( "Don't stop sprint-jumping from box to box!" )
+	GAMEMODE:SetPlayersInitialStatus( false )
+	GAMEMODE:DrawInstructions( "Sprint-jump from box to box twice!" )
+	
+	self.NumberSwaps = 2
 	
 	self.Entground = GAMEMODE:GetEnts(ENTS_CROSS)
 end
 
 function WARE:StartAction()
 	self.PlayerLastBlock = {}
-	self.PlayerLastTime = {}
+	self.PlayerSwapCount = {}
+	--self.PlayerLastTime = {}
 	
-	self.EndTime = CurTime() + self.Duration
+	--self.EndTime = CurTime() + self.Duration
 	
 	self.PlayerList = team.GetPlayers(TEAM_HUMANS)
 	
 	for _,v in pairs(self.PlayerList) do
 		self.PlayerLastBlock[v] = nil
-		self.PlayerLastTime[v] = CurTime()
+		self.PlayerSwapCount[v] = 0
+		--self.PlayerLastTime[v] = CurTime()
 	end
 end
 
@@ -30,8 +34,10 @@ end
 
 function WARE:Think()	
 	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do		
-		if v:GetPos().z-self.Entground[1]:GetPos().z <= 5 then 
-			v:ApplyLose()
+		if v:GetPos().z-self.Entground[1]:GetPos().z <= 5 then
+			self.PlayerLastBlock[v] = nil
+			self.PlayerSwapCount[v] = 0
+			--v:ApplyLose()
 		end
 	end 
 	
@@ -42,20 +48,26 @@ function WARE:Think()
 			if target:IsPlayer() and target:IsWarePlayer() then
 				if (self.PlayerLastBlock[target] != block) then
 					self.PlayerLastBlock[target] = block
-					self.PlayerLastTime[target] = CurTime()
-					if ((CurTime() + 1.75) > self.EndTime) then
+					self.PlayerSwapCount[target] = self.PlayerSwapCount[target] + 1
+					
+					if self.PlayerSwapCount[target] >= self.NumberSwaps then
 						target:ApplyWin()
 					end
+					
+					--self.PlayerLastTime[target] = CurTime()
+					--if ((CurTime() + 1.75) > self.EndTime) then
+					--	target:ApplyWin()
+					--end
 				end
 			end
 		end
 	end
 	
-	for k,v in pairs(self.PlayerList) do
-		if v:IsValid() then
-			if (CurTime() > (self.PlayerLastTime[v] + 1.75)) then
-				v:ApplyLose()
-			end
-		end
-	end
+	--for k,v in pairs(self.PlayerList) do
+	--	if v:IsValid() then
+	--		if (CurTime() > (self.PlayerLastTime[v] + 1.75)) then
+	--			v:ApplyLose()
+	--		end
+	--	end
+	--end
 end
