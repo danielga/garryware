@@ -36,7 +36,7 @@ function WARE:Think()
 	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do		
 		if v:GetPos().z-self.Entground[1]:GetPos().z <= 5 then
 			self.PlayerLastBlock[v] = nil
-			self.PlayerSwapCount[v] = 0
+			self.PlayerSwapCount[v] = -1
 			--v:ApplyLose()
 		end
 	end 
