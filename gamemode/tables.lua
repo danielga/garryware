@@ -91,6 +91,16 @@ GM.WACOLS["dom_text"]    = Color(255,255,255,255)
 
 GM.WareEnts = {}
 
+GM.ColorTable = {
+	{ "black"		, Color(0,0,0,255) 		, "twirl"	 },
+	{ "grey"		, Color(138,138,138,255)	, "cross" 	 },
+	{ "white"		, Color(255,255,255,255)	, "triangle" },
+	{ "red"			, Color(220,0,0,255)		, "square"   },
+	{ "green"		, Color(0,220,0,255)		, "circle"	 },
+	{ "blue"		, Color(64,64,255,255)		, "star" 	 },
+	{ "pink"		, Color(255,0,255,255)		, "flower"	 }
+}
+
 ENTS_ONCRATE = "oncrate"
 ENTS_OVERCRATE = "overcrate"
 ENTS_INAIR = "inair"
