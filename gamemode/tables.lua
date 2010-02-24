@@ -73,8 +73,8 @@ GM.WASND.Confirmation  = Sound("ware/other_won1.wav")
 GM.WASND.OtherWin  = Sound("ware/other_won1.wav")
 GM.WASND.OtherLose = Sound("ware/other_lose1.wav")
 
-GM.WASND.EveryoneWon  = Sound("ware/everyone_won1.wav")
-GM.WASND.EveryoneLost = Sound("ware/everyone_lose1.wav")
+GM.WASND.EveryoneWon  = Sound("ware/everyone_won2.wav")
+GM.WASND.EveryoneLost = Sound("ware/everyone_lose2.wav")
 
 GM.WASND.TBL_Teleport = {
 Sound("ambient/machines/teleport1.wav"),
