@@ -176,6 +176,7 @@ end
 //// SMOOTHING FUNCTIONS. DO NOT USE IN YOUR ELEMENTS.
 //// READ cl_dhonline_element.lua FOR SMOOTHING FUNCTIONS.
 
+/*
 function dhonline.CreateSmoother(strName, numInit, numRate)
 	local numCurrent = nil
 	if type(numInit) == "table" then
@@ -187,8 +188,7 @@ function dhonline.CreateSmoother(strName, numInit, numRate)
 end
 
 function dhonline.ChangeSmootherCurrent(strName, numCurrentCall)
-	if not dhonline_dat.STOR_Smoothers[strName] then print("> " .. DHONLINE_NAME .. " Smoother ERROR : ChangeSmootherTarget has requested field " .. strName .." which hasn't been created !") return end
-	local numCurrent = numCurrentCall
+	if not dhonline_dat.STOR_Smoothers[strName] then print("> " .. DHONLINE_NAME .. " Smoother ERROR : ChangeSmootherCurrent has requested field " .. strName .." which hasn't been created !") return end
 	if type(numCurrentCall) == "table" then
 		for k,v in pairs(numCurrentCall) do
 			dhonline_dat.STOR_Smoothers[strName][2][k] = numCurrentCall[k]
@@ -210,30 +210,35 @@ function dhonline.GetSmootherCurrent(strName)
 	if not dhonline_dat.STOR_Smoothers[strName] then print("> " .. DHONLINE_NAME .. " Smoother ERROR : GetSmootherCurrent has requested field " .. strName .." which hasn't been created !") return nil end
 	return dhonline_dat.STOR_Smoothers[strName][2]
 end
-
-function dhonline.RecalcAllSmoothers()
+*/
+function dhonline.RecalcSmootherLogic(subtable)
 	local previousCurrent = 0
-	for name,subtable in pairs(dhonline_dat.STOR_Smoothers) do
-		if (type(dhonline_dat.STOR_Smoothers[name][2]) == "table") then
-			for subkey,value in pairs(dhonline_dat.STOR_Smoothers[name][2]) do
-				previousCurrent = dhonline_dat.STOR_Smoothers[name][2][subkey]
-				dhonline_dat.STOR_Smoothers[name][2][subkey] = dhonline_dat.STOR_Smoothers[name][2][subkey] + (dhonline_dat.STOR_Smoothers[name][1][subkey] - dhonline_dat.STOR_Smoothers[name][2][subkey]) * dhonline_dat.STOR_Smoothers[name][3] * FrameTime() * 50
-				if (previousCurrent < dhonline_dat.STOR_Smoothers[name][1][subkey]) and (dhonline_dat.STOR_Smoothers[name][2][subkey] > dhonline_dat.STOR_Smoothers[name][1][subkey]) then
-					dhonline_dat.STOR_Smoothers[name][2][subkey] = dhonline_dat.STOR_Smoothers[name][1][subkey]
-				elseif (previousCurrent > dhonline_dat.STOR_Smoothers[name][1][subkey]) and (dhonline_dat.STOR_Smoothers[name][2][subkey] < dhonline_dat.STOR_Smoothers[name][1][subkey]) then
-					dhonline_dat.STOR_Smoothers[name][2][subkey] = dhonline_dat.STOR_Smoothers[name][1][subkey]
-				end
+	if (type(subtable[2]) == "table") then
+		for subkey,value in pairs(subtable[2]) do
+			previousCurrent = subtable[2][subkey]
+			subtable[2][subkey] = subtable[2][subkey] + (subtable[1][subkey] - subtable[2][subkey]) * subtable[3] * FrameTime() * 50
+			if (previousCurrent < subtable[1][subkey]) and (subtable[2][subkey] > subtable[1][subkey]) then
+				subtable[2][subkey] = subtable[1][subkey]
+			elseif (previousCurrent > subtable[1][subkey]) and (subtable[2][subkey] < subtable[1][subkey]) then
+				subtable[2][subkey] = subtable[1][subkey]
 			end
-		else
-			dhonline_dat.STOR_Smoothers[name][2] = dhonline_dat.STOR_Smoothers[name][2] + (dhonline_dat.STOR_Smoothers[name][1] - dhonline_dat.STOR_Smoothers[name][2]) * math.Clamp( dhonline_dat.STOR_Smoothers[name][3] * 0.5 * FrameTime() * 50 , 0 , 1 )
 		end
+	else
+		subtable[2] = subtable[2] + (subtable[1] - subtable[2]) * math.Clamp( subtable[3] * 0.5 * FrameTime() * 50 , 0 , 1 )
 	end
 end
+/*
+function dhonline.RecalcAllSmoothers()
+	for name,subtable in pairs(dhonline_dat.STOR_Smoothers) do
+		dhonline.RecalcSmootherLogic(subtable)
+	end
+end
+
 
 function dhonline.DeleteAllSmoothers()
 	dhonline_dat.STOR_Smoothers = {}
 end
-
+*/
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 //// DERMA PANEL CONSTRUCTORS .
@@ -335,37 +340,39 @@ end
 /////////////////////////////////////////////////////////////////////////
 //// MAIN HOOKS .
 
-function dhonline.RemoteCoreThink()
-	dhonline_theme.GetCurrentThemeObject():CoreThink()
+function dhonline.RemoteCoreThink( themeObj )
+	themeObj:CoreThink()
 end
-function dhonline.RemoteThink()
-	dhonline_theme.GetCurrentThemeObject():Think()
+function dhonline.RemoteThink( themeObj )
+	themeObj:Think()
 end
-function dhonline.RemotePaint()
-	dhonline_theme.GetCurrentThemeObject():Paint()
+function dhonline.RemotePaint( themeObj )
+	themeObj:Paint()
 end
-function dhonline.RemotePaintMisc()
-	dhonline_theme.GetCurrentThemeObject():PaintMisc()
+function dhonline.RemotePaintMisc( themeObj )
+	themeObj:PaintMisc()
 end
 
 function dhonline.HUDPaint(name)
 	if dhonline.GetVar("dhonline_core_enable") <= 0 then return end
 	dhonline_dat.ui_edgeSpacingRel = dhonline.GetVar("dhonline_core_ui_spacing") * 0.015
 	
-	dhonline.RecalcAllSmoothers()
+	--dhonline.RecalcAllSmoothers()
 	
-	dhonline.RemoteCoreThink()
+	local myThemeObjectRef = dhonline_theme.GetCurrentThemeObject()
 	
-	local bOkay, strErr = pcall(dhonline.RemoteThink, dhonline)
+	dhonline.RemoteCoreThink( myThemeObjectRef )
+	
+	local bOkay, strErr = pcall(function() dhonline.RemoteThink(myThemeObjectRef) end)
 	if not bOkay then print(" > " .. DHONLINE_NAME .. " Think ERROR : ".. strErr) end
 	
 	if bOkay then
-		local bOkayTwo, strErrTwo = pcall(dhonline.RemotePaint, dhonline)
+		local bOkayTwo, strErrTwo = pcall(function() dhonline.RemotePaint(myThemeObjectRef) end)
 		if not bOkayTwo then print(" > " .. DHONLINE_NAME .. " Paint ERROR : ".. strErrTwo) end
 	end
 	
 	if bOkay then
-		local bOkayTwo, strErrTwo = pcall(dhonline.RemotePaintMisc, dhonline)
+		local bOkayTwo, strErrTwo = pcall(function() dhonline.RemotePaintMisc(myThemeObjectRef) end)
 		if not bOkayTwo then print(" > " .. DHONLINE_NAME .. " PaintMisc ERROR : ".. strErrTwo) end
 	end
 end

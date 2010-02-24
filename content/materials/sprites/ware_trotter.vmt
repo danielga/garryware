@@ -3,4 +3,5 @@
 	"$basetexture"		"sprites/ware_trotter" 
 	"$vertexcolor" 		1 
 	"$vertexalpha" 		1 
+	"$nolod"			1
 } 

@@ -1,7 +1,7 @@
-ELEMENT.Name = "8WIN"
+ELEMENT.Name = "9"
 ELEMENT.DefaultOff = false
 ELEMENT.DefaultGridPosX = 5
-ELEMENT.DefaultGridPosY = 1.5
+ELEMENT.DefaultGridPosY = 0.5
 ELEMENT.SizeX = -0.25
 ELEMENT.SizeY = 20
 

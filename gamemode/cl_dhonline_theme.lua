@@ -115,7 +115,7 @@ function THEME:Unmount()
 	table.Empty(self.Parameters)
 	table.Empty(self.Parameters_Names)
 	
-	dhonline.DeleteAllSmoothers()
+	--dhonline.DeleteAllSmoothers()
 	
 	if self.Unload then self:Unload() end
 end
@@ -134,16 +134,26 @@ end
 
 function THEME:Paint()
 	//print(">> Drawing : ".. self:GetDisplayName())
+	local themeRawName = self:GetRawName()
+	
 	for k,ELEMENT in pairs( self.Elements ) do
+		local elementRawName = ELEMENT:GetRawName()
+		
 		if (
 			ELEMENT
-			and	( dhonline.GetVar( "dhonline_element_".. self:GetRawName() .."_".. ELEMENT:GetRawName() ) > 0 )
+			and	( dhonline.GetVar( "dhonline_element_".. themeRawName .."_".. elementRawName ) > 0 )
 			and ELEMENT.DrawFunction
 		) then
 		
 			//print("Drawing : ".. ELEMENT:GetDisplayName())
 			local bOkay, strErr = pcall(ELEMENT.DrawFunction, ELEMENT)
-			if not bOkay then print(" > " .. DHONLINE_NAME .. " Paint ERROR on element ["..ELEMENT:GetRawName().."] : ".. strErr) end
+			if not bOkay then print(" > " .. DHONLINE_NAME .. " Paint ERROR on element ["..elementRawName.."] : ".. strErr) end
+			
+			//Recalc MY smoothers :
+			
+			for name,subtable in pairs(ELEMENT._SmootherTable) do
+				dhonline.RecalcSmootherLogic(subtable)
+			end
 		
 		end
 	end

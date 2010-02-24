@@ -175,7 +175,7 @@ function THEME:DrawGWPreProgrammedRidiculousBox(xRel, yRel, width, height, iFrom
 	if (not ValidEntity(ply) or not ply:IsPlayer()) then return end
 
 	local xCenter, yCenter = dhonline.CalcCenter( xRel , yRel , width , height )
-	local yCenterNew = yCenter + (height * 1.05) * (iFromFirst - 1)
+	local yCenterNew = yCenter + 30 + (height * 1.05) * (iFromFirst - 1) -- 30 is the magic number for the Ridiculous title height
 	local xTextCenter = xCenter - width * 0.50 + 8
 	
 	local statusColor = nil

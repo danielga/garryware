@@ -18,12 +18,12 @@ function PANEL:Init()
 	
 	self:SetPaintBackground( false )
 
-	self.Info = vgui.Create( "HTML" , DPanel)
+	--self.Info = vgui.Create( "HTML" , DPanel)
 	//self.Info:OpenURL("http://www.assembla.com/spaces/garryware/documents/cIq5KWlY0r3OXWeJe5afGb/download/garryware.html")
-	HTMLPANEL = self.Info
+	--HTMLPANEL = self.Info
 	
-	self.Info:SetSize( 400, 250 )
-	self.Info:SetPos(ScrW() - 420 , 92)
+	--self.Info:SetSize( 400, 250 )
+	--self.Info:SetPos(ScrW() - 420 , 92)
 	
 	self.BottomPanel = VGUIRect( 0, ScrH(), ScrW(), h )
 	self.BottomPanel:SetColor( color_black )
@@ -63,7 +63,7 @@ function PANEL:Show()
 	self:InvalidateLayout()
 	self:SetVisible( true )
 	
-	self.Info:SetVisible( true )
+	--self.Info:SetVisible( true )
 
 end
 
@@ -87,7 +87,7 @@ function PANEL:Hide()
 
 	self.BottomPanel:MoveTo( 0, ScrH(), 1 )
 	
-	self.Info:SetVisible( false )
+	--self.Info:SetVisible( false )
 	timer.Simple( 1, function() self:SetVisible( false ) end )
 end
 

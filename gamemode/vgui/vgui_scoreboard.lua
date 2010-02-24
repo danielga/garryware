@@ -1,5 +1,5 @@
-include( "vgui_scoreboard_team.lua" )
-include( "vgui_scoreboard_small.lua" )
+--include( "vgui/vgui_scoreboard_team.lua" )
+--include( "vgui/vgui_scoreboard_small.lua" )
 
 local PANEL = {}
 

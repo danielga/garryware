@@ -1,4 +1,4 @@
-ELEMENT.Name = "9"
+ELEMENT.Name = "bottom"
 ELEMENT.DefaultOff = false
 ELEMENT.DefaultGridPosX = 15
 ELEMENT.DefaultGridPosY = 15

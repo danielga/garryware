@@ -54,28 +54,44 @@ function ELEMENT:GetMySizes()
 	return xSize, ySize
 end
 
+/*
 function ELEMENT:GetMySmootherFullName( sSuffix )
 	return self:GetRawName() .. "_" .. sSuffix
 end
+*/
 
-function ELEMENT:CreateSmoother(sSuffix, numInit, numRate)
-	dhonline.CreateSmoother( self:GetMySmootherFullName( sSuffix ), numInit, numRate)
+function ELEMENT:CreateSmoother(sSuffix, numInit, numRate)	
+	local numCurrent = nil
+	if type(numInit) == "table" then
+		numCurrent = table.Copy(numInit)
+	else
+		numCurrent = numInit
+	end
+	self._SmootherTable[sSuffix] = {numInit, numCurrent, numRate}
 end
 
 function ELEMENT:ChangeSmootherTarget(sSuffix, numTarget)
-	dhonline.ChangeSmootherTarget( self:GetMySmootherFullName( sSuffix ), numTarget )
+	if not self._SmootherTable[sSuffix] then print("> " .. DHONLINE_NAME .. " In-Element Smoother ERROR : ChangeSmootherTarget has requested field " .. sSuffix .." which hasn't been created !") return end
+	self._SmootherTable[sSuffix][1] = numTarget
 end
 
 function ELEMENT:ChangeSmootherCurrent(sSuffix, numCurrent)
-	dhonline.ChangeSmootherCurrent( self:GetMySmootherFullName( sSuffix ), numCurrent )
+	if not self._SmootherTable[sSuffix] then print("> " .. DHONLINE_NAME .. " In-Element Smoother ERROR : ChangeSmootherCurrent has requested field " .. sSuffix .." which hasn't been created !") return end
+	if type(numCurrent) == "table" then
+		for k,v in pairs(numCurrent) do
+			self._SmootherTable[sSuffix][2][k] = numCurrent[k]
+		end
+	end
 end
 
 function ELEMENT:ChangeSmootherRate(sSuffix, numRate)
-	dhonline.ChangeSmootherRate( self:GetMySmootherFullName( sSuffix ), numRate )
+	if not self._SmootherTable[sSuffix] then print("> " .. DHONLINE_NAME .. " In-Element Smoother ERROR : ChangeSmootherRate has requested field " .. sSuffix .." which hasn't been created !") return end
+	self._SmootherTable[sSuffix][3] = numRate
 end
 
 function ELEMENT:GetSmootherCurrent(sSuffix)
-	return dhonline.GetSmootherCurrent( self:GetMySmootherFullName( sSuffix ) )
+	if not self._SmootherTable[sSuffix] then print("> " .. DHONLINE_NAME .. " In-Element Smoother ERROR : GetSmootherCurrent has requested field " .. sSuffix .." which hasn't been created !") return end
+	return self._SmootherTable[sSuffix][2]
 end
 
 function ELEMENT:ConvertGridData()
@@ -101,6 +117,8 @@ function Initialize( sName, dElement )
 	dhonline.CreateVar(sCvarPrefix .. "_y", dElement.DefaultGridPosY or 0, true, false)
 
 	setmetatable(dElement, dhi_element_meta)
+	
+	dElement._SmootherTable = {}
 	
 	if dElement.CoreInitialize then dElement:CoreInitialize() end
 	if dElement.Initialize then dElement:Initialize() end

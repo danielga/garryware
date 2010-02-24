@@ -1,9 +1,9 @@
 ELEMENT.Name = "5"
 ELEMENT.DefaultOff = false
 ELEMENT.DefaultGridPosX = 8
-ELEMENT.DefaultGridPosY = 0
+ELEMENT.DefaultGridPosY = 0.5
 ELEMENT.SizeX = 50
-ELEMENT.SizeY = 50
+ELEMENT.SizeY = 30
 
 ELEMENT.LockedColor    = Color(255,255,255,220)
 ELEMENT.UnstableColor  = Color(192,0,0,192)
@@ -88,8 +88,12 @@ function ELEMENT:DrawFunction( )
 	end
 	
 	local text = comboNum
-	self:DrawGWTextBox(
-	curExtraBorder
+	self:DrawGWRelativeTextBox(
+	0.0
+	, 0.0
+	, 50
+	, 50
+	, curExtraBorder
 	, text
 	, curBackColorRef
 	, curBorderColorRef
@@ -100,7 +104,7 @@ function ELEMENT:DrawFunction( )
 	local textBis = "Best : " .. LocalPlayer():GetBestCombo()
 	self:DrawGWRelativeTextBox(
 	-3
-	, -0.7
+	, -1.1
 	, 72
 	, 20
 	, 2
@@ -114,7 +118,7 @@ function ELEMENT:DrawFunction( )
 	local textTer = "Server : " .. GAMEMODE:GetBestStreak()
 	self:DrawGWRelativeTextBox(
 	3
-	, -0.7
+	, -1.1
 	, 72
 	, 20
 	, 2
