@@ -13,7 +13,7 @@ include( 'cl_postprocess.lua' )
 include( 'cl_usermsg.lua' )
 include( 'skin.lua' )
 include( "tables.lua" )
-include( "overv_chataddtext.lua" )
+include( "sh_chataddtext.lua" )
 
 include("sh_dhonline_autorun.lua")
 

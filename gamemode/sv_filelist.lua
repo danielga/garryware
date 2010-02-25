@@ -18,7 +18,7 @@ AddCSLuaFile( "skin.lua" )
 AddCSLuaFile( "tables.lua" )
 AddCSLuaFile( "ply_extension.lua" )
 AddCSLuaFile( "garbage_module.lua" )
-AddCSLuaFile( "overv_chataddtext.lua" )
+AddCSLuaFile( "sh_chataddtext.lua" )
 
 // Fretta VGUI replacements :
 AddCSLuaFile( "cl_splashscreen.lua" )

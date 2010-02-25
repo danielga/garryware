@@ -13,7 +13,7 @@ include( "tables.lua" )
 
 include( "init_effects.lua" )
 include( "init_entitygathering.lua" )
-include( "overv_chataddtext.lua" )
+include( "sh_chataddtext.lua" )
 
 include( "minigames_module.lua" )
 include( "environment_module.lua" )
