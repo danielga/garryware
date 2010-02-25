@@ -47,7 +47,7 @@ function WARE:Initialize()
 		previousnumber = previousnumber + math.random(1,35)
 		textent:SetPos(pos + Vector(0,0,64))
 		textent:Spawn()
-		textent:SetEntityText( tostring(previousnumber) )
+		textent:SetEntityInteger( previousnumber )
 		
 		table.insert( self.Numbers , previousnumber )
 		

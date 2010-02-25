@@ -17,13 +17,19 @@ function WARE:StartAction()
 	
 end
 
-function WARE:EndAction()
+function WARE:PerformEyeReset()
 	local angle = nil
 	for k,ply in pairs(team.GetPlayers(TEAM_HUMANS)) do
 		angle = ply:EyeAngles()
 		ply:SetEyeAngles( Angle( angle.p, angle.y, 0 ) )
 	end
-	
+end
+
+function WARE:EndAction()
+  self:PerformEyeReset()
+  --Double-stream that because there's always some faulties.
+  timer.Simple(0.2, self.PerformEyeReset )
+  
 end
 
 function WARE:Think( )

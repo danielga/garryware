@@ -70,7 +70,7 @@ function WARE:Initialize()
 	
 	for i=1,NbCardsToChoose do
 		self.Crates[i].Number = ChosenCards[i]
-		self.Crates[i].AssociatedText:SetEntityText(tostring(ChosenCards[i]))
+		self.Crates[i].AssociatedText:SetEntityInteger(ChosenCards[i])
 	end
 	
 	local ListOfCards = {}
@@ -86,12 +86,12 @@ function WARE:Initialize()
 	if (NbCardsToChoose < 4) then
 		local FakeNumber = table.remove(ListOfCards, math.random(1, #ListOfCards )  )
 		self.Crates[4].Number = FakeNumber
-		self.Crates[4].AssociatedText:SetEntityText(tostring(FakeNumber))
+		self.Crates[4].AssociatedText:SetEntityInteger(FakeNumber)
 	end
 	if (NbCardsToChoose < 5) then
 		local FakeNumber = table.remove(ListOfCards, math.random(1, #ListOfCards )  )
 		self.Crates[5].Number = FakeNumber
-		self.Crates[5].AssociatedText:SetEntityText(tostring(FakeNumber))
+		self.Crates[5].AssociatedText:SetEntityInteger(FakeNumber)
 	end
 end
 

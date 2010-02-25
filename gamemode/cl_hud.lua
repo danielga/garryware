@@ -47,7 +47,7 @@ function GM:DrawWareText()
 	for k,v in pairs(self.Ent_WareTexts) do
 		local pos_toscreen = v:GetPos():ToScreen()
 		
-		draw.SimpleTextOutlined( v:GetNWString("text","") , "WAREIns", pos_toscreen.x, pos_toscreen.y, v.TextColor, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color( 0, 0, 0, v.TextColor.a ) )
+		draw.SimpleTextOutlined( v:GetDTInt(0) , "WAREIns", pos_toscreen.x, pos_toscreen.y, v.TextColor, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color( 0, 0, 0, v.TextColor.a ) )
 	end
 end
 

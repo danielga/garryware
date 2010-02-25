@@ -66,7 +66,7 @@ function WARE:Initialize()
 		
 		previousnumber = previousnumber + math.random(1,35)
 		self.RolledNumber[i] = previousnumber
-		self.Crates[i].AssociatedText:SetEntityText(tostring(previousnumber))
+		self.Crates[i].AssociatedText:SetEntityInteger(previousnumber)
 	end
 	
 	timer.Simple(0.1, self.SendColors, self)
