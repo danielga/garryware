@@ -292,7 +292,7 @@ function GM:EndGame()
 			v:Give("weapon_physcannon")
 			
 			-- Clear decals
-			v:ConCommand("r_cleardecals")
+			--v:ConCommand("r_cleardecals")
 		end
 		
 		// Send positive message to the RP list of winners.
@@ -313,7 +313,7 @@ function GM:EndGame()
 				--Do generic stuff to specs
 				
 				rpSpec:AddPlayer( v )
-				v:ConCommand("r_cleardecals")
+				--v:ConCommand("r_cleardecals")
 			end
 			umsg.Start("EventEndgameTrigger", rpSpec)
 				umsg.Bool( false )

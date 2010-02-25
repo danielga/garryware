@@ -178,6 +178,7 @@ local ClockGameVGUI = vgui.CreateFromTable( vgui_clockgame )
 
 local function Transit( m )
 	TransitVGUI:Show()
+	RunConsoleCommand("r_cleardecals")
 	
 	timer.Simple( 2.7, function() TransitVGUI:Hide() end )
 end
