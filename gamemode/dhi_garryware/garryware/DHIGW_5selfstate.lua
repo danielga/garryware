@@ -50,7 +50,7 @@ function ELEMENT:DrawFunction( )
 		self:ChangeSmootherRate("bordercolor", 0.3)
 	else
 		borderColorRef = self.UnstableColor
-		extraSize = math.sin( math.rad(RealTime()*360) ) * self.extraBorderVariance
+		extraSize = math.sin( math.rad(CurTime()*360) ) * self.extraBorderVariance
 		extraBorder = self.extraBorder + extraSize
 		self:ChangeSmootherRate("bordercolor", 0.1)
 	end
@@ -66,7 +66,7 @@ function ELEMENT:DrawFunction( )
 	if (comboNum >= 3) then
 		local extraGoldRatio = 0.5
 		if (comboNum == GAMEMODE:GetBestStreak()) then
-			extraGoldRatio = ((RealTime() * self.extraGoldTimePeriod) % 1)
+			extraGoldRatio = ((CurTime() * self.extraGoldTimePeriod) % 1)
 		end
 		local extraGoldSize = self.SizeX + extraGoldRatio * self.extraGoldSizeExpand
 		

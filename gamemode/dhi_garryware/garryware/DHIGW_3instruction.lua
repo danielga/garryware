@@ -34,9 +34,9 @@ function ELEMENT:Initialize( )
 end
 
 function ELEMENT:DrawFunction( )
-	if (self.RemainDuration <= 0) or ((RealTime() - self.UpdateTime) > self.RemainDuration) then return end
+	if (self.RemainDuration <= 0) or ((CurTime() - self.UpdateTime) > self.RemainDuration) then return end
 
-	local baseRatioFadeOut = 1 - ((RealTime() - self.UpdateTime) / self.RemainDuration)
+	local baseRatioFadeOut = 1 - ((CurTime() - self.UpdateTime) / self.RemainDuration)
 	
 	GC_ColorCopy( self.BorderColorCalc , self.BorderColorSet )
 	GC_ColorCopy( self.BackColorCalc , self.BackColorSet )
@@ -65,7 +65,7 @@ function ELEMENT:DrawFunction( )
 end
 
 function DHI_ReceiveInstructions( usrmsg )
-	DHI_REF_InstructionElement.UpdateTime = RealTime()
+	DHI_REF_InstructionElement.UpdateTime = CurTime()
 	DHI_REF_InstructionElement.RemainDuration = 5.0
 	DHI_REF_InstructionElement.Text         = usrmsg:ReadString()
 	DHI_REF_InstructionElement.UseCustomBG  = usrmsg:ReadBool()

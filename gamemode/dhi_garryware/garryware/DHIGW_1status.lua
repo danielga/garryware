@@ -29,9 +29,9 @@ function ELEMENT:Initialize( )
 end
 
 function ELEMENT:DrawFunction( )
-	if (self.RemainDuration <= 0) or ((RealTime() - self.UpdateTime) > self.RemainDuration) then return end
+	if (self.RemainDuration <= 0) or ((CurTime() - self.UpdateTime) > self.RemainDuration) then return end
 
-	local baseRatioFadeOut = 1 - ((RealTime() - self.UpdateTime) / self.RemainDuration)
+	local baseRatioFadeOut = 1 - ((CurTime() - self.UpdateTime) / self.RemainDuration)
 	
 	GC_ColorCopy( self.BorderColorCalc , self.BorderColorSet )
 	GC_ColorCopy( self.BackColorCalc , self.BackColorSet )
@@ -77,7 +77,7 @@ function DHI_MakeParticlesFromTable( myTablePtr )
 end
 
 function DHI_ReceiveStatuses( usrmsg )
-	DHI_REF_StatusElement.UpdateTime = RealTime()
+	DHI_REF_StatusElement.UpdateTime = CurTime()
 	DHI_REF_StatusElement.RemainDuration = 3.0
 	local yourStatus = usrmsg:ReadBool() or false
 	local isServerGlobal = usrmsg:ReadBool() or false
