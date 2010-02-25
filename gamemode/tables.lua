@@ -44,6 +44,9 @@ GM.WASND.TBL_GlobalWareningTeleport = {
 Sound("ware/exp_game_transit_1.mp3"),
 Sound("ware/exp_game_transit_2.mp3")
 }
+GM.WASND.TBL_GlobalWareningPrologue   = {
+Sound("ware/game_ending.mp3")
+}
 GM.WASND.TBL_GlobalWareningEnding   = {
 Sound("ware/game_ending.mp3")
 }
