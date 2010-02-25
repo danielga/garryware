@@ -24,7 +24,7 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(3,5)
 	
 	GAMEMODE:SetPlayersInitialStatus( false )
-	GAMEMODE:DrawInstructions( "Pick up that can." )
+	GAMEMODE:DrawInstructions( "Pick up that can!" )
 	
 	local numberSpawns = math.Clamp(team.NumPlayers(TEAM_HUMANS),1,table.Count(GAMEMODE:GetEnts(ENTS_INAIR)))
 	
@@ -62,7 +62,7 @@ function WARE:Initialize()
 end
 
 function WARE:StartAction()
-	GAMEMODE:DrawInstructions( "Now put it in the trashcan." )
+	GAMEMODE:DrawInstructions( "Now put it in the trashcan!" )
 	
 	self.Trashcans = {}
 	local pos = GAMEMODE:GetRandomPositionsAvoidBox(2, ENTS_ONCRATE, function(v) return v:IsPlayer() end, Vector(-64,-64,64), Vector(64,64,64))

@@ -10,7 +10,7 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(0.7,6)
 	
 	GAMEMODE:SetPlayersInitialStatus( false )
-	GAMEMODE:DrawInstructions( "Work as a team! Be useful!" )
+	GAMEMODE:DrawInstructions( "Be useful!" )
 	
 	local ratio = 0.7
 	local minimum = 2

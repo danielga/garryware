@@ -8,7 +8,7 @@ include( 'shared.lua' )
 ---------------------------------------------------------*/
 
 function ENT:SetUsability( bool )
-	self.Entity:SetNWBool( "usable", bool )
+	self.Entity:SetDTBool(0, bool )
 end
 
 function ENT:Initialize()

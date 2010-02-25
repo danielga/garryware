@@ -4,7 +4,7 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(0.8,6)
 	
 	GAMEMODE:SetPlayersInitialStatus( false )
-	GAMEMODE:DrawInstructions( "Catch a ball!" )
+	GAMEMODE:DrawInstructions( "Catch white!" )
 	
 	local ratio = 0.5
 	local minimum = 1

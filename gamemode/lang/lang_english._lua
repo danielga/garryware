@@ -31,7 +31,7 @@ LANG.TT["__BASE"][4] = "Everyone failed!"
 LANG.TT["_intro"] = {}
 LANG.TT["_intro"][1] = "A new GarryWare game starts!"
 LANG.TT["_intro"][2] = "Rules are easy : Do what it tells you to do!"
-LANG.TT["_intro"][3] = "Game begins now ! Have fun!"
+LANG.TT["_intro"][3] = "Game begins now! Have fun!"
 end
 
 do -- alarmcrates > buildtothetop

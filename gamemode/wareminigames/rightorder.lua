@@ -66,13 +66,13 @@ function WARE:StartAction()
 		for k=1,self.NumberSpawns do
 			table.insert( self.Sequence , k )
 		end
-		GAMEMODE:DrawInstructions( "In the ascending order ! (1 , 2 , 3...)" )
+		GAMEMODE:DrawInstructions( "In the ascending order! (1 , 2 , 3...)" )
 		GAMEMODE:PrintInfoMessage( "Sequence order", " is ", "ascending (1 , 2 , 3...)!" )
 	else
 		for k=self.NumberSpawns,1,-1 do
 			table.insert( self.Sequence , k )
 		end
-		GAMEMODE:DrawInstructions( "In the descending order ! (3 , 2 , 1...)" )
+		GAMEMODE:DrawInstructions( "In the descending order! (3 , 2 , 1...)" )
 		GAMEMODE:PrintInfoMessage( "Sequence order", " is ", "descending (3 , 2 , 1...)!" )
 	end
 	

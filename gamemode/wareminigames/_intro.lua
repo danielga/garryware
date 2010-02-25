@@ -58,7 +58,7 @@ function WARE:StartAction()
 end
 
 function WARE:EndAction()
-	GAMEMODE:DrawInstructions( "Game begins now ! Have fun!" )
+	GAMEMODE:DrawInstructions( "Game begins now! Have fun!" )
 
 end
 

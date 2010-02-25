@@ -29,7 +29,7 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(3,8)
 	
 	GAMEMODE:SetPlayersInitialStatus( false )
-	GAMEMODE:DrawInstructions( "Listen and get ready ..." )
+	GAMEMODE:DrawInstructions( "Listen..." )
 	
 	for i,pos in ipairs(GAMEMODE:GetRandomPositions(numberAlarmSpawns+numberNormalSpawns, ENTS_ONCRATE)) do
 		pos = pos + Vector(0,0,100)
