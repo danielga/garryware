@@ -45,6 +45,13 @@ end
 
 function WARE:StartAction()
 	GAMEMODE:DrawInstructions( "Rules are easy : Do what it tells you to do!" )
+	
+	-- This is completely stupid, but I can't get the util.Precache to work, so
+	-- I manually do it in a weird and funny way by spawning every model used in game
+	-- that the minigame files provided us, so that the intro seems less empty.
+	-- But it will lag the players a bit : That's why prepaching is required :
+	-- Players used to complain that their game was freezing right in the middle of a minigame.
+	
 	local modelCount = #GAMEMODE.ModelPrecacheTable
 	
 	if modelCount > 0 then

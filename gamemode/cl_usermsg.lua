@@ -33,7 +33,7 @@ local function ModelList( m )
 	print( "Precaching sequence #".. PrecacheSequence .."." )
 	for k=(currentModelCount + 1),(currentModelCount + numberOfModels) do
 		model = GAMEMODE.ModelPrecacheTable[ k ]
-		print( "Precaching model " .. k .. " : " .. model )
+		--print( "Precaching model " .. k .. " : " .. model )
 		util.PrecacheModel( model )
 	end
 end
