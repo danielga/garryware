@@ -147,9 +147,9 @@ function meta:GetCombo()
 end
 
 function meta:IncrementCombo()
-	local myCombo = self:GetNWInt("combo", 0)
+	local myCombo = self:GetCombo()
 	myCombo = myCombo + 1
-	self:SetNWInt("combo", myCombo)
+	self:SetComboSpecialInteger( myCombo )
 	
 	if (myCombo > self:GetBestCombo()) then
 		self:SetNWInt("combo_max", myCombo)
@@ -190,7 +190,7 @@ end
 
 function meta:InterruptCombo( )
 	local myOldCombo = self:GetCombo()
-	self:SetNWInt("combo", 0)
+	self:SetComboSpecialInteger( 0 )
 	
 	self:PrintComboMessagesAndEffects( myOldCombo )
 	
