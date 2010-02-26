@@ -63,7 +63,7 @@ function WARE:Think( )
 				target:ApplyLose()
 			end
 			
-			if target:IsPlayer() or ( target:GetClass() == "swent_crowbar" ) then
+			if (target:IsPlayer() and target:IsWarePlayer()) or ( target:GetClass() == "swent_crowbar" ) then
 				if (CurTime() > (ring.LastActTime + 0.2)) then
 					ring.LastActTime = CurTime()
 					ring:EmitSound("ambient/levels/labs/electric_explosion1.wav")
