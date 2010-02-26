@@ -14,6 +14,8 @@ function WARE:GetModelList()
 end
 
 function WARE:Initialize()
+	GAMEMODE:OverrideAnnouncer( 2 )
+	
 	local numberSpawns = #self.PossibleColours
 	
 	GAMEMODE:SetWareWindupAndLength(5,3.5)

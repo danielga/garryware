@@ -34,6 +34,8 @@ GM.SelectClass = false
 GM.SecondsBetweenTeamSwitches = 3
 GM.GameLength = 8.0 + 47.0 / 60.0
 GM.NotEnoughTimeCap = 20
+-- false DefaultAnnouncerID switches it to random mode each ware
+GM.DefaultAnnouncerID = 1
 
 GM.NoPlayerSuicide = false
 GM.NoPlayerDamage = true
@@ -60,6 +62,7 @@ GM.NextgameStart = 0
 GM.NextgameEnd = 0
 GM.Windup = 2
 GM.WareLen = 100
+GM.WareOverrideAnnouncer = false
 
 GM.BestStreakEver = 3
 GM.NumberOfWaresPlayed = -1

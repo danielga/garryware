@@ -14,6 +14,8 @@ WARE.Numbers = {}
 WARE.NumberSpawns = 7
 
 function WARE:Initialize()
+	GAMEMODE:OverrideAnnouncer( 2 )
+	
 	self.NumberSpawns = math.random( 4, 7 )
 
 	GAMEMODE:SetWareWindupAndLength(self.NumberSpawns * 0.4, self.NumberSpawns * 1.7)

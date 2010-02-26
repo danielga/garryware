@@ -1,12 +1,23 @@
 GM.WASND = {}
 GM.WADAT = {}
 GM.WADAT.EndFlourishTime = 2.50
---GM.WADAT.StartFlourishTime = 0 or 2.56
 GM.WADAT.StartFlourishLength = 2.50
 GM.WADAT.TransitFlourishTime = 1.3
-GM.WADAT.EndingFlourishDelayAfterStart = 2.20
-GM.WADAT.EndingFlourishDelayAfterEnd = 2.0
-GM.WADAT.EndingFlourishTime = 1.3
+
+GM.WADAT.TBL_GlobalWareningEpic = {}
+GM.WADAT.TBL_GlobalWareningEpic[1] = {}
+GM.WADAT.TBL_GlobalWareningEpic[2] = {}
+-- Prologue Data
+GM.WADAT.TBL_GlobalWareningEpic[1].MusicFadeDelay  = 0.4
+GM.WADAT.TBL_GlobalWareningEpic[1].StartDalay = 2.0
+GM.WADAT.TBL_GlobalWareningEpic[1].Length = 10.24
+-- Epilogue Data
+GM.WADAT.TBL_GlobalWareningEpic[2].MusicFadeDelay = 0.00
+GM.WADAT.TBL_GlobalWareningEpic[2].StartDalay = 0.0
+GM.WADAT.TBL_GlobalWareningEpic[2].Length = 20.10
+
+
+GM.WADAT.EpilogueFlourishDelayAfterEndOfGamemode = 2.26
 
 GM.WASND.THL_AmbientMusic = {
 Sound("ware/exp_loop_1.wav")
@@ -32,7 +43,7 @@ Sound("ware/exp_game_lose_2.mp3"),
 Sound("ware/exp_game_lose_3.mp3")
 }
 
-GM.WASND.GlobalWareningReport = Sound("ware/game_report.mp3")
+GM.WASND.GlobalWareningReport = Sound("ware/game_information.mp3")
 
 --[[
 GM.WASND.TBL_GlobalWareningReport = {
@@ -44,11 +55,10 @@ GM.WASND.TBL_GlobalWareningTeleport = {
 Sound("ware/exp_game_transit_1.mp3"),
 Sound("ware/exp_game_transit_2.mp3")
 }
-GM.WASND.TBL_GlobalWareningPrologue   = {
-Sound("ware/game_ending.mp3")
-}
-GM.WASND.TBL_GlobalWareningEnding   = {
-Sound("ware/game_ending.mp3")
+
+GM.WASND.TBL_GlobalWareningEpic   = {
+Sound("ware/game_prologue.mp3"),
+Sound("ware/game_epilogue.mp3")
 }
 
 
@@ -61,24 +71,35 @@ GM.WASND.BITBL_TimeLeft[1][3] = Sound("ware/countdown_ann_sec3.mp3")
 GM.WASND.BITBL_TimeLeft[1][4] = Sound("ware/countdown_ann_sec4.mp3")
 GM.WASND.BITBL_TimeLeft[1][5] = Sound("ware/countdown_ann_sec5.mp3")
 
+GM.WASND.BITBL_TimeLeft[2] = {}
+GM.WASND.BITBL_TimeLeft[2][1] = Sound("ware/countdown_dos_sec1.mp3")
+GM.WASND.BITBL_TimeLeft[2][2] = Sound("ware/countdown_dos_sec2.mp3")
+GM.WASND.BITBL_TimeLeft[2][3] = Sound("ware/countdown_dos_sec3.mp3")
+GM.WASND.BITBL_TimeLeft[2][4] = Sound("ware/countdown_dos_sec4.mp3")
+GM.WASND.BITBL_TimeLeft[2][5] = Sound("ware/countdown_dos_sec5.mp3")
+
 -- Bi-reference the sounds above for inclusion.
 GM.WASND.BIREF_1 = GM.WASND.BITBL_TimeLeft[1]
+GM.WASND.BIREF_2 = GM.WASND.BITBL_TimeLeft[2]
 
 GM.WASND.TBL_LocalWon = {
-Sound("ware/local_won1.wav"),
-Sound("ware/local_won2.wav"),
-Sound("ware/local_won3.wav"),
-Sound("ware/local_won2.wav"),
-Sound("ware/local_won3.wav")}
+Sound("ware/local_exo_won1.wav"),
+Sound("ware/local_exo_won2.wav"),
+Sound("ware/local_exo_won3.wav"),
+Sound("ware/local_exo_won2.wav"),
+Sound("ware/local_exo_won3.wav")
+}
 // Repeating 2 and 3 for more chances of playing
 
 GM.WASND.TBL_LocalLose = {
 Sound("ware/local_lose2.wav"),
 Sound("ware/local_lose3.wav"),
-Sound("ware/local_lose4.wav")}
+Sound("ware/local_lose4.wav")
+}
 
-GM.WASND.Confirmation  = Sound("ware/other_won1.wav")
-GM.WASND.OtherWin  = Sound("ware/other_won1.wav")
+GM.WASND.Confirmation  = Sound("ware/local_exo_target_hit.wav")
+
+GM.WASND.OtherWin  = Sound("ware/other_exo_won1.wav")
 GM.WASND.OtherLose = Sound("ware/other_lose1.wav")
 
 GM.WASND.EveryoneWon  = Sound("ware/everyone_won2.wav")

@@ -52,6 +52,12 @@ function GM:SetWareWindupAndLength(windup , len)
 	self.WareLen = len
 end
 
+function GM:OverrideAnnouncer( id )
+    if (1 <= id) and (id <= #self.WASND.BITBL_TimeLeft) then
+		self.WareOverrideAnnouncer = id
+	end
+end
+
 function GM:DrawInstructions( sInstructions , optColorPointer , optTextColorPointer )
 	local rp = RecipientFilter()
 	rp:AddAllPlayers( )
@@ -191,6 +197,7 @@ end
 
 function GM:PickRandomGame()
 	self.WareHaveStarted = true
+	self.WareOverrideAnnouncer = false
 	
 	-- Standard initialization
 	for k,v in pairs(player.GetAll()) do 
@@ -208,13 +215,17 @@ function GM:PickRandomGame()
 		self.Minigame = ware_mod.CreateInstance("_empty")
 		self:SetWareWindupAndLength(0, 3)
 		
-	GAMEMODE:SetPlayersInitialStatus( false )
-	GAMEMODE:DrawInstructions( "Error with minigame \""..self.NextGameName.."\"." )
+		GAMEMODE:SetPlayersInitialStatus( false )
+		GAMEMODE:DrawInstructions( "Error with minigame \""..self.NextGameName.."\"." )
 		
 	end
 	self.NextgameEnd = CurTime() + self.Windup + self.WareLen
 	
 	self.NumberOfWaresPlayed = self.NumberOfWaresPlayed + 1
+	
+	if not self.WareOverrideAnnouncer then
+		self.WareOverrideAnnouncer = self.DefaultAnnouncerID or math.random(1, #GAMEMODE.WASND.BITBL_TimeLeft )
+	end
 	
 	-- Send info about ware
 	local rp = RecipientFilter()
@@ -226,7 +237,7 @@ function GM:PickRandomGame()
 		umsg.Float( self.WareLen )
 		umsg.Bool( false )
 		umsg.Char( math.random(1, #GAMEMODE.WASND.TBL_GlobalWareningNew ) )
-		umsg.Char( math.random(1, #GAMEMODE.WASND.BITBL_TimeLeft ) )
+		umsg.Char( self.WareOverrideAnnouncer )
 	umsg.End()
 end
 
@@ -251,6 +262,7 @@ function GM:SetNextGameEnd(time)
 		umsg.Float( self.WareLen )
 		umsg.Bool( true )
 		umsg.Char( math.random(1, #GAMEMODE.WASND.TBL_GlobalWareningNew ) )
+		umsg.Char( self.WareOverrideAnnouncer )
 	umsg.End()
 end
 
@@ -493,7 +505,7 @@ function GM:EndTheGameForOnce()
 	
 	--Send info about VGUI
 	umsg.Start("SpecialFlourish")
-		umsg.Char( math.random(1, #GAMEMODE.WASND.TBL_GlobalWareningEnding ) )
+		umsg.Char( 2 )
 	umsg.End()
 	
 	--Send info about ware

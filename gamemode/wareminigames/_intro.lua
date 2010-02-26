@@ -12,7 +12,7 @@ function WARE:Initialize()
 	
 	self.Entground = GAMEMODE:GetEnts(ENTS_CROSS)
 	umsg.Start("SpecialFlourish")
-		umsg.Char( math.random(1, #GAMEMODE.WASND.TBL_GlobalWareningPrologue ) )
+		umsg.Char( 1 )
 	umsg.End()
 	
 	for k,ply in pairs(team.GetPlayers(TEAM_HUMANS)) do

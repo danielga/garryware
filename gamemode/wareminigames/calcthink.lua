@@ -8,6 +8,8 @@ WARE.ChatBleh     = Color(192,192,0,0)
 WARE.ChatRegular  = Color(255,255,255,0)
 
 function WARE:Initialize()
+	GAMEMODE:OverrideAnnouncer( 2 )
+	
 	GAMEMODE:SetWareWindupAndLength( 2 , 8 )
 
 	GAMEMODE:SetPlayersInitialStatus( false )

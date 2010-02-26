@@ -22,6 +22,8 @@ function WARE:GetModelList()
 end
 
 function WARE:Initialize()
+	GAMEMODE:OverrideAnnouncer( 2 )
+	
 	local numberSpawns = 5
 	
 	GAMEMODE:SetWareWindupAndLength(1,9)

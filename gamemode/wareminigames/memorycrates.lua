@@ -57,6 +57,8 @@ end
 -----------------------------------------------------------------------------------
 
 function WARE:Initialize()
+	GAMEMODE:OverrideAnnouncer( 2 )
+	
 	local numberSpawns = 5
 	local delay = 4
 	
