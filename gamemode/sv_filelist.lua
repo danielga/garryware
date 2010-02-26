@@ -35,8 +35,10 @@ for k,stringOrTable in pairs(GM.WASND) do
 		resource.AddFile("sound/" .. stringOrTable)
 		
 	elseif type(stringOrTable) == "table" then
-		for l,sString in pairs(stringOrTable) do
-			resource.AddFile("sound/" .. sString)
+	    if type(stringOrTable[1]) == "string" then --If not, it's a bireferenced table
+			for l,sString in pairs(stringOrTable) do
+				resource.AddFile("sound/" .. sString)
+			end
 		end
 		
 	end

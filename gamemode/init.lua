@@ -226,6 +226,7 @@ function GM:PickRandomGame()
 		umsg.Float( self.WareLen )
 		umsg.Bool( false )
 		umsg.Char( math.random(1, #GAMEMODE.WASND.TBL_GlobalWareningNew ) )
+		umsg.Char( math.random(1, #GAMEMODE.WASND.BITBL_TimeLeft ) )
 	umsg.End()
 end
 

@@ -52,12 +52,17 @@ Sound("ware/game_ending.mp3")
 }
 
 
-GM.WASND.TimeLeft = {}
-GM.WASND.TimeLeft[1] = Sound("ware/countdown_sec1.mp3")
-GM.WASND.TimeLeft[2] = Sound("ware/countdown_sec2.mp3")
-GM.WASND.TimeLeft[3] = Sound("ware/countdown_sec3.mp3")
-GM.WASND.TimeLeft[4] = Sound("ware/countdown_sec4.mp3")
-GM.WASND.TimeLeft[5] = Sound("ware/countdown_sec5.mp3")
+GM.WASND.BITBL_TimeLeft = {}
+
+GM.WASND.BITBL_TimeLeft[1] = {}
+GM.WASND.BITBL_TimeLeft[1][1] = Sound("ware/countdown_ann_sec1.mp3")
+GM.WASND.BITBL_TimeLeft[1][2] = Sound("ware/countdown_ann_sec2.mp3")
+GM.WASND.BITBL_TimeLeft[1][3] = Sound("ware/countdown_ann_sec3.mp3")
+GM.WASND.BITBL_TimeLeft[1][4] = Sound("ware/countdown_ann_sec4.mp3")
+GM.WASND.BITBL_TimeLeft[1][5] = Sound("ware/countdown_ann_sec5.mp3")
+
+-- Bi-reference the sounds above for inclusion.
+GM.WASND.BIREF_1 = GM.WASND.BITBL_TimeLeft[1]
 
 GM.WASND.TBL_LocalWon = {
 Sound("ware/local_won1.wav"),

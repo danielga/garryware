@@ -16,6 +16,8 @@ LastRemainingThink = 0
 
 PrecacheSequence = 0
 
+CurrentAnnouncer = 1
+
 AmbientMusic = {}
 AmbientMusicIsOn = false
 
@@ -98,6 +100,7 @@ local function NextGameTimes( m )
 	if (NextwarmupEnd != 0) then
 	
 		local musicID = m:ReadChar()
+		CurrentAnnouncer = m:ReadChar()
 		LocalPlayer():EmitSound( GAMEMODE.WASND.TBL_GlobalWareningNew[musicID] , 60 )
 		AmbientMusicIsOn = true
 		EnableMusic()
