@@ -10,7 +10,7 @@
 include( "ply_extension.lua" )
 
 GM.Name 	= "GarryWare Two"
-GM.Author 	= "Hurricaaane (Ha3) and Kilburn"
+GM.Author 	= "Hurricaaane (Ha3 Team)"
 GM.Email 	= ""
 GM.Website 	= ""
 
@@ -20,12 +20,11 @@ IncludePlayerClasses()
 GM.Help		= 
 [[Rules :
 - Do what she says
-- Have fun, this is not a game where you have to kill everyone still alive
-By : Hurricaaane and Kilburn
+- Have fun, this is not a game where you have to kill everyone
+By : Hurricaaane (Ha3 Team)
 
 Music by The Hamster Alliance ( http://www.hamsteralliance.com/ ).
-Original sound effects from Valve 'Team Fortress 2' game.
-Special thanks to : Kilburn (for minigame registering improvement), BlackOps (for improvements)]]
+Special thanks to Kilburn for developing the modular shape of the gamemode.]]
 
 GM.TeamBased = true
 GM.AllowAutoTeam = true

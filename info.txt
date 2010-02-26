@@ -3,12 +3,12 @@
 	"name"		"GarryWare Two"
 	"version"	"2"
 
-	"author_name"	"Hurricaaane and Kilburn"
+	"author_name"	"Ha3 Team"
 	"author_email"	""
-	"author_url"	""
+	"author_url"	"http://www.youtube.com/user/Hurricaaane"
 	
 	"icon"		""
-	"info"		""
+	"info"		"Gamemode developed by Hurricaaane, with Kilburn and The Hamster Alliance."
 	"hide"		"0"
 
 	"fretta_maps"
