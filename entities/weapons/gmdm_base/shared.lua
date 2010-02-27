@@ -226,7 +226,9 @@ function SWEP:CanShootWeapon()
 	
 	// Cannot fire weapon if we were running less than 0.1 second ago.
 	if( self.CanSprintAndShoot == false ) then
-		if( self.Owner:KeyDown( IN_SPEED ) ) then return false end
+		--Disabled noshoot on sprint. Use it on reload key pressed (NOT ONLY on reloading action !).
+		--if( self.Owner:KeyDown( IN_SPEED ) ) then return false end	if( self.CanSprintAndShoot == false ) then
+		if( self.Owner:KeyDown( IN_RELOAD ) ) then return false end
 		if ( self.LastSprintTime and CurTime() - self.LastSprintTime < 0.1 ) then return false end
 	end
 	
@@ -237,7 +239,10 @@ end
 function SWEP:Think()
 
 	// Keep track of the last time we were running while holding this weapon..
-	if ( self.Owner and self.Owner:KeyDown( IN_SPEED ) ) then
+	
+	--Disabled noshoot on sprint. Use it on reload key pressed (NOT ONLY on reloading action !).
+	--if ( self.Owner and self.Owner:KeyDown( IN_SPEED ) ) then
+	if ( self.Owner and self.Owner:KeyDown( IN_RELOAD ) ) then
 		self.LastSprintTime = CurTime()
 	end
 

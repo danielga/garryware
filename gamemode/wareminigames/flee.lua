@@ -1,3 +1,5 @@
+--DISABLED.
+
 WARE.Author = "Hurricaaane (Ha3)"
 WARE.Room = "empty"
 
@@ -23,6 +25,10 @@ function WARE:FlashSpawns( iteration, delay )
 		timer.Simple( delay , self.FlashSpawns, self , iteration - 1, delay )
 	end
 	
+end
+
+function WARE:IsPlayable()
+	return false
 end
 
 function WARE:Initialize()

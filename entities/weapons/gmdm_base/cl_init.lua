@@ -66,7 +66,9 @@ function SWEP:GetViewModelPosition( pos, ang )
 	local DashDelta = 0
 	
 	// If we're running, or have just stopped running, lerp between the anims.
-	if ( self.Owner:KeyDown( IN_SPEED ) ) then
+	--Disabled noshoot on sprint. Use it on reload key pressed (NOT ONLY on reloading action !).
+	--if ( self.Owner:KeyDown( IN_SPEED ) ) then
+	if ( self.Owner:KeyDown( IN_RELOAD ) ) then
 		
 		if (not self.DashStartTime) then
 			self.DashStartTime = CurTime()

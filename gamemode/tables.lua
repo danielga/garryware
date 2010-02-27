@@ -13,7 +13,7 @@ GM.WADAT.TBL_GlobalWareningEpic[1].StartDalay = 2.0
 GM.WADAT.TBL_GlobalWareningEpic[1].Length = 10.24
 -- Epilogue Data
 GM.WADAT.TBL_GlobalWareningEpic[2].MusicFadeDelay = 0.00
-GM.WADAT.TBL_GlobalWareningEpic[2].StartDalay = 0.0
+GM.WADAT.TBL_GlobalWareningEpic[2].StartDalay = 2.0
 GM.WADAT.TBL_GlobalWareningEpic[2].Length = 20.10
 
 
@@ -65,11 +65,20 @@ Sound("ware/game_epilogue.mp3")
 GM.WASND.BITBL_TimeLeft = {}
 
 GM.WASND.BITBL_TimeLeft[1] = {}
-GM.WASND.BITBL_TimeLeft[1][1] = Sound("ware/countdown_ann_sec1.mp3")
-GM.WASND.BITBL_TimeLeft[1][2] = Sound("ware/countdown_ann_sec2.mp3")
-GM.WASND.BITBL_TimeLeft[1][3] = Sound("ware/countdown_ann_sec3.mp3")
-GM.WASND.BITBL_TimeLeft[1][4] = Sound("ware/countdown_ann_sec4.mp3")
-GM.WASND.BITBL_TimeLeft[1][5] = Sound("ware/countdown_ann_sec5.mp3")
+if SERVER or (CLIENT and not file.Exists("../sound/vo/announcer_begins_1sec.wav")) then
+	GM.WASND.BITBL_TimeLeft[1][1] = Sound("ware/countdown_ann_sec1.mp3")
+	GM.WASND.BITBL_TimeLeft[1][2] = Sound("ware/countdown_ann_sec2.mp3")
+	GM.WASND.BITBL_TimeLeft[1][3] = Sound("ware/countdown_ann_sec3.mp3")
+	GM.WASND.BITBL_TimeLeft[1][4] = Sound("ware/countdown_ann_sec4.mp3")
+	GM.WASND.BITBL_TimeLeft[1][5] = Sound("ware/countdown_ann_sec5.mp3")
+	
+else
+	GM.WASND.BITBL_TimeLeft[1][1] = Sound("vo/announcer_begins_1sec.wav")
+	GM.WASND.BITBL_TimeLeft[1][2] = Sound("vo/announcer_begins_2sec.wav")
+	GM.WASND.BITBL_TimeLeft[1][3] = Sound("vo/announcer_begins_3sec.wav")
+	GM.WASND.BITBL_TimeLeft[1][4] = Sound("vo/announcer_begins_4sec.wav")
+	GM.WASND.BITBL_TimeLeft[1][5] = Sound("vo/announcer_begins_5sec.wav")
+end
 
 GM.WASND.BITBL_TimeLeft[2] = {}
 GM.WASND.BITBL_TimeLeft[2][1] = Sound("ware/countdown_dos_sec1.mp3")
