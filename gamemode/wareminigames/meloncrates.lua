@@ -46,7 +46,7 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(delay + 1,6)
 
 	GAMEMODE:SetPlayersInitialStatus( false )
-	GAMEMODE:DrawInstructions( "Watch the crates ..." )
+	GAMEMODE:DrawInstructions( "Watch the crates..." )
 	
 	for i,pos in ipairs(GAMEMODE:GetRandomPositions(numberMelonSpawns+numberFakeSpawns, ENTS_ONCRATE)) do
 		pos = pos + Vector(0,0,100)

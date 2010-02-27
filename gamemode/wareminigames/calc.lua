@@ -13,7 +13,7 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength( 2 , 8 )
 
 	GAMEMODE:SetPlayersInitialStatus( false )
-	GAMEMODE:DrawInstructions( "Prepare to type in the chat ..." )
+	GAMEMODE:DrawInstructions( "Prepare to type in the chat..." )
 	
 end
 
@@ -49,7 +49,7 @@ function WARE:PlayerSay(ply, text, say)
 		if ( ply:GetLocked() and not(ply:GetAchieved()) ) then
 			chat.AddText( self.ChatBleh, ply:GetName(), self.ChatRegular, " thought ", self.ChatWrong, "he could have multiple tries." )
 		elseif initialLocked and ply:GetAchieved() then
-			chat.AddText( self.ChatBleh, ply:GetName(), self.ChatRegular, " has found ", self.ChatBleh, "the correct answer ... but no need to say it twice." )
+			chat.AddText( self.ChatBleh, ply:GetName(), self.ChatRegular, " has found ", self.ChatBleh, "the correct answer... but no need to say it twice." )
 			
 		else
 			chat.AddText( self.ChatBleh, ply:GetName(), self.ChatRegular, " has found ", self.ChatCorrect, "the correct answer!" )

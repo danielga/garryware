@@ -32,7 +32,7 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(2,14)
 
 	GAMEMODE:SetPlayersInitialStatus( false )
-	GAMEMODE:DrawInstructions( "Punt a sawblade to freeze it ..." , self.PreinstructionColor )
+	GAMEMODE:DrawInstructions( "Punt a sawblade to freeze it..." , self.PreinstructionColor )
 	
 	for k,v in pairs( GAMEMODE:GetEnts(ENTS_ONCRATE) ) do
 		local saw = ents.Create ("prop_physics")

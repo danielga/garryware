@@ -10,7 +10,7 @@ end
 function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(5, 6)
 	GAMEMODE:SetPlayersInitialStatus( nil )
-	GAMEMODE:DrawInstructions( "Watch the props ..." )
+	GAMEMODE:DrawInstructions( "Watch the props..." )
 	
 	local ratio = 0.8
 	local minimum = 4
