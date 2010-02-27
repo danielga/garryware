@@ -4,6 +4,8 @@ ENT.Circle = Material("sprites/sent_ball")
 ENT.Color  = Color(185,220,255,255)
 ENT.Size   = 128
 
+ENT.SizeRB = 1024
+
 ENT.A_RBWS = Vector(0,0,0)
 ENT.B_RBWS = Vector(0,0,0)
 
@@ -12,12 +14,12 @@ ENT.NWVector = Vector(0,0,0)
 function ENT:Initialize()
 	if (CLIENT) then
 		GC_VectorCopy(self.A_RBWS, self.Entity:GetPos())
-		self.A_RBWS.x = self.A_RBWS.x - 128
-		self.A_RBWS.y = self.A_RBWS.y - 128
+		self.A_RBWS.x = self.A_RBWS.x - self.SizeRB
+		self.A_RBWS.y = self.A_RBWS.y - self.SizeRB
 		
 		GC_VectorCopy(self.B_RBWS, self.Entity:GetPos())
-		self.B_RBWS.x = self.B_RBWS.x + 128
-		self.B_RBWS.y = self.B_RBWS.y + 128
+		self.B_RBWS.x = self.B_RBWS.x + self.SizeRB
+		self.B_RBWS.y = self.B_RBWS.y + self.SizeRB
 		
 		self.Entity:SetRenderBoundsWS(self.A_RBWS, self.B_RBWS)
 	end

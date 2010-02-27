@@ -42,7 +42,6 @@ function WARE:Initialize()
 		ent:Spawn()
 		ent:Activate()
 		
-		GAMEMODE:AppendEntToBin(ent)
 		
 		table.insert( self.Props , ent )
 		
