@@ -31,7 +31,7 @@ function WARE:Initialize()
 	GAMEMODE:SetPlayersInitialStatus( false )
 	GAMEMODE:DrawInstructions( "Listen..." )
 	
-	for i,pos in ipairs(GAMEMODE:GetRandomPositionsAvoidBox(numberAlarmSpawns+numberNormalSpawns, ENTS_ONCRATE), function(v) return v:IsPlayer() end, Vector(-30,-30,-30), Vector(30,30,30)) do
+	for i,pos in ipairs(GAMEMODE:GetRandomPositionsAvoidBox(numberAlarmSpawns+numberNormalSpawns, ENTS_ONCRATE, function(v) return v:IsPlayer() end, Vector(-30,-30,-30), Vector(30,30,30))) do
 		pos = pos + Vector(0,0,100)
 		
 		local prop = ents.Create("prop_physics")
