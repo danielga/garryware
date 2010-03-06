@@ -20,6 +20,11 @@ function WARE:GetModelList()
 	return self.Models
 end
 
+
+function WARE:IsPlayable()
+	return false
+end
+
 function WARE:Initialize()
 	-- HAXX
 	-- GravGunOnPickedUp hook is broken, so we'll use this tricky workaround
