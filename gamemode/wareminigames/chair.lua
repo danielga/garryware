@@ -28,7 +28,7 @@ function WARE:StartAction()
 	
 	local numPropsToSpawn = math.Clamp( numRealChairs + math.ceil(entsNum * 0.3) , numRealChairs, 64)
 	
-	local entsTable = GAMEMODE:GetRandomLocations(numPropsToSpawn, ENTS_ONCRATE)
+	local entsTable = GAMEMODE:GetRandomLocationsAvoidBox(numPropsToSpawn, ENTS_ONCRATE, function(v) return v:IsPlayer() end, Vector(-30,-30,0), Vector(30,30,64))
 	
 	for k=1,numRealChairs do
 		local myLocation = table.remove(entsTable, math.random(1, #entsTable) )
