@@ -58,6 +58,16 @@ resource.AddFile("materials/vgui/ware/garryware_two_logo.vtf")
 resource.AddFile("materials/vgui/ware/garryware_two_logo_alone.vmt")
 resource.AddFile("materials/vgui/ware/garryware_two_logo_alone.vtf")
 
+-- Nonc Files
+resource.AddFile("materials/ware/nonc/ware_facepunch.vmt")
+resource.AddFile("materials/ware/nonc/ware_facepunch.vtf")
+resource.AddFile("materials/ware/nonc/ware_file.vmt")
+resource.AddFile("materials/ware/nonc/ware_file.vtf")
+resource.AddFile("materials/ware/nonc/ware_mail.vmt")
+resource.AddFile("materials/ware/nonc/ware_mail.vtf")
+resource.AddFile("materials/ware/nonc/ware_zip.vmt")
+resource.AddFile("materials/ware/nonc/ware_zip.vtf")
+
 -- Map-related Resources
 resource.AddFile("materials/ware/detail.vtf")
 resource.AddFile("materials/ware/ware_crate.vmt")

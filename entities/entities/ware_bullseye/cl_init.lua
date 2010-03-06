@@ -20,6 +20,7 @@ end
    Name: DrawPre
 ---------------------------------------------------------*/
 function ENT:Draw()
+	if self:GetDTBool(1) == true then return end
 	
 	local pos = self.Entity:GetPos()
 	local vel = self.Entity:GetVelocity()

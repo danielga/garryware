@@ -25,6 +25,10 @@ function ENT:Initialize()
 	self.Entity:SetCollisionBounds( Vector( -self.Size, -self.Size, -self.Size), Vector( self.Size, self.Size, self.Size ) )
 end
 
+function ENT:SetInternalVisibility( isVisible )
+	self:SetDTBool(1, not isVisible )
+end
+
 /*---------------------------------------------------------
    Name: PhysicsCollide
 ---------------------------------------------------------*/

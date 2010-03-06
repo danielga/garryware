@@ -65,12 +65,6 @@ function WARE:EndAction()
 
 end
 
-function WARE:EntityTakeDamage( ent, inflictor, attacker, amount)
-	if ent:IsPlayer() and ent:IsWarePlayer() and attacker:IsNPC( ) then
-		ent:ApplyLose( )
-	end
-end
-
 function WARE:Think( )
 	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		if v:GetPos().z < self.HeightLimit then
