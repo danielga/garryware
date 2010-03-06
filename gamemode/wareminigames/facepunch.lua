@@ -21,9 +21,9 @@ function WARE:GetModelList()
 end
 
 
-function WARE:IsPlayable()
+/*function WARE:IsPlayable()
 	return false
-end
+end*/
 
 function WARE:Initialize()
 	-- HAXX
