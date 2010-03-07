@@ -65,7 +65,7 @@ function GM:Think()
 	if (TickAnnounce > 0 and CurTime() < NextgameEnd ) then
 		if (CurTime() > (NextgameEnd - (WareLen / 6) * TickAnnounce )) then
 			if GAMEMODE.WASND.BITBL_TimeLeft[CurrentAnnouncer] and GAMEMODE.WASND.BITBL_TimeLeft[CurrentAnnouncer][TickAnnounce] then
-				LocalPlayer():EmitSound( GAMEMODE.WASND.BITBL_TimeLeft[CurrentAnnouncer][TickAnnounce] )
+				LocalPlayer():EmitSound( GAMEMODE.WASND.BITBL_TimeLeft[CurrentAnnouncer][TickAnnounce], 100, GAMEMODE:GetSpeedPercent() )
 			end
 			TickAnnounce = TickAnnounce - 1
 		end

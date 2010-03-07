@@ -89,7 +89,7 @@ function meta:ApplyLock( dontSendStatusMessage )
 	local hasAchieved = self:GetAchieved() or false
 	
 	if (hasAchieved) then
-		self:EmitSound(GAMEMODE.WASND.OtherWin)
+		self:EmitSound(GAMEMODE.WASND.OtherWin, 100, GAMEMODE:GetSpeedPercent())
 		self:AddFrags( 1 )
 		local newComboVal = self:IncrementCombo()
 		
@@ -98,7 +98,7 @@ function meta:ApplyLock( dontSendStatusMessage )
 		util.Effect("ware_good", ed, true, true)
 	
 	else
-		self:EmitSound(GAMEMODE.WASND.OtherLose)
+		self:EmitSound(GAMEMODE.WASND.OtherLose, 100, GAMEMODE:GetSpeedPercent())
 		self:AddDeaths( 1 )
 		self:InterruptCombo()
 		
@@ -179,12 +179,12 @@ function meta:PrintComboMessagesAndEffects( compareCombo )
 		GAMEMODE:PrintInfoMessage( self:GetName(), " scored his ", "Own Best Streak of " .. compareCombo .. " wares!" )
 		
 		//self:EmitSound( GAMEMODE.WASND.TBL_LocalWon[2] , 100 , 119 )
-		self:EmitSound( GAMEMODE.WASND.GlobalWareningReport )
+		self:EmitSound( GAMEMODE.WASND.GlobalWareningReport, 100, GAMEMODE:GetSpeedPercent())
 	
 	elseif (compareCombo >= 3) then 
 		GAMEMODE:PrintInfoMessage( self:GetName(), " scored a ", "Streak of " .. compareCombo .. " wares." )
 		
-		self:EmitSound( GAMEMODE.WASND.GlobalWareningReport )
+		self:EmitSound( GAMEMODE.WASND.GlobalWareningReport, 100, GAMEMODE:GetSpeedPercent())
 	end
 end
 

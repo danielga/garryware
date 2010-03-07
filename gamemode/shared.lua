@@ -101,3 +101,7 @@ end
 function GM:PrintInfoMessage( sTopic, sLink, sInfo )
 	chat.AddText( GAMEMODE:GetBaseColorPtr("topic"), sTopic, GAMEMODE:GetBaseColorPtr("link"), sLink, GAMEMODE:GetBaseColorPtr("info"), sInfo )
 end
+
+function GM:GetSpeedPercent()
+	 return GetConVarNumber("host_timescale") * 100
+end

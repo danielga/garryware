@@ -84,12 +84,12 @@ function DHI_ReceiveStatuses( usrmsg )
 	if not(isServerGlobal) then
 		DHI_REF_StatusElement.Text = ((yourStatus and "Success!") or "Fail!")
 		if yourStatus then
-			LocalPlayer():EmitSound( table.Random(GAMEMODE.WASND.TBL_LocalWon) )
+			LocalPlayer():EmitSound( table.Random(GAMEMODE.WASND.TBL_LocalWon), 100, GAMEMODE:GetSpeedPercent() )
 		
 			DHI_MakeParticlesFromTable( DHI_WinParticles )
 			
 		else
-			LocalPlayer():EmitSound( table.Random(GAMEMODE.WASND.TBL_LocalLose) )
+			LocalPlayer():EmitSound( table.Random(GAMEMODE.WASND.TBL_LocalLose), 100, GAMEMODE:GetSpeedPercent() )
 		
 			DHI_MakeParticlesFromTable( DHI_FailParticles )
 			
