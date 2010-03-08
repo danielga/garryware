@@ -33,8 +33,8 @@ local function DrawBox(pos, mins, maxs, F, R, U)
 	surface.DrawLine(fru.x, fru.y, frd.x, frd.y)
 end
 
-hook.Add("HUDPaint", "Test", function()
-	if GetConVar("ware_debug"):GetInt() ~= 2 then
+hook.Add("HUDPaint", "WARE_TRIGGER_DEBUG", function()
+	if not GetConVar("ware_debug") or GetConVar("ware_debug"):GetInt() ~= 1 then
 		return
 	end
 	
