@@ -111,7 +111,7 @@ GM.WASND.Confirmation  = Sound("ware/local_exo_target_hit.wav")
 GM.WASND.OtherWin  = Sound("ware/other_exo_won1.wav")
 GM.WASND.OtherLose = Sound("ware/other_lose1.wav")
 
-GM.WASND.EveryoneWon  = Sound("ware/everyone_won2.wav")
+GM.WASND.EveryoneWon  = Sound("ware/everyone_won3.wav")
 GM.WASND.EveryoneLost = Sound("ware/everyone_lose2.wav")
 
 GM.WASND.TBL_Teleport = {
