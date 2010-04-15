@@ -6,7 +6,6 @@ ENT.UnusableColor = Color( 231, 134, 134, 255 )
 ENT.Color = Color( 255, 255, 255, 255 )
 
 local matBall = Material( "sprites/sent_ball" )
-local crossTrotter = Material( "sprites/ware_trotter" )
 
 /*---------------------------------------------------------
    Name: Initialize

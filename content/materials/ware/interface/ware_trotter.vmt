@@ -1,6 +1,6 @@
 "UnlitGeneric" 
 { 
-	"$basetexture"		"sprites/ware_trotter" 
+	"$basetexture"		"ware/interface/ware_trotter" 
 	"$vertexcolor" 		1 
 	"$vertexalpha" 		1 
 	"$nolod"			1

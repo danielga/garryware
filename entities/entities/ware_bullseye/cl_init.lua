@@ -3,7 +3,7 @@ include('shared.lua')
 
 ENT.RenderGroup 		= RENDERGROUP_TRANSLUCENT
 
-local matBall = Material( "sprites/ware_bullseye" )
+local matBall = Material( "ware/nonc/ware_bullseye" )
 
 /*---------------------------------------------------------
    Name: Initialize

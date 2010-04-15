@@ -47,18 +47,20 @@ end
 -- Gamemode Resources
 resource.AddFile("materials/refract_ring.vmt")
 resource.AddFile("materials/refract_ring.vtf")
-resource.AddFile("materials/sprites/ware_bullseye.vmt")
-resource.AddFile("materials/sprites/ware_bullseye.vtf")
-resource.AddFile("materials/sprites/ware_clock_two.vmt")
-resource.AddFile("materials/sprites/ware_clock_two.vtf")
-resource.AddFile("materials/sprites/ware_trotter.vmt")
-resource.AddFile("materials/sprites/ware_trotter.vtf")
+resource.AddFile("materials/ware/interface/ware_clock_two.vmt")
+resource.AddFile("materials/ware/interface/ware_clock_two.vtf") -- This has NOLOD
+resource.AddFile("materials/ware/interface/ware_trotter.vmt")
+resource.AddFile("materials/ware/interface/ware_trotter.vtf")
+resource.AddFile("materials/ware/stickers/ware_clock_two.vmt")
+resource.AddFile("materials/ware/stickers/ware_clock_two.vtf") -- This has LOD
 resource.AddFile("materials/vgui/ware/garryware_two_logo.vmt")
 resource.AddFile("materials/vgui/ware/garryware_two_logo.vtf")
 resource.AddFile("materials/vgui/ware/garryware_two_logo_alone.vmt")
 resource.AddFile("materials/vgui/ware/garryware_two_logo_alone.vtf")
 
 -- Nonc Files
+resource.AddFile("materials/ware/nonc/ware_bullseye.vmt")
+resource.AddFile("materials/ware/nonc/ware_bullseye.vtf")
 resource.AddFile("materials/ware/nonc/ware_facepunch.vmt")
 resource.AddFile("materials/ware/nonc/ware_facepunch.vtf")
 resource.AddFile("materials/ware/nonc/ware_file.vmt")

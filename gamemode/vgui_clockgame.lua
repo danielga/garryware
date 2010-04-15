@@ -8,10 +8,10 @@ function PANEL:Init()
 	
 	self:SetPaintBackground( false )
 	
-	self.ClockTexPath = "sprites/ware_clock_two"
+	self.ClockTexPath = "ware/interface/ware_clock_two"
 	self.ClockTexID   = surface.GetTextureID( self.ClockTexPath )
 	
-	self.TrotterTexPath = "sprites/ware_trotter"
+	self.TrotterTexPath = "ware/interface/ware_trotter"
 	self.TrotterTexID   = surface.GetTextureID( self.TrotterTexPath )
 	
 	//self:SetVisible( true )

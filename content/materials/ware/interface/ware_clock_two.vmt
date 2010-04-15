@@ -1,6 +1,6 @@
 "UnlitGeneric" 
 { 
-	"$basetexture"		"sprites/ware_clock_two" 
+	"$basetexture"		"ware/interface/ware_clock_two" 
 	"$vertexcolor" 		1 
 	"$vertexalpha" 		1
 	"$nolod"			1

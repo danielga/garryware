@@ -7,7 +7,7 @@ surface.CreateFont( "Verdana", 16, 400, true, false, "WAREScore" )
 ////////////////////////////////////////////////
 // HUD Combos
 
-GM.StreakstickMat = Material("sprites/ware_clock_two")
+GM.StreakstickMat = Material("ware/stickers/ware_clock_two")
 local LightColor = nil
 local PosToScreen = nil
 local NewWorldPos = Vector(0,0,0)

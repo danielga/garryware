@@ -1,6 +1,6 @@
 "UnlitGeneric" 
 { 
-	"$basetexture"		"sprites/ware_bullseye" 
+	"$basetexture"		"ware/nonc/ware_bullseye" 
 	"$vertexcolor" 		1 
 	"$vertexalpha" 		1 
 } 
