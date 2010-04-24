@@ -158,10 +158,10 @@ local function EntityTextChangeColor( m )
 	local target = m:ReadEntity()
 	local r,g,b,a = m:ReadChar() + 128, m:ReadChar() + 128, m:ReadChar() + 128, m:ReadChar() + 128
 	
-	if ValidEntity(target) then
+	if ValidEntity(target) and target.SetEntityColor then
 		target:SetEntityColor(r,g,b,a)
 	else
-		timer.Simple( 0, function(target,r,g,b,a) if ValidEntity(target) then target:SetEntityColor(r,g,b,a) end end )
+		timer.Simple( 0, function(target,r,g,b,a) if ValidEntity(target) and target.SetEntityColor then target:SetEntityColor(r,g,b,a) end end )
 	end
 end
 usermessage.Hook( "EntityTextChangeColor", EntityTextChangeColor )

@@ -21,7 +21,7 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(4, 4)
 	
 	GAMEMODE:SetPlayersInitialStatus( true )
-	GAMEMODE:DrawInstructions( "Off the center! Don't fall!" )
+	GAMEMODE:DrawInstructions( "Away from the center! Don't fall!" )
 	
 	do
 		local centerpos = GAMEMODE:GetEnts("center")[1]:GetPos()
