@@ -50,8 +50,8 @@ function CreateInstance(name)
 	
 	obj.Hooks = {}
 	for name,func in pairs(obj) do
-		if type(func)=="function" and IsValidHookName(name) then
-			obj.Hooks[name] = function(...) return func(obj,unpack({...})) end
+		if type(func) == "function" and IsValidHookName( name ) then
+			obj.Hooks[name] = function(...) return func( obj, ... ) end
 		end
 	end
 	
