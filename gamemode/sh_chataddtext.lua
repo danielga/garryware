@@ -15,11 +15,12 @@
 if SERVER then
 	chat = { }
 	function chat.AddText( ... )
-		if ( type( arg[1] ) == "Player" ) then ply = arg[1] end
+		local args = {...}
+		if ( type( args[1] ) == "Player" ) then ply = args[1] end
 		
 		umsg.Start( "AddText", ply )
-			umsg.Short( #arg )
-			for _, v in pairs( arg ) do
+			umsg.Short( #args )
+			for _, v in pairs( args ) do
 				if ( type( v ) == "string" ) then
 					umsg.String( v )
 				elseif ( type ( v ) == "table" ) then
@@ -34,12 +35,12 @@ if SERVER then
 else
 	usermessage.Hook( "AddText", function( um )
 		local argc = um:ReadShort( )
-		local args = { }
+		local urgs = {}
 		for i = 1, argc / 2, 1 do
-			table.insert( args, Color( um:ReadChar( ) + 128, um:ReadChar( ) + 128, um:ReadChar( ) + 128, 255 ) )
-			table.insert( args, um:ReadString( ) )
+			table.insert( urgs, Color( um:ReadChar( ) + 128, um:ReadChar( ) + 128, um:ReadChar( ) + 128, 255 ) )
+			table.insert( urgs, um:ReadString( ) )
 		end
 		
-		chat.AddText( unpack( args ) )
+		chat.AddText( unpack( urgs ) )
 	end )
 end
