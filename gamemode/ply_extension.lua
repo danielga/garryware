@@ -127,16 +127,18 @@ function meta:ApplyLock( dontSendStatusMessage )
 	end
 end
 
-function meta:ApplyDone( optbDontChangeAchieved )
-	if not optbDontChangeAchieved then
-		self:SetAchievedNoLock( true )
-	end
-	
+function meta:TellDone( )
 	local rp = RecipientFilter()
 	rp:AddPlayer( self )
 	umsg.Start("gw_specialstatus", rp)
 		umsg.Char( 1 )
 	umsg.End()
+	
+end
+
+function meta:ApplyDone( )
+	self:SetAchievedNoLock( true )
+	self:TellDone()
 	
 end
 
