@@ -15,6 +15,15 @@ WARE.Props = {}
 WARE.TheProp = nil
 WARE.CircleRadius = 64
 
+function WARE:_DiceNoRepeat( myMax, lastUsed )
+	local dice = math.random(1, myMax - 1)
+	if (dice >= lastUsed) then
+		dice = dice + 1
+	end
+	
+	return dice
+end
+
 function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(0.7,5)
 	
@@ -54,15 +63,10 @@ function WARE:Initialize()
 		GAMEMODE:MakeAppearEffect(ent:GetPos())
 	end
 	
-	local selected = table.Random(spawnedcolors)
+	self.SelectedPropNum = math.random(1, #self.Props)
+	self.TheProp = self.Props[ self.SelectedPropNum ]
+	local selected = self.TheProp.ColorID
 	self.SelectedColorID = selected
-	
-	for k,prop in pairs( self.Props ) do
-		if prop.ColorID == self.SelectedColorID then
-			self.TheProp = prop
-			break
-		end
-	end
 	
 	GAMEMODE:SetPlayersInitialStatus( false )
 	GAMEMODE:DrawInstructions( "Get on the ".. self.PossibleColors[selected][1] .." circle!" , self.PossibleColors[selected][2] or nil, self.PossibleColors[selected][3] or nil )
@@ -72,6 +76,45 @@ end
 function WARE:StartAction()
 	for _,ply in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		ply:Give("sware_crowbar")
+	end
+	
+end
+
+function WARE:PreEndAction()
+	if GAMEMODE:GetCurrentPhase() <= 2 then
+		local someoneAchieved = false
+		for _,ply in pairs(team.GetPlayers(TEAM_HUMANS)) do 
+			ply:StripWeapons()
+			if ply:GetAchieved() then
+				someoneAchieved = true
+				ply:Give( "sware_rocketjump" )
+				ply:ApplyDone( true )
+				
+			else
+				ply:ApplyLose()
+				
+			end
+			
+		end
+		
+		if someoneAchieved then
+			GAMEMODE:SetNextPhaseLength( 4 )
+			
+		end
+		
+	end
+	
+end
+
+function WARE:PhaseSignal( iPhase )
+	if iPhase <= 3 then
+		self.SelectedPropNum = self:_DiceNoRepeat( #self.Props, self.SelectedPropNum )
+		self.TheProp = self.Props[ self.SelectedPropNum ]
+		local selected = self.TheProp.ColorID
+		self.SelectedColorID = selected
+		
+		GAMEMODE:DrawInstructions( "Now get on the ".. self.PossibleColors[selected][1] .." circle!" , self.PossibleColors[selected][2] or nil, self.PossibleColors[selected][3] or nil )
+		
 	end
 	
 end

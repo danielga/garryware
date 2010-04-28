@@ -39,7 +39,7 @@ function WARE:Initialize()
 		pod:SetModel( self.Models[1] )
 		pod:SetAngles( Angle(0,math.random(0,360),0) )
 		pod:SetPos( v:GetPos() + Vector(0,0,32) )
-		//pod:SetCollisionGroup(COLLISION_GROUP_WEAPON)
+		--pod:SetCollisionGroup(COLLISION_GROUP_WEAPON)
 		pod:Spawn()
 		
 		pod:Fire("Lock", "", 0)

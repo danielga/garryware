@@ -24,7 +24,7 @@ if SERVER then
 				if ( type( v ) == "string" ) then
 					umsg.String( v )
 				elseif ( type ( v ) == "table" ) then
-					//fucking short
+					--fucking short
 					umsg.Char( v.r - 128 )
 					umsg.Char( v.g - 128 )
 					umsg.Char( v.b - 128 )

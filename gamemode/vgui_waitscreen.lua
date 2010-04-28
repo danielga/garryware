@@ -14,12 +14,12 @@ end
 function PANEL:Init()
 
 	local h = ScrH() * 0.3
-	//It was 0.2 before
+	--It was 0.2 before
 	
 	self:SetPaintBackground( false )
 
 	--self.Info = vgui.Create( "HTML" , DPanel)
-	//self.Info:OpenURL("http://www.assembla.com/spaces/garryware/documents/cIq5KWlY0r3OXWeJe5afGb/download/garryware.html")
+	--self.Info:OpenURL("http://www.assembla.com/spaces/garryware/documents/cIq5KWlY0r3OXWeJe5afGb/download/garryware.html")
 	--HTMLPANEL = self.Info
 	
 	--self.Info:SetSize( 400, 250 )
@@ -54,7 +54,7 @@ end
 
 function PANEL:Show()
 
-	//local h = ScrH() * 0.07
+	--local h = ScrH() * 0.07
 	local h = 52
 	
 	self.BottomPanel:SetPos( 0, ScrH() )

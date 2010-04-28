@@ -21,7 +21,7 @@ function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(self.NumberSpawns * 0.4, self.NumberSpawns * 1.7)
 	
 	GAMEMODE:SetPlayersInitialStatus( false )
-	//GAMEMODE:DrawInstructions("Shoot all " .. self.NumberSpawns .." crates in the right order!" )
+	--GAMEMODE:DrawInstructions("Shoot all " .. self.NumberSpawns .." crates in the right order!" )
 	GAMEMODE:DrawInstructions("Shoot in the right order!" )
 	
 	self.Crates = {}

@@ -12,9 +12,9 @@ SWEP.DrawCrosshair		= true
 SWEP.ViewModel		= "models/weapons/v_357.mdl"
 SWEP.WorldModel		= "models/weapons/w_357.mdl"
 
-SWEP.Primary.ClipSize		= -1				// Size of a clip
-SWEP.Primary.DefaultClip	= -1				// Default number of bullets in a clip
-SWEP.Primary.Automatic		= false				// Automatic/Semi Auto
+SWEP.Primary.ClipSize		= -1				-- Size of a clip
+SWEP.Primary.DefaultClip	= -1				-- Default number of bullets in a clip
+SWEP.Primary.Automatic		= false				-- Automatic/Semi Auto
 SWEP.Primary.Ammo			= "none"
 SWEP.ShootSound = Sound( "Weapon_AR2.Single" )
 
@@ -30,12 +30,12 @@ function SWEP:PrimaryAttack()
 	
 	self:ShootBullet( 0, 1, 0.0 )
 	
-	// Punches the player's view.
+	-- Punches the player's view.
 	self.Owner:ViewPunch( Angle( -5, 0, 0 ) )
 	
 	if ( SERVER ) then
 	
-		// Make the player fly upwards.
+		-- Make the player fly upwards.
 		self.Owner:SetGroundEntity( NULL )
 		self.Owner:SetVelocity( self.Owner:GetVelocity()*-1 + self.Owner:GetAimVector() * -250 )
 		
@@ -48,9 +48,9 @@ function SWEP:PrimaryAttack()
 
 end
 
-SWEP.Secondary.ClipSize		= -1				// Size of a clip
-SWEP.Secondary.DefaultClip	= -1				// Default number of bullets in a clip
-SWEP.Secondary.Automatic	= false			// Automatic/Semi Auto
+SWEP.Secondary.ClipSize		= -1				-- Size of a clip
+SWEP.Secondary.DefaultClip	= -1				-- Default number of bullets in a clip
+SWEP.Secondary.Automatic	= false			-- Automatic/Semi Auto
 SWEP.Secondary.Ammo			= "none"
 
 function SWEP:SecondaryAttack()
@@ -61,9 +61,9 @@ end
 
 function SWEP:ShootEffects()
 
-	self.Weapon:SendWeaponAnim( ACT_VM_PRIMARYATTACK ) 		// View model animation
-	self.Owner:MuzzleFlash()								// Crappy muzzle light
-	self.Owner:SetAnimation( PLAYER_ATTACK1 )				// 3rd Person Animation
+	self.Weapon:SendWeaponAnim( ACT_VM_PRIMARYATTACK ) 		-- View model animation
+	self.Owner:MuzzleFlash()								-- Crappy muzzle light
+	self.Owner:SetAnimation( PLAYER_ATTACK1 )				-- 3rd Person Animation
 
 end
 
@@ -71,11 +71,11 @@ function SWEP:ShootBullet( damage, num_bullets, aimcone )
 	
 	local bullet = {}
 	bullet.Num 		= num_bullets
-	bullet.Src 		= self.Owner:GetShootPos()			// Source
-	bullet.Dir 		= self.Owner:GetAimVector()			// Dir of bullet
-	bullet.Spread 	= Vector( aimcone, aimcone, 0 )		// Aim Cone
-	bullet.Tracer	= 1									// Show a tracer on every x bullets 
-	bullet.Force	= 5						// Amount of force to give to phys objects
+	bullet.Src 		= self.Owner:GetShootPos()			-- Source
+	bullet.Dir 		= self.Owner:GetAimVector()			-- Dir of bullet
+	bullet.Spread 	= Vector( aimcone, aimcone, 0 )		-- Aim Cone
+	bullet.Tracer	= 1									-- Show a tracer on every x bullets 
+	bullet.Force	= 5						-- Amount of force to give to phys objects
 	bullet.Damage	= damage
 	bullet.AmmoType = "Pistol"
 	bullet.HullSize = 2

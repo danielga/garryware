@@ -12,7 +12,7 @@ function EFFECT:Init( data )
 	self.WeaponEnt = data:GetEntity()
 	self.Attachment = data:GetAttachment()
 	
-	// Keep the start and end pos - we're going to interpolate between them
+	-- Keep the start and end pos - we're going to interpolate between them
 	self.StartPos = self:GetTracerShootPos( self.Position, self.WeaponEnt, self.Attachment )
 	self.EndPos = data:GetOrigin()
 	
@@ -60,11 +60,11 @@ function EFFECT:Render( )
 		
 		texcoord = texcoord + i * 0.05 * texcoord
 	
-		render.DrawBeam( self.StartPos, 										// Start
-						self.EndPos,											// End
-						i * self.Alpha * 0.01,													// Width
-						texcoord,														// Start tex coord
-						texcoord + (self.Length / (128 + self.Alpha)),									// End tex coord
+		render.DrawBeam( self.StartPos, 										-- Start
+						self.EndPos,											-- End
+						i * self.Alpha * 0.01,													-- Width
+						texcoord,														-- Start tex coord
+						texcoord + (self.Length / (128 + self.Alpha)),									-- End tex coord
 						self.Color )
 						
 		render.SetMaterial( matLight )

@@ -23,7 +23,7 @@ function meta:GiveOverride(class)
 	w:Spawn()
 end
 
-// Basic minigame functions
+-- Basic minigame functions
 function meta:GetAchieved()
 	local achieved = self:GetNWInt("ware_achieved", 0)
 	if (achieved == -1) then
@@ -54,7 +54,7 @@ function meta:SetAchievedNoLock( hasAchieved )
 	return true
 end
 
-// Special functions for game engine - not for gamemodes -
+-- Special functions for game engine - not for gamemodes -
 /// >>>
 function meta:SetAchievedSpecialInteger( intAchieved )
 	if self:GetLocked() then
@@ -73,8 +73,8 @@ function meta:SetComboSpecialInteger( intCombo )
 	self:SetNWInt("combo", intCombo )
 	return true
 end
-// <<<
-// End
+-- <<<
+-- End
 
 function meta:ApplyLock( dontSendStatusMessage )
 	if GAMEMODE:PhaseIsPrelude() then return false end
@@ -108,8 +108,8 @@ function meta:ApplyLock( dontSendStatusMessage )
 	
 	end
 	
-	// Message send, not if it's the end of game: CheckGlobal have been bypassed before
-	// global lock.
+	-- Message send, not if it's the end of game: CheckGlobal have been bypassed before
+	-- global lock.
 	
 	if not(dontSendStatusMessage or false) then
 		local everyoneStatusIsTheSame = GAMEMODE:CheckGlobalStatus()
@@ -127,8 +127,21 @@ function meta:ApplyLock( dontSendStatusMessage )
 	end
 end
 
+function meta:ApplyDone( optbDontChangeAchieved )
+	if not optbDontChangeAchieved then
+		self:SetAchievedNoLock( true )
+	end
+	
+	local rp = RecipientFilter()
+	rp:AddPlayer( self )
+	umsg.Start("gw_specialstatus", rp)
+		umsg.Char( 1 )
+	umsg.End()
+	
+end
+
 function meta:SetAchievedAndLock( hasAchieved )
-	if self:Team() != TEAM_HUMANS then return false end
+	if self:Team() ~= TEAM_HUMANS then return false end
 	if self:GetLocked()            then return false end
 	hasAchieved = (hasAchieved or false)
 	
@@ -172,13 +185,13 @@ function meta:PrintComboMessagesAndEffects( compareCombo )
 	if (compareCombo == GAMEMODE:GetBestStreak()) then
 		GAMEMODE:PrintInfoMessage( self:GetName(), " equalized a ", "Server Best Streak of " .. compareCombo .. " Wares!" )
 		
-		//self:EmitSound( GAMEMODE.WASND.TBL_LocalWon[1] , 100 , 125 )
+		--self:EmitSound( GAMEMODE.WASND.TBL_LocalWon[1] , 100 , 125 )
 		self:EmitSound( GAMEMODE.WASND.GlobalWareningReport , 84 )
 		
 	elseif (compareCombo >= 3) and (compareCombo == self:GetBestCombo()) then 
 		GAMEMODE:PrintInfoMessage( self:GetName(), " scored his ", "Own Best Streak of " .. compareCombo .. " wares!" )
 		
-		//self:EmitSound( GAMEMODE.WASND.TBL_LocalWon[2] , 100 , 119 )
+		--self:EmitSound( GAMEMODE.WASND.TBL_LocalWon[2] , 100 , 119 )
 		self:EmitSound( GAMEMODE.WASND.GlobalWareningReport, 100, GAMEMODE:GetSpeedPercent())
 	
 	elseif (compareCombo >= 3) then 
@@ -209,21 +222,21 @@ function meta:SendHitConfirmation( )
 	SendUserMessage( "HitConfirmation", self )
 end
 
-// Imported from GMDM
-// Called by weapons to add recoil
-//
+-- Imported from GMDM
+-- Called by weapons to add recoil
+--
 function meta:Recoil( pitch, yaw )
 
-	// On the client it can sometimes process the same usercmd twice
-	// This function returns true if it's the first time we're doing this usercmd
+	-- On the client it can sometimes process the same usercmd twice
+	-- This function returns true if it's the first time we're doing this usercmd
 	if ( not SinglePlayer() and not IsFirstTimePredicted() ) then return end
 
-	// People shouldn't really be playing in SP
-	// But if they are they won't get recoil because the weapons aren't predicted
-	// So the clientside stuff never fires the recoil
+	-- People shouldn't really be playing in SP
+	-- But if they are they won't get recoil because the weapons aren't predicted
+	-- So the clientside stuff never fires the recoil
 	if ( SERVER and SinglePlayer() ) then 
 	
-		// Please don't call SendLua in multiplayer games. This uses a lot of bandwidth
+		-- Please don't call SendLua in multiplayer games. This uses a lot of bandwidth
 		self:SendLua( "LocalPlayer():Recoil("..pitch..","..yaw..")" )
 		return 
 		
@@ -240,13 +253,13 @@ function meta:Recoil( pitch, yaw )
 
 end
 
-//
-// Shot attacked
-//
+--
+-- Shot attacked
+--
 function meta:DoRecoilThink( pitch, yaw )
 
 	if ( SERVER ) then return end
-	if ( self != LocalPlayer() ) then return end
+	if ( self ~= LocalPlayer() ) then return end
 	
 	local pitch 	= self.RecoilPitch	or 0
 	local yaw 		= self.RecoilYaw  	or 0
@@ -260,7 +273,7 @@ function meta:DoRecoilThink( pitch, yaw )
 	self.RecoilPitch 	= pitch_d
 	self.RecoilYaw 		= yaw_d
 		
-	// Update eye angles
+	-- Update eye angles
 	local eyes = self:EyeAngles()
 		eyes.pitch = eyes.pitch + ( pitch - pitch_d )
 		eyes.yaw = eyes.yaw + ( yaw - yaw_d )
@@ -269,13 +282,13 @@ function meta:DoRecoilThink( pitch, yaw )
 
 end
 
-//
-// Think
-//
+--
+-- Think
+--
 function meta:Think( )
 
-	// We spread the recoil out over a few frames to make it less of a shock
-	// This function adds the recoil
+	-- We spread the recoil out over a few frames to make it less of a shock
+	-- This function adds the recoil
 	self:DoRecoilThink()
 
 end

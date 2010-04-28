@@ -14,10 +14,10 @@ function EFFECT:Init( data )
 	
 	self.TracerTime = 0.4
 	
-	// Die when it reaches its target
+	-- Die when it reaches its target
 	self.DieTime = CurTime() + self.TracerTime
 	
-	// Play ricochet sound with random pitch
+	-- Play ricochet sound with random pitch
 	WorldSound( "weapons/fx/rics/ric4.wav", self.StartPos, 80, math.random( 110, 180 ) )
 	
 	local vGrav = Vector( 0, 0, -450 )

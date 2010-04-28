@@ -56,7 +56,7 @@ function ELEMENT:DrawFunction( )
 	for k,ply in pairs(self.PlayerTable) do
 		self:DrawGWPreProgrammedRidiculousBox(k, ply, self.TextColor, self.WinColor, self.LoseColor, (not ply:IsOnHold() and self.MysteryColor) or self.HoldColor, self.GoldColorBack, self.GoldColor, self.UnstableColor, self.LockedColor)
 		
-		if (k >= 5) then break end // Horror museum
+		if (k >= 5) then break end -- Horror museum
 	end
 end
 

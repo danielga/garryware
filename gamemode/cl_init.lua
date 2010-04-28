@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////
-// -- GarryWare Two                           //
-// by Hurricaaane (Ha3)                       //
-//  and Kilburn_                              //
-// http://www.youtube.com/user/Hurricaaane    //
+-- -- GarryWare Two                           --
+-- by Hurricaaane (Ha3)                       --
+--  and Kilburn_                              --
+-- http://www.youtube.com/user/Hurricaaane    --
 //--------------------------------------------//
-// Clientside Initialization                  //
+-- Clientside Initialization                  --
 ////////////////////////////////////////////////
 
 include( 'shared.lua' )
@@ -31,7 +31,7 @@ function WARE_SortTable( plyA, plyB )
 				if ( plyA:Deaths() == plyB:Deaths() ) then
 					return plyA:UserID() > plyB:UserID()
 				else
-					//Intentionnal : A player with more fails and same wins played more.
+					--Intentionnal : A player with more fails and same wins played more.
 					return plyA:Deaths() > plyB:Deaths()
 				end
 			else

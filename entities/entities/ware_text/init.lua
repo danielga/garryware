@@ -6,7 +6,7 @@ include( 'shared.lua' )
    Name: Initialize
 ---------------------------------------------------------*/
 function ENT:Initialize()
-	// Use the helibomb model just for the shadow (because it's about the same size)
+	-- Use the helibomb model just for the shadow (because it's about the same size)
 	self.Entity:SetModel( "models/Combine_Helicopter/helicopter_bomb01.mdl" )
 end
 

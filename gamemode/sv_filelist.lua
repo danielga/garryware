@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////
-// -- GarryWare Two                           //
-// by Hurricaaane (Ha3)                       //
-//  and Kilburn_                              //
-// http://www.youtube.com/user/Hurricaaane    //
+-- -- GarryWare Two                           --
+-- by Hurricaaane (Ha3)                       --
+--  and Kilburn_                              --
+-- http://www.youtube.com/user/Hurricaaane    --
 //--------------------------------------------//
-// Files sent to players                      //
+-- Files sent to players                      --
 ////////////////////////////////////////////////
 
 AddCSLuaFile( "shared.lua" )
@@ -20,7 +20,7 @@ AddCSLuaFile( "ply_extension.lua" )
 AddCSLuaFile( "garbage_module.lua" )
 AddCSLuaFile( "sh_chataddtext.lua" )
 
-// Fretta VGUI replacements :
+-- Fretta VGUI replacements :
 AddCSLuaFile( "cl_splashscreen.lua" )
 AddCSLuaFile( "vgui/vgui_scoreboard.lua" )
 

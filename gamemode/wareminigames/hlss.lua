@@ -1,13 +1,13 @@
 WARE.Author = "Hurricaaane (Ha3)"
 WARE.Room = "none"
 
-//WARE.OccurencesPerCycle = 1
+--WARE.OccurencesPerCycle = 1
 
 function WARE:IsPlayable()
-	//if team.NumPlayers(TEAM_HUMANS) >= 4 then
+	--if team.NumPlayers(TEAM_HUMANS) >= 4 then
 		return true
-	//end
-	//return false
+	--end
+	--return false
 end
 
 function WARE:Initialize()

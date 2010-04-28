@@ -14,7 +14,7 @@ function PANEL:Init()
 	self.TrotterTexPath = "ware/interface/ware_trotter"
 	self.TrotterTexID   = surface.GetTextureID( self.TrotterTexPath )
 	
-	//self:SetVisible( true )
+	--self:SetVisible( true )
 	
 	self.StartAngle = -15
 end

@@ -203,7 +203,7 @@ function THEME:DrawGWPreProgrammedRidiculousBox(xRel, yRel, width, height, iFrom
 	self:Draw_RAW_GWBox(xCenter, yCenterNew, width, height, extraBorder, statusColor, borderColor)
 	self:Draw_RAW_GWText(xTextCenter, yCenterNew, text, textColor, 0, 0)
 	
-	// Scores
+	-- Scores
 	local boxSideLen = height * 1.0
 	
 	if true then

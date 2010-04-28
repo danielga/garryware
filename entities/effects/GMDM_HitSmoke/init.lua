@@ -24,7 +24,7 @@ function EFFECT:Init( data )
 	
 	emitter:SetNearClip( 0, 128 )
 	
-		//for i=0, 2 do
+		--for i=0, 2 do
 		/*
 			local particle = emitter:Add( "particles/smokey", Pos + Norm * 2 )
 				particle:SetVelocity( Norm * math.Rand( 25, 50 ) + VectorRand() * 20 )
@@ -36,7 +36,7 @@ function EFFECT:Init( data )
 				particle:SetColor( SurfaceColor.r, SurfaceColor.g, SurfaceColor.b )
 				particle:SetAirResistance( 100 )
 		*/
-		//end
+		--end
 
 		for i=0, 25 do
 		
@@ -49,7 +49,7 @@ function EFFECT:Init( data )
 				particle:SetEndSize( 5 )
 				particle:SetRoll( 0 )
 				particle:SetColor( SurfaceColor.r, SurfaceColor.g, SurfaceColor.b )
-				//particle:SetGravity( Vector( 0, 0, math.Rand( -200, -150 ) ) )
+				--particle:SetGravity( Vector( 0, 0, math.Rand( -200, -150 ) ) )
 				particle:SetAirResistance( 100 )
 				
 		end
@@ -69,7 +69,7 @@ function EFFECT:Init( data )
 			end
 
 				particle:SetVelocity( (Norm + VectorRand() * 1) * math.Rand( 50, 200 ) )
-				//particle:SetLifeTime( i )
+				--particle:SetLifeTime( i )
 				particle:SetDieTime( 1.5 )
 				particle:SetStartAlpha( 150 )
 				particle:SetEndAlpha( 150 )

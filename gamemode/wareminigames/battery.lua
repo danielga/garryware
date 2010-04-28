@@ -57,7 +57,7 @@ function WARE:Initialize()
 		ent.contains = true
 	end
 	
-	// DISABLED : Now all crates contain a battery.
+	-- DISABLED : Now all crates contain a battery.
 	--[[local ratio2 = 0.5
 	local minimum2 = 1
 	local num2 = math.Clamp(math.ceil(team.NumPlayers(TEAM_HUMANS)*ratio2),minimum2,num)
@@ -157,15 +157,15 @@ function WARE:PropBreak(pl,prop)
 		GAMEMODE:AppendEntToBin(ent)
 		GAMEMODE:MakeAppearEffect(ent:GetPos())
 		
-		local trail_entity = util.SpriteTrail( ent,  //Entity
-												0,  //iAttachmentID
-												Color( 255, 255, 255, 92 ),  //Color
-												false, // bAdditive
-												0.9, //fStartWidth
-												1.5, //fEndWidth
-												1.2, //fLifetime
-												1 / ((0.7+1.2) * 0.5), //fTextureRes
-												"trails/physbeam.vmt" ) //strTexture
+		local trail_entity = util.SpriteTrail( ent,  --Entity
+												0,  --iAttachmentID
+												Color( 255, 255, 255, 92 ),  --Color
+												false, -- bAdditive
+												0.9, --fStartWidth
+												1.5, --fEndWidth
+												1.2, --fLifetime
+												1 / ((0.7+1.2) * 0.5), --fTextureRes
+												"trails/physbeam.vmt" ) --strTexture
 	end
 end
 
@@ -182,9 +182,9 @@ local function PlugBatteryIn(batteryremove, socket)
 	battery:Spawn()
 	GAMEMODE:AppendEntToBin(battery)
 	
-	//battery:GetPhysicsObject():EnableMotion(false)
-	//DropEntityIfHeld(battery)
-	//battery:GetPhysicsObject():ApplyForceCenter( Vector( 0, 0, 128 ) )
+	--battery:GetPhysicsObject():EnableMotion(false)
+	--DropEntityIfHeld(battery)
+	--battery:GetPhysicsObject():ApplyForceCenter( Vector( 0, 0, 128 ) )
 
 	socket:EmitSound("npc/roller/mine/combine_mine_deploy1.wav")
 

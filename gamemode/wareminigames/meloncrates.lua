@@ -71,7 +71,7 @@ function WARE:Initialize()
 			model = MDLLIST[ math.random(MDL_OTHER, #MDLLIST) ]
 		end
 		
-		// If it's a "false" then it's an empty crate.
+		-- If it's a "false" then it's an empty crate.
 		if model then
 			local prop2 = ents.Create("prop_physics")
 			prop2:SetModel( model )

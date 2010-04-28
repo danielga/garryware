@@ -79,15 +79,15 @@ function WARE:Think( )
 						
 						if ((target.Deflected or false) == false) then
 							target.Deflected = true
-							local trail_entity = util.SpriteTrail( target,  //Entity
-																	0,  //iAttachmentID
-																	Color( 255, 255, 255, 255 ),  //Color
-																	false, // bAdditive
-																	8, //fStartWidth
-																	0, //fEndWidth
-																	0.2, //fLifetime
-																	1 / ((0.7+1.2) * 0.5), //fTextureRes
-																	"trails/tube.vmt" ) //strTexture
+							local trail_entity = util.SpriteTrail( target,  --Entity
+																	0,  --iAttachmentID
+																	Color( 255, 255, 255, 255 ),  --Color
+																	false, -- bAdditive
+																	8, --fStartWidth
+																	0, --fEndWidth
+																	0.2, --fLifetime
+																	1 / ((0.7+1.2) * 0.5), --fTextureRes
+																	"trails/tube.vmt" ) --strTexture
 						end
 						
 						

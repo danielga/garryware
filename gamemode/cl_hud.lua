@@ -5,7 +5,7 @@ surface.CreateFont( "Verdana", 16, 400, true, false, "WAREScore" )
 
 ////////////////////////////////////////////////
 ////////////////////////////////////////////////
-// HUD Combos
+-- HUD Combos
 
 GM.StreakstickMat = Material("ware/stickers/ware_clock_two")
 local LightColor = nil
@@ -54,7 +54,7 @@ end
 
 ////////////////////////////////////////////////
 ////////////////////////////////////////////////
-// HUD Particles.
+-- HUD Particles.
 
 GM.OnScreenParticlesThinkTime = CurTime()
 GM.OnScreenParticlesList = {}
@@ -117,7 +117,7 @@ end
 
 ////////////////////////////////////////////////
 ////////////////////////////////////////////////
-// Paint.
+-- Paint.
 
 function GM:HUDPaint()
 	self.BaseClass:HUDPaint()
@@ -131,7 +131,7 @@ end
 
 ////////////////////////////////////////////////
 ////////////////////////////////////////////////
-// HUD Overrides.
+-- HUD Overrides.
 
 function GM:HUDShouldDraw( name )
 	if (name == "CHudHealth" or name == "CHudBattery" or name == "CHudWeaponSelection" or name == "CHudAmmo" or name == "CHudSecondaryAmmo") then
@@ -146,7 +146,7 @@ end
 
 ////////////////////////////////////////////////
 ////////////////////////////////////////////////
-// VGUI Overrides.
+-- VGUI Overrides.
 
 function GM:AddScoreboardWon( ScoreBoard )
 	local f = function( ply ) return ply:Frags() end
@@ -230,16 +230,16 @@ function GM:CreateScoreboard( ScoreBoard )
 
 	ScoreBoard:SetSkin( "ware" )
 
-	self:AddScoreboardAvatar( ScoreBoard )		  //1
-	self:AddScoreboardWantsChange( ScoreBoard )	 //2
-	self:AddScoreboardName( ScoreBoard )	    //3
-	self:AddScoreboardWon( ScoreBoard )        //4
-	self:AddScoreboardFailed( ScoreBoard )    //5
-	self:AddScoreboardStreak( ScoreBoard )	 //6
-	self:AddScoreboardAward( ScoreBoard )  //7
-	self:AddScoreboardPing( ScoreBoard )  //8
+	self:AddScoreboardAvatar( ScoreBoard )		  --1
+	self:AddScoreboardWantsChange( ScoreBoard )	 --2
+	self:AddScoreboardName( ScoreBoard )	    --3
+	self:AddScoreboardWon( ScoreBoard )        --4
+	self:AddScoreboardFailed( ScoreBoard )    --5
+	self:AddScoreboardStreak( ScoreBoard )	 --6
+	self:AddScoreboardAward( ScoreBoard )  --7
+	self:AddScoreboardPing( ScoreBoard )  --8
 		
-	// Here we sort by these columns (and descending), in this order. You can define up to 4
+	-- Here we sort by these columns (and descending), in this order. You can define up to 4
 	ScoreBoard:SetSortColumns( { 4, true, 6, true, 5, false, 3, false } )
 
 end
@@ -268,7 +268,7 @@ end
 
 ////////////////////////////////////////////////
 ////////////////////////////////////////////////
-// Draw the target id (the name of the player you're currently looking at)
+-- Draw the target id (the name of the player you're currently looking at)
 
 function GM:HUDDrawTargetID()
 
@@ -304,7 +304,7 @@ function GM:HUDDrawTargetID()
 	x = x - w / 2
 	y = y + 30
 	
-	// The fonts internal drop shadow looks lousy with AA on
+	-- The fonts internal drop shadow looks lousy with AA on
 	draw.SimpleText( text, font, x+1, y+1, Color(0,0,0,120) )
 	draw.SimpleText( text, font, x+2, y+2, Color(0,0,0,50) )
 	draw.SimpleText( text, font, x, y, self:GetTeamColor( trace.Entity ) )

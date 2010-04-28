@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////
-// -- GarryWare Two                           //
-// by Hurricaaane (Ha3)                       //
-//  and Kilburn_                              //
-// http://www.youtube.com/user/Hurricaaane    //
+-- -- GarryWare Two                           --
+-- by Hurricaaane (Ha3)                       --
+--  and Kilburn_                              --
+-- http://www.youtube.com/user/Hurricaaane    --
 //--------------------------------------------//
-// Shared vars                                //
+-- Shared vars                                --
 ////////////////////////////////////////////////
 
 include( "ply_extension.lua" )
@@ -34,7 +34,7 @@ GM.SelectClass = false
 GM.SecondsBetweenTeamSwitches = 3
 GM.GameLength = 8.0 + 47.0 / 60.0
 GM.NotEnoughTimeCap = 20
--- false DefaultAnnouncerID switches it to random mode each ware
+-- If GM.DefaultAnnouncerID == false, then it switches to random each ware
 GM.DefaultAnnouncerID = 1
 
 GM.NoPlayerSuicide = false
@@ -56,17 +56,9 @@ GM.RoundBased = false				-- Round based, like CS
 GM.RoundLength = 5.0 * 60.0			-- Round length, in seconds 
 GM.RoundEndsWhenOneTeamAlive = false
 
+-- Shared
 GM.SelectColor = true
-
-GM.NextgameStart = 0
-GM.NextgameEnd = 0
-GM.Windup = 2
-GM.WareLen = 100
-GM.WareOverrideAnnouncer = false
-
 GM.BestStreakEver = 3
-GM.NumberOfWaresPlayed = -1
-
 GM.ModelPrecacheTable = {}
 
 TEAM_HUMANS = 1
@@ -82,11 +74,13 @@ function GM:CreateTeams()
 
 end
 
+--[[
 function GM:GetBaseColorPtr( sColorname )
 	if (GAMEMODE.WACOLS[sColorname] == nil) then return GAMEMODE.WACOLS["unknown"] end
 	
 	return GAMEMODE.WACOLS[sColorname]
 end
+]]--
 
 -- Streaks (shared)
 function GM:GetBestStreak()

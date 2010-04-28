@@ -25,7 +25,7 @@ function WARE:FlashSpawns( iteration, delay )
 	
 end
 
-//TBD DEBUG
+--TBD DEBUG
 ---function WARE:IsPlayable()
 ---	return true
 ---end
@@ -33,7 +33,7 @@ end
 function WARE:Initialize()
 	GAMEMODE:RespawnAllPlayers( true, true )
 	
-	//self.ChoiceNum = math.random(#possiblenpcs + 1, #possiblenpcs + 5)
+	--self.ChoiceNum = math.random(#possiblenpcs + 1, #possiblenpcs + 5)
 	
 	GAMEMODE:SetWareWindupAndLength(2, 8)
 	
@@ -60,11 +60,11 @@ end
 
 function WARE:StartAction()	
 	local myChoice = {}
-	//if self.ChoiceNum > #possiblenpcs then
+	--if self.ChoiceNum > #possiblenpcs then
 		myChoice = possiblenpcs
-	//else
-	//	myChoice = { possiblenpcs[self.ChoiceNum] }
-	//end
+	--else
+	--	myChoice = { possiblenpcs[self.ChoiceNum] }
+	--end
 	
 	for k,pos in pairs(self.Positions) do
 		local ent = ents.Create( myChoice[ math.random(1, #myChoice) ] )

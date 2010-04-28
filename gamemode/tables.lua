@@ -23,6 +23,8 @@ GM.WASND.THL_AmbientMusic = {
 Sound("ware/exp_loop_1.wav")
 }
 
+GM.WASND.BITBL_GlobalWarening = {}
+
 GM.WASND.TBL_GlobalWareningNew    = {
 Sound("ware/exp_game_new_1.mp3"),
 Sound("ware/exp_game_new_2.mp3"),
@@ -42,6 +44,19 @@ Sound("ware/exp_game_lose_1.mp3"),
 Sound("ware/exp_game_lose_2.mp3"),
 Sound("ware/exp_game_lose_3.mp3")
 }
+
+GM.WASND.TBL_GlobalWareningPhase = {
+Sound("ware/exp_game_new_1.mp3"),
+Sound("ware/exp_game_new_2.mp3"),
+Sound("ware/exp_game_new_3.mp3"),
+Sound("ware/exp_game_new_4.mp3"),
+Sound("ware/exp_game_new_5.mp3")
+}
+
+GM.WASND.BITBL_GlobalWarening[1] = GM.WASND.TBL_GlobalWareningNew
+GM.WASND.BITBL_GlobalWarening[2] = GM.WASND.TBL_GlobalWareningWin
+GM.WASND.BITBL_GlobalWarening[3] = GM.WASND.TBL_GlobalWareningLose
+GM.WASND.BITBL_GlobalWarening[4] = GM.WASND.TBL_GlobalWareningPhase
 
 GM.WASND.GlobalWareningReport = Sound("ware/game_information.mp3")
 
@@ -98,7 +113,7 @@ Sound("ware/local_exo_won3.wav"),
 Sound("ware/local_exo_won2.wav"),
 Sound("ware/local_exo_won3.wav")
 }
-// Repeating 2 and 3 for more chances of playing
+-- Repeating 2 and 3 for more chances of playing
 
 GM.WASND.TBL_LocalLose = {
 Sound("ware/local_lose2.wav"),

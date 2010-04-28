@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////
-// -- GarryWare Two                           //
-// by Hurricaaane (Ha3)                       //
-//  and Kilburn_                              //
-// http://www.youtube.com/user/Hurricaaane    //
+-- -- GarryWare Two                           --
+-- by Hurricaaane (Ha3)                       --
+--  and Kilburn_                              --
+-- http://www.youtube.com/user/Hurricaaane    --
 //--------------------------------------------//
-// Serverside Initialization                  //
+-- Serverside Initialization                  --
 ////////////////////////////////////////////////
 
 
@@ -30,6 +30,17 @@ GM.GameHasEnded = false
 GM.WareHaveStarted = false
 GM.ActionPhase = false
 
+GM.WareOverrideAnnouncer = false
+GM.WarePhase_Current = 0
+GM.WarePhase_NextLength = 0
+
+GM.WareLen = 100
+GM.Windup = 2
+GM.NextgameStart = 0
+GM.NextgameEnd = 0
+
+GM.NumberOfWaresPlayed = -1
+
 --DEBUG
 CreateConVar( "ware_debug", 0, {FCVAR_ARCHIVE} )
 CreateConVar( "ware_debugname", "", {FCVAR_ARCHIVE} )
@@ -45,7 +56,7 @@ required to make sure players have loaded some files )
 
 ////////////////////////////////////////////////
 ////////////////////////////////////////////////
-// Ware general open functions.
+-- Ware general open functions.
 
 function GM:SetWareWindupAndLength(windup , len)
 	self.Windup  = windup
@@ -58,25 +69,46 @@ function GM:OverrideAnnouncer( id )
 	end
 end
 
-function GM:DrawInstructions( sInstructions , optColorPointer , optTextColorPointer )
-	local rp = RecipientFilter()
-	rp:AddAllPlayers( )
+function GM:DrawToPlayersGeneralInstructions( tPlayersInput, bInvert, sInstructions , optColorPointer , optTextColorPointer )
+	local rpPlayers = RecipientFilter()
+	if bInvert then
+		rpPlayers:AddAllPlayers()
+		for k,ply in pairs( tPlayersInput ) do
+			rpPlayers:RemovePlayer( ply )
+		end
+	
+	else
+		for k,ply in pairs( tPlayersInput ) do
+			rpPlayers:AddPlayer( ply )
+		end
+		
+	end
+	
+	self:DrawInstructions( sInstructions , optColorPointer , optTextColorPointer , rpPlayers )
+end
+
+function GM:DrawInstructions( sInstructions , optColorPointer , optTextColorPointer , optrpFilter )
+	local rp = optrpFilter or nil
+	if not rp then
+		rp = RecipientFilter()
+		rp:AddAllPlayers( )
+	end
 			
 	umsg.Start( "gw_instructions", rp )
 	umsg.String( sInstructions )
-	// If there is no color, no chars about the color are passed.
-	umsg.Bool( optColorPointer != nil )
-	if (optColorPointer != nil) then
-		// If there is a background color, a bool stating about the presence
-		// of a text color must be passed, even if there is no text color !
-		umsg.Bool( optTextColorPointer != nil )
+	-- If there is no color, no chars about the color are passed.
+	umsg.Bool( optColorPointer ~= nil )
+	if (optColorPointer ~= nil) then
+		-- If there is a background color, a bool stating about the presence
+		-- of a text color must be passed, even if there is no text color !
+		umsg.Bool( optTextColorPointer ~= nil )
 
 		umsg.Char( optColorPointer.r - 128 )
 		umsg.Char( optColorPointer.g - 128 )
 		umsg.Char( optColorPointer.b - 128 )
 		umsg.Char( optColorPointer.a - 128 )
 		
-		if (optTextColorPointer != nil) then
+		if (optTextColorPointer ~= nil) then
 			umsg.Char( optTextColorPointer.r - 128 )
 			umsg.Char( optTextColorPointer.g - 128 )
 			umsg.Char( optTextColorPointer.b - 128 )
@@ -87,10 +119,10 @@ function GM:DrawInstructions( sInstructions , optColorPointer , optTextColorPoin
 end
 
 function GM:SetPlayersInitialStatus(isAchievedNilIfMystery)
-	// nil as an achieved status then can only be set globally (start of game).
-	// Use it for games where the status is set on Epilogue (not Ending), while
-	// the players shouldn't know if they won or not.
-	// Example : Watch the props ! / Stand on the missing prop ! (ver.2)
+	-- nil as an achieved status then can only be set globally (start of game).
+	-- Use it for games where the status is set on Epilogue (not Ending), while
+	-- the players shouldn't know if they won or not.
+	-- Example : Watch the props ! / Stand on the missing prop ! (ver.2)
 	
 	for k,v in pairs(player.GetAll()) do 
 		v:SetAchievedSpecialInteger( ((isAchievedNilIfMystery == nil) and -1) or ((isAchievedNilIfMystery) and 1) or 0 )
@@ -110,7 +142,7 @@ end
 
 ////////////////////////////////////////////////
 ////////////////////////////////////////////////
-// Entity trash bin functions.
+-- Entity trash bin functions.
 
 function GM:AppendEntToBin( ent )
 	table.insert(GAMEMODE.WareEnts,ent)
@@ -127,7 +159,7 @@ end
 
 ////////////////////////////////////////////////
 ////////////////////////////////////////////////
-// Ware internal functions.
+-- Ware internal functions.
 
 function GM:HasEveryoneLocked()
 	local playertable = team.GetPlayers(TEAM_HUMANS)
@@ -149,14 +181,14 @@ function GM:CheckGlobalStatus( endOfGameBypassValidation )
 	local playertable = team.GetPlayers(TEAM_HUMANS)
 	
 	
-	// Has everyone validated their status ?
-	// (Don't do that if it's the end of the game. Call Check first ONCE, then validate
-	// with bypass of the lock if that function returned true.)
+	-- Has everyone validated their status ?
+	-- (Don't do that if it's the end of the game. Call Check first ONCE, then validate
+	-- with bypass of the lock if that function returned true.)
 	if not(endOfGameBypassValidation) then
 		if not GAMEMODE:HasEveryoneLocked() then return false end
 	end
 	
-	// Do everyone have the same status ?
+	-- Do everyone have the same status ?
 	local probableStatus = playertable[1]:GetAchieved()
 	i = 2
 	while ( (i <= #playertable) and (playertable[i]:GetAchieved() == probableStatus) ) do
@@ -170,7 +202,7 @@ function GM:CheckGlobalStatus( endOfGameBypassValidation )
 	
 	-- TEST : Re-test this.
 	if not (endOfGameBypassValidation and GAMEMODE:HasEveryoneLocked()) then
-		// Note from Ha3 : OMG, check the usermessage types next time. 1 hour waste
+		-- Note from Ha3 : OMG, check the usermessage types next time. 1 hour waste
 		local rp = RecipientFilter()
 		rp:AddAllPlayers( )
 		umsg.Start("gw_yourstatus", rp)
@@ -193,11 +225,14 @@ end
 
 ////////////////////////////////////////////////
 ////////////////////////////////////////////////
-// Ware cycles.
+-- Ware cycles.
 
 function GM:PickRandomGame()
 	self.WareHaveStarted = true
 	self.WareOverrideAnnouncer = false
+
+	self.WarePhase_Current = 1
+	self.WarePhase_NextLength = 0
 	
 	-- Standard initialization
 	for k,v in pairs(player.GetAll()) do 
@@ -236,6 +271,8 @@ function GM:PickRandomGame()
 		umsg.Float( self.Windup )
 		umsg.Float( self.WareLen )
 		umsg.Bool( false )
+		umsg.Bool( true )
+		umsg.Char( 1 )
 		umsg.Char( math.random(1, #GAMEMODE.WASND.TBL_GlobalWareningNew ) )
 		umsg.Char( self.WareOverrideAnnouncer )
 	umsg.End()
@@ -261,9 +298,53 @@ function GM:SetNextGameEnd(time)
 		umsg.Float( self.Windup )
 		umsg.Float( self.WareLen )
 		umsg.Bool( true )
+		umsg.Bool( true )
+		umsg.Char( 1 )
 		umsg.Char( math.random(1, #GAMEMODE.WASND.TBL_GlobalWareningNew ) )
 		umsg.Char( self.WareOverrideAnnouncer )
 	umsg.End()
+end
+
+function GM:SetNextPhaseLength( fTime )
+	self.WarePhase_NextLength = (fTime > 0) and fTime or 0
+	
+end
+
+function GM:GetCurrentPhase( fTime )
+	return self.WarePhase_Current
+end
+
+function GM:TryNextPhase( )
+	if self.WarePhase_NextLength <= 0 then return false end
+	
+	self.WarePhase_Current = self.WarePhase_Current + 1
+	
+	self.WareLen = self.WarePhase_NextLength
+	self.NextgameEnd = CurTime() + self.WarePhase_NextLength
+	
+	self.WarePhase_NextLength = 0
+	
+	-- self.Minigame == nil should never happen
+	if self.Minigame and self.Minigame.PhaseSignal then
+		self.Minigame:PhaseSignal( self.WarePhase_Current )
+		
+	end
+	
+	local rp = RecipientFilter()
+	rp:AddAllPlayers()
+	umsg.Start("NextGameTimes", rp)
+		umsg.Float( 0 )
+		umsg.Float( self.NextgameEnd )
+		umsg.Float( self.Windup )
+		umsg.Float( self.WareLen )
+		umsg.Bool( false )
+		umsg.Bool( true )
+		umsg.Char( 4 )
+		umsg.Char( math.random(1, #GAMEMODE.WASND.TBL_GlobalWareningPhase ) )
+		umsg.Char( self.WareOverrideAnnouncer )
+	umsg.End()
+	
+	return true
 end
 
 function GM:GetCurrentMinigameName()
@@ -273,7 +354,7 @@ end
 function GM:EndGame()
 	if self.WareHaveStarted == true then
 	
-		// Destroy all
+		-- Destroy all
 		if self.ActionPhase == true then
 			GAMEMODE:UnhookTriggers()
 			self.ActionPhase = false
@@ -308,19 +389,19 @@ function GM:EndGame()
 			--v:ConCommand("r_cleardecals")
 		end
 		
-		// Send positive message to the RP list of winners.
+		-- Send positive message to the RP list of winners.
 		umsg.Start("EventEndgameTrigger", rpWin)
 			umsg.Bool( true )
 			umsg.Char( math.random(1, #GAMEMODE.WASND.TBL_GlobalWareningWin ) )
 		umsg.End()
 		
-		// Send negative message to the RP list of losers.
+		-- Send negative message to the RP list of losers.
 		umsg.Start("EventEndgameTrigger", rpLose)
 			umsg.Bool( false )
 			umsg.Char( math.random(1, #GAMEMODE.WASND.TBL_GlobalWareningLose ) )
 		umsg.End()
 		
-		if (team.NumPlayers(TEAM_SPECTATOR) != 0) then
+		if (team.NumPlayers(TEAM_SPECTATOR) ~= 0) then
 			local rpSpec = RecipientFilter()
 			for k,v in pairs(team.GetPlayers(TEAM_SPECTATOR)) do
 				--Do generic stuff to specs
@@ -338,10 +419,10 @@ function GM:EndGame()
 	self.NextgameStart = CurTime() + self.WADAT.EndFlourishTime
 	SendUserMessage( "Transit" )
 	
-	// Reinitialize
+	-- Reinitialize
 	self.WareHaveStarted = false
 	
-	//Enough time to play ?
+	--Enough time to play ?
 	if ((self.TimeWhenGameEnds - CurTime()) < self.NotEnoughTimeCap) then
 		self:EndOfGame( true )
 	else
@@ -350,28 +431,29 @@ function GM:EndGame()
 	end
 end
 
-function GM:PickRandomGameName( first )
+function GM:PickRandomGameName( bFirst )
 	local env
 	
 	if GetConVar("ware_debug"):GetInt() == 1 then
 		self.NextGameName = GetConVar("ware_debugname"):GetString()
 		env = ware_env.FindEnvironment(ware_mod.Get(self.NextGameName).Room) or self.CurrentEnvironment
-	elseif first and (GetConVar("ware_debug"):GetInt() % 2 == 0) then
+		
+	elseif bFirst and (GetConVar("ware_debug"):GetInt() % 2 == 0) then
 		self.NextGameName = "_intro"
 		env = ware_env.FindEnvironment(ware_mod.Get(self.NextGameName).Room) or self.CurrentEnvironment
+		
 	else
 		self.NextGameName, env = ware_mod.GetRandomGameName()
+		
 	end
 	
 	if env ~= self.CurrentEnvironment then
 		self.CurrentEnvironment = env
-		//if not first then
-			self.NextgameStart = self.NextgameStart + self.WADAT.TransitFlourishTime
-			self.NextPlayerRespawn = CurTime() + self.WADAT.EndFlourishTime
-		//else
-		//	self.NextPlayerRespawn = CurTime() + 1
-		//end
+		self.NextgameStart = self.NextgameStart + self.WADAT.TransitFlourishTime
+		self.NextPlayerRespawn = CurTime() + self.WADAT.EndFlourishTime
+		
 	end
+	
 end
 
 function GM:PhaseIsPrelude()
@@ -400,7 +482,7 @@ end
 
 ////////////////////////////////////////////////
 ////////////////////////////////////////////////
-// Ware game times.
+-- Ware game times.
 
 function GM:SetNextGameStartsIn( delay )
 	self.NextgameStart = CurTime() + delay
@@ -439,14 +521,22 @@ function GM:Think()
 			
 			-- Ends the current ware
 			if (CurTime() > self.NextgameEnd) then
-				self:EndGame()
+				if self.Minigame.PreEndAction then
+					self.Minigame:PreEndAction()
+				end
+				
+				if not self:TryNextPhase( ) then
+					self:EndGame()
+				end
+				
 			end
+			
 		end
 		
 		
 		
 		-- Ends a current game, because of lack of players
-		if team.NumPlayers(TEAM_HUMANS) == 0 and self.GamesArePlaying == true then
+		if team.NumPlayers(TEAM_HUMANS) == 0 then
 			self.GamesArePlaying = false
 			GAMEMODE:EndGame()
 			
@@ -459,6 +549,7 @@ function GM:Think()
 				umsg.Float( 0 )
 				umsg.Float( 0 )
 				umsg.Bool( false )
+				umsg.Bool( false )
 			umsg.End()
 			
 		elseif self.FirstTimePickGame and CurTime() > self.FirstTimePickGame then
@@ -469,7 +560,7 @@ function GM:Think()
 	
 	else
 		-- Starts a new game
-		if team.NumPlayers(TEAM_HUMANS) > 0 and self.GameHasEnded == false and self.GamesArePlaying == false then
+		if team.NumPlayers(TEAM_HUMANS) > 0 and self.GameHasEnded == false then
 			self.GamesArePlaying = true
 			self.WareHaveStarted = false
 			self.ActionPhase = false
@@ -477,9 +568,11 @@ function GM:Think()
 			if ( GetConVar("ware_debug"):GetInt() > 0 ) then
 				self:SetNextGameStartsIn( 4 )
 				self.FirstTimePickGame = 1.3
+				
 			else
 				self:SetNextGameStartsIn( 27 )
 				self.FirstTimePickGame = 19.3
+				
 			end
 			SendUserMessage( "WaitShow" )
 		end
@@ -488,7 +581,7 @@ end
 
 ////////////////////////////////////////////////
 ////////////////////////////////////////////////
-// Fretta end-of-game / Vote overrides.
+-- Fretta end-of-game / Vote overrides.
 
 function GM:EndTheGameForOnce()
 	if self.GameHasEnded == true then return end
@@ -496,12 +589,12 @@ function GM:EndTheGameForOnce()
 	self.GamesArePlaying = false
 	self.GameHasEnded = true
 	
-	// Find combos before ending the game and after saying the game has ended
+	-- Find combos before ending the game and after saying the game has ended
 	for _,ply in pairs(team.GetPlayers(TEAM_HUMANS)) do
 		ply:PrintComboMessagesAndEffects( ply:GetCombo() )
 	end
 	
-	GAMEMODE:EndGame()
+	self:EndGame()
 	
 	--Send info about VGUI
 	umsg.Start("SpecialFlourish")
@@ -516,6 +609,7 @@ function GM:EndTheGameForOnce()
 		umsg.Float( 0 )
 		umsg.Float( 0 )
 		umsg.Float( 0 )
+		umsg.Bool( false )
 		umsg.Bool( false )
 	umsg.End()
 	umsg.Start("BestStreakEverBreached", rp)
@@ -537,7 +631,7 @@ end
 
 ////////////////////////////////////////////////
 ////////////////////////////////////////////////
-// Model List.
+-- Model List.
 
 function GM:SendModelList( ply )
 	if #self.ModelPrecacheTable <= 0 then return end
@@ -566,13 +660,13 @@ end
 
 ////////////////////////////////////////////////
 ////////////////////////////////////////////////
-// Player related.
+-- Player related.
 
 function GM:PlayerInitialSpawn( ply, id )
 	self.BaseClass:PlayerInitialSpawn( ply, id )
 
 
-	// Give him info about the current status of the game
+	-- Give him info about the current status of the game
 	local didnotbegin = false
 	if (self.NextgameStart > CurTime()) then
 		didnotbegin = true
@@ -601,9 +695,6 @@ function GM:PlayerSpawn(ply)
 		ply:SetLockedSpecialInteger( 1 )
 	end
 	
-	// > wat <
-	// NOTE from Ha3 : kilburn have written this, and I don't know what it means. Commented it out.
-	--if not (self.CurrentEnvironment) or (#self.CurrentEnvironment.PlayerSpawns == 0) then return end
 end
 
 function GM:PlayerSelectSpawn(ply)
@@ -640,14 +731,15 @@ function GM:RespawnAllPlayers( bNoMusicEvent, bForce )
 	local spawns = {}
 	
 	-- Priority goes to active players, so they don't spawn in each other
-	for _,v in pairs(team.GetPlayers(TEAM_HUMANS)) do
-		if bForce or (v:GetEnvironment()~=self.CurrentEnvironment) then
-			if #spawns==0 then
-				spawns = table.Copy(self.CurrentEnvironment.PlayerSpawns)
+	for _,v in pairs( team.GetPlayers(TEAM_HUMANS) ) do
+		if bForce or (v:GetEnvironment() ~= self.CurrentEnvironment) then
+			if #spawns == 0 then
+				spawns = table.Copy( self.CurrentEnvironment.PlayerSpawns )
 			end
 		
-			GAMEMODE:MakeDisappearEffect(v:GetPos())
-			local loc = table.remove(spawns, math.random(1,#spawns))
+			--No need to draw the effect no one sees them
+			--self:MakeDisappearEffect( v:GetPos() )
+			local loc = table.remove(spawns, math.random(1, #spawns) )
 			
 			v.ForcedSpawn = loc
 			if bForce then v._forcespawntime = CurTime() end
@@ -658,12 +750,12 @@ function GM:RespawnAllPlayers( bNoMusicEvent, bForce )
 	end
 	
 	for _,v in pairs(team.GetPlayers(TEAM_SPECTATOR)) do
-		if v:GetEnvironment()~=self.CurrentEnvironment then
-			if #spawns==0 then
+		if v:GetEnvironment() ~= self.CurrentEnvironment then
+			if #spawns == 0 then
 				spawns = table.Copy(self.CurrentEnvironment.PlayerSpawns)
 			end
 		
-			local loc = table.remove(spawns, math.random(1,#spawns))
+			local loc = table.remove( spawns, math.random(1, #spawns) )
 			
 			v.ForcedSpawn = loc
 			v:Spawn()
@@ -679,21 +771,25 @@ function GM:RespawnAllPlayers( bNoMusicEvent, bForce )
 end
 
 function GM:WareRoomCheckup()
-	if #ents.FindByClass("func_wareroom")==0 then
+	if #ents.FindByClass("func_wareroom") == 0 then
 		for _,v in pairs(ents.FindByClass("gmod_warelocation")) do
 			v:SetNotSolid(true)
+			
 		end
-		return
+	
+	else
+		for _,v in pairs(ents.FindByClass("info_player_start")) do
+			-- That's not a real ware location, but a dummy entity
+			-- for making info_player_start entities detectable by the trigger
+			local temp = ents.Create("gmod_warelocation")
+			temp:SetPos(v:GetPos())
+			temp:Spawn()
+			temp.PlayerStart = v
+			
+		end
+		
 	end
 	
-	for _,v in pairs(ents.FindByClass("info_player_start")) do
-		-- That's not a real ware location, but a dummy entity for making info_player_start entities detectable
-		-- by the trigger
-		local temp = ents.Create("gmod_warelocation")
-		temp:SetPos(v:GetPos())
-		temp:Spawn()
-		temp.PlayerStart = v
-	end
 end
 
 function GM:InitPostEntity( )
@@ -727,11 +823,12 @@ function GM:InitPostEntity( )
 	-- Create the precache table
 	for k,name in pairs(ware_mod.GetNamesTable()) do
 		if (ware_mod.Get(name).GetModelList) then
-		
 			for j,model in pairs(ware_mod.Get(name):GetModelList() or {}) do
 				if (type(model) == "string") and (not table.HasValue( self.ModelPrecacheTable , model )) then
 					table.insert( self.ModelPrecacheTable , model )
+					
 				end
+				
 			end
 			
 		end
@@ -753,14 +850,15 @@ end
 
 ////////////////////////////////////////////////
 ////////////////////////////////////////////////
-// Minigame Inclusion.
+-- Minigame Inclusion.
 
 function IncludeMinigames()
 	local path = string.Replace(GM.Folder, "gamemodes/", "").."/gamemode/wareminigames/"
 	local names = {}
 	local authors = {}
 	local str = ""
-	for _,file in pairs(file.FindInLua(path.."*.lua")) do
+	
+	for _,file in pairs( file.FindInLua(path.."*.lua") ) do
 		WARE = {}
 		
 		--AddCSLuaFile(path..file)
@@ -810,7 +908,7 @@ end
 
 ////////////////////////////////////////////////
 ////////////////////////////////////////////////
-// Start up.
+-- Start up.
 
 IncludeMinigames()
 

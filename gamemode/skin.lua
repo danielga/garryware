@@ -211,8 +211,8 @@ end
 ---------------------------------------------------------*/
 function SKIN:PaintScorePanelHeader( panel )
 
-	//surface.SetDrawColor( panel.cTeamColor )	
-	//panel:DrawFilledRect()
+	--surface.SetDrawColor( panel.cTeamColor )	
+	--panel:DrawFilledRect()
 	
 end
 
@@ -252,9 +252,9 @@ function SKIN:PaintScorePanel( panel )
 	render.UpdateScreenEffectTexture()
 	surface.DrawTexturedRect( x*-1, y*-1, ScrW(), ScrH() )
 	
-	//matBlurScreen:SetMaterialFloat( "$blur", 3 )
-	//render.UpdateScreenEffectTexture()
-	//surface.DrawTexturedRect( x*-1, y*-1, ScrW(), ScrH() )
+	--matBlurScreen:SetMaterialFloat( "$blur", 3 )
+	--render.UpdateScreenEffectTexture()
+	--surface.DrawTexturedRect( x*-1, y*-1, ScrW(), ScrH() )
 		
 	draw.RoundedBox( 8, 8, 16, panel:GetWide()-16, panel:GetTall()-8-16, Color( 200, 200, 200, 170 ) )
 	draw.RoundedBox( 8, 0, 0, panel:GetWide(), panel:GetTall()  , Color( 255, 255, 255, 128 ) )
@@ -325,7 +325,7 @@ function SKIN:PaintScoreHeader( panel )
 
 	draw.RoundedBox( 8, 8, 8, panel:GetWide()-16, panel:GetTall() + 8, Color( 255, 64, 64 ) )
 	
-	//draw.RoundedBox( 8, 0, 0, panel:GetWide(), panel:GetTall()+8 , Color( 255, 255, 255, 128 ) )
+	--draw.RoundedBox( 8, 0, 0, panel:GetWide(), panel:GetTall()+8 , Color( 255, 255, 255, 128 ) )
 		
 end
 
@@ -348,8 +348,8 @@ function SKIN:SchemeScoreHeader( panel )
 	panel.HostName:SetTextColor( Color( 255, 255, 255, 255 ) )
 	panel.HostName:SetFont( "FRETTA_MEDIUM_SHADOW" )
 	
-	//panel.GamemodeName:SetTextColor( Color( 255, 255, 255, 255 ) )
-	//panel.GamemodeName:SetFont( "FRETTA_MEDIUM_SHADOW" )
+	--panel.GamemodeName:SetTextColor( Color( 255, 255, 255, 255 ) )
+	--panel.GamemodeName:SetFont( "FRETTA_MEDIUM_SHADOW" )
 		
 end
 
@@ -391,7 +391,7 @@ function SKIN:PaintGamemodeButton( panel )
 		col = Color( 255, 255, 255, 20 )
 	end
 	
-	if ( panel.bgColor != nil ) then col = panel.bgColor end
+	if ( panel.bgColor ~= nil ) then col = panel.bgColor end
 
 	draw.RoundedBox( 4, 0, 0, w, h, col )
 
@@ -424,7 +424,7 @@ function SKIN:PaintPanelButton( panel )
 		col = Color( 200, 200, 200, 255 )
 	end
 		
-	if ( panel.bgColor != nil ) then col = panel.bgColor end
+	if ( panel.bgColor ~= nil ) then col = panel.bgColor end
 
 	surface.SetDrawColor( col )
 	panel:DrawFilledRect()

@@ -24,7 +24,7 @@ SWEP.ProjectileForce = 100000
 
 function SWEP:Initialize()
 
-	// Yes, pistol, for a crowbar. Not a mistake.
+	-- Yes, pistol, for a crowbar. Not a mistake.
 	self:SetWeaponHoldType( "pistol" )
 	
 end
@@ -43,15 +43,15 @@ function SWEP:ThrowCrowbar(shotPower)
 	ent:SetOwner(self.Owner)
 	ent:Activate()
 	
-	local trail_entity = util.SpriteTrail( ent,  //Entity
-											0,  //iAttachmentID
-											Color( 255, 255, 255, 92 ),  //Color
-											false, // bAdditive
-											0.7, //fStartWidth
-											1.2, //fEndWidth
-											0.4, //fLifetime
-											1 / ((0.7+1.2) * 0.5), //fTextureRes
-											"trails/physbeam.vmt" ) //strTexture
+	local trail_entity = util.SpriteTrail( ent,  --Entity
+											0,  --iAttachmentID
+											Color( 255, 255, 255, 92 ),  --Color
+											false, -- bAdditive
+											0.7, --fStartWidth
+											1.2, --fEndWidth
+											0.4, --fLifetime
+											1 / ((0.7+1.2) * 0.5), --fTextureRes
+											"trails/physbeam.vmt" ) --strTexture
 	
 	local phys = ent:GetPhysicsObject()
 	phys:ApplyForceCenter (self.Owner:GetAimVector():GetNormalized() * shotPower)

@@ -78,7 +78,7 @@ end
 local function DisableMusic()
 	if not AmbientMusicIsOn then
 		AmbientMusic[1]:ChangeVolume( 0.1 )
-		//AmbientMusic[1]:Stop()
+		--AmbientMusic[1]:Stop()
 	end
 end
 
@@ -96,18 +96,21 @@ local function NextGameTimes( m )
 	NextgameEnd   = m:ReadFloat()
 	WarmupLen     = m:ReadFloat()
 	WareLen       = m:ReadFloat()
-	local ShouldKeepAnnounce = m:ReadBool()
+	local bShouldKeepAnnounce = m:ReadBool()
+	local bShouldPlayMusic = m:ReadBool()
 	
-	if not ShouldKeepAnnounce then TickAnnounce = 5 end
+	if not bShouldKeepAnnounce then TickAnnounce = 5 end
 	
-	if (NextwarmupEnd != 0) then
-	
+	if bShouldPlayMusic then
+		local libraryID = m:ReadChar()
 		local musicID = m:ReadChar()
 		CurrentAnnouncer = m:ReadChar()
-		LocalPlayer():EmitSound( GAMEMODE.WASND.TBL_GlobalWareningNew[musicID] , 60, GAMEMODE:GetSpeedPercent() )
+		LocalPlayer():EmitSound( GAMEMODE.WASND.BITBL_GlobalWarening[libraryID][musicID] , 60, GAMEMODE:GetSpeedPercent() )
 		AmbientMusicIsOn = true
 		EnableMusic()
+		
 	end
+	
 end
 usermessage.Hook( "NextGameTimes", NextGameTimes )
 

@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////
-// -- Depth HUD : Inline                      //
-// by Hurricaaane (Ha3)                       //
-//                                            //
-// http://www.youtube.com/user/Hurricaaane    //
+-- -- Depth HUD : Inline                      --
+-- by Hurricaaane (Ha3)                       --
+--                                            --
+-- http://www.youtube.com/user/Hurricaaane    --
 //--------------------------------------------//
-// Shared call file                           //
+-- Shared call file                           --
 ////////////////////////////////////////////////
 
 if DHONLINE_DEBUG == nil then
@@ -18,30 +18,30 @@ DHONLINE_DEFAULTTHEME = "garryware"
 DHONLINE_NAME = "DepthHUD Inline for Gamemodes"
 DHONLINE_THEMEDIR = "dhi_garryware/"
 
-// SERVER INCLUSION FOR VERY SPECIAL CASES. DO NOT USE UNLESS AWARE OF ITS MAIN USES.
+-- SERVER INCLUSION FOR VERY SPECIAL CASES. DO NOT USE UNLESS AWARE OF ITS MAIN USES.
 
-// You can OMIT adding those files to your gamemode if running as a strap :
-// Official data/ folder.
-// Official materials/ folder.
-// Official resource/ folder.
-// Lua file : control_presets.lua
-// Lua file : preset_editor.lua
-// Lua file : DhCheckPos.lua
-// Lua file : cl_dhonline_cvar_custom.lua
-// Lua file : cl_dhonline_elementpanel.lua
-// Lua file : cl_dhonline_version.lua
-// Official themes.
-// All those cited directory and files DON'T NEED to be added in your gamemode.
+-- You can OMIT adding those files to your gamemode if running as a strap :
+-- Official data/ folder.
+-- Official materials/ folder.
+-- Official resource/ folder.
+-- Lua file : control_presets.lua
+-- Lua file : preset_editor.lua
+-- Lua file : DhCheckPos.lua
+-- Lua file : cl_dhonline_cvar_custom.lua
+-- Lua file : cl_dhonline_elementpanel.lua
+-- Lua file : cl_dhonline_version.lua
+-- Official themes.
+-- All those cited directory and files DON'T NEED to be added in your gamemode.
 
 
-// Don't turn DHONLINE_SPECIAL_SENDSTATICTOCLIENTS to true, unless
-// you have reconfigured the theme directory,
-// and also the default theme,
-// and batch-replaced all match-case "dhonline" to a custom var name in all lua files,
-// and also  replaced all match-case "DHONLINE" to a custom capital letters var name in all lua files,
-// and MORE IMPORTANTLY, replace all "dhonline" from >> Lua Filenames <<, including this one.
+-- Don't turn DHONLINE_SPECIAL_SENDSTATICTOCLIENTS to true, unless
+-- you have reconfigured the theme directory,
+-- and also the default theme,
+-- and batch-replaced all match-case "dhonline" to a custom var name in all lua files,
+-- and also  replaced all match-case "DHONLINE" to a custom capital letters var name in all lua files,
+-- and MORE IMPORTANTLY, replace all "dhonline" from >> Lua Filenames <<, including this one.
 
-// If you are including as part of a gamemode, set DHONLINE_SPECIAL_ISGAMEMODE_STRAP to true.
+-- If you are including as part of a gamemode, set DHONLINE_SPECIAL_ISGAMEMODE_STRAP to true.
 
 DHONLINE_SPECIAL_SENDSTATICTOCLIENTS = true
 DHONLINE_SPECIAL_ISGAMEMODE_STRAP = true
@@ -54,19 +54,19 @@ if (CLIENT) then
 	include("cl_dhonline_base.lua")
 	
 	if not DHONLINE_SPECIAL_SENDSTATICTOCLIENTS then
-		// Load regular DepthHUD Inline for clients.
+		-- Load regular DepthHUD Inline for clients.
 		include("cl_dhonline_version.lua")
 		include("cl_dhonline_elementpanel.lua")
 		include("cl_dhonline_cvar_custom.lua")
 		
 	else
-		// Load special serverside DepthHUD Inline.
+		-- Load special serverside DepthHUD Inline.
 		include("cl_dhonline_cvar_static.lua")
 	end
 
 	dhonline.Mount()
 	
-elseif (DHONLINE_SPECIAL_SENDSTATICTOCLIENTS) then // SERVER, don't send to clients default.
+elseif (DHONLINE_SPECIAL_SENDSTATICTOCLIENTS) then -- SERVER, don't send to clients default.
 
 	AddCSLuaFile("sh_dhonline_autorun.lua")
 	AddCSLuaFile("garbage_module.lua")

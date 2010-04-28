@@ -1,12 +1,12 @@
 ////////////////////////////////////////////////
-// -- Garry's Mod Deathmatch Weapon Base      //
-// by SteveUK                                 //
+-- -- Garry's Mod Deathmatch Weapon Base      --
+-- by SteveUK                                 --
 //--------------------------------------------//
 ////////////////////////////////////////////////
 
 include('shared.lua')
 include('cl_hud.lua')
-// Variables that are only ever used on the client.
+-- Variables that are only ever used on the client.
 
 SWEP.PrintName			= "Garry's Mod Deathmatch Weapon"			
 SWEP.Slot				= 3	
@@ -20,8 +20,8 @@ SWEP.AdminSpawnable		= true
 SWEP.WepSelectIcon			= surface.GetTextureID( "weapons/swep" )
 
 function SWEP:SetWeaponHoldType( t )
-	// Just a fake function so we can define 
-	// weapon holds in shared files without errors.
+	-- Just a fake function so we can define 
+	-- weapon holds in shared files without errors.
 end
 
 function SWEP:PrintWeaponInfo( x, y, alpha )
@@ -65,7 +65,7 @@ function SWEP:GetViewModelPosition( pos, ang )
 	
 	local DashDelta = 0
 	
-	// If we're running, or have just stopped running, lerp between the anims.
+	-- If we're running, or have just stopped running, lerp between the anims.
 	--Disabled noshoot on sprint. Use it on reload key pressed (NOT ONLY on reloading action !).
 	--if ( self.Owner:KeyDown( IN_SPEED ) ) then
 	if ( self.Owner:KeyDown( IN_RELOAD ) ) then
@@ -100,10 +100,10 @@ function SWEP:GetViewModelPosition( pos, ang )
 		local Right = ang:Right()
 		local Forward = ang:Forward()
 	
-		// Offset the viewmodel to self.RunArmOffset
+		-- Offset the viewmodel to self.RunArmOffset
 		pos = pos + ( Down * self.RunArmOffset.x + Forward * self.RunArmOffset.y + Right * self.RunArmOffset.z ) * DashDelta
 		
-		// Rotate the viewmodel to self.RunArmAngle
+		-- Rotate the viewmodel to self.RunArmAngle
 		ang:RotateAroundAxis( Right,	self.RunArmAngle.pitch * DashDelta )
 		ang:RotateAroundAxis( Down,  	self.RunArmAngle.yaw   * DashDelta )
 		ang:RotateAroundAxis( Forward,  self.RunArmAngle.roll  * DashDelta )

@@ -23,7 +23,7 @@ local WARE = {}
 local ware_mod_meta = {__index=WARE}]]
 
 local function IsValidHookName(name)
-	return name~="Initialize" and name~="StartAction" and name~="EndAction" and name~="IsPlayable"
+	return (string.Left( name , 1 ) ~= "_") and name ~= "Initialize" and name ~= "StartAction" and name ~= "EndAction" and name ~= "IsPlayable" and name ~= "GetModelList" and name ~= "PhaseSignal" and name ~= "PreEndAction"
 end
 
 function Register(name, minigame)

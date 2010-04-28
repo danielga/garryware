@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////
-// -- Depth HUD : Inline                      //
-// by Hurricaaane (Ha3)                       //
-//                                            //
-// http://www.youtube.com/user/Hurricaaane    //
+-- -- Depth HUD : Inline                      --
+-- by Hurricaaane (Ha3)                       --
+--                                            --
+-- http://www.youtube.com/user/Hurricaaane    --
 //--------------------------------------------//
-// Main file, with core functions             //
+-- Main file, with core functions             --
 ////////////////////////////////////////////////
 
 if not dhonline then dhonline = {} end
@@ -33,7 +33,7 @@ function dhonline.LoadCurrentTheme()
 	dhonline_theme.SetTheme(sThemeFromConvar)
 end
 
-// DEBUG : TO BE TESTED
+-- DEBUG : TO BE TESTED
 function dhonline.DeriveFromTheme( sTheme )
 	local path = DHONLINE_THEMEDIR 
 	include(path..sTheme.."_theme.lua")
@@ -59,7 +59,7 @@ function dhonline.LoadAllThemes()
 	end
 	
 	local stNames = dhonline_theme.GetNamesTable()
-	//table.sort(stNames, function(a,b) return dhonline_element.GetThemeObject(a):GetDisplayName() < dhonline_element.GetThemeObject(b):GetDisplayName() end)
+	--table.sort(stNames, function(a,b) return dhonline_element.GetThemeObject(a):GetDisplayName() < dhonline_element.GetThemeObject(b):GetDisplayName() end)
 	
 	if DHONLINE_DEBUG then
 		print(DHONLINE_NAME .. " >> Registered Themes : ")
@@ -108,7 +108,7 @@ function dhonline.CalcCenter( xRel , yRel , width, height )
 	xDist = dhonline_dat.ui_edgeSpacingRel*ScrW() + width*0.5
 	xCalc = xRel*ScrW() + (xRel*(-2) + 1)*xDist
 	
-	yDist = dhonline_dat.ui_edgeSpacingRel*ScrW() + height*0.5 //ScrW here is not a mistake
+	yDist = dhonline_dat.ui_edgeSpacingRel*ScrW() + height*0.5 --ScrW here is not a mistake
 	yCalc = yRel*ScrH() + (yRel*(-2) + 1)*yDist
 	
 	return xCalc, yCalc
@@ -139,7 +139,7 @@ function dhonline.StringNiceNameTransform( stringInput )
 		elseif (len > 1) then
 			stringOutput = stringOutput .. string.Left(string.upper(part),1) .. string.Right(part,len-1)
 		end
-		if (k != #stringParts) then stringOutput = stringOutput .. " " end
+		if (k ~= #stringParts) then stringOutput = stringOutput .. " " end
 	end
 	return stringOutput
 end

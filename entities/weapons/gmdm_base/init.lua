@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////
-// -- Garry's Mod Deathmatch Weapon Base      //
-// by SteveUK                                 //
+-- -- Garry's Mod Deathmatch Weapon Base      --
+-- by SteveUK                                 --
 //--------------------------------------------//
 ////////////////////////////////////////////////
 
@@ -51,9 +51,9 @@ end
 
 
 ////////////////////////////////////////////////
-// Translate a player's Activity into a weapon's activity
-// So for example, ACT_HL2MP_RUN becomes ACT_HL2MP_RUN_PISTOL
-// Depending on how you want the player to be holding the weapon.
+-- Translate a player's Activity into a weapon's activity
+-- So for example, ACT_HL2MP_RUN becomes ACT_HL2MP_RUN_PISTOL
+-- Depending on how you want the player to be holding the weapon.
 
 function SWEP:TranslateActivity( act )
 
@@ -64,7 +64,7 @@ function SWEP:TranslateActivity( act )
 		return -1
 	end
 
-	if ( self.ActivityTranslate[ act ] != nil ) then
+	if ( self.ActivityTranslate[ act ] ~= nil ) then
 		return self.ActivityTranslate[ act ]
 	end
 	
@@ -110,14 +110,14 @@ end
 
 function SWEP:Deploy()
 
-	// If it's silenced, we need to play a different anim.
+	-- If it's silenced, we need to play a different anim.
 	if( self.SupportsSilencer and self:GetNetworkedBool( "Silenced" ) == true ) then
 		self:SendWeaponAnim( ACT_VM_DRAW_SILENCED )
 	else
 		self:SendWeaponAnim( ACT_VM_DRAW )
 	end
 	
-	// Quick switch.
+	-- Quick switch.
 	return true
 end 
 

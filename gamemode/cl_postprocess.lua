@@ -1,7 +1,7 @@
-Sharpen = 0
-MotionBlur = 0
-ViewWobble = 0
-ColorModify = {}
+local Sharpen = 0
+local MotionBlur = 0
+local ViewWobble = 0
+local ColorModify = {}
 ColorModify[ "$pp_colour_addr" ] 		= 0
 ColorModify[ "$pp_colour_addg" ] 		= 0
 ColorModify[ "$pp_colour_addb" ] 		= 0
@@ -60,14 +60,14 @@ function GM:CalcView( ply, origin, angle, fov )
 	
 	angle.roll = angle.roll + ang:Right():DotProduct( vel ) * 0.005
 	
-	// motion sickness
+	-- Motion Sickness
 	if ViewWobble > 0 then
 		angle.roll = angle.roll + math.sin(CurTime() * 2.5) * (ViewWobble * 15)
 		ViewWobble = ViewWobble - 0.1 * FrameTime()
 	end
 	
-	// make their view tilt when they strafe
-	if ply:GetGroundEntity() != NULL then	
+	-- Make their view tilt when they strafe
+	if ply:GetGroundEntity() ~= NULL then	
 		angle.roll = angle.roll + math.sin( WalkTimer ) * VelSmooth * 0.001
 		angle.pitch = angle.pitch + math.sin( WalkTimer * 0.3 ) * VelSmooth * 0.001
 	end

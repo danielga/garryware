@@ -37,8 +37,8 @@ function ELEMENT:DrawFunction( )
 		
 		self.tvars.clip1max = tonumber(self.STORmaxammo[SWEP]) or 1
 		
-		//Sweps, not the phys/gravgun...
-		if self.tvars.clip1 >= 0 and self.tvars.clip1type != -1 then	
+		--Sweps, not the phys/gravgun...
+		if self.tvars.clip1 >= 0 and self.tvars.clip1type ~= -1 then	
 			local smallText = ""
 			local rate = -1
 			if self.tvars.clip1 <= 0 then
@@ -78,7 +78,7 @@ function ELEMENT:DrawFunction( )
 			, 1
 			)
 		
-		//Gravgun/nades
+		--Gravgun/nades
 		elseif self.tvars.clip1left > 0 then
 			self:DrawGWTextBox(
 			2.0

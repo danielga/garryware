@@ -10,7 +10,7 @@ function EFFECT:Init( data )
 	self.WeaponEnt = data:GetEntity()
 	self.Attachment = data:GetAttachment()
 	
-	// Keep the start and end pos - we're going to interpolate between them
+	-- Keep the start and end pos - we're going to interpolate between them
 	local Pos = self:GetTracerShootPos( self.Position, self.WeaponEnt, self.Attachment )
 	
 	local Velocity 	= data:GetNormal()
@@ -47,7 +47,7 @@ end
 ---------------------------------------------------------*/
 function EFFECT:Think( )
 
-	// Die instantly
+	-- Die instantly
 	return false
 	
 end
@@ -58,7 +58,7 @@ end
 ---------------------------------------------------------*/
 function EFFECT:Render()
 
-	// Do nothing - this effect is only used to spawn the particles in Init
+	-- Do nothing - this effect is only used to spawn the particles in Init
 	
 end
 

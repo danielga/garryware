@@ -41,7 +41,7 @@ function ENT:PhysicsCollide( data, physobj )
 	util.Effect( "waveexplo", effectdata, true, true )
 
 	for i,target in ipairs(ents.FindInSphere( self.Entity:GetPos(), 64 )) do
-		if(target != self.Entity) then
+		if(target ~= self.Entity) then
 			if(target:IsPlayer()) then
 				target:SetVelocity(target:GetVelocity()*(-1) + (target:GetPos() + Vector(0,0,32) - self.Entity:GetPos()):Normalize() * 500)
 			end

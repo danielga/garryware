@@ -58,7 +58,7 @@ function WARE:Initialize()
 		self.MagicSequence[k] = k
 	end
 	
-	if #self.MagicSequence > 1 then //Should always happen
+	if #self.MagicSequence > 1 then --Should always happen
 		for i=1,#self.MagicSequence do
 			table.insert( self.MagicSequence , table.remove( self.MagicSequence, math.random(1, #self.MagicSequence - 1) ) )
 		end

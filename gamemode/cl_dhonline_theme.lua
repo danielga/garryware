@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////
-// -- Depth HUD : Inline                        //
-// by Hurricaaane (Ha3)                       //
-//                                            //
-// http://www.youtube.com/user/Hurricaaane    //
+-- -- Depth HUD : Inline                        --
+-- by Hurricaaane (Ha3)                       --
+--                                            --
+-- http://www.youtube.com/user/Hurricaaane    --
 //--------------------------------------------//
-// The Element Module, to register easily     //
+-- The Element Module, to register easily     --
 ////////////////////////////////////////////////
 
 module( "dhonline_theme", package.seeall )
@@ -84,7 +84,7 @@ function THEME:Mount()
 	
 	if DHONLINE_DEBUG then print(DHONLINE_NAME .. " > Loading from [".. self:GetRawName() .."] elements :") end
 	
-	// Derive ?
+	-- Derive ?
 	if (self._derivefrom) then
 		if DHONLINE_DEBUG then print(DHONLINE_NAME .. " >> Deriving from [".. self._derivefrom .."] elements ...") end
 		self:ImportElements( self._derivefrom )
@@ -92,7 +92,7 @@ function THEME:Mount()
 	
 	self:ImportElements( )
 	
-	if #self.Elements_Names > 2 then // Strictly superior to 2
+	if #self.Elements_Names > 2 then -- Strictly superior to 2
 		table.sort(self.Elements_Names, function(a,b)
 			return self.Elements[a]:GetDisplayName()
 				 < self.Elements[b]:GetDisplayName()
@@ -133,7 +133,7 @@ function THEME:Think()
 end
 
 function THEME:Paint()
-	//print(">> Drawing : ".. self:GetDisplayName())
+	--print(">> Drawing : ".. self:GetDisplayName())
 	local themeRawName = self:GetRawName()
 	
 	for k,ELEMENT in pairs( self.Elements ) do
@@ -145,11 +145,11 @@ function THEME:Paint()
 			and ELEMENT.DrawFunction
 		) then
 		
-			//print("Drawing : ".. ELEMENT:GetDisplayName())
+			--print("Drawing : ".. ELEMENT:GetDisplayName())
 			local bOkay, strErr = pcall(ELEMENT.DrawFunction, ELEMENT)
 			if not bOkay then print(" > " .. DHONLINE_NAME .. " Paint ERROR on element ["..elementRawName.."] : ".. strErr) end
 			
-			//Recalc MY smoothers :
+			--Recalc MY smoothers :
 			
 			for name,subtable in pairs(ELEMENT._SmootherTable) do
 				dhonline.RecalcSmootherLogic(subtable)
@@ -291,7 +291,7 @@ function Register( sName, dTheme )
 	
 	setmetatable(dTheme, dhi_theme_meta)
 	
-	//if dTheme.Initialize then dTheme:Initialize() end
+	--if dTheme.Initialize then dTheme:Initialize() end
 	Themes[sName] = dTheme
 	table.insert(Themes_Names, sName)
 end

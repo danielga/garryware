@@ -79,6 +79,7 @@ end
 function DHI_ReceiveStatuses( usrmsg )
 	DHI_REF_StatusElement.UpdateTime = CurTime()
 	DHI_REF_StatusElement.RemainDuration = 3.0
+	
 	local yourStatus = usrmsg:ReadBool() or false
 	local isServerGlobal = usrmsg:ReadBool() or false
 	if not(isServerGlobal) then
@@ -107,3 +108,29 @@ function DHI_ReceiveStatuses( usrmsg )
 end
 usermessage.Hook( "gw_yourstatus", DHI_ReceiveStatuses )
 
+
+
+
+function DHI_ReceiveSpecialStatuses( usrmsg )
+	DHI_REF_StatusElement.UpdateTime = CurTime()
+	DHI_REF_StatusElement.RemainDuration = 1.0
+	
+	local specialStatus = usrmsg:ReadChar() or 0
+	local positive = false
+	
+	if specialStatus == 1 then
+		positive = true
+		
+		DHI_REF_StatusElement.Text = "Done!"
+		LocalPlayer():EmitSound( table.Random(GAMEMODE.WASND.TBL_LocalWon), 100, GAMEMODE:GetSpeedPercent() )
+		
+	end
+
+	DHI_REF_StatusElement.BackColorSet = (positive and DHI_REF_StatusElement.BackWinColorSet) or DHI_REF_StatusElement.BackLoseColorSet
+
+	surface.SetFont( DHI_REF_StatusElement.Theme:GetAppropriateFont(DHI_REF_StatusElement.Text, 2) )
+	local wB, hB = surface.GetTextSize( DHI_REF_StatusElement.Text )
+	
+	DHI_REF_StatusElement:ChangeSmootherTarget("width", 44 + wB)
+end
+usermessage.Hook( "gw_specialstatus", DHI_ReceiveSpecialStatuses )
