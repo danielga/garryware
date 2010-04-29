@@ -24,7 +24,7 @@ function WARE:Initialize()
 	GAMEMODE:DrawInstructions( "Stay near a pod!" )
 	
 	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
-		v:Give( "sware_rocketpush" )
+		v:Give( "sware_velocitygun" )
 	end
 	
 	local ratio = 0.4
