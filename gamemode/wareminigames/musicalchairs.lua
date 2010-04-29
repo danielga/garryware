@@ -75,16 +75,20 @@ function WARE:StartAction()
 	end
 end
 
+function WARE:PreEndAction()
+	GAMEMODE:RespawnAllPlayers( true, true )
+	
+end
+
 function WARE:EndAction()
 	timer.Simple(0, function()
-		GAMEMODE:RespawnAllPlayers( true, true )
-	
 		for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do
 			v:StripWeapons()
 			v:RemoveAllAmmo( )
 			v:Give("weapon_physcannon")
 		end
 	end)
+	
 end
 
 function WARE:PlayerEnteredVehicle( ply, vehEnt, role )
