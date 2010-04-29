@@ -74,13 +74,12 @@ function GM:CreateTeams()
 
 end
 
---[[
 function GM:GetBaseColorPtr( sColorname )
 	if (GAMEMODE.WACOLS[sColorname] == nil) then return GAMEMODE.WACOLS["unknown"] end
 	
 	return GAMEMODE.WACOLS[sColorname]
 end
-]]--
+
 
 -- Streaks (shared)
 function GM:GetBestStreak()
