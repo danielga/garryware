@@ -89,10 +89,10 @@ end
 
 function GM:DrawInstructions( sInstructions , optColorPointer , optTextColorPointer , optrpFilter )
 	local rp = optrpFilter or nil
-	if not rp then
-		rp = RecipientFilter()
-		rp:AddAllPlayers( )
-	end
+	--if not rp then
+	--	rp = RecipientFilter()
+	--	rp:AddAllPlayers( )
+	--end
 			
 	umsg.Start( "gw_instructions", rp )
 	umsg.String( sInstructions )
@@ -203,9 +203,9 @@ function GM:CheckGlobalStatus( endOfGameBypassValidation )
 	-- TEST : Re-test this.
 	if not (endOfGameBypassValidation and GAMEMODE:HasEveryoneLocked()) then
 		-- Note from Ha3 : OMG, check the usermessage types next time. 1 hour waste
-		local rp = RecipientFilter()
-		rp:AddAllPlayers( )
-		umsg.Start("gw_yourstatus", rp)
+		--local rp = RecipientFilter()
+		--rp:AddAllPlayers( )
+		umsg.Start("gw_yourstatus", nil)
 			umsg.Bool(probableStatus)
 			umsg.Bool(true)
 		umsg.End()
@@ -215,10 +215,10 @@ function GM:CheckGlobalStatus( endOfGameBypassValidation )
 end
 
 function GM:SendEveryoneEvent( probable )
-	local rpAll = RecipientFilter()
-	rpAll:AddAllPlayers()
+	--local rpAll = RecipientFilter()
+	--rpAll:AddAllPlayers()
 	
-	umsg.Start("EventEveryoneState", rpAll)
+	umsg.Start("EventEveryoneState", nil)
 		umsg.Bool( probable )
 	umsg.End()
 end
@@ -290,9 +290,9 @@ function GM:SetNextGameEnd(time)
 	
 	self.NextgameEnd = time
 	
-	local rp = RecipientFilter()
-	rp:AddAllPlayers()
-	umsg.Start("NextGameTimes", rp)
+	--local rp = RecipientFilter()
+	--rp:AddAllPlayers()
+	umsg.Start("NextGameTimes", nil)
 		umsg.Float( 0 )
 		umsg.Float( self.NextgameEnd )
 		umsg.Float( self.Windup )
@@ -330,9 +330,9 @@ function GM:TryNextPhase( )
 		
 	end
 	
-	local rp = RecipientFilter()
-	rp:AddAllPlayers()
-	umsg.Start("NextGameTimes", rp)
+	--local rp = RecipientFilter()
+	--rp:AddAllPlayers()
+	umsg.Start("NextGameTimes", nil)
 		umsg.Float( 0 )
 		umsg.Float( self.NextgameEnd )
 		umsg.Float( self.Windup )
@@ -385,7 +385,7 @@ function GM:EndGame()
 			v:RemoveAllAmmo( )
 			v:Give("weapon_physcannon")
 			
-			-- Clear decals
+			-- Clear decals : NOTE : Now done clientside on signal, it saves from a stringstream
 			--v:ConCommand("r_cleardecals")
 		end
 		
@@ -409,6 +409,7 @@ function GM:EndGame()
 				rpSpec:AddPlayer( v )
 				--v:ConCommand("r_cleardecals")
 			end
+			
 			umsg.Start("EventEndgameTrigger", rpSpec)
 				umsg.Bool( false )
 				umsg.Char( math.random(1, #GAMEMODE.WASND.TBL_GlobalWareningLose ) )
@@ -541,9 +542,9 @@ function GM:Think()
 			GAMEMODE:EndGame()
 			
 			-- Send info about ware
-			local rp = RecipientFilter()
-			rp:AddAllPlayers()
-			umsg.Start("NextGameTimes", rp)
+			--local rp = RecipientFilter()
+			--rp:AddAllPlayers()
+			umsg.Start("NextGameTimes", nil)
 				umsg.Float( 0 )
 				umsg.Float( 0 )
 				umsg.Float( 0 )
@@ -602,9 +603,9 @@ function GM:EndTheGameForOnce()
 	umsg.End()
 	
 	--Send info about ware
-	local rp = RecipientFilter()
-	rp:AddAllPlayers()
-	umsg.Start("NextGameTimes", rp)
+	--local rp = RecipientFilter()
+	--rp:AddAllPlayers()
+	umsg.Start("NextGameTimes", nil)
 		umsg.Float( 0 )
 		umsg.Float( 0 )
 		umsg.Float( 0 )

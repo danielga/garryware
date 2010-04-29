@@ -118,11 +118,11 @@ function WARE:StartAction()
 	textent:Spawn()
 	textent:SetParent(self.ZipEnt)
 	
-	local rp = RecipientFilter()
-	rp:AddAllPlayers()
+	--local rp = RecipientFilter()
+	--rp:AddAllPlayers()
 	
 	textent:SetEntityInteger( 0 )
-	GAMEMODE:SendEntityTextColor( rp , textent, 255, 255, 0, 255 )
+	GAMEMODE:SendEntityTextColor( nil , textent, 255, 255, 0, 255 )
 	
 	self.ZipEnt.AssociatedText = textent
 	

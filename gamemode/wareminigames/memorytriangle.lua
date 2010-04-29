@@ -76,11 +76,11 @@ function WARE:Initialize()
 end
 
 function WARE:SendColors()
-	local rp = RecipientFilter()
-	rp:AddAllPlayers()
+	--local rp = RecipientFilter()
+	--rp:AddAllPlayers()
 	for i=1,#self.PossibleColours do
 		GAMEMODE:SendEntityTextColor(
-		rp
+		nil
 		, (self.Crates[i]).AssociatedText
 		, self.PossibleColours[self.RolledColor[i]][2].r
 		, self.PossibleColours[self.RolledColor[i]][2].g
@@ -91,15 +91,15 @@ function WARE:SendColors()
 end
 
 function WARE:ReleaseAllCrates()
-	local rp = RecipientFilter()
-	rp:AddAllPlayers()
+	--local rp = RecipientFilter()
+	--rp:AddAllPlayers()
 	for i=1,#self.PossibleColours do
 		local physobj = self.Crates[i]:GetPhysicsObject()
 		
 		physobj:EnableMotion(true)
 		physobj:ApplyForceCenter(VectorRand() * 512 * physobj:GetMass())
 		
-		GAMEMODE:SendEntityTextColor( rp , (self.Crates[i]).AssociatedText, 0, 0, 0, 0 )
+		GAMEMODE:SendEntityTextColor( nil , (self.Crates[i]).AssociatedText, 0, 0, 0, 0 )
 	end
 end
 

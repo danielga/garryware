@@ -117,9 +117,9 @@ function meta:ApplyLock( dontSendStatusMessage )
 			GAMEMODE:SendEveryoneEvent( hasAchieved )
 			return
 		else
-			local rp = RecipientFilter()
-			rp:AddPlayer( self )
-			umsg.Start("gw_yourstatus", rp)
+			--local rp = RecipientFilter()
+			--rp:AddPlayer( self )
+			umsg.Start("gw_yourstatus", self)
 				umsg.Bool(hasAchieved)
 				umsg.Bool(false)
 			umsg.End()
@@ -128,9 +128,9 @@ function meta:ApplyLock( dontSendStatusMessage )
 end
 
 function meta:TellDone( )
-	local rp = RecipientFilter()
-	rp:AddPlayer( self )
-	umsg.Start("gw_specialstatus", rp)
+	--local rp = RecipientFilter()
+	--rp:AddPlayer( self )
+	umsg.Start("gw_specialstatus", self)
 		umsg.Char( 1 )
 	umsg.End()
 	
@@ -173,9 +173,9 @@ function meta:IncrementCombo()
 	if (myCombo > GAMEMODE:GetBestStreak()) then
 		GAMEMODE:SetBestStreak( myCombo )
 		
-		local rpall = RecipientFilter()
-		rpall:AddAllPlayers( )
-		umsg.Start("BestStreakEverBreached", rpall)
+		--local rpall = RecipientFilter()
+		--rpall:AddAllPlayers( )
+		umsg.Start("BestStreakEverBreached", nil)
 			umsg.Long( GAMEMODE:GetBestStreak() )
 		umsg.End()
 	end
