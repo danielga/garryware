@@ -13,7 +13,7 @@ function WARE:Initialize()
 end
 
 function WARE:StartAction()
-	GAMEMODE:DrawInstructions( "Be high in the air !" )
+	GAMEMODE:DrawInstructions( "Be high in the air!" )
 	
 	for _,v in pairs(team.GetPlayers(TEAM_HUMANS)) do
 		v:Give( "sware_rocketjump_limited" )
