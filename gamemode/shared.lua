@@ -9,7 +9,7 @@
 
 include( "ply_extension.lua" )
 
-GM.Name 	= "GarryWare Two"
+GM.Name 	= "GarryWare"
 GM.Author 	= "Hurricaaane (Ha3 Team)"
 GM.Email 	= ""
 GM.Website 	= ""

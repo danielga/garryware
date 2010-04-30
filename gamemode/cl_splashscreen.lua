@@ -11,7 +11,7 @@ function PANEL:Init()
 	self:SetSkin( GAMEMODE.HudSkin )
 
 	self.lblGamemodeName = vgui.Create( "DImage", self )  
-	self.lblGamemodeName:SetImage( "vgui/ware/garryware_two_logo" )
+	self.lblGamemodeName:SetImage( "vgui/ware/garryware_logo" )
 		
 	self.lblGamemodeAuthor = vgui.Create( "DLabel", self )
 		self.lblGamemodeAuthor:SetText( "by " .. GAMEMODE.Author )

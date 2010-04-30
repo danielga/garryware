@@ -1,6 +1,6 @@
 "UnlitGeneric" 
 { 
-	"$basetexture"		"vgui/ware/garryware_two_logo_alone" 
+	"$basetexture"		"vgui/ware/garryware_logo_alone" 
 	"$ignorez"		1
 	"$vertexcolor" 		1
 	"$vertexalpha" 		1

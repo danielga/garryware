@@ -14,7 +14,7 @@ function PANEL:Init()
 	self.iTeamID = 0
 	
 	self.GamemodeName = vgui.Create( "DImage", self )  
-	self.GamemodeName:SetImage( "vgui/ware/garryware_two_logo_alone" )
+	self.GamemodeName:SetImage( "vgui/ware/garryware_logo_alone" )
 	
 	self.HostName = vgui.Create( "DLabel", self )
 	self.HostName:SetText( GetHostName() )
