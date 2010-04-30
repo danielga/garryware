@@ -89,6 +89,7 @@ function WARE:PreEndAction()
 				someoneAchieved = true
 				ply:Give( "sware_rocketjump" )
 				ply:TellDone( )
+				ply:SendHitConfirmation()
 				
 			else
 				ply:ApplyLose()

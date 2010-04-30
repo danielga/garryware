@@ -8,6 +8,7 @@
    Name: SetupWeaponHoldTypeForAI
    Desc: Mainly a Todo.. In a seperate file to clean up the init.lua
 ---------------------------------------------------------*/
+/*
 function SWEP:SetupWeaponHoldTypeForAI( t )
 
 	self.ActivityTranslateAI = {}
@@ -77,4 +78,4 @@ function SWEP:SetupWeaponHoldTypeForAI( t )
 	end
 
 end
-
+*/

@@ -12,6 +12,8 @@ SWEP.DrawCrosshair		= true
 SWEP.ViewModel		= "models/weapons/v_357.mdl"
 SWEP.WorldModel		= "models/weapons/w_357.mdl"
 
+SWEP.HoldType = "pistol"
+
 SWEP.Primary.ClipSize		= -1				-- Size of a clip
 SWEP.Primary.DefaultClip	= -1				-- Default number of bullets in a clip
 SWEP.Primary.Automatic		= false				-- Automatic/Semi Auto

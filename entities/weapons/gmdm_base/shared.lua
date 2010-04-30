@@ -23,10 +23,75 @@ SWEP.ImpactEffects = true
 
 SWEP.CanSprintAndShoot = false
 
-function SWEP:Initialize()
 
-	if(SERVER ) then
-		self:SetWeaponHoldType( self.HoldType )
+local ActIndex = {}
+	ActIndex[ "pistol" ] 		= ACT_HL2MP_IDLE_PISTOL
+	ActIndex[ "smg" ] 			= ACT_HL2MP_IDLE_SMG1
+	ActIndex[ "grenade" ] 		= ACT_HL2MP_IDLE_GRENADE
+	ActIndex[ "ar2" ] 			= ACT_HL2MP_IDLE_AR2
+	ActIndex[ "shotgun" ] 		= ACT_HL2MP_IDLE_SHOTGUN
+	ActIndex[ "rpg" ]	 		= ACT_HL2MP_IDLE_RPG
+	ActIndex[ "physgun" ] 		= ACT_HL2MP_IDLE_PHYSGUN
+	ActIndex[ "crossbow" ] 		= ACT_HL2MP_IDLE_CROSSBOW
+	ActIndex[ "melee" ] 		= ACT_HL2MP_IDLE_MELEE
+	ActIndex[ "slam" ] 			= ACT_HL2MP_IDLE_SLAM
+	ActIndex[ "normal" ]		= ACT_HL2MP_IDLE
+	
+-- Translate a player's Activity into a weapon's activity
+-- So for example, ACT_HL2MP_RUN becomes ACT_HL2MP_RUN_PISTOL
+-- Depending on how you want the player to be holding the weapon.
+
+function SWEP:TranslateActivity( act )
+
+	--[[
+	if ( self.Owner:IsNPC() ) then
+		if ( self.ActivityTranslateAI[ act ] ) then
+			return self.ActivityTranslateAI[ act ]
+		end
+		return -1
+	end
+	]]--
+	
+	if ( self.ActivityTranslate[ act ] ~= nil ) then
+		return self.ActivityTranslate[ act ]
+	end
+	
+	return -1
+
+end
+	
+function SWEP:SetWeaponHoldType( t )
+
+	local index = ActIndex[ t ]
+	
+	if (index == nil) then
+		Msg( "SWEP:SetWeaponHoldType - ActIndex[ \"".. tostring(t) .."\" ] isn't set!\n" )
+		return
+	end
+
+	self.ActivityTranslate = {}
+	self.ActivityTranslate [ ACT_MP_STAND_IDLE ] 				= index
+	self.ActivityTranslate [ ACT_MP_WALK ] 						= index+1
+	self.ActivityTranslate [ ACT_MP_RUN ] 						= index+2
+	self.ActivityTranslate [ ACT_MP_CROUCH_IDLE ] 				= index+3
+	self.ActivityTranslate [ ACT_MP_CROUCHWALK ] 				= index+4
+	self.ActivityTranslate [ ACT_MP_ATTACK_STAND_PRIMARYFIRE ] 	= index+5
+	self.ActivityTranslate [ ACT_MP_ATTACK_CROUCH_PRIMARYFIRE ] = index+5
+	self.ActivityTranslate [ ACT_MP_RELOAD_STAND ]		 		= index+6
+	self.ActivityTranslate [ ACT_MP_RELOAD_CROUCH ]		 		= index+6
+	self.ActivityTranslate [ ACT_MP_JUMP ] 						= index+7
+	self.ActivityTranslate [ ACT_RANGE_ATTACK1 ] 				= index+8
+
+	
+	--self:SetupWeaponHoldTypeForAI( t )
+
+end
+
+
+function SWEP:Initialize()
+	self:SetWeaponHoldType( self.HoldType )
+	if (SERVER) then
+		--self:SetWeaponHoldType( self.HoldType )
 		self:SetNPCMinBurst( 30 )
 		self:SetNPCMaxBurst( 30 )
 		self:SetNPCFireRate( 0.01 )

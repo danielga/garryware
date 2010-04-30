@@ -19,10 +19,10 @@ SWEP.AdminSpawnable		= true
 
 SWEP.WepSelectIcon			= surface.GetTextureID( "weapons/swep" )
 
-function SWEP:SetWeaponHoldType( t )
+--function SWEP:SetWeaponHoldType( t )
 	-- Just a fake function so we can define 
 	-- weapon holds in shared files without errors.
-end
+--end
 
 function SWEP:PrintWeaponInfo( x, y, alpha )
 end

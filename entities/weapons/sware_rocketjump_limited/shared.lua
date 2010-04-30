@@ -11,6 +11,7 @@ SWEP.DrawCrosshair		= true
 SWEP.ViewModel			= "models/weapons/v_rpg.mdl"
 SWEP.WorldModel			= "models/weapons/w_rocket_launcher.mdl"
 
+SWEP.HoldType = "rpg"
 
 SWEP.DrawAmmo			= false
 SWEP.Primary.Ammo			= "Pistol"
@@ -27,12 +28,6 @@ SWEP.TickDelay = 0.1
 
 SWEP.ProjectileEntity = "swent_rocketjump"
 SWEP.ProjectileForce = 5000000
-
-
-function SWEP:Initialize()
-	self:SetWeaponHoldType( "rpg" )
-	
-end
 
 
 function SWEP:Throw( shotPower )

@@ -12,6 +12,8 @@ SWEP.DrawCrosshair = true
 SWEP.ViewModel		= "models/weapons/v_crowbar.mdl"		
 SWEP.WorldModel		= "models/weapons/w_crowbar.mdl"
 
+SWEP.HoldType = "pistol"
+
 SWEP.ShootSound = Sound ("weapons/slam/throw.wav")
 
 SWEP.RunArmAngle  = Angle( 70, 0, 0 )
@@ -21,13 +23,6 @@ SWEP.TickDelay = 0.1
 
 SWEP.ProjectileEntity = "swent_crowbar"
 SWEP.ProjectileForce = 100000
-
-function SWEP:Initialize()
-
-	-- Yes, pistol, for a crowbar. Not a mistake.
-	self:SetWeaponHoldType( "pistol" )
-	
-end
 
 function SWEP:ThrowCrowbar(shotPower)
 	local tr = self.Owner:GetEyeTrace()

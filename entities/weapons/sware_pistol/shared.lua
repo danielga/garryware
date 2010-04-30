@@ -12,10 +12,7 @@ SWEP.DrawCrosshair		= true
 SWEP.ViewModel			= "models/weapons/v_pistol.mdl"
 SWEP.WorldModel			= "models/weapons/w_pistol.mdl"
 
-function SWEP:Initialize()
-	self:SetWeaponHoldType( "pistol" )
-	
-end
+SWEP.HoldType = "pistol"
 
 SWEP.RunArmAngle  = Angle( 70, 0, 0 )
 SWEP.RunArmOffset = Vector( 25, 4, 0 )
