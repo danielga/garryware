@@ -133,7 +133,39 @@ GM.WASND.TBL_Teleport = {
 Sound("ambient/machines/teleport1.wav"),
 Sound("ambient/machines/teleport3.wav"),
 Sound("ambient/machines/teleport4.wav")}
+--[[
+SNDOFFS_MALE    = 1
+SNDOFFS_FEMALE  = 2
+SNDOFFS_COMBINE = 3
+SNDOFFS_POLICE  = 4
+SNDOFFS_MONSTER = 5
 
+GM.WASNDOFFS = {}
+
+GM.WASNDOFFS.PlayerJoy = {}
+GM.WASNDOFFS.PlayerJoy[SNDOFFS_MALE]    = {
+}
+GM.WASNDOFFS.PlayerJoy[SNDOFFS_FEMALE]  = {
+}
+GM.WASNDOFFS.PlayerJoy[SNDOFFS_COMBINE] = {
+}
+GM.WASNDOFFS.PlayerJoy[SNDOFFS_POLICE]  = {
+}
+GM.WASNDOFFS.PlayerJoy[SNDOFFS_MONSTER] = {
+}
+
+GM.WASNDOFFS.PlayerSad = {}
+GM.WASNDOFFS.PlayerSad[SNDOFFS_MALE]    = {
+}
+GM.WASNDOFFS.PlayerSad[SNDOFFS_FEMALE]  = {
+}
+GM.WASNDOFFS.PlayerSad[SNDOFFS_COMBINE] = {
+}
+GM.WASNDOFFS.PlayerSad[SNDOFFS_POLICE]  = {
+}
+GM.WASNDOFFS.PlayerSad[SNDOFFS_MONSTER] = {
+}
+]]--
 GM.WACOLS = {}
 GM.WACOLS["unknown"]  = Color(255,255,255,255)
 GM.WACOLS["topic"]    = Color(220,210,92,255)

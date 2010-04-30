@@ -31,7 +31,7 @@ function WARE:Initialize()
 		table.insert(self.Balls, ent)
 		
 		local phys = ent:GetPhysicsObject()
-		phys:ApplyForceCenter( VectorRand() * 1024 )
+		phys:ApplyForceCenter( VectorRand() * 256 )
 		
 		GAMEMODE:AppendEntToBin(ent)
 		GAMEMODE:MakeAppearEffect(ent:GetPos())
