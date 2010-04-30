@@ -73,3 +73,4 @@ function GM:Think()
 end
 
 
+print( "GAMEMODE : " .. tostring(gmod.GetGamemode and gmod.GetGamemode().Name or "<ERROR>") )

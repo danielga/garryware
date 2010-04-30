@@ -1,6 +1,6 @@
 "Gamemode"
 {
-	"name"		"GarryWare Two (Be4)"
+	"name"		"GarryWare (Na11)"
 	"version"	"2"
 
 	"author_name"	"Ha3 Team"
