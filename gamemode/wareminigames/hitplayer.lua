@@ -40,11 +40,12 @@ end
 
 
 function WARE:EntityTakeDamage( ent, inflictor, attacker, amount )
-	if not ValidEntity( ent ) or not ent:IsPlayer() or not ent:IsWarePlayer() then return end
-	if not ValidEntity( attacker ) or not attacker:IsPlayer() or not attacker:IsWarePlayer() then return end
+	if not ValidEntity( ent ) or not ent:IsPlayer() or not ent:IsWarePlayer() or ent:GetLocked() then return end
+	if not ValidEntity( attacker ) or not attacker:IsPlayer() or not attacker:IsWarePlayer() or (not attacker:GetAchieved() and attacker:GetLocked()) then return end
 	
 	attacker:ApplyWin( )
-	if not ent:GetLocked() then ent:ApplyLose() end
+	attacker:SendHitConfirmation()
+	ent:ApplyLose()
 	
 	ent:SetColor(255, 255, 255, 64)
 	ent:CreateRagdoll()

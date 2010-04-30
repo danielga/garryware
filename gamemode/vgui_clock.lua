@@ -8,6 +8,9 @@ function PANEL:Init()
 	
 	self:SetPaintBackground( false )
 	
+	self.ShadeTexPath = "ware/interface/ware_shade"
+	self.ShadeTexID   = surface.GetTextureID( self.ShadeTexPath )
+	
 	self.ClockTexPath = "ware/interface/ware_clock_two"
 	self.ClockTexID   = surface.GetTextureID( self.ClockTexPath )
 	
@@ -44,6 +47,7 @@ function PANEL:Paint()
 	if LocalPlayer():IsValid() then
 		achieved = LocalPlayer():GetAchieved()
 		locked = LocalPlayer():GetLocked()
+		
 	end
 	
 	surface.SetTexture( self.ClockTexID )
@@ -70,19 +74,28 @@ function PANEL:Paint()
 		
 	else
 		surface.SetDrawColor( 0,255,0,255 )
+		
 	end
-	surface.DrawTexturedRectRotated( ScrW()*0.05, ScrH() - ScrH()*0.05 , 256, 256, 0 + self.StartAngle )
+	surface.DrawTexturedRectRotated( ScrW()*0.05, ScrH() - ScrH()*0.05 , 256, 256, self.StartAngle )
 	
+	
+	surface.SetDrawColor( 255, 255, 255, 128 )
+	surface.SetTexture( self.ShadeTexID )
+	surface.DrawTexturedRectRotated( ScrW()*0.05, ScrH() - ScrH()*0.05 , 192, 192, self.StartAngle )
+	
+	surface.SetDrawColor( 255, 255, 255, 255 )
 	surface.SetTexture( self.TrotterTexID )
-	surface.SetDrawColor( 255,255,255,255 )
 	
+	local fSpecPercent = 0
 	if (CurTime() < NextgameStart) then
-		surface.DrawTexturedRectRotated( ScrW()*0.05, ScrH() - ScrH()*0.05 , 256, 256, 360*(60-(CurTime()-NextgameStart))/60 + 90 + self.StartAngle )
+		fSpecPercent = (60 - (CurTime() - NextgameStart)) / 60
 	elseif (CurTime() < NextwarmupEnd) then
-		surface.DrawTexturedRectRotated( ScrW()*0.05, ScrH() - ScrH()*0.05 , 256, 256, 360*(WarmupLen-(CurTime()-NextwarmupEnd))/WarmupLen + 90 + self.StartAngle )
+		fSpecPercent = (WarmupLen - (CurTime() - NextwarmupEnd)) / WarmupLen
 	elseif (CurTime() < NextgameEnd) then
-		surface.DrawTexturedRectRotated( ScrW()*0.05, ScrH() - ScrH()*0.05 , 256, 256, 360*(WareLen-(CurTime()-NextgameEnd))/WareLen + 90 + self.StartAngle )
+		fSpecPercent = (WareLen - (CurTime() - NextgameEnd)) / WareLen
 	else
-		surface.DrawTexturedRectRotated( ScrW()*0.05, ScrH() - ScrH()*0.05 , 256, 256, 360*0 + 90 + self.StartAngle )
+		fSpecPercent = 0
 	end
+	surface.DrawTexturedRectRotated( ScrW()*0.05, ScrH() - ScrH()*0.05 , 256, 256, 360 * fSpecPercent + 90 + self.StartAngle )
+
 end

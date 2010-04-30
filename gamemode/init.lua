@@ -722,6 +722,7 @@ end
 function GM:PlayerDeath( victim, weapon, killer )
 	self.BaseClass:PlayerDeath( victim, weapon, killer )
 	victim:ApplyLose()
+	
 end
 
 function GM:RespawnAllPlayers( bNoMusicEvent, bForce )

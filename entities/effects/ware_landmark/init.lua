@@ -9,7 +9,7 @@ function EFFECT:Init( data )
 		local particle = emitter:Add( "effects/yellowflare", self.Pos + VectorRand() * 5)
 		particle:SetColor( 255, 255, 0 )
 		
-		particle:SetStartSize( math.Rand(20,30) )
+		particle:SetStartSize( math.Rand(5,12) )
 		particle:SetEndSize( 0 )
 		
 		particle:SetStartAlpha( 250 )
@@ -18,14 +18,12 @@ function EFFECT:Init( data )
 		particle:SetDieTime( 2.7 )
 		
 		--particle:SetVelocity( VectorRand() * 20 + Vector(0, 0, (math.random(0,1)*2-1)*math.random(20,100)) )
-		particle:SetVelocity( VectorRand() * math.random(10,20) )
-		particle:SetRoll( (math.random(0,1)*2-1)*math.random(20,40) )
+		particle:SetVelocity( VectorRand() * math.random(64, 92) )
+		particle:SetRoll( (math.random(0, 1) * 2 - 1)*math.random(20, 40) )
 		
-		particle:SetStartLength( 64 )
-		particle:SetEndLength( 48 )
+		particle:SetStartLength( 164 )
+		particle:SetEndLength( 128 )
 		
-		particle:SetBounce( 0.8 )
-		particle:SetCollide( true )
 	end
 	
 	emitter:Finish( )
