@@ -12,7 +12,7 @@ SWEP.DrawCrosshair		= false
 SWEP.ViewModel			= "models/weapons/v_pistol.mdl"
 SWEP.WorldModel			= "models/weapons/w_pistol.mdl"
 
-SWEP.HoldType = "fist"
+SWEP.HoldType = "slam"
 
 function SWEP:Deploy()
 	self.Owner:DrawViewModel( false )
