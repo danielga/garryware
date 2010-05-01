@@ -15,8 +15,10 @@ include( 'skin.lua' )
 include( "sh_tables.lua" )
 include( "sh_chataddtext.lua" )
 
-include("sh_dhonline_autorun.lua")
+include( "cl_version.lua" )
+include( "cl_version_search.lua" )
 
+include("sh_dhonline_autorun.lua")
 
 include( 'cl_splashscreen.lua' )
 include( 'vgui/vgui_scoreboard.lua' )
