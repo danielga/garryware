@@ -9,7 +9,6 @@ WarmupLen = 0
 WareLen = 0
 TimeWhenGameEnds = 0
 TickAnnounce = 0
-UpcomingInfo = ""
 
 LastSelfDomThink = 0
 LastRemainingThink = 0

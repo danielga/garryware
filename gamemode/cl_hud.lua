@@ -167,15 +167,16 @@ function GM:AddScoreboardStreak( ScoreBoard )
 		local sufstring = ""
 		if (combo == combomax) then
 			sufstring = "Ongoing "
+			
 		end
 		return sufstring .. combomax
+		
 	end
 	ScoreBoard:AddColumn( "Best Streak", 80, f, 0.5, nil, 6, 6 )
 
 end
 
 function GM:AddScoreboardAward( ScoreBoard )
-
 	local f = function( ply ) 	
 			
 		local quastring = ""
@@ -212,6 +213,7 @@ function GM:AddScoreboardAward( ScoreBoard )
 			qb = " + "
 		end
 		return "  " .. quastring .. qb .. besstring
+		
 	end
 	
 	ScoreBoard:AddColumn( "Awards", 190, f, 0.5 , nil, 6 , 6 )
@@ -323,7 +325,4 @@ function GM:HUDDrawTargetID()
 	draw.SimpleText( text, font, x, y, self:GetTeamColor( trace.Entity ) )
 
 end
-
-
-
 
