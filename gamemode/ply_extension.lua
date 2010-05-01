@@ -238,6 +238,35 @@ function meta:SendHitConfirmation( )
 	SendUserMessage( "HitConfirmation", self )
 end
 
+function meta:SimulateDeath()
+	if self:IsSimDead() then return nil end
+	
+	self._SimDead = true
+	
+	self:SetColor(255, 255, 255, 64)
+	self:CreateRagdoll()
+	
+	return ragdoll
+end
+
+function meta:RestoreDeath()
+	if not self:IsSimDead() then return false end
+	
+	self._SimDead = false
+	
+	self:SetColor(255, 255, 255, 255)
+	if self:GetRagdollEntity() then
+		self:GetRagdollEntity():Remove()
+		
+	end
+		
+	return true
+end
+
+function meta:IsSimDead()
+	return self._SimDead or false
+end
+
 -- Imported from GMDM
 -- Called by weapons to add recoil
 --

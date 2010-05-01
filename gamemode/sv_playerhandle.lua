@@ -38,6 +38,7 @@ function GM:PlayerSpawn(ply)
 	self.BaseClass:PlayerSpawn( ply )
 	
 	ply:CrosshairDisable()
+	ply:RestoreDeath()
 	
 	if (ply._forcespawntime or 0) < (CurTime() - 0.3) then
 		ply:SetAchievedSpecialInteger( -1 )
@@ -69,6 +70,7 @@ end
 
 function GM:PlayerDeath( victim, weapon, killer )
 	self.BaseClass:PlayerDeath( victim, weapon, killer )
+	victim:RestoreDeath()
 	victim:ApplyLose()
 	
 end

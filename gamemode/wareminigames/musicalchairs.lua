@@ -121,14 +121,7 @@ function WARE:Think( )
 		--Lower telerence
 		if not ply:GetLocked() and ( ply:GetVelocity():Length() < (self.MaxSpeed * 0.7) ) then
 			ply:ApplyLose( )
-			
-			ply:SetColor(255, 255, 255, 64)
-			ply:CreateRagdoll()
-			local ragdollent = ply:GetRagdollEntity()
-			if ValidEntity(ragdoll) then
-				local ragphys = ragdoll:GetPhysicsObjectNum( 0 )
-				ragphys:ApplyForceCenter( Vector(0, 0, 10000) )
-			end
+			ply:SimulateDeath()
 			
 		end
 	end
@@ -142,15 +135,6 @@ function WARE:EndAction()
 			v:Give("weapon_physcannon")
 		end
 	end)
-	
-	for _,v in pairs(player.GetAll()) do
-		v:SetColor(255, 255, 255, 255)
-		if v:GetRagdollEntity() then
-			v:GetRagdollEntity():Remove()
-			
-		end
-		
-	end
 	
 end
 

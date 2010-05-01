@@ -118,14 +118,6 @@ end
 
 
 function WARE:EndAction()
-	for _,v in pairs(player.GetAll()) do
-		v:SetColor(255, 255, 255, 255)
-		if v:GetRagdollEntity() then
-			v:GetRagdollEntity():Remove()
-			
-		end
-		
-	end
 	
 end
 
@@ -138,14 +130,8 @@ function WARE:EntityTakeDamage( ent, inflictor, attacker, amount )
 		attacker:SendHitConfirmation()
 		ent:ApplyLose()
 		
-		ent:SetColor(255, 255, 255, 64)
-		ent:CreateRagdoll()
+		ent:SimulateDeath()
 		ent:StripWeapons()
-		local ragdollent = ent:GetRagdollEntity()
-		if ValidEntity(ragdoll) then
-			local ragphys = ragdoll:GetPhysicsObjectNum( 0 )
-			ragphys:ApplyForceCenter( Vector(0, 0, 10000) )
-		end
 		
 	end
 	

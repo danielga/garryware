@@ -243,6 +243,7 @@ function GM:EndGame()
 			end
 			
 			-- Reinit player
+			v:RestoreDeath()
 			v:StripWeapons()
 			v:RemoveAllAmmo( )
 			v:Give("weapon_physcannon")
