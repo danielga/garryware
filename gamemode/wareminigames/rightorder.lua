@@ -14,7 +14,7 @@ WARE.Numbers = {}
 WARE.NumberSpawns = 7
 
 function WARE:Initialize()
-	local doTrap = (math.random(0,4) ~= 4)
+	local doTrap = (math.random(0,4) == 4)
 	GAMEMODE:OverrideAnnouncer( 2 )
 	
 	self.NumberSpawns = math.random( 4, 7 )
