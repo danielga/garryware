@@ -62,8 +62,8 @@ function GM:Think()
 	self.BaseClass:Think()
 	
 	-- Announcer ticks.
-	if (gws_TickAnnounce > 0 and CurTime() < NextgameEnd ) then
-		if (CurTime() > (NextgameEnd - (gws_WareLen / 6) * gws_TickAnnounce )) then
+	if (gws_TickAnnounce > 0 and CurTime() < gws_NextgameEnd ) then
+		if (CurTime() > (gws_NextgameEnd - (gws_WareLen / 6) * gws_TickAnnounce )) then
 			if GAMEMODE.WASND.BITBL_TimeLeft[gws_CurrentAnnouncer] and GAMEMODE.WASND.BITBL_TimeLeft[gws_CurrentAnnouncer][gws_TickAnnounce] then
 				LocalPlayer():EmitSound( GAMEMODE.WASND.BITBL_TimeLeft[gws_CurrentAnnouncer][gws_TickAnnounce], 100, GAMEMODE:GetSpeedPercent() )
 			end
