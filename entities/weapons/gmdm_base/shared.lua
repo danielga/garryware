@@ -36,6 +36,7 @@ local ActIndex = {}
 	ActIndex[ "melee" ] 		= ACT_HL2MP_IDLE_MELEE
 	ActIndex[ "slam" ] 			= ACT_HL2MP_IDLE_SLAM
 	ActIndex[ "normal" ]		= ACT_HL2MP_IDLE
+
 	
 -- Translate a player's Activity into a weapon's activity
 -- So for example, ACT_HL2MP_RUN becomes ACT_HL2MP_RUN_PISTOL
@@ -49,8 +50,30 @@ function SWEP:TranslateActivity( act )
 	return -1
 
 end
-	
+
 function SWEP:SetWeaponHoldType( t )
+
+	local index = ActIndex[ t ]
+	
+	if (index == nil) then
+		Msg( "Error! Weapon's act index is NIL!\n" )
+		return
+	end
+
+	self.ActivityTranslate = {}
+	self.ActivityTranslate [ ACT_HL2MP_IDLE ] 					= index
+	self.ActivityTranslate [ ACT_HL2MP_WALK ] 					= index+1
+	self.ActivityTranslate [ ACT_HL2MP_RUN ] 					= index+2
+	self.ActivityTranslate [ ACT_HL2MP_IDLE_CROUCH ] 			= index+3
+	self.ActivityTranslate [ ACT_HL2MP_WALK_CROUCH ] 			= index+4
+	self.ActivityTranslate [ ACT_HL2MP_GESTURE_RANGE_ATTACK ] 	= index+5
+	self.ActivityTranslate [ ACT_HL2MP_GESTURE_RELOAD ] 		= index+6
+	self.ActivityTranslate [ ACT_HL2MP_JUMP ] 					= index+7
+	self.ActivityTranslate [ ACT_RANGE_ATTACK1 ] 				= index+8
+
+end
+	
+/*function SWEP:SetWeaponHoldType( t )
 
 	local index = ActIndex[ t ]
 	
@@ -72,7 +95,7 @@ function SWEP:SetWeaponHoldType( t )
 	self.ActivityTranslate [ ACT_MP_JUMP ] 						= index+7
 	self.ActivityTranslate [ ACT_RANGE_ATTACK1 ] 				= index+8
 
-end
+end*/
 
 
 function SWEP:Initialize()
