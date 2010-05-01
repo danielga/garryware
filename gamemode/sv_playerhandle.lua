@@ -7,6 +7,9 @@
 // Player Handle and Model Precache           //
 ////////////////////////////////////////////////
 
+function GM:PlayerCanHearPlayersVoice( pListener, pTalker )
+	return true
+end
 
 function GM:PlayerInitialSpawn( ply, id )
 	self.BaseClass:PlayerInitialSpawn( ply, id )
