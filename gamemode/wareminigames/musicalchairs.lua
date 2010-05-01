@@ -1,5 +1,6 @@
 WARE.Author = "Hurricaaane (Ha3)"
 WARE.Room = "empty"
+WARE.MaxSpeed = 320
 
 WARE.Models = {
 "models/vehicles/prisoner_pod_inner.mdl",
@@ -18,14 +19,11 @@ function WARE:IsPlayable()
 end
 
 function WARE:Initialize()
-	GAMEMODE:SetWareWindupAndLength(6,6)
+	self.RoleColor = Color(114, 49, 130)
+	GAMEMODE:SetWareWindupAndLength(3, 3)
 	
-	GAMEMODE:SetPlayersInitialStatus( false )
-	GAMEMODE:DrawInstructions( "Stay near a pod!" )
-	
-	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
-		v:Give( "sware_rocketpush" )
-	end
+	GAMEMODE:SetPlayersInitialStatus( true )
+	GAMEMODE:DrawInstructions( "Don't stop sprinting!" )
 	
 	local ratio = 0.4
 	local minimum = 1
@@ -68,16 +66,72 @@ function WARE:Initialize()
 end
 
 function WARE:StartAction()
-	GAMEMODE:DrawInstructions( "Get in a pod!" )
 	
-	for k,pod in pairs(self.Pods) do
-		pod:Fire("Unlock", "", 0)
-	end
 end
 
 function WARE:PreEndAction()
 	GAMEMODE:RespawnAllPlayers( true, true )
 	
+end
+
+function WARE:PreEndAction()
+	if GAMEMODE:GetCurrentPhase() == 1 then
+		local someoneAchieved = false
+		for _,ply in pairs(team.GetPlayers(TEAM_HUMANS)) do 
+			ply:StripWeapons()
+			if ply:GetAchieved() then
+				someoneAchieved = true
+				ply:TellDone( )
+				ply:SendHitConfirmation()
+				ply:SetAchievedNoLock( false )
+				
+			else
+				ply:ApplyLose()
+				
+			end
+			
+		end
+		
+		if someoneAchieved then
+			GAMEMODE:SetNextPhaseLength( 6 )
+			
+		end
+	else
+		GAMEMODE:RespawnAllPlayers( true, true )
+		
+	end
+	
+end
+
+function WARE:PhaseSignal( iPhase )
+	if iPhase == 2 then
+		GAMEMODE:DrawInstructions( "Now get in a pod!", self.RoleColor )
+		for k,pod in pairs(self.Pods) do
+			pod:Fire("Unlock", "", 0)
+		end
+		
+	end
+	
+end
+
+function WARE:Think( )
+	if GAMEMODE:GetCurrentPhase() ~= 1 then return end
+	
+	for k,ply in pairs(team.GetPlayers(TEAM_HUMANS)) do 
+		--Lower telerence
+		if not ply:GetLocked() and ( ply:GetVelocity():Length() < (self.MaxSpeed * 0.6) ) then
+			ply:ApplyLose( )
+			
+			ply:SetColor(255, 255, 255, 64)
+			ply:CreateRagdoll()
+			local ragdollent = ply:GetRagdollEntity()
+			if ValidEntity(ragdoll) then
+				local ragphys = ragdoll:GetPhysicsObjectNum( 0 )
+				ragphys:ApplyForceCenter( Vector(0, 0, 10000) )
+			end
+			
+		end
+	end
 end
 
 function WARE:EndAction()
@@ -89,20 +143,33 @@ function WARE:EndAction()
 		end
 	end)
 	
+	for _,v in pairs(player.GetAll()) do
+		v:SetColor(255, 255, 255, 255)
+		if v:GetRagdollEntity() then
+			v:GetRagdollEntity():Remove()
+			
+		end
+		
+	end
+	
 end
 
 function WARE:PlayerEnteredVehicle( ply, vehEnt, role )
 	ply:ApplyWin()
 	vehEnt:Fire("Close", "", 0)
 	vehEnt:Fire("Lock", "", 0)
+	
 end
 
 function WARE:CanPlayerEnterVehicle( ply, vehEnt, role )
-	if GAMEMODE:PhaseIsPrelude() then return false end
+	if GAMEMODE:GetCurrentPhase() ~= 2 then return false end
+	if ply:GetLocked() then return false end
+	
 	return true
 end
 
 function WARE:CanExitVehicle()
+
 	return false
 end
 

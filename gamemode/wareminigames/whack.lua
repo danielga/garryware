@@ -142,7 +142,6 @@ function WARE:EntityTakeDamage( ent, inflictor, attacker, amount )
 		ent:CreateRagdoll()
 		ent:StripWeapons()
 		local ragdollent = ent:GetRagdollEntity()
-		
 		if ValidEntity(ragdoll) then
 			local ragphys = ragdoll:GetPhysicsObjectNum( 0 )
 			ragphys:ApplyForceCenter( Vector(0, 0, 10000) )
