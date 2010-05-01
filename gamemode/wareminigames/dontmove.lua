@@ -21,6 +21,10 @@ end
 
 function WARE:Think( )
 	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
-		if (v:GetVelocity():Length() > 16) then v:ApplyLose( ) end
+		if (v:GetVelocity():Length() > 16) then
+			v:ApplyLose( )
+			v:SimulateDeath( v:GetVelocity() * 10^3 )
+			v:EjectWeapons(nil, 120)
+		end
 	end
 end

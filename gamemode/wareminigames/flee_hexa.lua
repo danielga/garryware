@@ -86,6 +86,7 @@ end
 function WARE:EntityTakeDamage( ent, inflictor, attacker, amount)
 	if ent:IsPlayer() and ent:IsWarePlayer() and attacker:IsNPC( ) then
 		ent:ApplyLose( )
+		ent:SimulateDeath()
 	end
 end
 

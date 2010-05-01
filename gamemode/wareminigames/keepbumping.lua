@@ -57,9 +57,15 @@ end
 
 function WARE:Think( )
 	for _,ply in pairs(team.GetPlayers(TEAM_HUMANS)) do
-		local ent = ply:GetGroundEntity()
-		if ent == GetWorldEntity() then
-			ply:ApplyLose()
+		if not GAMEMODE:PhaseIsPrelude() and not ply:GetLocked() then
+			local ent = ply:GetGroundEntity()
+			if ent == GetWorldEntity() then
+				ply:ApplyLose()
+				ply:SimulateDeath( Vector(0, 0, -1) * 10^3 )
+				ply:EjectWeapons( Vector(0, 0, 1) * 100, 120)
+			end
+			
+			
 		end
 	end
 
@@ -72,13 +78,16 @@ function WARE:Think( )
 		for _,target in pairs(sphere) do			
 			if (target:IsPlayer() and target:IsWarePlayer()) or ( target:GetClass() == "swent_crowbar" ) then
 				if (CurTime() > (ring.LastActTime + 0.15)) then
+				
 					ring.LastActTime = CurTime()
-					ring:EmitSound("ambient/levels/labs/electric_explosion1.wav")
-					
-					local effectdata = EffectData( )
-						effectdata:SetOrigin( ring:GetPos( ) )
-						effectdata:SetNormal( Vector(0,0,1) )
-					util.Effect( "waveexplo", effectdata, true, true )
+					if target:IsPlayer() and target:IsWarePlayer() and not target:GetLocked() then
+						ring:EmitSound("ambient/levels/labs/electric_explosion1.wav")
+						
+						local effectdata = EffectData( )
+							effectdata:SetOrigin( ring:GetPos( ) )
+							effectdata:SetNormal( Vector(0,0,1) )
+						util.Effect( "waveexplo", effectdata, true, true )
+					end
 					
 					if (target:IsPlayer() == false) then
 						target:EmitSound("weapons/flame_thrower_airblast_rocket_redirect.wav")

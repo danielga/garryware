@@ -70,7 +70,7 @@ function WARE:Think( )
 		if not v:GetLocked() and (v:GetPos().z < self.HeightLimit) then
 			v:ApplyLose( )
 			v:SimulateDeath( )
-			v:StripWeapons()
+			v:EjectWeapons(nil, 100)
 		end
 	end
 	
@@ -84,8 +84,8 @@ function WARE:Think( )
 	for _,target in pairs(sphere) do
 		if target:IsPlayer() and target:IsWarePlayer() then
 			if (CurTime() > (ring.LastActTime + 0.2)) then
+				ring.LastActTime = CurTime()
 				if not target:GetLocked() then
-					ring.LastActTime = CurTime()
 					ring:EmitSound("ambient/levels/labs/electric_explosion1.wav")
 					
 					local effectdata = EffectData( )
@@ -101,9 +101,10 @@ function WARE:Think( )
 		end
 	
 		if target:IsPlayer() and target:IsWarePlayer() and not target:GetLocked() then
+			local dir = (target:GetPos() + Vector(0, 0, 128) - ring:GetPos()):Normalize()
 			target:ApplyLose()
-			target:SimulateDeath( (target:GetPos() + Vector(0, 0, 128) - ring:GetPos()):Normalize() * 10^3 )
-			target:StripWeapons()
+			target:SimulateDeath( dir * 1000 )
+			target:EjectWeapons( dir * 200, 100 ) 
 		end
 		
 		

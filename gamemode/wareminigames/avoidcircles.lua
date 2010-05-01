@@ -57,21 +57,20 @@ function WARE:Think( )
 	self.LastThinkDo = CurTime()
 	
 	for k,ring in pairs(self.Circles) do
-		local sphere = ents.FindInSphere(ring:GetPos(),self.CircleRadius)
+		local sphere = ents.FindInSphere(ring:GetPos(), self.CircleRadius)
 		for _,target in pairs(sphere) do
-			if target:IsPlayer() then
-				target:ApplyLose()
-			end
 			
 			if (target:IsPlayer() and target:IsWarePlayer()) or ( target:GetClass() == "swent_crowbar" ) then
 				if (CurTime() > (ring.LastActTime + 0.2)) then
 					ring.LastActTime = CurTime()
-					ring:EmitSound("ambient/levels/labs/electric_explosion1.wav")
-					
-					local effectdata = EffectData( )
-						effectdata:SetOrigin( ring:GetPos( ) )
-						effectdata:SetNormal( Vector(0,0,1) )
-					util.Effect( "waveexplo", effectdata, true, true )
+					if target:IsPlayer() and target:IsWarePlayer() and not target:GetLocked() then
+						ring:EmitSound("ambient/levels/labs/electric_explosion1.wav")
+						
+						local effectdata = EffectData( )
+							effectdata:SetOrigin( ring:GetPos( ) )
+							effectdata:SetNormal( Vector(0,0,1) )
+						util.Effect( "waveexplo", effectdata, true, true )
+					end
 					
 					if (target:IsPlayer() == false) then
 						target:EmitSound("weapons/flame_thrower_airblast_rocket_redirect.wav")
@@ -97,6 +96,14 @@ function WARE:Think( )
 					end
 				
 				end
+			end
+			
+			if target:IsPlayer() and not target:GetLocked() then
+				target:ApplyLose()
+				local dir = (target:GetPos() + Vector(0, 0, 128) - ring:GetPos()):Normalize()
+				target:SimulateDeath( dir * 1000 )
+				target:EjectWeapons( dir * 200, 100 )
+				
 			end
 		end
 	end

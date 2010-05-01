@@ -238,6 +238,32 @@ function meta:SendHitConfirmation( )
 	SendUserMessage( "HitConfirmation", self )
 end
 
+function meta:EjectWeapons( vectForce, fRandomness )
+	for k,weapon in pairs( self:GetWeapons() ) do
+		if weapon.WorldModel then
+			local weaponSim = ents.Create( "prop_physics" )
+			weaponSim:SetPos( self:GetPos() + Vector(0, 0, 32) )
+			weaponSim:SetAngles( Angle(math.random(0,360),math.random(0,360),math.random(0,360)) )
+			
+			weaponSim:SetModel( weapon.WorldModel )
+			weaponSim:SetCollisionGroup(COLLISION_GROUP_WORLD)
+			weaponSim:Spawn()
+			--construct.SetPhysProp( nil, weaponSim, 0, nil,  { GravityToggle = true, Material = "weapon" } ) 
+			
+			local physobj = weaponSim:GetPhysicsObject()
+			if physobj:IsValid() then
+				physobj:ApplyForceCenter( physobj:GetMass() * (vectForce or Vector(0,0,0) + VectorRand() * fRandomness) )
+				physobj:AddAngleVelocity( Angle(math.random(-128,128),math.random(-128,128),math.random(-128,128)) ) 
+			end
+			
+			GAMEMODE:AppendEntToBin( weaponSim )
+			
+		end
+		
+	end
+	self:StripWeapons( )
+end
+
 function meta:SimulateDeath( optvectPush, optiObjNumber )
 	if self:IsSimDead() then return nil end
 	
