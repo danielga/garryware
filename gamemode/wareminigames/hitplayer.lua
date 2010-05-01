@@ -20,6 +20,7 @@ end
 
 function WARE:StartAction()	
 	for _,v in pairs(team.GetPlayers(TEAM_HUMANS)) do
+		v.WARE_IsHit = false
 		v:Give( "weapon_crowbar" )
 	end
 	
@@ -40,12 +41,13 @@ end
 
 
 function WARE:EntityTakeDamage( ent, inflictor, attacker, amount )
-	if not ValidEntity( ent ) or not ent:IsPlayer() or not ent:IsWarePlayer() or ent:GetLocked() then return end
+	if not ValidEntity( ent ) or not ent:IsPlayer() or not ent:IsWarePlayer() or ent.WARE_IsHit then return end
 	if not ValidEntity( attacker ) or not attacker:IsPlayer() or not attacker:IsWarePlayer() or (not attacker:GetAchieved() and attacker:GetLocked()) then return end
 	
 	attacker:ApplyWin( )
 	attacker:SendHitConfirmation()
 	ent:ApplyLose()
+	ent.WARE_IsHit = true
 	
 	ent:SetColor(255, 255, 255, 64)
 	ent:CreateRagdoll()
