@@ -89,8 +89,9 @@ function meta:ApplyLock( dontSendStatusMessage )
 	local hasAchieved = self:GetAchieved() or false
 	
 	if (hasAchieved) then
-		local anim = (math.random(0, 1) > 0) and ACT_SIGNAL_FORWARD or ACT_SIGNAL_HALT
-		self:DoAnimationEvent( anim ) 
+		-- TOKEN_GWUPDATE_COMP
+		--local anim = (math.random(0, 1) > 0) and ACT_SIGNAL_FORWARD or ACT_SIGNAL_HALT
+		--self:DoAnimationEvent( anim ) 
 		self:EmitSound(GAMEMODE.WASND.OtherWin, 100, GAMEMODE:GetSpeedPercent())
 		self:AddFrags( 1 )
 		local newComboVal = self:IncrementCombo()
@@ -100,8 +101,9 @@ function meta:ApplyLock( dontSendStatusMessage )
 		util.Effect("ware_good", ed, true, true)
 	
 	else
-		local anim = (math.random(0, 1) > 0) and ACT_ITEM_THROW or ACT_ITEM_DROP
-		self:DoAnimationEvent( anim ) 
+		-- TOKEN_GWUPDATE_COMP
+		--local anim = (math.random(0, 1) > 0) and ACT_ITEM_THROW or ACT_ITEM_DROP
+		--self:DoAnimationEvent( anim ) 
 		self:EmitSound(GAMEMODE.WASND.OtherLose, 100, GAMEMODE:GetSpeedPercent())
 		self:AddDeaths( 1 )
 		self:InterruptCombo()
