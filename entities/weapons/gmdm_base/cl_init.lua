@@ -6,7 +6,6 @@
 
 include('shared.lua')
 include('cl_hud.lua')
--- Variables that are only ever used on the client.
 
 SWEP.PrintName			= "Garry's Mod Deathmatch Weapon"			
 SWEP.Slot				= 3	
@@ -18,11 +17,6 @@ SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
 SWEP.WepSelectIcon			= surface.GetTextureID( "weapons/swep" )
-
---function SWEP:SetWeaponHoldType( t )
-	-- Just a fake function so we can define 
-	-- weapon holds in shared files without errors.
---end
 
 function SWEP:PrintWeaponInfo( x, y, alpha )
 end
@@ -66,12 +60,13 @@ function SWEP:GetViewModelPosition( pos, ang )
 	local DashDelta = 0
 	
 	-- If we're running, or have just stopped running, lerp between the anims.
-	--Disabled noshoot on sprint. Use it on reload key pressed (NOT ONLY on reloading action !).
-	--if ( self.Owner:KeyDown( IN_SPEED ) ) then
+	-- Disabled noshoot on sprint. Use it on reload key pressed (NOT ONLY on reloading action !).
+	-- if ( self.Owner:KeyDown( IN_SPEED ) ) then
 	if ( self.Owner:KeyDown( IN_RELOAD ) ) then
 		
 		if (not self.DashStartTime) then
 			self.DashStartTime = CurTime()
+			
 		end
 		
 		DashDelta = math.Clamp( ((CurTime() - self.DashStartTime) / 0.1) ^ 1.2, 0, 1 )
@@ -95,7 +90,6 @@ function SWEP:GetViewModelPosition( pos, ang )
 	end
 	
 	if ( DashDelta ) then
-	
 		local Down = ang:Up() * -1
 		local Right = ang:Right()
 		local Forward = ang:Forward()

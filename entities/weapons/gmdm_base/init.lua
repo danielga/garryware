@@ -10,7 +10,6 @@ AddCSLuaFile( "cl_hud.lua" )
 AddCSLuaFile( "shared.lua" )
 
 include('shared.lua')
---include( "ai_translations.lua" )
 
 
 ////////////////////////////////////////////////

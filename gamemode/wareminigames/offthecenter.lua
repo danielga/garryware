@@ -37,7 +37,7 @@ function WARE:Initialize()
 		ent.LastActTime = 0
 		
 		ent:SetZSize(self.CircleRadius * 2.0)
-		ent:SetZColor( Color(255,0,0) )
+		ent:SetZColor( Color(0,0,0) )
 		
 		GAMEMODE:AppendEntToBin(ent)
 		GAMEMODE:MakeAppearEffect(ent:GetPos())
@@ -78,7 +78,7 @@ function WARE:Think( )
 	self.LastThinkDo = CurTime()
 	
 	local ring = self.CenterEntity
-	local sphere = ents.FindInSphere(ring:GetPos(), self.CircleRadius)
+	local sphere = ents.FindInSphere(ring:GetPos(), self.CircleRadius*0.95)
 	for _,target in pairs(sphere) do
 		if target:IsPlayer() then
 			target:ApplyLose()

@@ -42,16 +42,6 @@ local ActIndex = {}
 -- Depending on how you want the player to be holding the weapon.
 
 function SWEP:TranslateActivity( act )
-
-	--[[
-	if ( self.Owner:IsNPC() ) then
-		if ( self.ActivityTranslateAI[ act ] ) then
-			return self.ActivityTranslateAI[ act ]
-		end
-		return -1
-	end
-	]]--
-	
 	if ( self.ActivityTranslate[ act ] ~= nil ) then
 		return self.ActivityTranslate[ act ]
 	end
@@ -82,22 +72,12 @@ function SWEP:SetWeaponHoldType( t )
 	self.ActivityTranslate [ ACT_MP_JUMP ] 						= index+7
 	self.ActivityTranslate [ ACT_RANGE_ATTACK1 ] 				= index+8
 
-	
-	--self:SetupWeaponHoldTypeForAI( t )
-
 end
 
 
 function SWEP:Initialize()
 	self:SetWeaponHoldType( self.HoldType )
-	if (SERVER) then
-		--self:SetWeaponHoldType( self.HoldType )
-		self:SetNPCMinBurst( 30 )
-		self:SetNPCMaxBurst( 30 )
-		self:SetNPCFireRate( 0.01 )
-	end
 	
-	self.Weapon:SetNetworkedBool( "Ironsights", false )
 end
 
 SWEP.SprayTime = 0.1
@@ -250,7 +230,11 @@ function SWEP:RicochetCallback( bouncenum, attacker, tr, dmginfo )
 		
 	-- BLaNK
 	-- Added conditional to stop errors when bullets ricoshet after weapon switch.
-	bullet.Callback    = function( a, b, c ) if( self.RicochetCallback ) then return self:RicochetCallback( bouncenum+1, a, b, c ) end end
+	bullet.Callback = function( a, b, c )
+		if ( self.RicochetCallback ) then
+			return self:RicochetCallback( bouncenum+1, a, b, c )
+		end
+	end
 	
 	timer.Simple( 0.05, attacker.FireBullets, attacker, bullet, true )
 	attacker:SetNetworkedInt( "BulletType", 2 ) -- 2 = Ricochet
@@ -280,7 +264,9 @@ function SWEP:Reload()
 	local canReload = self.Weapon:DefaultReload( ACT_VM_RELOAD )
 	if canReload and self.Weapon.CustomReload then
 		self.Weapon:CustomReload()
+		
 	end
+	
 end
 
 function SWEP:CanShootWeapon()
@@ -291,8 +277,8 @@ function SWEP:CanShootWeapon()
 	
 	-- Cannot fire weapon if we were running less than 0.1 second ago.
 	if( self.CanSprintAndShoot == false ) then
-		--Disabled noshoot on sprint. Use it on reload key pressed (NOT ONLY on reloading action !).
-		--if( self.Owner:KeyDown( IN_SPEED ) ) then return false end	if( self.CanSprintAndShoot == false ) then
+		-- Disabled noshoot on sprint. Use it on reload key pressed (NOT ONLY on reloading action !).
+		-- if( self.Owner:KeyDown( IN_SPEED ) ) then return false end	if( self.CanSprintAndShoot == false ) then
 		if( self.Owner:KeyDown( IN_RELOAD ) ) then return false end
 		if ( self.LastSprintTime and CurTime() - self.LastSprintTime < 0.1 ) then return false end
 	end
@@ -302,11 +288,11 @@ function SWEP:CanShootWeapon()
 end
 
 function SWEP:Think()
-
 	-- Keep track of the last time we were running while holding this weapon..
 	
-	--Disabled noshoot on sprint. Use it on reload key pressed (NOT ONLY on reloading action !).
-	--if ( self.Owner and self.Owner:KeyDown( IN_SPEED ) ) then
+	-- Disabled noshoot on sprint. Use it on reload key pressed (NOT ONLY on reloading action !).
+	-- if ( self.Owner and self.Owner:KeyDown( IN_SPEED ) ) then
+	
 	if ( self.Owner and self.Owner:KeyDown( IN_RELOAD ) ) then
 		self.LastSprintTime = CurTime()
 	end
@@ -338,7 +324,7 @@ function SWEP:GMDMShootBulletEx( damage, num_bullets, aimcone, tracerfreq )
 	self.Owner:MuzzleFlash()							-- Crappy muzzle light
 	self.Owner:SetAnimation( PLAYER_ATTACK1 )			-- 3rd Person Animation
 	
-	/* 
+	/*
 	   This seems to partially fix the "stream of bullets",
 	   but even when it's protected, the tracer is still seen multiple times,
 	   the p228 is especially bad.
@@ -354,7 +340,7 @@ function SWEP:GMDMShootBulletEx( damage, num_bullets, aimcone, tracerfreq )
 	bullet.Force	= 10								-- Amount of force to give to phys objects
 	bullet.Damage	= damage
 	bullet.AmmoType = "Pistol"
-	bullet.TracerName 	= "Tracer"
+	bullet.TracerName = "Tracer"
 	bullet.HullSize	= 4
 	bullet.Callback    = function( a, b, c ) return self:RicochetCallback_Redirect( a, b, c ) end
 	
