@@ -1,16 +1,16 @@
-/*-----------------------
-	Serverside chat.AddText by Overv
-	Use this script in anything you like to,
-	but do mention the thread or my name.
-	
-	Ha3 - There you go : http://www.facepunch.com/showthread.php?t=768062
-	
-	chat.AddText([ Player ply,] Colour colour, string text, Colour colour, string text, ... )
-	Returns: nil
-	In Object: None
-	Part of Library: chat
-	Available On: Server
------------------------*/
+////////////////////////////////////////////////
+//	Serverside chat.AddText by Overv
+//	Use this script in anything you like to,
+//	but do mention the thread or my name.
+//	
+//	Ha3 - There you go : http://www.facepunch.com/showthread.php?t=768062
+//	
+//	chat.AddText([ Player ply,] Colour colour, string text, Colour colour, string text, ... )
+//	Returns: nil
+//	In Object: None
+//	Part of Library: chat
+//	Available On: Server
+////////////////////////////////////////////////
 
 if SERVER then
 	chat = { }

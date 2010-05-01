@@ -1,3 +1,11 @@
+////////////////////////////////////////////////
+// // GarryWare Gold                          //
+// by Hurricaaane (Ha3)                       //
+//  and Kilburn_                              //
+// http://www.youtube.com/user/Hurricaaane    //
+//--------------------------------------------//
+// Player Extensions                          //
+////////////////////////////////////////////////
 
 local meta = FindMetaTable( "Player" )
 if (not meta) then return end 

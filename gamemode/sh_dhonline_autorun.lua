@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////
--- -- Depth HUD : Inline                      --
--- by Hurricaaane (Ha3)                       --
---                                            --
--- http://www.youtube.com/user/Hurricaaane    --
+// -- Depth HUD : Inline                      //
+// by Hurricaaane (Ha3)                       //
+//                                            //
+// http://www.youtube.com/user/Hurricaaane    //
 //--------------------------------------------//
--- Shared call file                           --
+// Shared call file                           /
 ////////////////////////////////////////////////
 
 if DHONLINE_DEBUG == nil then

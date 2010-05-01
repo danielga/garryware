@@ -1,3 +1,11 @@
+////////////////////////////////////////////////
+// // GarryWare Gold                          //
+// by Hurricaaane (Ha3)                       //
+//  and Kilburn_                              //
+// http://www.youtube.com/user/Hurricaaane    //
+//--------------------------------------------//
+// Minigames Module                           //
+////////////////////////////////////////////////
 
 module( "ware_mod", package.seeall )
 

@@ -1,3 +1,11 @@
+////////////////////////////////////////////////
+// // GarryWare Gold                          //
+// by Hurricaaane (Ha3)                       //
+//  and Kilburn_                              //
+// http://www.youtube.com/user/Hurricaaane    //
+//--------------------------------------------//
+// Entity Mapping to Grid Module              //
+////////////////////////////////////////////////
 
 module( "entity_map", package.seeall )
 

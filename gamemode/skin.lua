@@ -1,3 +1,12 @@
+////////////////////////////////////////////////
+// // GarryWare Gold                          //
+// by Hurricaaane (Ha3)                       //
+//  and Kilburn_                              //
+// http://www.youtube.com/user/Hurricaaane    //
+//--------------------------------------------//
+// FILEOVERRIDE Skin                          //
+////////////////////////////////////////////////
+
 local surface = surface
 local draw = draw
 local Color = Color

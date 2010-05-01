@@ -1,4 +1,12 @@
---Effects included in init.lua
+////////////////////////////////////////////////
+// // GarryWare Gold                          //
+// by Hurricaaane (Ha3)                       //
+//  and Kilburn_                              //
+// http://www.youtube.com/user/Hurricaaane    //
+//--------------------------------------------//
+// Effects                                    //
+////////////////////////////////////////////////
+
 function GM:MakeAppearEffect( pos )
 	local ed = EffectData()
 	ed:SetOrigin( pos )

@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////
--- -- Depth HUD : Inline                      --
--- by Hurricaaane (Ha3)                       --
---                                            --
--- http://www.youtube.com/user/Hurricaaane    --
+// // Depth HUD : Inline                      //
+// by Hurricaaane (Ha3)                       //
+//                                            //
+// http://www.youtube.com/user/Hurricaaane    //
 //--------------------------------------------//
--- ConVar Reg Method - Static                 --
+// ConVar Reg Method - Static                 //
 ////////////////////////////////////////////////
 
 dhonline.staticvars = {}

@@ -1,3 +1,12 @@
+////////////////////////////////////////////////
+// // GarryWare Gold                          //
+// by Hurricaaane (Ha3)                       //
+//  and Kilburn_                              //
+// http://www.youtube.com/user/Hurricaaane    //
+//--------------------------------------------//
+// FILEOVERRIDE Scoreboard                    //
+////////////////////////////////////////////////
+
 --include( "vgui/vgui_scoreboard_team.lua" )
 --include( "vgui/vgui_scoreboard_small.lua" )
 

@@ -1,3 +1,12 @@
+////////////////////////////////////////////////
+// // GarryWare Gold                          //
+// by Hurricaaane (Ha3)                       //
+//  and Kilburn_                              //
+// http://www.youtube.com/user/Hurricaaane    //
+//--------------------------------------------//
+// Post-processing                            //
+////////////////////////////////////////////////
+
 local Sharpen = 0
 local MotionBlur = 0
 local ViewWobble = 0

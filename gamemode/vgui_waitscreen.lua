@@ -1,3 +1,11 @@
+////////////////////////////////////////////////
+// // GarryWare Gold                          //
+// by Hurricaaane (Ha3)                       //
+//  and Kilburn_                              //
+// http://www.youtube.com/user/Hurricaaane    //
+//--------------------------------------------//
+// Wait Screen                                //
+////////////////////////////////////////////////
 
 PANEL.Base = "DPanel"
 PANEL.HTMLCONTENTS = ""
@@ -70,7 +78,7 @@ end
 function PANEL:Think()
 	if (self:IsVisible() == false) then return end
 
-	local timeleft = math.floor((NextgameStart or 0) - CurTime())
+	local timeleft = math.floor((gws_NextgameStart or 0) - CurTime())
 	if (timeleft > 0) then 
 		local text = ""
 		if (timeleft > 1) then text = "s" end

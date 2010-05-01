@@ -1,24 +1,26 @@
-/*
-User Messages
-*/
+////////////////////////////////////////////////
+// // GarryWare Gold                          //
+// by Hurricaaane (Ha3)                       //
+//  and Kilburn_                              //
+// http://www.youtube.com/user/Hurricaaane    //
+//--------------------------------------------//
+// Usermessages and VGUI                      //
+////////////////////////////////////////////////
 
-NextgameStart = 0
-NextwarmupEnd = 0
-NextgameEnd = 0
-WarmupLen = 0
-WareLen = 0
-TimeWhenGameEnds = 0
-TickAnnounce = 0
+gws_NextgameStart = 0
+gws_NextwarmupEnd = 0
+gws_NextgameEnd = 0
+gws_WarmupLen = 0
+gws_WareLen = 0
+gws_TimeWhenGameEnds = 0
+gws_TickAnnounce = 0
 
-LastSelfDomThink = 0
-LastRemainingThink = 0
+gws_PrecacheSequence = 0
 
-PrecacheSequence = 0
+gws_CurrentAnnouncer = 1
 
-CurrentAnnouncer = 1
-
-AmbientMusic = {}
-AmbientMusicIsOn = false
+gws_AmbientMusic = {}
+gws_AmbientMusicIsOn = false
 
 local function ModelList( m )
 	local numberOfModels = m:ReadLong()
@@ -29,9 +31,9 @@ local function ModelList( m )
 		table.insert( GAMEMODE.ModelPrecacheTable, m:ReadString() )
 	end
 	
-	PrecacheSequence = (PrecacheSequence or 0) + 1
+	gws_PrecacheSequence = (gws_PrecacheSequence or 0) + 1
 	
-	print( "Precaching sequence #".. PrecacheSequence .."." )
+	print( "Precaching sequence #".. gws_PrecacheSequence .."." )
 	for k=(currentModelCount + 1),(currentModelCount + numberOfModels) do
 		model = GAMEMODE.ModelPrecacheTable[ k ]
 		--print( "Precaching model " .. k .. " : " .. model )
@@ -41,43 +43,43 @@ end
 usermessage.Hook( "ModelList", ModelList )
 
 local function GameStartTime( m )
-	NextgameStart = m:ReadLong()
+	gws_NextgameStart = m:ReadLong()
 end
 usermessage.Hook( "GameStartTime", GameStartTime )
 
 local function ServerJoinInfo( m )
 	local didnotbegin = false
 
-	TimeWhenGameEnds = m:ReadFloat()
+	gws_TimeWhenGameEnds = m:ReadFloat()
 	didnotbegin = m:ReadBool()
 	
 	if didnotbegin == true then
 		WaitShow()
 	end
-	print("Game ends on time : "..TimeWhenGameEnds)
+	print("Game ends on time : "..gws_TimeWhenGameEnds)
 end
 usermessage.Hook( "ServerJoinInfo", ServerJoinInfo )
 
 local function EnableMusicVolume()
-	if AmbientMusicIsOn then
-		AmbientMusic[1]:ChangeVolume( 0.7 )
+	if gws_AmbientMusicIsOn then
+		gws_AmbientMusic[1]:ChangeVolume( 0.7 )
 	end
 end
 
 local function EnableMusic()
-	if AmbientMusicIsOn then
-		AmbientMusic[1]:Stop()
-		AmbientMusic[1]:Play()
-		AmbientMusic[1]:ChangeVolume( 0.1 )
-		AmbientMusic[1]:ChangePitch( GAMEMODE:GetSpeedPercent() )
+	if gws_AmbientMusicIsOn then
+		gws_AmbientMusic[1]:Stop()
+		gws_AmbientMusic[1]:Play()
+		gws_AmbientMusic[1]:ChangeVolume( 0.1 )
+		gws_AmbientMusic[1]:ChangePitch( GAMEMODE:GetSpeedPercent() )
 		timer.Simple( GAMEMODE.WADAT.StartFlourishLength * 0.7 , EnableMusicVolume )
 	end
 end
 
 local function DisableMusic()
-	if not AmbientMusicIsOn then
-		AmbientMusic[1]:ChangeVolume( 0.1 )
-		--AmbientMusic[1]:Stop()
+	if not gws_AmbientMusicIsOn then
+		gws_AmbientMusic[1]:ChangeVolume( 0.1 )
+		--gws_AmbientMusic[1]:Stop()
 	end
 end
 
@@ -85,27 +87,27 @@ local function PlayEnding( musicID )
 	local dataRef = GAMEMODE.WADAT.TBL_GlobalWareningEpic[musicID]
 	
 	LocalPlayer():EmitSound( GAMEMODE.WASND.TBL_GlobalWareningEpic[musicID] , 60, GAMEMODE:GetSpeedPercent() )
-	AmbientMusicIsOn = true
-	AmbientMusic[1]:Stop( )
+	gws_AmbientMusicIsOn = true
+	gws_AmbientMusic[1]:Stop( )
 	timer.Simple( dataRef.Length, EnableMusic )
 end
 
 local function NextGameTimes( m )
-	NextwarmupEnd = m:ReadFloat()
-	NextgameEnd   = m:ReadFloat()
-	WarmupLen     = m:ReadFloat()
-	WareLen       = m:ReadFloat()
+	gws_NextwarmupEnd = m:ReadFloat()
+	gws_NextgameEnd   = m:ReadFloat()
+	gws_WarmupLen     = m:ReadFloat()
+	gws_WareLen       = m:ReadFloat()
 	local bShouldKeepAnnounce = m:ReadBool()
 	local bShouldPlayMusic = m:ReadBool()
 	
-	if not bShouldKeepAnnounce then TickAnnounce = 5 end
+	if not bShouldKeepAnnounce then gws_TickAnnounce = 5 end
 	
 	if bShouldPlayMusic then
 		local libraryID = m:ReadChar()
 		local musicID = m:ReadChar()
-		CurrentAnnouncer = m:ReadChar()
+		gws_CurrentAnnouncer = m:ReadChar()
 		LocalPlayer():EmitSound( GAMEMODE.WASND.BITBL_GlobalWarening[libraryID][musicID] , 60, GAMEMODE:GetSpeedPercent() )
-		AmbientMusicIsOn = true
+		gws_AmbientMusicIsOn = true
 		EnableMusic()
 		
 	end
@@ -117,7 +119,7 @@ local function EventEndgameTrigger( m )
 	local achieved = m:ReadBool()
 	local musicID = m:ReadChar()
 	
-	AmbientMusicIsOn = false
+	gws_AmbientMusicIsOn = false
 	timer.Simple( 0.5, DisableMusic )
 	
 	if (achieved) then
@@ -212,7 +214,7 @@ usermessage.Hook( "EndOfGamemode", EndOfGamemode )
 local function SpecialFlourish( m )
 	local musicID = m:ReadChar()
 	local dataRef = GAMEMODE.WADAT.TBL_GlobalWareningEpic[musicID]
-	timer.Simple( dataRef.StartDalay + dataRef.MusicFadeDelay, function() AmbientMusic[1]:ChangeVolume( 0.0 ) end )
+	timer.Simple( dataRef.StartDalay + dataRef.MusicFadeDelay, function() gws_AmbientMusic[1]:ChangeVolume( 0.0 ) end )
 	timer.Simple( dataRef.StartDalay, PlayEnding, musicID )
 end
 usermessage.Hook( "SpecialFlourish", SpecialFlourish )

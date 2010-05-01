@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////
--- -- Depth HUD : Inline                      --
--- by Hurricaaane (Ha3)                       --
---                                            --
--- http://www.youtube.com/user/Hurricaaane    --
+// // Depth HUD : Inline                      //
+// by Hurricaaane (Ha3)                       //
+//                                            //
+// http://www.youtube.com/user/Hurricaaane    //
 //--------------------------------------------//
--- The Element Module, to register easily     --
+// The Element Module, to register easily     //
 ////////////////////////////////////////////////
 
 module( "dhonline_element", package.seeall )

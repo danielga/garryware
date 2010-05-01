@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////
--- -- GarryWare Two                           --
--- by Hurricaaane (Ha3)                       --
---  and Kilburn_                              --
--- http://www.youtube.com/user/Hurricaaane    --
+// // GarryWare Gold                          //
+// by Hurricaaane (Ha3)                       //
+//  and Kilburn_                              //
+// http://www.youtube.com/user/Hurricaaane    //
 //--------------------------------------------//
--- Files sent to players                      --
+// Files sent to players                      //
 ////////////////////////////////////////////////
 
 AddCSLuaFile( "shared.lua" )
@@ -15,7 +15,7 @@ AddCSLuaFile( "cl_postprocess.lua" )
 AddCSLuaFile( "cl_usermsg.lua" )
 
 AddCSLuaFile( "skin.lua" )
-AddCSLuaFile( "tables.lua" )
+AddCSLuaFile( "sh_tables.lua" )
 AddCSLuaFile( "ply_extension.lua" )
 AddCSLuaFile( "garbage_module.lua" )
 AddCSLuaFile( "sh_chataddtext.lua" )

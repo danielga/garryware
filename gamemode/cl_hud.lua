@@ -1,3 +1,11 @@
+////////////////////////////////////////////////
+// // GarryWare Gold                          //
+// by Hurricaaane (Ha3)                       //
+//  and Kilburn_                              //
+// http://www.youtube.com/user/Hurricaaane    //
+//--------------------------------------------//
+// HUD and Stickers and Air Numbers (no VGUI) //
+////////////////////////////////////////////////
 
 surface.CreateFont( "coolvetica", 48, 400, true, false, "WAREIns" ) 
 surface.CreateFont( "coolvetica", 36, 400, true, false, "WAREDom" )

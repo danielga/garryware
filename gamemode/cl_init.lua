@@ -1,8 +1,8 @@
 ////////////////////////////////////////////////
--- -- GarryWare Two                           --
--- by Hurricaaane (Ha3)                       --
---  and Kilburn_                              --
--- http://www.youtube.com/user/Hurricaaane    --
+// // GarryWare Gold                          //
+// by Hurricaaane (Ha3)                       //
+//  and Kilburn_                              //
+// http://www.youtube.com/user/Hurricaaane    //
 //--------------------------------------------//
 -- Clientside Initialization                  --
 ////////////////////////////////////////////////
@@ -12,7 +12,7 @@ include( 'cl_hud.lua' )
 include( 'cl_postprocess.lua' )
 include( 'cl_usermsg.lua' )
 include( 'skin.lua' )
-include( "tables.lua" )
+include( "sh_tables.lua" )
 include( "sh_chataddtext.lua" )
 
 include("sh_dhonline_autorun.lua")
@@ -48,7 +48,7 @@ end
 
 function GM:CreateAmbientMusic()
 	for k,path in pairs(GAMEMODE.WASND.THL_AmbientMusic) do
-		AmbientMusic[k] = CreateSound(LocalPlayer(), path)
+		gws_AmbientMusic[k] = CreateSound(LocalPlayer(), path)
 	end
 end
 
@@ -62,12 +62,12 @@ function GM:Think()
 	self.BaseClass:Think()
 	
 	-- Announcer ticks.
-	if (TickAnnounce > 0 and CurTime() < NextgameEnd ) then
-		if (CurTime() > (NextgameEnd - (WareLen / 6) * TickAnnounce )) then
-			if GAMEMODE.WASND.BITBL_TimeLeft[CurrentAnnouncer] and GAMEMODE.WASND.BITBL_TimeLeft[CurrentAnnouncer][TickAnnounce] then
-				LocalPlayer():EmitSound( GAMEMODE.WASND.BITBL_TimeLeft[CurrentAnnouncer][TickAnnounce], 100, GAMEMODE:GetSpeedPercent() )
+	if (gws_TickAnnounce > 0 and CurTime() < NextgameEnd ) then
+		if (CurTime() > (NextgameEnd - (gws_WareLen / 6) * gws_TickAnnounce )) then
+			if GAMEMODE.WASND.BITBL_TimeLeft[gws_CurrentAnnouncer] and GAMEMODE.WASND.BITBL_TimeLeft[gws_CurrentAnnouncer][gws_TickAnnounce] then
+				LocalPlayer():EmitSound( GAMEMODE.WASND.BITBL_TimeLeft[gws_CurrentAnnouncer][gws_TickAnnounce], 100, GAMEMODE:GetSpeedPercent() )
 			end
-			TickAnnounce = TickAnnounce - 1
+			gws_TickAnnounce = gws_TickAnnounce - 1
 		end
 	end
 end

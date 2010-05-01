@@ -1,3 +1,11 @@
+////////////////////////////////////////////////
+// // GarryWare Gold                          //
+// by Hurricaaane (Ha3)                       //
+//  and Kilburn_                              //
+// http://www.youtube.com/user/Hurricaaane    //
+//--------------------------------------------//
+// Ware Speedclock                            //
+////////////////////////////////////////////////
 
 PANEL.Base = "DPanel"
 
@@ -51,10 +59,10 @@ function PANEL:Paint()
 	end
 	
 	surface.SetTexture( self.ClockTexID )
-	if (CurTime() < NextgameStart) then
+	if (CurTime() < gws_NextgameStart) then
 		surface.SetDrawColor( 255,255,255,255 )
 		
-	elseif (CurTime() < NextwarmupEnd) then
+	elseif (CurTime() < gws_NextwarmupEnd) then
 		surface.SetDrawColor( 255,245,165,255 )
 		
 	elseif (achieved == nil) then
@@ -87,12 +95,12 @@ function PANEL:Paint()
 	surface.SetTexture( self.TrotterTexID )
 	
 	local fSpecPercent = 0
-	if (CurTime() < NextgameStart) then
-		fSpecPercent = (60 - (CurTime() - NextgameStart)) / 60
-	elseif (CurTime() < NextwarmupEnd) then
-		fSpecPercent = (WarmupLen - (CurTime() - NextwarmupEnd)) / WarmupLen
-	elseif (CurTime() < NextgameEnd) then
-		fSpecPercent = (WareLen - (CurTime() - NextgameEnd)) / WareLen
+	if (CurTime() < gws_NextgameStart) then
+		fSpecPercent = (60 - (CurTime() - gws_NextgameStart)) / 60
+	elseif (CurTime() < gws_NextwarmupEnd) then
+		fSpecPercent = (gws_WarmupLen - (CurTime() - gws_NextwarmupEnd)) / gws_WarmupLen
+	elseif (CurTime() < gws_NextgameEnd) then
+		fSpecPercent = (gws_WareLen - (CurTime() - gws_NextgameEnd)) / gws_WareLen
 	else
 		fSpecPercent = 0
 	end

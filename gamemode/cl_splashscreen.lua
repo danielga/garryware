@@ -1,3 +1,11 @@
+////////////////////////////////////////////////
+// // GarryWare Gold                          //
+// by Hurricaaane (Ha3)                       //
+//  and Kilburn_                              //
+// http://www.youtube.com/user/Hurricaaane    //
+//--------------------------------------------//
+// FILEOVERRIDE Splash Screen                 //
+////////////////////////////////////////////////
 
 local PANEL = {}
 
@@ -98,7 +106,6 @@ end
 
 
 function GM:PaintSplashScreen( w, h )
-
 	-- Customised splashscreen render here ( The center bit! )
 
 end

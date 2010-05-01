@@ -1,4 +1,12 @@
---Entity gathering included in init.lua
+////////////////////////////////////////////////
+// // GarryWare Gold                          //
+// by Hurricaaane (Ha3)                       //
+//  and Kilburn_                              //
+// http://www.youtube.com/user/Hurricaaane    //
+//--------------------------------------------//
+// Entity Gathering                           //
+////////////////////////////////////////////////
+
 function GM:GetEnts( group )
 	return self.CurrentEnvironment:GetEnts(group)
 end

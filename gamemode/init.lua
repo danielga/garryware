@@ -1,18 +1,18 @@
 ////////////////////////////////////////////////
--- -- GarryWare Two                           --
--- by Hurricaaane (Ha3)                       --
---  and Kilburn_                              --
--- http://www.youtube.com/user/Hurricaaane    --
+// // GarryWare Gold                          //
+// by Hurricaaane (Ha3)                       //
+//  and Kilburn_                              //
+// http://www.youtube.com/user/Hurricaaane    //
 //--------------------------------------------//
--- Serverside Initialization                  --
+// Serverside Initialization                  //
 ////////////////////////////////////////////////
 
 
 include( "shared.lua" )
-include( "tables.lua" )
+include( "sh_tables.lua" )
 
-include( "init_effects.lua" )
-include( "init_entitygathering.lua" )
+include( "sv_effects.lua" )
+include( "sv_entitygathering.lua" )
 include( "sh_chataddtext.lua" )
 
 include( "minigames_module.lua" )
@@ -20,8 +20,11 @@ include( "environment_module.lua" )
 include( "entitymap_module.lua" )
 
 include( "sv_filelist.lua" )
+include( "sv_warehandy.lua" )
+include( "sv_playerhandle.lua" )
+include( "sv_frettarelated.lua" )
 
--- It AddCS itselfs.
+-- It AddCS itself.
 include("sh_dhonline_autorun.lua")
 
 -- Serverside Vars
@@ -54,111 +57,6 @@ ware_debug 3 : Plays normal mode, waiting time stripped, intro sequence skipped.
 required to make sure players have loaded some files )
 ]]--
 
-////////////////////////////////////////////////
-////////////////////////////////////////////////
--- Ware general open functions.
-
-function GM:SetWareWindupAndLength(windup , len)
-	self.Windup  = windup
-	self.WareLen = len
-end
-
-function GM:OverrideAnnouncer( id )
-    if (1 <= id) and (id <= #self.WASND.BITBL_TimeLeft) then
-		self.WareOverrideAnnouncer = id
-	end
-end
-
-function GM:DrawToPlayersGeneralInstructions( tPlayersInput, bInvert, sInstructions , optColorPointer , optTextColorPointer )
-	local rpPlayers = RecipientFilter()
-	if bInvert then
-		rpPlayers:AddAllPlayers()
-		for k,ply in pairs( tPlayersInput ) do
-			rpPlayers:RemovePlayer( ply )
-		end
-	
-	else
-		for k,ply in pairs( tPlayersInput ) do
-			rpPlayers:AddPlayer( ply )
-		end
-		
-	end
-	
-	self:DrawInstructions( sInstructions , optColorPointer , optTextColorPointer , rpPlayers )
-end
-
-function GM:DrawInstructions( sInstructions , optColorPointer , optTextColorPointer , optrpFilter )
-	local rp = optrpFilter or nil
-	--if not rp then
-	--	rp = RecipientFilter()
-	--	rp:AddAllPlayers( )
-	--end
-			
-	umsg.Start( "gw_instructions", rp )
-	umsg.String( sInstructions )
-	-- If there is no color, no chars about the color are passed.
-	umsg.Bool( optColorPointer ~= nil )
-	if (optColorPointer ~= nil) then
-		-- If there is a background color, a bool stating about the presence
-		-- of a text color must be passed, even if there is no text color !
-		umsg.Bool( optTextColorPointer ~= nil )
-
-		umsg.Char( optColorPointer.r - 128 )
-		umsg.Char( optColorPointer.g - 128 )
-		umsg.Char( optColorPointer.b - 128 )
-		umsg.Char( optColorPointer.a - 128 )
-		
-		if (optTextColorPointer ~= nil) then
-			umsg.Char( optTextColorPointer.r - 128 )
-			umsg.Char( optTextColorPointer.g - 128 )
-			umsg.Char( optTextColorPointer.b - 128 )
-			umsg.Char( optTextColorPointer.a - 128 )
-		end
-	end
-	umsg.End()
-end
-
-function GM:SetPlayersInitialStatus(isAchievedNilIfMystery)
-	-- nil as an achieved status then can only be set globally (start of game).
-	-- Use it for games where the status is set on Epilogue (not Ending), while
-	-- the players shouldn't know if they won or not.
-	-- Example : Watch the props ! / Stand on the missing prop ! (ver.2)
-	
-	for k,v in pairs(player.GetAll()) do 
-		v:SetAchievedSpecialInteger( ((isAchievedNilIfMystery == nil) and -1) or ((isAchievedNilIfMystery) and 1) or 0 )
-	end
-	
-end
-
-function GM:SendEntityTextColor( rpfilterOrPlayer, entity, r, g, b, a )
-	umsg.Start("EntityTextChangeColor", rpfilterOrPlayer)
-		umsg.Entity( entity )
-		umsg.Char( r - 128 )
-		umsg.Char( g - 128 )
-		umsg.Char( b - 128 )
-		umsg.Char( a - 128 )
-	umsg.End()
-end
-
-////////////////////////////////////////////////
-////////////////////////////////////////////////
--- Entity trash bin functions.
-
-function GM:AppendEntToBin( ent )
-	table.insert(GAMEMODE.WareEnts,ent)
-end
-
-function GM:RemoveEnts()
-	for k,v in pairs(GAMEMODE.WareEnts) do
-		if (ValidEntity(v)) then
-			GAMEMODE:MakeDisappearEffect(v:GetPos())
-			v:Remove()
-		end
-	end
-end
-
-////////////////////////////////////////////////
-////////////////////////////////////////////////
 -- Ware internal functions.
 
 function GM:HasEveryoneLocked()
@@ -276,42 +174,6 @@ function GM:PickRandomGame()
 		umsg.Char( math.random(1, #GAMEMODE.WASND.TBL_GlobalWareningNew ) )
 		umsg.Char( self.WareOverrideAnnouncer )
 	umsg.End()
-end
-
-function GM:SetNextGameEnd(time)
-	if not self.WareHaveStarted or not self.ActionPhase then return end
-	
-	local t = CurTime()
-	
-	-- Prevents dividing by zero
-	if (t - time ~= 0) and (t - self.NextgameEnd ~= 0) then
-		self.WareLen = self.WareLen * (t - time) / (t - self.NextgameEnd)
-	end
-	
-	self.NextgameEnd = time
-	
-	--local rp = RecipientFilter()
-	--rp:AddAllPlayers()
-	umsg.Start("NextGameTimes", nil)
-		umsg.Float( 0 )
-		umsg.Float( self.NextgameEnd )
-		umsg.Float( self.Windup )
-		umsg.Float( self.WareLen )
-		umsg.Bool( true )
-		umsg.Bool( true )
-		umsg.Char( 1 )
-		umsg.Char( math.random(1, #GAMEMODE.WASND.TBL_GlobalWareningNew ) )
-		umsg.Char( self.WareOverrideAnnouncer )
-	umsg.End()
-end
-
-function GM:SetNextPhaseLength( fTime )
-	self.WarePhase_NextLength = (fTime > 0) and fTime or 0
-	
-end
-
-function GM:GetCurrentPhase( fTime )
-	return self.WarePhase_Current
 end
 
 function GM:TryNextPhase( )
@@ -578,198 +440,6 @@ function GM:Think()
 			SendUserMessage( "WaitShow" )
 		end
 	end
-end
-
-////////////////////////////////////////////////
-////////////////////////////////////////////////
--- Fretta end-of-game / Vote overrides.
-
-function GM:EndTheGameForOnce()
-	if self.GameHasEnded == true then return end
-	
-	self.GamesArePlaying = false
-	self.GameHasEnded = true
-	
-	-- Find combos before ending the game and after saying the game has ended
-	for _,ply in pairs(team.GetPlayers(TEAM_HUMANS)) do
-		ply:PrintComboMessagesAndEffects( ply:GetCombo() )
-	end
-	
-	self:EndGame()
-	
-	--Send info about VGUI
-	umsg.Start("SpecialFlourish")
-		umsg.Char( 2 )
-	umsg.End()
-	
-	--Send info about ware
-	--local rp = RecipientFilter()
-	--rp:AddAllPlayers()
-	umsg.Start("NextGameTimes", nil)
-		umsg.Float( 0 )
-		umsg.Float( 0 )
-		umsg.Float( 0 )
-		umsg.Float( 0 )
-		umsg.Bool( false )
-		umsg.Bool( false )
-	umsg.End()
-	umsg.Start("BestStreakEverBreached", rp)
-		umsg.Long( self.BestStreakEver )
-	umsg.End()
-end
-
-function GM:EndOfGame( bGamemodeVote )
-	self:EndTheGameForOnce()
-	
-	self.BaseClass:EndOfGame( bGamemodeVote )
-end
-
-function GM:StartGamemodeVote()
-	self:EndTheGameForOnce()
-	
-	self.BaseClass:StartGamemodeVote()
-end
-
-////////////////////////////////////////////////
-////////////////////////////////////////////////
--- Model List.
-
-function GM:SendModelList( ply )
-	if #self.ModelPrecacheTable <= 0 then return end
-	
-	local messageSplit = 3
-	
-	local count = #self.ModelPrecacheTable
-	local splits = math.ceil(#self.ModelPrecacheTable / messageSplit)
-	
-	local lastSplit = #self.ModelPrecacheTable % messageSplit
-	local model = ""
-	
-	for i=1,splits do
-		local toSend = ((i < splits) and messageSplit) or lastSplit
-		
-		umsg.Start("ModelList", ply)
-			umsg.Long(toSend)
-			for k=1,toSend do
-				model = self.ModelPrecacheTable[ (i - 1) * messageSplit + k ]
-				umsg.String( model )
-			end
-		umsg.End()
-		
-	end
-end
-
-////////////////////////////////////////////////
-////////////////////////////////////////////////
--- Player related.
-
-function GM:PlayerInitialSpawn( ply, id )
-	self.BaseClass:PlayerInitialSpawn( ply, id )
-
-
-	-- Give him info about the current status of the game
-	local didnotbegin = false
-	if (self.NextgameStart > CurTime()) then
-		didnotbegin = true
-	end
-	
-	umsg.Start("ServerJoinInfo", ply )
-		umsg.Float( self.TimeWhenGameEnds )
-		umsg.Bool( didnotbegin )
-	umsg.End()
-	umsg.Start("BestStreakEverBreached", ply )
-		umsg.Long( self.BestStreakEver )
-	umsg.End()
-	
-	GAMEMODE:SendModelList( ply )
-	
-	ply:SetComboSpecialInteger( 0 )
-end
-
-function GM:PlayerSpawn(ply)
-	self.BaseClass:PlayerSpawn( ply )
-	
-	ply:CrosshairDisable()
-	
-	if (ply._forcespawntime or 0) < (CurTime() - 0.3) then
-		ply:SetAchievedSpecialInteger( -1 )
-		ply:SetLockedSpecialInteger( 1 )
-	end
-	
-end
-
-function GM:PlayerSelectSpawn(ply)
-	if ply.ForcedSpawn then
-		local spawn = ply.ForcedSpawn
-		ply.ForcedSpawn = nil
-		return spawn
-	end
-	
-	local spawns
-	
-	if self.CurrentEnvironment then
-		spawns = self.CurrentEnvironment.PlayerSpawns
-	end
-	
-	if not spawns or #spawns==0 then
-		spawns = ents.FindByClass("info_player_start")
-	end
-	
-	return spawns[math.random(1,#spawns)]
-end
-
-
-function GM:PlayerDeath( victim, weapon, killer )
-	self.BaseClass:PlayerDeath( victim, weapon, killer )
-	victim:ApplyLose()
-	
-end
-
-function GM:RespawnAllPlayers( bNoMusicEvent, bForce )
-	if not self.CurrentEnvironment then return end
-	
-	local rp = RecipientFilter()
-	
-	local spawns = {}
-	
-	-- Priority goes to active players, so they don't spawn in each other
-	for _,v in pairs( team.GetPlayers(TEAM_HUMANS) ) do
-		if bForce or (v:GetEnvironment() ~= self.CurrentEnvironment) then
-			if #spawns == 0 then
-				spawns = table.Copy( self.CurrentEnvironment.PlayerSpawns )
-			end
-		
-			--No need to draw the effect no one sees them
-			--self:MakeDisappearEffect( v:GetPos() )
-			local loc = table.remove(spawns, math.random(1, #spawns) )
-			
-			v.ForcedSpawn = loc
-			if bForce then v._forcespawntime = CurTime() end
-			v:Spawn( )
-			
-			rp:AddPlayer(v)
-		end
-	end
-	
-	for _,v in pairs(team.GetPlayers(TEAM_SPECTATOR)) do
-		if v:GetEnvironment() ~= self.CurrentEnvironment then
-			if #spawns == 0 then
-				spawns = table.Copy(self.CurrentEnvironment.PlayerSpawns)
-			end
-		
-			local loc = table.remove( spawns, math.random(1, #spawns) )
-			
-			v.ForcedSpawn = loc
-			v:Spawn()
-			
-			rp:AddPlayer(v)
-		end
-	end
-	
-	umsg.Start("PlayerTeleported", rp)
-		umsg.Bool(bNoMusicEvent or false)
-		umsg.Char( math.random(1, #GAMEMODE.WASND.TBL_GlobalWareningTeleport ) )
-	umsg.End()
 end
 
 function GM:WareRoomCheckup()

@@ -1,7 +1,11 @@
-/*
-	Garbage Optimiztion
-	Experimental Module
-*/
+////////////////////////////////////////////////
+// // GarryWare Gold                          //
+// by Hurricaaane (Ha3)                       //
+//  and Kilburn_                              //
+// http://www.youtube.com/user/Hurricaaane    //
+//--------------------------------------------//
+// Garbage Module                             //
+////////////////////////////////////////////////
 
 ////////////////////////////////
 //////// Copy

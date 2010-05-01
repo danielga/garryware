@@ -1,3 +1,11 @@
+////////////////////////////////////////////////
+// // GarryWare Gold                          //
+// by Hurricaaane (Ha3)                       //
+//  and Kilburn_                              //
+// http://www.youtube.com/user/Hurricaaane    //
+//--------------------------------------------//
+// Gamemode length clock                      //
+////////////////////////////////////////////////
 
 PANEL.Base = "DPanel"
 
@@ -48,6 +56,6 @@ function PANEL:Paint()
 	surface.SetTexture( self.TrotterTexID )
 	surface.SetDrawColor( 255, 255, 255, 255 )
 	
-	surface.DrawTexturedRectRotated( ScrW() - 24, ScrH() - 18 , 64, 64, 360 * ((TimeWhenGameEnds - CurTime()) / (GAMEMODE.GameLength * 60)) + 90 + self.StartAngle )
+	surface.DrawTexturedRectRotated( ScrW() - 24, ScrH() - 18 , 64, 64, 360 * ((gws_TimeWhenGameEnds - CurTime()) / (GAMEMODE.GameLength * 60)) + 90 + self.StartAngle )
 
 end
