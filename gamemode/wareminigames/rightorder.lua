@@ -14,11 +14,12 @@ WARE.Numbers = {}
 WARE.NumberSpawns = 7
 
 function WARE:Initialize()
+	local doTrap = (math.random(0,4) ~= 4)
 	GAMEMODE:OverrideAnnouncer( 2 )
 	
 	self.NumberSpawns = math.random( 4, 7 )
 
-	GAMEMODE:SetWareWindupAndLength(self.NumberSpawns * 0.4, self.NumberSpawns * 1.7)
+	GAMEMODE:SetWareWindupAndLength(self.NumberSpawns * 0.4, self.NumberSpawns * 1.7 * (doTrap and 1.3 or 1))
 	
 	GAMEMODE:SetPlayersInitialStatus( false )
 	--GAMEMODE:DrawInstructions("Shoot all " .. self.NumberSpawns .." crates in the right order!" )
@@ -28,7 +29,7 @@ function WARE:Initialize()
 	self.Numbers = {}
 	self.Sequence = {}
 	
-	local previousnumber = 0
+	local previousnumber = doTrap and (-math.random(50,120)) or 0
 	for i,pos in ipairs(GAMEMODE:GetRandomPositions(self.NumberSpawns, ENTS_ONCRATE)) do
 		local prop = ents.Create("prop_physics")
 		prop:SetModel( self.Models[1] )
@@ -63,6 +64,7 @@ function WARE:Initialize()
 end
 
 function WARE:StartAction()
+	
 	local croissant = math.random(0,1)
 	if (croissant == 1) then
 		for k=1,self.NumberSpawns do
@@ -79,8 +81,10 @@ function WARE:StartAction()
 	end
 	
 	self.PlayerCurrentCrate = {}
+	self.PlayerAlreadyHitCrate = {}
 	
 	for _,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
+		self.PlayerAlreadyHitCrate[v] = {}
 		v:Give("sware_pistol")
 		v:GiveAmmo(12, "Pistol", true)
 		self.PlayerCurrentCrate[v] = 1
@@ -107,6 +111,9 @@ function WARE:EntityTakeDamage(ent,inf,att,amount,info)
 	if not att:IsPlayer() or not info:IsBulletDamage() then return end
 	if not pool.PlayerCurrentCrate[att] then return end
 	if not pool.Crates or not ent.CrateID then return end
+	
+	if (self.PlayerAlreadyHitCrate[att][ent.CrateID] == true) then return end
+	self.PlayerAlreadyHitCrate[att][ent.CrateID] = true
 	
 	GAMEMODE:MakeAppearEffect( ent:GetPos() )
 	

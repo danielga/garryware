@@ -81,7 +81,7 @@ function WARE:StartAction()
 end
 
 function WARE:PreEndAction()
-	if GAMEMODE:GetCurrentPhase() <= 2 then
+	if GAMEMODE:GetCurrentPhase() < 2 then
 		local someoneAchieved = false
 		for _,ply in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 			ply:StripWeapons()
