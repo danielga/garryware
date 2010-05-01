@@ -21,5 +21,5 @@
 	}
 
 	"selectable"	"1"
-	"description"	"GarryWare Two - Do what she says."
+	"description"	"GarryWare - Do what she says."
 }
