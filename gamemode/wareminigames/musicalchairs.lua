@@ -119,7 +119,7 @@ function WARE:Think( )
 	
 	for k,ply in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		--Lower telerence
-		if not ply:GetLocked() and ( ply:GetVelocity():Length() < (self.MaxSpeed * 0.6) ) then
+		if not ply:GetLocked() and ( ply:GetVelocity():Length() < (self.MaxSpeed * 0.7) ) then
 			ply:ApplyLose( )
 			
 			ply:SetColor(255, 255, 255, 64)
