@@ -225,3 +225,42 @@ local function HitConfirmation( m )
 end
 usermessage.Hook( "HitConfirmation", HitConfirmation )
 
+local function DoRagdollEffect( ply, optvectPush, optiObjNumber, iIter)
+	if not ValidEntity( ply ) then return end
+	
+	local ragdoll = ply:GetRagdollEntity()
+	if ragdoll then
+		local physobj = nil
+		if optiObjNumber >= 0 then
+			physobj = ragdoll:GetPhysicsObjectNum( optiObjNumber )
+			
+		else
+			physobj = ragdoll:GetPhysicsObject( )
+			
+		end
+		
+		--print(ply:GetModel(), physobj:GetMass() )
+		
+		if physobj then
+			physobj:SetVelocity( 10^6 * optvectPush )
+			
+		end
+		
+	else
+		if iIter > 0 then
+			timer.Simple(0, function() DoRagdollEffect( ply, optvectPush, optiObjNumber, iIter - 1) end)
+		end
+	end
+	
+end
+
+local function PlayerRagdollEffect( m )
+	local ply = m:ReadEntity()
+	local optvectPush = m:ReadVector()
+	local optiObjNumber = m:ReadChar()
+	
+	if not ValidEntity( ply ) then return end
+	
+	DoRagdollEffect( ply, optvectPush, optiObjNumber, 20)
+end
+usermessage.Hook( "PlayerRagdollEffect", PlayerRagdollEffect )

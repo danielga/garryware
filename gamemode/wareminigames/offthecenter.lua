@@ -67,8 +67,10 @@ end
 
 function WARE:Think( )
 	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
-		if v:GetPos().z < self.HeightLimit then
+		if not v:GetLocked() and (v:GetPos().z < self.HeightLimit) then
 			v:ApplyLose( )
+			v:SimulateDeath( )
+			v:StripWeapons()
 		end
 	end
 	
@@ -78,26 +80,32 @@ function WARE:Think( )
 	self.LastThinkDo = CurTime()
 	
 	local ring = self.CenterEntity
-	local sphere = ents.FindInSphere(ring:GetPos(), self.CircleRadius*0.95)
+	local sphere = ents.FindInSphere(ring:GetPos(), self.CircleRadius * 0.95)
 	for _,target in pairs(sphere) do
-		if target:IsPlayer() then
-			target:ApplyLose()
-		end
-		
-		if (target:IsPlayer() and target:IsWarePlayer()) then
+		if target:IsPlayer() and target:IsWarePlayer() then
 			if (CurTime() > (ring.LastActTime + 0.2)) then
-				ring.LastActTime = CurTime()
-				ring:EmitSound("ambient/levels/labs/electric_explosion1.wav")
-				
-				local effectdata = EffectData( )
-					effectdata:SetOrigin( ring:GetPos( ) )
-					effectdata:SetNormal( Vector(0,0,1) )
-				util.Effect( "waveexplo", effectdata, true, true )
+				if not target:GetLocked() then
+					ring.LastActTime = CurTime()
+					ring:EmitSound("ambient/levels/labs/electric_explosion1.wav")
+					
+					local effectdata = EffectData( )
+						effectdata:SetOrigin( ring:GetPos( ) )
+						effectdata:SetNormal( Vector(0,0,1) )
+					util.Effect( "waveexplo", effectdata, true, true )
+				end
 				
 				target:SetGroundEntity( NULL )
 				target:SetVelocity(target:GetVelocity()*(-1) + (target:GetPos() + Vector(0,0,32) - ring:GetPos()):Normalize() * 500)
 			
 			end
 		end
+	
+		if target:IsPlayer() and target:IsWarePlayer() and not target:GetLocked() then
+			target:ApplyLose()
+			target:SimulateDeath( (target:GetPos() + Vector(0, 0, 128) - ring:GetPos()):Normalize() * 10^3 )
+			target:StripWeapons()
+		end
+		
+		
 	end
 end

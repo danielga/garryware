@@ -238,13 +238,21 @@ function meta:SendHitConfirmation( )
 	SendUserMessage( "HitConfirmation", self )
 end
 
-function meta:SimulateDeath()
+function meta:SimulateDeath( optvectPush, optiObjNumber )
 	if self:IsSimDead() then return nil end
 	
 	self._SimDead = true
 	
 	self:SetColor(255, 255, 255, 64)
-	self:CreateRagdoll()
+	self:CreateRagdoll( )
+	
+	if optvectPush then
+		umsg.Start("PlayerRagdollEffect")
+			umsg.Entity( self )
+			umsg.Vector( optvectPush )
+			umsg.Char( optiObjNumber or -1 )
+		umsg.End()
+	end
 	
 	return ragdoll
 end
