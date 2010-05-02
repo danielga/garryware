@@ -53,6 +53,8 @@ resource.AddFile("materials/ware/interface/ware_clock_two.vmt")
 resource.AddFile("materials/ware/interface/ware_clock_two.vtf") -- This has NOLOD
 resource.AddFile("materials/ware/interface/ware_trotter.vmt")
 resource.AddFile("materials/ware/interface/ware_trotter.vtf")
+resource.AddFile("materials/ware/interface/ware_shade.vmt")
+resource.AddFile("materials/ware/interface/ware_shade.vtf")
 resource.AddFile("materials/ware/stickers/ware_clock_two.vmt")
 resource.AddFile("materials/ware/stickers/ware_clock_two.vtf") -- This has LOD
 resource.AddFile("materials/vgui/ware/garryware_logo.vmt")
