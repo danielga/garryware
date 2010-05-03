@@ -179,6 +179,12 @@ end
 function GM:TryNextPhase( )
 	if self.WarePhase_NextLength <= 0 then return false end
 	
+	-- TOKEN_GW_STATS : Need to enable stats gathering HERE !
+	-- Dont forget the other one.
+	-- We do it here AFTER we know that there is a next phase, and
+	-- BEFORE changing the phase number
+	-- self:StatsUpdateMinigameInfo()
+	
 	self.WarePhase_Current = self.WarePhase_Current + 1
 	
 	self.WareLen = self.WarePhase_NextLength
@@ -223,7 +229,7 @@ function GM:EndGame()
 		end
 		if self.Minigame and self.Minigame.EndAction then self.Minigame:EndAction() end
 		self:RemoveEnts()
-
+		
 		local everyoneStatusIsSame, probable = GAMEMODE:CheckGlobalStatus( true )
 		if (everyoneStatusIsSame and not GAMEMODE:HasEveryoneLocked()) then
 			self:SendEveryoneEvent( probable )
@@ -251,6 +257,11 @@ function GM:EndGame()
 			-- Clear decals : NOTE : Now done clientside on signal, it saves from a stringstream
 			--v:ConCommand("r_cleardecals")
 		end
+		
+		-- TOKEN_GW_STATS : Need to enable stats gathering HERE !
+		-- We do it there because players are lock after this moment.
+		-- Dont forget the other one.
+		-- self:StatsUpdateMinigameInfo()
 		
 		-- Send positive message to the RP list of winners.
 		umsg.Start("EventEndgameTrigger", rpWin)
@@ -389,6 +400,7 @@ function GM:Think()
 					self.Minigame:PreEndAction()
 				end
 				
+				-- TOKEN_GW_STATS : Stats are gathered separately either in (TryNextPhase XOR EndGame), NEVER BOTH.
 				if not self:TryNextPhase( ) then
 					self:EndGame()
 				end

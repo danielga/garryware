@@ -32,6 +32,9 @@ function GM:PlayerInitialSpawn( ply, id )
 	GAMEMODE:SendModelList( ply )
 	
 	ply:SetComboSpecialInteger( 0 )
+	
+	-- TOKEN_GW_STATS : Need to add player if not already done NOW !
+	-- self:StatsAddPlayer( ply )
 end
 
 function GM:PlayerSpawn(ply)
