@@ -16,7 +16,7 @@ stats.PlayTable = {}
 
 function GM:StatsAddPlayer( ply )
 	if ValidEntity( ply ) and ply:IsPlayer() then
-	local UID = ply:UniqueID()
+	local UID = ply:UserID()
 	
 	if stats.PlayerTable[UID] then return end
 	
