@@ -241,7 +241,7 @@ local function DoRagdollEffect( ply, optvectPush, optiObjNumber, iIter)
 		
 		--print(ply:GetModel(), physobj:GetMass() )
 		
-		if physobj then
+		if physobj and physobj:IsValid() and physobj ~= NULL then
 			physobj:SetVelocity( 10^6 * optvectPush )
 			
 		end
