@@ -244,6 +244,9 @@ local function DoRagdollEffect( ply, optvectPush, optiObjNumber, iIter)
 		if physobj and physobj:IsValid() and physobj ~= NULL then
 			physobj:SetVelocity( 10^6 * optvectPush )
 			
+		else
+			timer.Simple(0, function() DoRagdollEffect( ply, optvectPush, optiObjNumber, iIter - 1) end)
+		
 		end
 		
 	else
