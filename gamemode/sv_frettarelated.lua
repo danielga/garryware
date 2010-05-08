@@ -39,6 +39,10 @@ function GM:EndTheGameForOnce()
 	umsg.Start("BestStreakEverBreached", rp)
 		umsg.Long( self.BestStreakEver )
 	umsg.End()
+	
+	if not DEBUG_DISABLE_STATS then
+		self:StatsCR_PrintSynthesisGLON()
+	end
 end
 
 function GM:EndOfGame( bGamemodeVote )

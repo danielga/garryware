@@ -12,43 +12,106 @@ include("cl_version.lua")
 local stats = GM.GW_STATS
 
 stats.PlayerTable = {}
+--[[
+COMPO
+"SteamID" : "ID when first joined"
+"Nick" : Nick when first joined
+]]--
+
 stats.PlayTable = {}
+--[[
+COMPO
+1 : sMinigameDesc
+2 : iWare
+3 : iPhase
+4 : WonLostUIDS
+4.1 : Table of winners UIDS
+4.2 : Table of losers UIDS
+4.3 : Table of hold while on the server UIDS (unused)
+5 : iTokens -- WARNING : A minigame can have phases with different tokens !
+]]--
+
+stats.SynthesisTable = {}
+--[[
+COMPO
+1 : sMinigameDesc
+2 : iWare
+3 : iNumPhases
+4 : itTokens
+4.x : Tokens for a certain x phase (x < iNumPhase)
+]]--
+stats.RollupTable = {}
+
+function GM:StatsManagePlayerJoined( ply )
+	if not (ValidEntity( ply ) and ply:IsPlayer()) then return end
+	local sSteamID = ply:SteamID()
+	
+	local UIDmatch = nil
+	for uid,data in pairs( stats.PlayTable ) do
+		if data.SteamID == sSteamID then
+			
+			UIDmatch = uid
+			break -- HORROR MUSEUM
+		end
+	end
+	
+	if UIDmatch then
+		self:StatsRestore( ply, UIDmatch )
+		
+	else
+		self:StatsAddPlayer( ply )
+		
+	end
+	
+end
+
+function GM:StatsRestore( ply, uid )
+	ply.GWID = uid
+	ply:SetFrags( stats.PlayerTable[ply.GWID].Won )
+	ply:SetDeaths( stats.PlayerTable[ply.GWID].Lost )
+	
+	
+end
+
+
+-- TOKEN_GW_STATS : Remember to call this when game ends before doing any stats !
+function GM:StatsStore( ply )
+	if not ply.GWID then return end
+	
+	stats.PlayerTable[ply.GWID].Won  = ply:Frags()
+	stats.PlayerTable[ply.GWID].Lost = ply:Deaths()
+end
 
 function GM:StatsAddPlayer( ply )
-	if ValidEntity( ply ) and ply:IsPlayer() then
+	if not (ValidEntity( ply ) and ply:IsPlayer()) then return end
 	local UID = ply:UserID()
 	
 	if stats.PlayerTable[UID] then return end
 	
 	stats.PlayerTable[UID] = {}
-	local pdat = stats.PlayerTable[iUID]
+	local pdat = stats.PlayerTable[UID]
 	
 	pdat.Nick    = ply:Nick()
 	pdat.SteamID = ply:SteamID()
 	
+	pdat.Won = ply:SteamID()
+	pdat.Lost = ply:SteamID()
+	
+	ply.GWID = UID
+	
 end
 
 -- ALERT : Stats are gathered AFTER THE PreEndGame !
--- That means, if you have 
+-- That means, if you have statuses to invalidate,
+-- you have to do it AFTER PREENDGAME and not in PHASESIGNAL !
 function GM:StatsUpdateMinigameInfo( )
 	local iWare  = self.NumberOfWaresPlayed
 	local iPhase = self.WarePhase_Current
 	
-	local WonLostHoldUIDS = {{},{},{}}
-	
-	for k,ply in pairs(player.GetAll()) do
-		if not ply:IsWarePlayer() or ply:IsOnHold() then
-			table.insert( WonLostHoldUIDS[3], ply )
-		elseif not play:GetAchieved() then
-			table.insert( WonLostHoldUIDS[2], ply )
-		else
-			table.insert( WonLostHoldUIDS[1], ply )
-		end
-	end
-	
 	--local sMinigameName = self.Minigame.Name
 	local iTokens = 0
-	-- TOKEN_GW_STATS : Why do we use a function ?
+	-- TOKEN_GW_STATS : Why do we use a function to get tokens and
+	-- not a static in the minigame ?
 	-- That's because tokens can vary with the different phases
 	-- of a same minigame, or a minigame can use different tokens
 	-- in real time.
@@ -56,8 +119,20 @@ function GM:StatsUpdateMinigameInfo( )
 		iTokens = self:StatsRawTableToBitwise( self.Minigame:GetTokens() or nil )
 	end
 	
-	local sMinigameDesc = self.Minigame.Desc
-	local data = { sMinigameDesc, iWare, iPhase, WonLostUIDS, iTokens }
+	local sMinigameDesc = self.Minigame.Desc or ("<raw>" .. (self.Minigame.Name or "ERROR"))
+	local data = { sMinigameDesc, iWare, iPhase, {{},{},{}}, iTokens }
+	
+	local WonLostHoldUIDS = data[4]
+	
+	for k,ply in pairs(player.GetAll()) do
+		if not ply:IsWarePlayer() or ply:IsOnHold() then
+			table.insert( WonLostHoldUIDS[3], ply.GWID )
+		elseif not ply:GetAchieved() then
+			table.insert( WonLostHoldUIDS[2], ply.GWID )
+		else
+			table.insert( WonLostHoldUIDS[1], ply.GWID )
+		end
+	end
 	
 	table.insert( stats.PlayTable, data )
 	
@@ -73,6 +148,121 @@ function StatsPoolMinigameDescriptions()
 			umsg.PoolString( desc )
 		end
 	end
+	
+end
+
+function GM:StatsCompress()
+	stats._UIDTABLE = {}
+	for uid,data in pairs( stats.PlayerTable ) do
+		table.insert( stats._UIDTABLE, uid )
+		stats.RollupTable[uid] = {}
+		
+	end
+	
+	stats._UID_TO_INDEX   = {}
+	stats._UID_NOT_DUMPED = {}
+	for index,uid in pairs( stats._UIDTABLE ) do
+		stats._UID_TO_INDEX[uid]   = index
+		stats._UID_NOT_DUMPED[uid] = true
+		
+	end
+	
+	for id,play in pairs( stats.PlayTable ) do
+		-- SYNTHESIS
+		local numSyn = #stats.SynthesisTable
+		
+		if (numSyn > 0) and (stats.SynthesisTable[numSyn][2] == play[2]) then
+			stats.SynthesisTable[numSyn][3] = stats.SynthesisTable[numSyn][3] + 1
+			table.insert( stats.SynthesisTable[numSyn][4], play[5] )
+			
+		else
+			local composite = {}
+			composite[1] = play[1]
+			composite[2] = play[2]
+			composite[3] = 1 -- iNumPhases
+			composite[4] = { play[5] }
+			table.insert( stats.SynthesisTable, composite )
+		end
+	
+		-- ROLLUP
+		local playerDump = table.Copy( stats._UID_NOT_DUMPED )
+		
+		-- Won: EVEN
+		for _,uid in pairs( play[4][1] ) do
+			local entries = #stats.RollupTable[uid]
+			if (entries > 0) and ((stats.RollupTable[uid][entries] % 2) == 0) then
+				stats.RollupTable[uid][entries] = stats.RollupTable[uid][entries] + 2
+				
+			else
+				table.insert( stats.RollupTable[uid], 2 )
+				
+			end
+			playerDump[uid] = false
+			
+		end
+		
+		-- Lost: UNEVEN
+		for _,uid in pairs( play[4][2] ) do
+			local entries = #stats.RollupTable[uid]
+			if (entries > 0) and ((stats.RollupTable[uid][entries] % 2) == 1) then
+				stats.RollupTable[uid][entries] = stats.RollupTable[uid][entries] + 2
+				
+			else
+				-- THEN YOU NEED TO DO ((x + 1) / 2) to get the occurs, NOT ((x - 1) / 2)
+				table.insert( stats.RollupTable[uid], 1 )
+				
+			end
+			playerDump[uid] = false
+			
+		end
+		
+		for uid,status in pairs( playerDump ) do
+			if status == true then
+			local entries = #stats.RollupTable[uid]
+				if (entries > 0) and ((stats.RollupTable[uid][entries] < 0)) then
+					stats.RollupTable[uid][entries] = stats.RollupTable[uid][entries] - 1
+					
+				else
+					table.insert( stats.RollupTable[uid], -1 )
+					
+				end
+			end
+			
+		end
+		
+		
+	end
+	
+end
+
+function GM:StatsCR_MakeSynthesisRollup()
+	self:StatsCompress()
+	return stats.SynthesisTable, stats.RollupTable
+
+end
+
+
+function GM:StatsCR_PrintSynthesisGLON()
+	local tSta, tRta = self:StatsCR_MakeSynthesisRollup()
+	local glonSta = glon.encode( tSta )
+	local glonRta = glon.encode( tRta )
+	
+	print("GW_STATS:GLON::")
+	print( glonSta )
+	print( glonRta )
+	print("::GW_STATS")
+	
+end
+
+function GM:StatsCR_TryDecodeGLON()
+	local tSta, tRta = self:StatsCR_MakeSynthesisRollup()
+	local glonSta = glon.encode( tSta )
+	local glonRta = glon.encode( tRta )
+	
+	print("GW_STATS:DC_GLON::")
+	PrintTable( glon.decode( glonSta ) )
+	PrintTable( glon.decode( glonRta ) )
+	print("::GW_STATS")
 	
 end
 
@@ -92,7 +282,7 @@ function GM:StatsStream()
 	-- DUE TO UNOPTIMIZED CODE IN EDGE CASES.
 	--Send minigames
 	for i,data in pairs( stats.PlayTable ) do
-		umsg.Start("ModelList")
+		umsg.Start("StatsRollup")
 			umsg.Char( i - 128 )
 			umsg.String( data[1] )
 			umsg.Char( data[2] - 128 )

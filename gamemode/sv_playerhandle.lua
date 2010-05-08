@@ -29,12 +29,18 @@ function GM:PlayerInitialSpawn( ply, id )
 		umsg.Long( self.BestStreakEver )
 	umsg.End()
 	
-	GAMEMODE:SendModelList( ply )
+	self:SendModelList( ply )
 	
 	ply:SetComboSpecialInteger( 0 )
 	
 	-- TOKEN_GW_STATS : Need to add player if not already done NOW !
-	-- self:StatsAddPlayer( ply )
+	if not DEBUG_DISABLE_STATS then self:StatsManagePlayerJoined( ply ) end
+end
+
+function GM:PlayerDisconnected( ply )
+	-- TOKEN_GW_STATS : Need to store last data NOW !
+	if not DEBUG_DISABLE_STATS then self:StatsStore( ply ) end
+	
 end
 
 function GM:PlayerSpawn(ply)

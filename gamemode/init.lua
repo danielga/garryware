@@ -7,6 +7,9 @@
 // Serverside Initialization                  //
 ////////////////////////////////////////////////
 
+-- Defaulted OFF !
+CreateConVar( "ware_stats_enabled", 0, {FCVAR_ARCHIVE} )
+DEBUG_DISABLE_STATS = not (GetConVar("ware_stats_enabled"):GetInt() > 0)
 
 include( "shared.lua" )
 include( "sh_tables.lua" )
@@ -23,6 +26,10 @@ include( "sv_filelist.lua" )
 include( "sv_warehandy.lua" )
 include( "sv_playerhandle.lua" )
 include( "sv_frettarelated.lua" )
+
+if not DEBUG_DISABLE_STATS then
+	include( "sv_statistics.lua" )
+end
 
 -- It AddCS itself.
 include("sh_dhonline_autorun.lua")
@@ -183,7 +190,7 @@ function GM:TryNextPhase( )
 	-- Dont forget the other one.
 	-- We do it here AFTER we know that there is a next phase, and
 	-- BEFORE changing the phase number
-	-- self:StatsUpdateMinigameInfo()
+	if not DEBUG_DISABLE_STATS then self:StatsUpdateMinigameInfo() end
 	
 	self.WarePhase_Current = self.WarePhase_Current + 1
 	
@@ -259,9 +266,9 @@ function GM:EndGame()
 		end
 		
 		-- TOKEN_GW_STATS : Need to enable stats gathering HERE !
-		-- We do it there because players are lock after this moment.
+		-- We do it there because players are locked after this moment.
 		-- Dont forget the other one.
-		-- self:StatsUpdateMinigameInfo()
+		if not DEBUG_DISABLE_STATS then self:StatsUpdateMinigameInfo() end
 		
 		-- Send positive message to the RP list of winners.
 		umsg.Start("EventEndgameTrigger", rpWin)
@@ -596,6 +603,7 @@ end
 -- Start up.
 
 IncludeMinigames()
+if not DEBUG_DISABLE_STATS then StatsPoolMinigameDescriptions() end
 
 ////////////////////////////////////////////////
 ////////////////////////////////////////////////
