@@ -98,8 +98,8 @@ function meta:ApplyLock( dontSendStatusMessage )
 	
 	if (hasAchieved) then
 		-- TOKEN_GWUPDATE_COMP
-		--local anim = (math.random(0, 1) > 0) and ACT_SIGNAL_FORWARD or ACT_SIGNAL_HALT
-		--self:DoAnimationEvent( anim ) 
+		local anim = (math.random(0, 1) > 0) and ACT_SIGNAL_FORWARD or ACT_SIGNAL_HALT
+		self:DoAnimationEvent( anim ) 
 		self:EmitSound(GAMEMODE.WASND.OtherWin, 100, GAMEMODE:GetSpeedPercent())
 		self:AddFrags( 1 )
 		local newComboVal = self:IncrementCombo()
@@ -110,8 +110,8 @@ function meta:ApplyLock( dontSendStatusMessage )
 	
 	else
 		-- TOKEN_GWUPDATE_COMP
-		--local anim = (math.random(0, 1) > 0) and ACT_ITEM_THROW or ACT_ITEM_DROP
-		--self:DoAnimationEvent( anim ) 
+		local anim = (math.random(0, 1) > 0) and ACT_ITEM_THROW or ACT_ITEM_DROP
+		self:DoAnimationEvent( anim ) 
 		self:EmitSound(GAMEMODE.WASND.OtherLose, 100, GAMEMODE:GetSpeedPercent())
 		self:AddDeaths( 1 )
 		self:InterruptCombo()

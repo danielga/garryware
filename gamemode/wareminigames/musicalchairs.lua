@@ -68,12 +68,12 @@ end
 function WARE:StartAction()
 	
 end
-
+--[[
 function WARE:PreEndAction()
 	GAMEMODE:RespawnAllPlayers( true, true )
 	
 end
-
+]]--
 function WARE:PreEndAction()
 	if GAMEMODE:GetCurrentPhase() == 1 then
 		local someoneAchieved = false

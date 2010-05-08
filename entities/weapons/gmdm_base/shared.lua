@@ -51,7 +51,7 @@ function SWEP:TranslateActivity( act )
 
 end
 
-function SWEP:SetWeaponHoldType( t )
+/*function SWEP:SetWeaponHoldType( t )
 
 	local index = ActIndex[ t ]
 	
@@ -71,9 +71,9 @@ function SWEP:SetWeaponHoldType( t )
 	self.ActivityTranslate [ ACT_HL2MP_JUMP ] 					= index+7
 	self.ActivityTranslate [ ACT_RANGE_ATTACK1 ] 				= index+8
 
-end
+end*/
 	
-/*function SWEP:SetWeaponHoldType( t )
+function SWEP:SetWeaponHoldType( t )
 
 	local index = ActIndex[ t ]
 	
@@ -95,7 +95,7 @@ end
 	self.ActivityTranslate [ ACT_MP_JUMP ] 						= index+7
 	self.ActivityTranslate [ ACT_RANGE_ATTACK1 ] 				= index+8
 
-end*/
+end
 
 
 function SWEP:Initialize()

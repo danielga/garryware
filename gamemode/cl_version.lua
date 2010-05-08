@@ -1,1 +1,1 @@
-gws_Version = 1.041
+gws_Version = 1.045
