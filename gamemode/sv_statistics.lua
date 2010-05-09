@@ -323,9 +323,16 @@ end
 function GM:StatsConsider()
 	-- TOKEN_GW_STATS : Remember :
 	-- If we encounter this situation
-	-- Minigame  - 2  3  3  4  5
-	-- Phase     - 1  1  2  1  1
-	-- Player A  - 2  0  2  0  2
+	
+	-- COMPRESSED : 
+	-- Minigame  -    2  3     4  5  6
+	-- N-Phase   -    1  2     1  1  1
+	-- Player A  - ..+2  1  2  3     2+...
+	
+	-- UNCOMPRESSED : 
+	-- Minigame  -    2  3  3  4  5  6
+	-- Phase     -    1  1  2  1  1  1
+	-- Player A  -    1  0  1  0  0  1
 	--
 	-- THEN We have to consider that :
 	-- Player A has scored a combo of 2 games that ended on game 4.
