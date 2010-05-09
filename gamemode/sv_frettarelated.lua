@@ -41,7 +41,7 @@ function GM:EndTheGameForOnce()
 	umsg.End()
 	
 	if not DEBUG_DISABLE_STATS then
-		self:StatsCR_PrintSynthesisGLON()
+		self:StatsCR_LogSynthesisGLON()
 	end
 end
 

@@ -254,6 +254,17 @@ function GM:StatsCR_PrintSynthesisGLON()
 	
 end
 
+function GM:StatsCR_LogSynthesisGLON()
+	local tSta, tRta = self:StatsCR_MakeSynthesisRollup()
+	local glonSta = glon.encode( tSta )
+	local glonRta = glon.encode( tRta )
+	
+	local contents = glonSta .. "\n" .. glonRta .. "\n"
+	
+	filex.Append( "garryware/stats.txt", contents )
+	
+end
+
 function GM:StatsCR_TryDecodeGLON()
 	local tSta, tRta = self:StatsCR_MakeSynthesisRollup()
 	local glonSta = glon.encode( tSta )
