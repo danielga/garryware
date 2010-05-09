@@ -235,31 +235,27 @@ function GM:StatsCompress()
 	
 end
 
-function GM:StatsCR_MakeSynthesisRollup()
+function GM:StatsCR_MakeSynthesis()
 	self:StatsCompress()
-	return stats.SynthesisTable, stats.RollupTable
+	return stats.SynthesisTable, stats.PlayerTable, stats.RollupTable
 
 end
 
 
-function GM:StatsCR_PrintSynthesisGLON()
-	local tSta, tRta = self:StatsCR_MakeSynthesisRollup()
+function GM:StatsCR_SynthesisToGLON()
+	local tSta, tPta, tRta = self:StatsCR_MakeSynthesis()
 	local glonSta = glon.encode( tSta )
+	local glonPta = glon.encode( tPta )
 	local glonRta = glon.encode( tRta )
 	
-	print("GW_STATS:GLON::")
-	print( glonSta )
-	print( glonRta )
-	print("::GW_STATS")
+	return glonSta, glonPta, glonRta
 	
 end
 
 function GM:StatsCR_LogSynthesisGLON()
-	local tSta, tRta = self:StatsCR_MakeSynthesisRollup()
-	local glonSta = glon.encode( tSta )
-	local glonRta = glon.encode( tRta )
+	local glonSta, glonPta, glonRta = self:StatsCR_SynthesisToGLON()
 	
-	local contents = glonSta .. "\n" .. glonRta .. "\n"
+	local contents = "::MGD:" .. #stats.SynthesisTable .. "::PL:" .. #stats.PlayerTable .. "\n" .. glonSta .. "\n" .. glonPta .. "\n" .. glonRta .. "\n"
 	
 	filex.Append( "garryware/stats.txt", contents )
 	
