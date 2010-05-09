@@ -314,3 +314,29 @@ function GM:StatsStream()
 	end
 	
 end
+
+
+function GM:StatsUncompress()
+
+end
+
+function GM:StatsConsider()
+	-- TOKEN_GW_STATS : Remember :
+	-- If we encounter this situation
+	-- Minigame  - 2  3  3  4  5
+	-- Phase     - 1  1  2  1  1
+	-- Player A  - 2  0  2  0  2
+	--
+	-- THEN We have to consider that :
+	-- Player A has scored a combo of 2 games that ended on game 4.
+	--
+	-- BECAUSE :
+	-- A win/fail situation is determined by the FINAL phase.
+	-- EVEN if player lock-lose before.
+	-- Tokens however are accounted for the win/fail situation of the CURRENT PHASE.
+	-- Tokens are taken as a whole. If a minigame has a Think phase 1 and Think phase 2, then
+	-- the game accouts for TWO tokens.
+	--- So if a player plays ONE minigame in the whole gamemode that has two THINK tokens,
+	--- while he won ONE of then and lost the OTHER, no matter the ordering, then
+	--- He will earn a "One out of two" as a scoring token.
+end
