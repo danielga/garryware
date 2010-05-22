@@ -59,7 +59,7 @@ end
 function WARE:Think( )
 	for k,ply in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 	
-		if ply.BULLSEYE_Hit > self.MostTimesHit then
+		if not ply:IsOnHold() and (ply.BULLSEYE_Hit > self.MostTimesHit) then
 			self.MostTimesHit = ply.BULLSEYE_Hit
 		end
 		
