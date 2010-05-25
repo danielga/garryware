@@ -4,8 +4,9 @@ WARE.Room = "none"
 --WARE.OccurencesPerCycle = 1
 
 function WARE:IsPlayable()
+	return false
 	--if team.NumPlayers(TEAM_HUMANS) >= 4 then
-		return true
+	--	return true
 	--end
 	--return false
 end
