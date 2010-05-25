@@ -84,8 +84,6 @@ function WARE:PhaseSignal( iPhase )
 			ent:SetAngles( Angle(0, math.Rand(0,360), 0) )
 			ent:Spawn()
 			
-			ent:Fire("AddOutput", "OnPhysGunPickup luarun,RunCode")
-			
 			GAMEMODE:AppendEntToBin(ent)
 			GAMEMODE:MakeAppearEffect(ent:GetPos())
 		end
