@@ -96,38 +96,32 @@ function WARE:PhaseSignal( iPhase )
 			GAMEMODE:MakeAppearEffect(ent:GetPos())
 		end
 
-		GAMEMODE:DrawInstructions( "Shield yourself!", self.RoleColor )
+		GAMEMODE:DrawInstructions( "Stay on them!", self.RoleColor )
 		
 	end
 	
 end
 
 function WARE:Think( )
-	if GAMEMODE:GetCurrentPhase() == 1 then
-		for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
-			v:SetAchievedNoLock(false)
+	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
+		v:SetAchievedNoLock(false)
+	end
+	local entposcopy = GAMEMODE:GetEnts(ENTS_ONCRATE)
+	for _,block in pairs(entposcopy) do
+		local box = ents.FindInBox(block:GetPos()+Vector(-30,-30,0),block:GetPos()+Vector(30,30,64))
+		for _,target in pairs(box) do
+			if target:IsPlayer() then
+				target:SetAchievedNoLock(true)
+			end
 		end
-		local entposcopy = GAMEMODE:GetEnts(ENTS_ONCRATE)
-		for _,block in pairs(entposcopy) do
-			local box = ents.FindInBox(block:GetPos()+Vector(-30,-30,0),block:GetPos()+Vector(30,30,64))
-			for _,target in pairs(box) do
-				if target:IsPlayer() then
-					target:SetAchievedNoLock(true)
-				end
+	end
+	
+	if GAMEMODE:GetCurrentPhase() == 2 then
+		for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
+			if not v:GetLocked() and not v:GetAchieved() then
+				v:ApplyLose()
 			end
 		end
 	end
 end
 
-function WARE:EntityTakeDamage( ent, inflictor, attacker, amount )
-	if GAMEMODE:GetCurrentPhase() == 2 then
-		if not ValidEntity( ent ) or not ent:IsPlayer() or not ent:IsWarePlayer() or ent:GetLocked() then return end
-		if not ValidEntity( attacker ) or not attacker:IsPlayer() or not attacker:IsWarePlayer() then return end
-		
-		ent:ApplyLose()
-		ent:SimulateDeath()
-		ent:StripWeapons()
-		
-	end
-	
-end
