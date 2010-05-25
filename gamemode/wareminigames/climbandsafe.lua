@@ -9,11 +9,19 @@ WARE.Models = {
 	"models/props_c17/chair_stool01a.mdl",
 	"models/props_wasteland/controlroom_chair001a.mdl"
  }
- 
+
 local MDLLIST = WARE.Models
 
 function WARE:GetModelList()
 	return self.Models
+end
+
+function WARE:IsPlayable()
+	if team.NumPlayers(TEAM_HUMANS) >= 3 then
+		return true
+	end
+	
+	return false
 end
 
 function WARE:Initialize()
