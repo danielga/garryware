@@ -1,10 +1,8 @@
 WARE.Author = "Hurricaaane (Ha3)"
 
 WARE.Models = {
-	"models/props_junk/plasticbucket001a.mdl",
 	"models/props_junk/metalbucket01a.mdl",
 	"models/props_junk/propanecanister001a.mdl",
-	"models/props_combine/breenglobe.mdl",
 	"models/props_c17/chair_office01a.mdl",
 	"models/props_c17/chair_stool01a.mdl",
 	"models/props_wasteland/controlroom_chair001a.mdl"
@@ -120,6 +118,7 @@ function WARE:Think( )
 		for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 			if not v:GetLocked() and not v:GetAchieved() then
 				v:ApplyLose()
+				v:SimulateDeath()
 			end
 		end
 	end
