@@ -43,7 +43,6 @@ function WARE:PreEndAction()
 			ply:StripWeapons()
 			if ply:GetAchieved() then
 				someoneAchieved = true
-				ply:Give( "sware_rocketjump" )
 				ply:TellDone( )
 				ply:SendHitConfirmation()
 				
