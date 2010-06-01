@@ -5,37 +5,26 @@ function PANEL:Init()
 	self:SetPaintBackground( true )
 	self:SetVisible( false )
 	
-	surface.CreateFont("Trebuchet MS", 36, 0   , 0, false, "dhigwfont_num_nb" )
-	surface.CreateFont("Trebuchet MS", 26, 0   , 0, false, "dhigwfont_nummedium_nb" )
-	surface.CreateFont("Trebuchet MS", 20, 0   , 0, false, "dhigwfont_numsmall_nb" )
-	surface.CreateFont("Trebuchet MS", 36, 0   , 0, false, "dhigwfont_textlarge_nb" )
-	surface.CreateFont("Trebuchet MS", 24, 0   , 0, false, "dhigwfont_textmedium_nb" )
-	surface.CreateFont("Trebuchet MS", 16, 400 , 0, false, "dhigwfont_textsmall_nb" )
-	surface.CreateFont("Trebuchet MS", 24, 400 , 0, false, "dhigwfont_textmediumbold_nb" )
+	self.m_state = -1
 	
-	/*self.dVDiv = vgui.Create("DVerticalDivider", self)
-	self.dVDiv:SetDragging( false )
+	self.colors = {}
+	self.colors.Gold  = Color( 255, 255, 128 )
+	self.colors.Win   = Color(   0, 164, 237 )
+	self.colors.Fail  = Color( 255,  87,  87 )
+	self.colors.Black = Color(   0,   0,   0,  87 )
+	self.colors.White = Color( 255, 255, 255, 192 )
+	self.colors.Stale    = Color( 192, 192, 192 )
+	self.colors.Mystery  = Color( 128, 255, 255 )
 	
-	self.dTitle = vgui.Create("DImage", self)
-	self.dTitle:SetImage("VGUI/ware/garryware_two_logo_alone")
-	self.dTitle:SetKeepAspect( true )*/
 	
-	self.dCentric = vgui.Create("DPanel", self)
-	self.dCentric:SetPaintBackground( false )
+	self.dCentric = vgui.Create("GWArrow", self)
 	self.dCentric:SetZPos( 9001 )
-	self.dCentricWin = vgui.Create("DImage", self.dCentric)
-	self.dCentricWin:SetImage("VGUI/ware/ui_scoreboard_winarrow")
-	self.dCentricFail = vgui.Create("DImage", self.dCentric)
-	self.dCentricFail:SetImage("VGUI/ware/ui_scoreboard_failarrow")
-	self.dCentricText = vgui.Create("DLabel", self.dCentric)
-	self.dCentricText:SetText("x")
-	self.dCentricText:SetFont( "dhigwfont_num_nb" )
-	self.dCentricText:SetColor( color_white )
+	self:UseGeneric()
 	
 	self.dWinBox = vgui.Create("DPanel", self)
 	self.dWinBox:SetPaintBackground( false )
 	self.dWinImage = vgui.Create("DImage", self.dWinBox)
-	self.dWinImage:SetImage("VGUI/ware/ui_scoreboard_winner")
+	self.dWinImage:SetImage("ware/interface/ui_scoreboard_winner")
 	self.dWinText = vgui.Create("DLabel", self.dWinImage)
 	self.dWinText:SetText("Winners")
 	self.dWinText:SetFont( "dhigwfont_textmedium_nb" )
@@ -44,11 +33,16 @@ function PANEL:Init()
 	self.dFailBox = vgui.Create("DPanel", self)
 	self.dFailBox:SetPaintBackground( false )
 	self.dFailImage = vgui.Create("DImage", self.dFailBox)
-	self.dFailImage:SetImage("VGUI/ware/ui_scoreboard_failure")
+	self.dFailImage:SetImage("ware/interface/ui_scoreboard_failure")
 	self.dFailText = vgui.Create("DLabel", self.dFailImage)
 	self.dFailText:SetText("Failures")
 	self.dFailText:SetFont( "dhigwfont_textmedium_nb" )
 	self.dFailText:SetColor( color_white )
+	
+	/*self.dFailPart = vgui.Create("GWArrow", self.dFailImage)
+	self.dFailPart:UseLeft( false )
+	self.dFailPart:SetRightInnerColor( self.colors.Fail )
+	self.dFailPart:SetRightOuterColor( self.colors.Black )*/
 	
 	self.iLastWinFailRatio = 0.5
 	self.iDrawKeep = 0.4
@@ -56,6 +50,37 @@ function PANEL:Init()
 	self.bLastIsWin = false
 	self.bLastIsLocked = false
 end
+
+function PANEL:UseGeneric()
+	if self.m_state == 0 then return end
+	
+	self.dCentric:SetLeftInnerColor(  self.colors.Win )
+	self.dCentric:SetRightInnerColor( self.colors.Fail )
+	
+	self.m_state = 0
+	
+end
+
+function PANEL:UseStale()
+	if self.m_state == 1 then return end
+	
+	self.dCentric:SetLeftInnerColor(  self.colors.Stale )
+	self.dCentric:SetRightInnerColor( self.colors.Stale )
+	
+	self.m_state = 1
+	
+end
+
+function PANEL:UseMystery()
+	if self.m_state == 2 then return end
+	
+	self.dCentric:SetLeftInnerColor(  self.colors.Win )
+	self.dCentric:SetRightInnerColor( self.colors.Mystery )
+	
+	self.m_state = 2
+	
+end
+
 
 function PANEL:PerformLayout()
 	local width  = ScrW() * 0.7
@@ -67,16 +92,8 @@ function PANEL:PerformLayout()
 	--NOTE : CONVERT THE CENTRIC TO ITS OWN PANEL!
 	self.dCentric:SetWide( self:GetWide() * 0.5 * 0.25 )
 	self.dCentric:SetTall( self:GetTall() )
-	self.dCentric:CenterHorizontal( )
-	self.dCentric:CenterVertical( )
-	self.dCentricWin:SetWide( self.dCentric:GetWide() )
-	self.dCentricWin:SetTall( self.dCentric:GetTall() )
-	self.dCentricFail:SetWide( self.dCentric:GetWide() )
-	self.dCentricFail:SetTall( self.dCentric:GetTall() )
-	self.dCentricText:SizeToContents( )
-	self.dCentricText:CenterHorizontal( )
-	self.dCentricText:CenterVertical( )
-	
+	self.dCentric:Center( )
+	self.dCentric:InvalidateLayout( )
 	
 	self.dWinBox:SetWide( self:GetWide() * 0.5 )
 	self.dWinBox:SetTall( self:GetTall() )
@@ -101,11 +118,74 @@ function PANEL:PerformLayout()
 	self.dFailText:SizeToContents( )
 	self.dFailText:AlignRight( 16 )
 	self.dFailText:CenterVertical( )
+
+	/*self.dFailPart:SetWide( self:GetWide() * 0.5 * 0.25 )
+	self.dFailPart:SetTall( self:GetTall() )
+	self.dFailPart:AlignRight( -32 )
+	self.dFailPart:CenterVertical( )*/
 	
 end
 
+function PANEL:EvaluateLocked( )	
+	local bIsLocked = LocalPlayer():GetLocked()
+	if bIsLocked ~= self.bLastIsLocked then
+		if bIsLocked then
+			if LocalPlayer():GetCombo() >= 3 then
+				self.dCentric:SetLeftOuterColor(  self.colors.Gold )
+				self.dCentric:SetRightOuterColor( self.colors.Gold )
+				
+			else
+				self.dCentric:SetLeftOuterColor(  self.colors.White )
+				self.dCentric:SetRightOuterColor( self.colors.White )
+				
+			end
+			
+		else
+			self.dCentric:SetLeftOuterColor(  self.colors.Black )
+			self.dCentric:SetRightOuterColor( self.colors.Black )
+		
+		end
+		self.bLastIsLocked = bIsLocked
+		
+	end
+	
+end
+
+function PANEL:EvaluateAchieved( )	
+	local bIsWin = LocalPlayer():GetAchieved()
+	if bIsWin ~= self.bLastIsWin then
+		if bIsWin then
+			self.dCentric:UseLeft( true )
+			
+		else
+			self.dCentric:UseLeft( false )
+		
+		end
+		self.bLastIsWin = bIsWin
+		
+	end
+	
+end
+
+
+
 function PANEL:Think()
 	if not ValidEntity( LocalPlayer() ) or not LocalPlayer().GetAchieved then return end
+	
+	if LocalPlayer():GetAchieved() == nil then
+		if not LocalPlayer():GetLocked() then
+			self:UseMystery()
+			
+		else
+			self:UseStale()
+			
+		end
+		
+	else
+		self:UseGeneric()
+		
+	end
+
 	
 	do --ScoreboardTopShift
 		local tCount = team.GetPlayers( TEAM_HUMANS )
@@ -124,27 +204,14 @@ function PANEL:Think()
 			self.iLastWinFailRatio = iWinFailRatio
 			
 		end
+		
+		/*self.dFailPart:SetText( iCount )*/
 	end
 	
-	do --Centric
-		local bIsWin = LocalPlayer():GetAchieved()
-		if bIsWin ~= self.bLastIsWin then
-			if bIsWin then
-				self.dCentricWin:SetVisible( true )
-				self.dCentricFail:SetVisible( false )
-				
-			else
-				self.dCentricFail:SetVisible( true )
-				self.dCentricWin:SetVisible( false )
-			
-			end
-			self.bLastIsWin = bIsWin
-			
-		end
-		
-		self.dCentricText:SetText( LocalPlayer():GetCombo() )
-		
-	end
+	self:EvaluateLocked( )
+	self:EvaluateAchieved( )
+	
+	self.dCentric:SetText( LocalPlayer():GetCombo() )
 	
 end
 
@@ -161,9 +228,5 @@ function PANEL:Hide()
 	self:SetVisible( false )
 
 end
-
---function PANEL:Paint()
---	print(" whoops shit" )
---end
 
 Derma_Hook( PANEL, "Paint", "Paint", "GWMain" )

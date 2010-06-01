@@ -1,6 +1,6 @@
 "UnlitGeneric" 
 { 
-	"$basetexture"		"vgui/ware/ui_scoreboard_failure" 
+	"$basetexture"		"ware/interface/ui_scoreboard_arrow_right_inner" 
 	"$ignorez"		1
 	"$vertexcolor" 		1
 	"$vertexalpha" 		1

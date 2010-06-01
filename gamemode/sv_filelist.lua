@@ -31,6 +31,8 @@ AddCSLuaFile( "vgui_clock.lua" )
 AddCSLuaFile( "vgui_clockgame.lua" )
 AddCSLuaFile( "vgui_waitscreen.lua" )
 
+AddCSLuaFile( "panel_arrow.lua" )
+
 -- Sound Resources
 for k,stringOrTable in pairs(GM.WASND) do
 	if type(stringOrTable) == "string" then
@@ -61,14 +63,14 @@ resource.AddFile("materials/vgui/ware/garryware_logo.vmt")
 resource.AddFile("materials/vgui/ware/garryware_logo.vtf")
 resource.AddFile("materials/vgui/ware/garryware_logo_alone.vmt")
 resource.AddFile("materials/vgui/ware/garryware_logo_alone.vtf")
-resource.AddFile("materials/vgui/ware/ui_scoreboard_failure.vtf")
-resource.AddFile("materials/vgui/ware/ui_scoreboard_failure.vtf")
-resource.AddFile("materials/vgui/ware/ui_scoreboard_winner.vtf")
-resource.AddFile("materials/vgui/ware/ui_scoreboard_winner.vtf")
-resource.AddFile("materials/vgui/ware/ui_scoreboard_failarrow.vtf")
-resource.AddFile("materials/vgui/ware/ui_scoreboard_failarrow.vtf")
-resource.AddFile("materials/vgui/ware/ui_scoreboard_winarrow.vtf")
-resource.AddFile("materials/vgui/ware/ui_scoreboard_winarrow.vtf")
+resource.AddFile("materials/ware/interface/ui_scoreboard_failure.vmt")
+resource.AddFile("materials/ware/interface/ui_scoreboard_failure.vtf")
+resource.AddFile("materials/ware/interface/ui_scoreboard_winner.vmt")
+resource.AddFile("materials/ware/interface/ui_scoreboard_winner.vtf")
+resource.AddFile("materials/ware/interface/ui_scoreboard_arrow_right_inner.vmt")
+resource.AddFile("materials/ware/interface/ui_scoreboard_arrow_right_inner.vtf")
+resource.AddFile("materials/ware/interface/ui_scoreboard_arrow_right_outer.vmt")
+resource.AddFile("materials/ware/interface/ui_scoreboard_arrow_right_outer.vtf")
 
 -- Nonc Files
 resource.AddFile("materials/ware/nonc/ware_bullseye.vmt")
