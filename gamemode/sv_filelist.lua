@@ -61,6 +61,10 @@ resource.AddFile("materials/vgui/ware/garryware_logo.vmt")
 resource.AddFile("materials/vgui/ware/garryware_logo.vtf")
 resource.AddFile("materials/vgui/ware/garryware_logo_alone.vmt")
 resource.AddFile("materials/vgui/ware/garryware_logo_alone.vtf")
+resource.AddFile("materials/vgui/ware/ui_scoreboard_failure.vtf")
+resource.AddFile("materials/vgui/ware/ui_scoreboard_failure.vtf")
+resource.AddFile("materials/vgui/ware/ui_scoreboard_winner.vtf")
+resource.AddFile("materials/vgui/ware/ui_scoreboard_winner.vtf")
 
 -- Nonc Files
 resource.AddFile("materials/ware/nonc/ware_bullseye.vmt")
