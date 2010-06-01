@@ -8,6 +8,12 @@
 ////////////////////////////////////////////////
 
 include( 'shared.lua' )
+
+surface.CreateFont("Trebuchet MS", 36, 0   , 0, false, "dhigwfont_textlarge_nb" )
+surface.CreateFont("Trebuchet MS", 24, 0   , 0, false, "dhigwfont_textmedium_nb" )
+surface.CreateFont("Trebuchet MS", 16, 400 , 0, false, "dhigwfont_textsmall_nb" )
+surface.CreateFont("Trebuchet MS", 24, 400 , 0, false, "dhigwfont_textmediumbold_nb" )
+
 include( 'panel_arrow.lua' )
 
 include( 'cl_hud.lua' )
