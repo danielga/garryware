@@ -54,6 +54,7 @@ function PANEL:Init()
 	self.iDrawKeep = 0.4
 	
 	self.bLastIsWin = false
+	self.bLastIsLocked = false
 end
 
 function PANEL:PerformLayout()
@@ -118,8 +119,8 @@ function PANEL:Think()
 		
 		if iWinFailRatio ~= self.iLastWinFailRatio then
 			local displacement = (0.5 - self.iDrawKeep * 0.5) + iWinFailRatio * self.iDrawKeep
-			self.dWinImage:MoveTo( displacement * self.dWinImage:GetWide(), 0, 0.2, 0, 1)
-			self.dFailImage:MoveTo( (1 - displacement) * -self.dFailImage:GetWide(), 0, 0.2, 0, 1)
+			self.dWinImage:MoveTo( displacement * self.dWinImage:GetWide(), 0, 0.3, 0, 2)
+			self.dFailImage:MoveTo( (1 - displacement) * -self.dFailImage:GetWide(), 0, 0.3, 0, 2)
 			self.iLastWinFailRatio = iWinFailRatio
 			
 		end
@@ -127,7 +128,6 @@ function PANEL:Think()
 	
 	do --Centric
 		local bIsWin = LocalPlayer():GetAchieved()
-		
 		if bIsWin ~= self.bLastIsWin then
 			if bIsWin then
 				self.dCentricWin:SetVisible( true )

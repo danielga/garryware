@@ -1,6 +1,6 @@
 "Gamemode"
 {
-	"name"		"GarryWare (v1.050)"
+	"name"		"GarryWare (v1.051)"
 	"version"	"2"
 
 	"author_name"	"Ha3 Team"
