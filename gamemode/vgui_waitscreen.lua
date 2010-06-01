@@ -8,6 +8,7 @@
 ////////////////////////////////////////////////
 
 PANEL.Base = "DPanel"
+/*
 PANEL.HTMLCONTENTS = ""
 
 local HTMLPANEL = nil
@@ -15,7 +16,7 @@ local HTMLPANEL = nil
 local function GetUpdateInfo( contents , size )
 	if HTMLPANEL then HTMLPANEL:SetHTML( contents ) end
 end
-
+*/
 /*---------------------------------------------------------
    Name: gamemode:Init
 ---------------------------------------------------------*/
@@ -43,7 +44,7 @@ function PANEL:Init()
 	
 	self:SetVisible( false )
 
-	http.Get( "http://www.assembla.com/spaces/garryware/documents/cIq5KWlY0r3OXWeJe5afGb/download/garryware.html", "", GetUpdateInfo )
+	--http.Get( "http://www.assembla.com/spaces/garryware/documents/cIq5KWlY0r3OXWeJe5afGb/download/garryware.html", "", GetUpdateInfo )
 end
 
 /*---------------------------------------------------------
@@ -60,19 +61,13 @@ function PANEL:PerformLayout()
 	
 end
 
-function PANEL:Show()
-
-	--local h = ScrH() * 0.07
-	local h = 52
-	
+function PANEL:Show()	
 	self.BottomPanel:SetPos( 0, ScrH() )
-	self.BottomPanel:MoveTo( 0, ScrH()-h, 1 )
+	self.BottomPanel:MoveTo( 0, ScrH() - 52, 1 )
 	
 	self:InvalidateLayout()
 	self:SetVisible( true )
 	
-	--self.Info:SetVisible( true )
-
 end
 
 function PANEL:Think()
@@ -95,7 +90,6 @@ function PANEL:Hide()
 
 	self.BottomPanel:MoveTo( 0, ScrH(), 1 )
 	
-	--self.Info:SetVisible( false )
 	timer.Simple( 1, function() self:SetVisible( false ) end )
 end
 

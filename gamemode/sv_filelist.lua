@@ -65,6 +65,10 @@ resource.AddFile("materials/vgui/ware/ui_scoreboard_failure.vtf")
 resource.AddFile("materials/vgui/ware/ui_scoreboard_failure.vtf")
 resource.AddFile("materials/vgui/ware/ui_scoreboard_winner.vtf")
 resource.AddFile("materials/vgui/ware/ui_scoreboard_winner.vtf")
+resource.AddFile("materials/vgui/ware/ui_scoreboard_failarrow.vtf")
+resource.AddFile("materials/vgui/ware/ui_scoreboard_failarrow.vtf")
+resource.AddFile("materials/vgui/ware/ui_scoreboard_winarrow.vtf")
+resource.AddFile("materials/vgui/ware/ui_scoreboard_winarrow.vtf")
 
 -- Nonc Files
 resource.AddFile("materials/ware/nonc/ware_bullseye.vmt")

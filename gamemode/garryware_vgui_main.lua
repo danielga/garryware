@@ -12,64 +12,77 @@ function PANEL:Init()
 	self.dTitle:SetImage("VGUI/ware/garryware_two_logo_alone")
 	self.dTitle:SetKeepAspect( true )*/
 	
+	self.dCentric = vgui.Create("DPanel", self)
+	self.dCentric:SetPaintBackground( false )
+	self.dCentric:SetZPos( 9001 )
+	self.dCentricWin = vgui.Create("DImage", self.dCentric)
+	self.dCentricWin:SetImage("VGUI/ware/ui_scoreboard_winarrow")
+	self.dCentricFail = vgui.Create("DImage", self.dCentric)
+	self.dCentricFail:SetImage("VGUI/ware/ui_scoreboard_failarrow")
+	self.dCentricText = vgui.Create("Label", self.dCentric)
+	self.dCentricText:SetText("x")
 	
 	self.dWinBox = vgui.Create("DPanel", self)
 	self.dWinBox:SetPaintBackground( false )
-	self.dFailBox = vgui.Create("DPanel", self)
-	self.dFailBox:SetPaintBackground( false )
-	
 	self.dWinImage = vgui.Create("DImage", self.dWinBox)
 	self.dWinImage:SetImage("VGUI/ware/ui_scoreboard_winner")
-	
-	self.dFailImage = vgui.Create("DImage", self.dFailBox)
-	self.dFailImage:SetImage("VGUI/ware/ui_scoreboard_failure")
-	
 	self.dWinText = vgui.Create("Label", self.dWinImage)
 	self.dWinText:SetText("Winners")
 	
+	self.dFailBox = vgui.Create("DPanel", self)
+	self.dFailBox:SetPaintBackground( false )
+	self.dFailImage = vgui.Create("DImage", self.dFailBox)
+	self.dFailImage:SetImage("VGUI/ware/ui_scoreboard_failure")
 	self.dFailText = vgui.Create("Label", self.dFailImage)
 	self.dFailText:SetText("Failures")
 	
 	self.iLastWinFailRatio = 0.5
 	self.iDrawKeep = 0.4
+	
+	self.bLastIsWin = false
 end
 
 function PANEL:PerformLayout()
 	local width  = ScrW() * 0.7
-	local height = ScrH() * 0.5
+	local height = (width * 0.5) / 512 * 64
 	
 	self:SetSize( width, height )
-	self:SetPos( (ScrW() - width) * 0.5, 0 )
-	/*
-	self.dTitle:SetWide( self:GetWide() )
-	self.dTitle:SetTall( self:GetTall() * 0.3 )
-	self.dTitle:CenterHorizontal()
-	self.dTitle:AlignTop()*/
+	self:SetPos( (ScrW() - width) * 0.5, ScrH() * 0.02 )
 
+	--NOTE : CONVERT THE CENTRIC TO ITS OWN PANEL!
+	self.dCentric:SetWide( self:GetWide() * 0.5 * 0.25 )
+	self.dCentric:SetTall( self:GetTall() )
+	self.dCentric:CenterHorizontal( )
+	self.dCentric:CenterVertical( )
+	self.dCentricWin:SetWide( self.dCentric:GetWide() )
+	self.dCentricWin:SetTall( self.dCentric:GetTall() )
+	self.dCentricFail:SetWide( self.dCentric:GetWide() )
+	self.dCentricFail:SetTall( self.dCentric:GetTall() )
+	self.dCentricText:SizeToContents( )
+	self.dCentricText:CenterHorizontal( )
+	self.dCentricText:CenterVertical( )
+	
+	
 	self.dWinBox:SetWide( self:GetWide() * 0.5 )
-	self.dWinBox:SetTall( self.dWinBox:GetWide() / 512 * 64 )
+	self.dWinBox:SetTall( self:GetTall() )
 	self.dWinBox:AlignLeft( )
-	self.dWinBox:AlignTop( 16 )
-	
-	self.dFailBox:SetWide( self:GetWide() * 0.5 )
-	self.dFailBox:SetTall( self.dFailBox:GetWide() / 512 * 64 )
-	self.dFailBox:AlignRight()
-	self.dFailBox:AlignTop( 16 )
-	
+	self.dWinBox:CenterVertical( )
 	self.dWinImage:SetWide( self.dWinBox:GetWide() )
 	self.dWinImage:SetTall( self.dWinBox:GetTall() )
 	self.dWinImage:AlignLeft( )
 	self.dWinImage:CenterVertical( )
-	
-	self.dFailImage:SetWide( self.dFailBox:GetWide() )
-	self.dFailImage:SetTall( self.dFailBox:GetTall() )
-	self.dFailImage:AlignRight( )
-	self.dFailImage:CenterVertical( )
-	
 	self.dWinText:SizeToContents( )
 	self.dWinText:AlignLeft( 16 )
 	self.dWinText:CenterVertical( )
 	
+	self.dFailBox:SetWide( self:GetWide() * 0.5 )
+	self.dFailBox:SetTall( self:GetTall() )
+	self.dFailBox:AlignRight()
+	self.dFailBox:CenterVertical( )
+	self.dFailImage:SetWide( self.dFailBox:GetWide() )
+	self.dFailImage:SetTall( self.dFailBox:GetTall() )
+	self.dFailImage:AlignRight( )
+	self.dFailImage:CenterVertical( )
 	self.dFailText:SizeToContents( )
 	self.dFailText:AlignRight( 16 )
 	self.dFailText:CenterVertical( )
@@ -77,20 +90,45 @@ function PANEL:PerformLayout()
 end
 
 function PANEL:Think()
-	local tCount = team.GetPlayers( TEAM_HUMANS )
-	local iCount = 0
-	for k,ply in pairs( team.GetPlayers( TEAM_HUMANS ) ) do
-		if not ply:GetAchieved() then
-			iCount = iCount + 1
+	if not ValidEntity( LocalPlayer() ) or not LocalPlayer().GetAchieved then return end
+	
+	do --ScoreboardTopShift
+		local tCount = team.GetPlayers( TEAM_HUMANS )
+		local iCount = 0
+		for k,ply in pairs( team.GetPlayers( TEAM_HUMANS ) ) do
+			if not ply:GetAchieved() then
+				iCount = iCount + 1
+			end
+		end
+		local iWinFailRatio = iCount / #tCount
+		
+		if iWinFailRatio ~= self.iLastWinFailRatio then
+			local displacement = (0.5 - self.iDrawKeep * 0.5) + iWinFailRatio * self.iDrawKeep
+			self.dWinImage:MoveTo( displacement * self.dWinImage:GetWide(), 0, 0.2, 0, 1)
+			self.dFailImage:MoveTo( (1 - displacement) * -self.dFailImage:GetWide(), 0, 0.2, 0, 1)
+			self.iLastWinFailRatio = iWinFailRatio
+			
 		end
 	end
-	local iWinFailRatio = iCount / #tCount
 	
-	if iWinFailRatio ~= self.iLastWinFailRatio then
-		local displacement = (0.5 - self.iDrawKeep * 0.5) + iWinFailRatio * self.iDrawKeep
-		self.dWinImage:MoveTo( displacement * self.dWinImage:GetWide(), 0, 0.2, 0, 1)
-		self.dFailImage:MoveTo( (1 - displacement) * -self.dFailImage:GetWide(), 0, 0.2, 0, 1)
-		self.iLastWinFailRatio = iWinFailRatio
+	do --Centric
+		local bIsWin = LocalPlayer():GetAchieved()
+		
+		if bIsWin ~= self.bLastIsWin then
+			if bIsWin then
+				self.dCentricWin:SetVisible( true )
+				self.dCentricFail:SetVisible( false )
+				
+			else
+				self.dCentricFail:SetVisible( true )
+				self.dCentricWin:SetVisible( false )
+			
+			end
+			self.bLastIsWin = bIsWin
+			
+		end
+		
+		self.dCentricText:SetText( LocalPlayer():GetCombo() )
 		
 	end
 	
