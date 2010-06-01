@@ -195,6 +195,8 @@ GM.ColorTable = {
 	{ "pink"		, Color(255,0,255,255)		, "flower"	 }
 }
 
+G_GWI_SKIN = "ware"
+
 ENTS_ONCRATE = "oncrate"
 ENTS_OVERCRATE = "overcrate"
 ENTS_INAIR = "inair"
