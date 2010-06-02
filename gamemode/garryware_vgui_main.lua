@@ -14,7 +14,7 @@ function PANEL:Init()
 	self.colors.Black = Color(   0,   0,   0,  87 )
 	self.colors.White = Color( 255, 255, 255, 192 )
 	self.colors.Stale    = Color( 192, 192, 192 )
-	self.colors.Mystery  = Color( 128, 255, 255 )
+	self.colors.Mystery  = Color( 90, 220, 220 )
 	
 	
 	self.dCentric = vgui.Create("GWArrow", self)
