@@ -31,6 +31,7 @@ AddCSLuaFile( "vgui_clock.lua" )
 AddCSLuaFile( "vgui_clockgame.lua" )
 AddCSLuaFile( "vgui_waitscreen.lua" )
 
+AddCSLuaFile( "garryware_vgui_main.lua" )
 AddCSLuaFile( "panel_arrow.lua" )
 
 -- Sound Resources
