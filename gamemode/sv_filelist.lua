@@ -72,6 +72,10 @@ resource.AddFile("materials/ware/interface/ui_scoreboard_arrow_right_inner.vmt")
 resource.AddFile("materials/ware/interface/ui_scoreboard_arrow_right_inner.vtf")
 resource.AddFile("materials/ware/interface/ui_scoreboard_arrow_right_outer.vmt")
 resource.AddFile("materials/ware/interface/ui_scoreboard_arrow_right_outer.vtf")
+resource.AddFile("materials/ware/interface/ui_scoreboard_arrow_left_inner.vmt")
+resource.AddFile("materials/ware/interface/ui_scoreboard_arrow_left_inner.vtf")
+resource.AddFile("materials/ware/interface/ui_scoreboard_arrow_left_outer.vmt")
+resource.AddFile("materials/ware/interface/ui_scoreboard_arrow_left_outer.vtf")
 
 -- Nonc Files
 resource.AddFile("materials/ware/nonc/ware_bullseye.vmt")
