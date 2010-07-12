@@ -150,7 +150,7 @@ function WARE:CanPlayerEnterVehicle( ply, vehEnt, role )
 	if ply:GetLocked() then return false end
 	if not ply:IsWarePlayer() then
 		if not ply.__ISEXPLOITER then
-			GAMEMODE:PrintInfoMessage( ply:Name(), " (SteamID : " .. ply:SteamID() .. " ) ", " is now registered as a bug exploiter." )
+			GAMEMODE:PrintInfoMessage( ply:Name(), " (SteamID : " .. ply:SteamID() .. " ) ", "is now registered as a bug exploiter." )
 			ply.__ISEXPLOITER = true
 		end
 		
