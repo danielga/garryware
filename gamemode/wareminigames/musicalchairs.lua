@@ -148,6 +148,7 @@ end
 function WARE:CanPlayerEnterVehicle( ply, vehEnt, role )
 	if GAMEMODE:GetCurrentPhase() ~= 2 then return false end
 	if ply:GetLocked() then return false end
+	if not ply:IsWarePlayer() then return false end
 	
 	return true
 end
