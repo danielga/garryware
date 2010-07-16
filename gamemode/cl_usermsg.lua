@@ -213,7 +213,7 @@ usermessage.Hook( "WaitHide", WaitHide )
 local function EndOfGamemode( m )
 	ClockVGUI:Hide()
 	ClockGameVGUI:Hide()
-	StupidBoardVGUI:Hide()
+	StupidBoardVGUI:SetVisible( false )
 	
 	timer.Simple( GAMEMODE.WADAT.EpilogueFlourishDelayAfterEndOfGamemode, PlayEnding, 2 )
 end
