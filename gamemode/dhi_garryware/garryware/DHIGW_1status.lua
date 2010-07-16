@@ -1,3 +1,4 @@
+/*
 ELEMENT.Name = "1"
 ELEMENT.DefaultOff = false
 ELEMENT.DefaultGridPosX = 8
@@ -134,3 +135,4 @@ function DHI_ReceiveSpecialStatuses( usrmsg )
 	DHI_REF_StatusElement:ChangeSmootherTarget("width", 44 + wB)
 end
 usermessage.Hook( "gw_specialstatus", DHI_ReceiveSpecialStatuses )
+*/

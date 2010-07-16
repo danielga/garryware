@@ -15,6 +15,7 @@ surface.CreateFont("Trebuchet MS", 16, 400 , 0, false, "dhigwfont_textsmall_nb" 
 surface.CreateFont("Trebuchet MS", 24, 400 , 0, false, "dhigwfont_textmediumbold_nb" )
 
 include( 'panel_arrow.lua' )
+include( 'panel_message.lua' )
 
 include( 'cl_hud.lua' )
 include( 'cl_postprocess.lua' )

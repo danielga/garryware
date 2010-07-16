@@ -180,11 +180,15 @@ local vgui_wait = vgui.RegisterFile( "vgui_waitscreen.lua" )
 local vgui_clock = vgui.RegisterFile( "vgui_clock.lua" )
 local vgui_clockgame = vgui.RegisterFile( "vgui_clockgame.lua" )
 local vgui_stupidboard = vgui.RegisterFile( "garryware_vgui_main.lua")
+local vgui_instructions = vgui.RegisterFile( "garryware_vgui_instructions.lua")
+local vgui_status = vgui.RegisterFile( "garryware_vgui_status.lua")
 local TransitVGUI = vgui.CreateFromTable( vgui_transit )
 local WaitVGUI = vgui.CreateFromTable( vgui_wait )
 local ClockVGUI = vgui.CreateFromTable( vgui_clock )
 local ClockGameVGUI = vgui.CreateFromTable( vgui_clockgame )
 local StupidBoardVGUI = vgui.CreateFromTable( vgui_stupidboard )
+local InstructionsVGUI = vgui.CreateFromTable( vgui_instructions )
+local StatusVGUI = vgui.CreateFromTable( vgui_status )
 
 StupidBoardVGUI:Show()
 
@@ -209,6 +213,7 @@ usermessage.Hook( "WaitHide", WaitHide )
 local function EndOfGamemode( m )
 	ClockVGUI:Hide()
 	ClockGameVGUI:Hide()
+	StupidBoardVGUI:Hide()
 	
 	timer.Simple( GAMEMODE.WADAT.EpilogueFlourishDelayAfterEndOfGamemode, PlayEnding, 2 )
 end
@@ -270,3 +275,102 @@ local function PlayerRagdollEffect( m )
 	DoRagdollEffect( ply, optvectPush, optiObjNumber, 20)
 end
 usermessage.Hook( "PlayerRagdollEffect", PlayerRagdollEffect )
+
+local function ReceiveInstructions( usrmsg )
+	local sText = usrmsg:ReadString()
+	local bUseCustomBG  = usrmsg:ReadBool()
+	
+	local cFG_Builder = nil
+	local cBG_Builder = nil
+	
+	if bUseCustomBG then
+		local bUseCustomFG = usrmsg:ReadBool()
+		
+		cBG_Builder = Color(usrmsg:ReadChar() + 128, usrmsg:ReadChar() + 128, usrmsg:ReadChar() + 128, usrmsg:ReadChar() + 128)
+		
+		if bUseCustomFG then
+			cFG_Builder = Color( usrmsg:ReadChar() + 128, usrmsg:ReadChar() + 128, usrmsg:ReadChar() + 128, usrmsg:ReadChar() + 128)
+			
+		end
+	
+	end
+	InstructionsVGUI:PrepareDrawData( sText, cFG_Builder, cBG_Builder )
+	
+end
+usermessage.Hook( "gw_instructions", ReceiveInstructions )
+
+
+
+local cStatusBackWinColorSet  = Color(128,128,255,192)
+local cStatusBackLoseColorSet = Color(255,64,64,192)
+local cStatusTextColorSet = Color(255,255,255,255)
+
+local tWinParticles = {
+	{"effects/yellowflare",35,2,ScrW()*0,ScrH(),20,20,50,70,-45,-60,60,64,256,Color(128,255,128,255),Color(0,255,0,0),5,1},
+	{"effects/yellowflare",5,2,ScrW()*0,ScrH(),10,10,20,30,-45,-60,60,256,512,Color(255,255,255,255),Color(255,255,255,0),10,1},
+	{"gui/silkicons/check_on.vmt",5,2,ScrW()*0,ScrH(),16,16,32,32,-45,-60,60,64,128,Color(255,255,255,255),Color(255,255,255,0),0,0.2}
+}
+local tFailParticles = {
+	{"effects/yellowflare",35,2,ScrW()*0,ScrH(),20,20,50,70,-45,-60,60,64,256,Color(255,128,128,255),Color(255,0,0,0),5,1},
+	{"effects/yellowflare",5,2,ScrW()*0,ScrH(),10,10,20,30,-45,-60,60,256,512,Color(255,255,255,255),Color(255,255,255,0),10,1},
+	{"gui/silkicons/check_off.vmt",5,2,ScrW()*0,ScrH(),16,16,32,32,-45,-60,60,64,128,Color(255,255,255,255),Color(255,255,255,0),0,0.2}
+}
+
+local function MakeParticlesFromTable( myTablePtr )
+	for k,particle in pairs(myTablePtr) do
+		GAMEMODE:OnScreenParticlesMake(particle)
+		
+	end
+	
+end
+
+local function ReceiveStatuses( usrmsg )	
+	local sText = ""
+	
+	local yourStatus = usrmsg:ReadBool() or false
+	local isServerGlobal = usrmsg:ReadBool() or false
+	
+	if not isServerGlobal then
+		sText = ((yourStatus and "Success!") or "Fail!")
+		if yourStatus then
+			LocalPlayer():EmitSound( table.Random(GAMEMODE.WASND.TBL_LocalWon), 100, GAMEMODE:GetSpeedPercent() )
+		
+			MakeParticlesFromTable( tWinParticles )
+			
+		else
+			LocalPlayer():EmitSound( table.Random(GAMEMODE.WASND.TBL_LocalLose), 100, GAMEMODE:GetSpeedPercent() )
+		
+			MakeParticlesFromTable( tFailParticles )
+			
+		end
+		
+	else
+		sText = ((yourStatus and "Everyone won!") or "Everyone failed!")
+		
+	end
+
+	local colorSelect = yourStatus and cStatusBackWinColorSet or cStatusBackLoseColorSet
+
+	InstructionsVGUI:PrepareDrawData( sText, nil, colorSelect, 3.0 )
+end
+usermessage.Hook( "gw_yourstatus", ReceiveStatuses )
+
+local function ReceiveSpecialStatuses( usrmsg )	
+	local specialStatus = usrmsg:ReadChar() or 0
+	local positive = false
+	
+	local sText = ""
+	
+	if specialStatus == 1 then
+		positive = true
+		
+		sText = "Done!"
+		LocalPlayer():EmitSound( table.Random(GAMEMODE.WASND.TBL_LocalWon), 100, GAMEMODE:GetSpeedPercent() )
+		
+	end
+
+	local colorSelect = positive and cStatusBackWinColorSet or cStatusBackLoseColorSet
+
+	InstructionsVGUI:PrepareDrawData( sText, nil, colorSelect, 1.0 )
+end
+usermessage.Hook( "gw_specialstatus", ReceiveSpecialStatuses )

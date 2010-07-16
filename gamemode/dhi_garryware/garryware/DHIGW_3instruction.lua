@@ -1,3 +1,4 @@
+/*
 ELEMENT.Name = "3"
 ELEMENT.DefaultOff = false
 ELEMENT.DefaultGridPosX = 8
@@ -99,4 +100,4 @@ function DHI_ReceiveInstructions( usrmsg )
 	DHI_REF_InstructionElement:ChangeSmootherTarget("width", 44 + wB)
 end
 usermessage.Hook( "gw_instructions", DHI_ReceiveInstructions )
-
+*/

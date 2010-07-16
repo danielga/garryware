@@ -321,7 +321,7 @@ function GM:HUDDrawTargetID()
 	
 	y = y + h + 5
 	
-	local text = trace.Entity:Frags() .. " Win, " .. trace.Entity:Deaths() .. " Fail / " .. trace.Entity:GetBestCombo() .. " Best Combo"
+	local text = trace.Entity:Frags() .. " Win"
 	local font = "TargetIDSmall"
 	
 	surface.SetFont( font )

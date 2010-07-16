@@ -32,7 +32,10 @@ AddCSLuaFile( "vgui_clockgame.lua" )
 AddCSLuaFile( "vgui_waitscreen.lua" )
 
 AddCSLuaFile( "garryware_vgui_main.lua" )
+AddCSLuaFile( "garryware_vgui_instructions.lua" )
+AddCSLuaFile( "garryware_vgui_status.lua" )
 AddCSLuaFile( "panel_arrow.lua" )
+AddCSLuaFile( "panel_message.lua" )
 
 -- Sound Resources
 for k,stringOrTable in pairs(GM.WASND) do

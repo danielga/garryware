@@ -87,7 +87,7 @@ function PANEL:PerformLayout()
 	local height = (width * 0.5) / 512 * 64
 	
 	self:SetSize( width, height )
-	self:SetPos( (ScrW() - width) * 0.5, ScrH() * 0.02 )
+	self:SetPos( (ScrW() - width) * 0.5, 8 )
 
 	--NOTE : CONVERT THE CENTRIC TO ITS OWN PANEL!
 	self.dCentric:SetWide( self:GetWide() * 0.5 * 0.25 )
