@@ -99,7 +99,7 @@ function WARE:PreEndAction()
 		end
 		
 		if someoneAchieved then
-			GAMEMODE:SetNextPhaseLength( 4 )
+			GAMEMODE:SetNextPhaseLength( 6 )
 			
 		end
 		
