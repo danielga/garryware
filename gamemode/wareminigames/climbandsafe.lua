@@ -119,6 +119,7 @@ function WARE:Think( )
 			if not v:GetLocked() and not v:GetAchieved() then
 				v:ApplyLose()
 				v:SimulateDeath()
+				v:EjectWeapons( nil, 120 )
 			end
 		end
 	end

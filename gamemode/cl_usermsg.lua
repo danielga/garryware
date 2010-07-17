@@ -351,7 +351,7 @@ local function ReceiveStatuses( usrmsg )
 
 	local colorSelect = yourStatus and cStatusBackWinColorSet or cStatusBackLoseColorSet
 
-	InstructionsVGUI:PrepareDrawData( sText, nil, colorSelect, 3.0 )
+	StatusVGUI:PrepareDrawData( sText, nil, colorSelect, 3.0 )
 end
 usermessage.Hook( "gw_yourstatus", ReceiveStatuses )
 
@@ -371,6 +371,6 @@ local function ReceiveSpecialStatuses( usrmsg )
 
 	local colorSelect = positive and cStatusBackWinColorSet or cStatusBackLoseColorSet
 
-	InstructionsVGUI:PrepareDrawData( sText, nil, colorSelect, 1.0 )
+	StatusVGUI:PrepareDrawData( sText, nil, colorSelect, 1.0 )
 end
 usermessage.Hook( "gw_specialstatus", ReceiveSpecialStatuses )

@@ -110,7 +110,7 @@ function WARE:PhaseSignal( iPhase )
 		end
 		
 		GAMEMODE:DrawInstructions( "Whack players holding a Gravity Gun!" , self.RoleColor , nil , rpAttack )
-		GAMEMODE:DrawInstructions( "Flee from those players!" , self.RoleColor , nil , rpFlee )
+		GAMEMODE:DrawInstructions( "Don't get hit!" , self.RoleColor , nil , rpFlee )
 		
 	end
 	
