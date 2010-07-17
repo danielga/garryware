@@ -1,3 +1,4 @@
+/*
 ELEMENT.Name = "0"
 ELEMENT.DefaultOff = false
 ELEMENT.DefaultGridPosX = 8
@@ -51,4 +52,4 @@ function ELEMENT:DrawFunction( )
 	
 	return true
 end
-
+*/

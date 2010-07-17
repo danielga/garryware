@@ -123,6 +123,57 @@ function GM:OnScreenParticlesMake(myData)
 	end
 end
 
+local gw_clientdata = {}
+function GM:HudSmooth( fCurrent, fTarget, fSmooth )
+	return fCurrent + (fTarget - fCurrent) * math.Clamp( fSmooth * FrameTime() * 25 , 0 , 1 )
+end
+
+function GM:BiltRectangle( screenx, screeny, width, height, oR, oG, oB, oA)
+	surface.SetDrawColor( oR or 255, oG or 220, oB or 0, oA or 255 )
+	surface.DrawRect(screenx - width/2, screeny - height/2 , width, height  )
+end
+
+function GM:BiltCrosshair( screenx, screeny, length, thick , oR, oG, oB, oA)
+	self:BiltRectangle( screenx, screeny, length, thick , oR, oG, oB, oA)
+	if (length ~= thick) then
+		self:BiltRectangle( screenx, screeny, thick, length , oR, oG, oB, oA)
+	end
+end
+
+function GM:DrawCrosshair()
+	if not gw_clientdata.crosshair then
+		gw_clientdata.crosshair = {}
+		gw_clientdata.crosshair.ch_x = ScrW() * 0.5
+		gw_clientdata.crosshair.ch_y = ScrH() * 0.5
+		
+		gw_clientdata.crosshair.tg_x = ScrW() * 0.5
+		gw_clientdata.crosshair.tg_y = ScrH() * 0.5
+		
+		gw_clientdata.crosshair.speed = 0.5
+		
+	end
+	
+	-- Smooth before calculating.
+	gw_clientdata.crosshair.ch_x = self:HudSmooth(gw_clientdata.crosshair.ch_x, gw_clientdata.crosshair.tg_x, gw_clientdata.crosshair.speed)
+	gw_clientdata.crosshair.ch_y = self:HudSmooth(gw_clientdata.crosshair.ch_y, gw_clientdata.crosshair.tg_y, gw_clientdata.crosshair.speed)
+	
+	local size_smooth = 8
+	
+	self:BiltRectangle(ScrW()*0.5 - size_smooth * 2, ScrH()*0.5, size_smooth, 2)
+	self:BiltRectangle(ScrW()*0.5 + size_smooth * 2, ScrH()*0.5, size_smooth, 2)
+	self:BiltCrosshair(gw_clientdata.crosshair.ch_x, gw_clientdata.crosshair.ch_y, size_smooth, 2)
+	
+	-- Calculating
+	gw_clientdata.crosshair.traceLineData = utilx.GetPlayerTrace( LocalPlayer(), LocalPlayer():GetCursorAimVector() )
+	gw_clientdata.crosshair.traceLineRes = util.TraceLine( gw_clientdata.crosshair.traceLineData )
+	
+	gw_clientdata.crosshair.scrpos = gw_clientdata.crosshair.traceLineRes.HitPos:ToScreen()
+	gw_clientdata.crosshair.tg_x = gw_clientdata.crosshair.scrpos.x
+	gw_clientdata.crosshair.tg_y = gw_clientdata.crosshair.scrpos.y
+end
+
+
+
 ////////////////////////////////////////////////
 ////////////////////////////////////////////////
 -- Paint.
@@ -133,6 +184,8 @@ function GM:HUDPaint()
 	self:PrintStreaksticks()
 	self:OnScreenParticlesThink()
 	self:DrawWareText()
+	
+	self:DrawCrosshair()
 	
 	dhonline.HUDPaint()
 end
