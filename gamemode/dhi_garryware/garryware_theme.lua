@@ -33,13 +33,7 @@ function THEME:Load()
 	
 	dhonline.SetVar("dhonline_core_ui_spacing", 0.3)
 
-	surface.CreateFont("Trebuchet MS", 36, 0   , 0, false, "dhigwfont_num_nb" )
-	surface.CreateFont("Trebuchet MS", 26, 0   , 0, false, "dhigwfont_nummedium_nb" )
-	surface.CreateFont("Trebuchet MS", 20, 0   , 0, false, "dhigwfont_numsmall_nb" )
-	surface.CreateFont("Trebuchet MS", 36, 0   , 0, false, "dhigwfont_textlarge_nb" )
-	surface.CreateFont("Trebuchet MS", 24, 0   , 0, false, "dhigwfont_textmedium_nb" )
-	surface.CreateFont("Trebuchet MS", 16, 400 , 0, false, "dhigwfont_textsmall_nb" )
-	surface.CreateFont("Trebuchet MS", 24, 400 , 0, false, "dhigwfont_textmediumbold_nb" )
+	surface.CreateFont("Trebuchet MS", 24, 0   , 0, false, "garryware_mediumtext" )
 	
 end
 

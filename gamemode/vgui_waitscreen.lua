@@ -38,9 +38,9 @@ function PANEL:Init()
 	self.BottomPanel:SetColor( color_black )
 	self.BottomPanel:SetParent( self )
 	
-	self.WinnerSubtitle = vgui.Create( "DLabel", self.BottomPanel )
-	self.WinnerSubtitle:SetFont( "WAREIns" )
-	self.WinnerSubtitle:SetColor( color_white )
+	self.SubtitleObj = vgui.Create( "DLabel", self.BottomPanel )
+	self.SubtitleObj:SetFont( "WAREIns" )
+	self.SubtitleObj:SetColor( color_white )
 	
 	self:SetVisible( false )
 
@@ -55,9 +55,9 @@ function PANEL:PerformLayout()
 	self:SetSize( ScrW(), ScrH() )
 	self:SetPos( 0, 0 )
 	
-	self.WinnerSubtitle:SizeToContents()
-	self.WinnerSubtitle:Center()
-	self.WinnerSubtitle:AlignTop( 6 )
+	self.SubtitleObj:SizeToContents()
+	self.SubtitleObj:Center()
+	self.SubtitleObj:AlignTop( 6 )
 	
 end
 
@@ -70,6 +70,12 @@ function PANEL:Show()
 	
 end
 
+function PANEL:SetSubtitle( sText )
+	self.SubtitleObj:SetText( sText )
+	self:InvalidateLayout()
+	
+end
+
 function PANEL:Think()
 	if (self:IsVisible() == false) then return end
 
@@ -77,9 +83,9 @@ function PANEL:Think()
 	if (timeleft > 0) then 
 		local text = ""
 		if (timeleft > 1) then text = "s" end
-		self.WinnerSubtitle:SetText( "Game begins in "..timeleft.." second"..text.."!")
+		self.SubtitleObj:SetText( "Game begins in "..timeleft.." second"..text.."!")
 	else
-		self.WinnerSubtitle:SetText( "Game begins!")
+		self.SubtitleObj:SetText( "Game begins!")
 	end
 	
 	self:InvalidateLayout()

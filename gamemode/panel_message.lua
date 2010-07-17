@@ -3,8 +3,6 @@ local PANEL = {}
 function PANEL:Init()
 	self:SetPaintBackground( false )
 
-	surface.CreateFont("Trebuchet MS", 36, 0   , 0, false, "garryware_instructions" )
-
 	self.INS_DefFore   =  Color(255, 255, 255, 255)
 	self.INS_DefBack   =  Color(128, 170, 128, 192)
 	

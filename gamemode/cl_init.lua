@@ -9,10 +9,9 @@
 
 include( 'shared.lua' )
 
-surface.CreateFont("Trebuchet MS", 36, 0   , 0, false, "dhigwfont_textlarge_nb" )
-surface.CreateFont("Trebuchet MS", 24, 0   , 0, false, "dhigwfont_textmedium_nb" )
-surface.CreateFont("Trebuchet MS", 16, 400 , 0, false, "dhigwfont_textsmall_nb" )
-surface.CreateFont("Trebuchet MS", 24, 400 , 0, false, "dhigwfont_textmediumbold_nb" )
+surface.CreateFont("Trebuchet MS", 36, 0   , 0, false, "garryware_instructions" )
+surface.CreateFont("Trebuchet MS", 36, 0   , 0, false, "garryware_largetext" )
+surface.CreateFont("Trebuchet MS", 24, 0   , 0, false, "garryware_mediumtext" )
 
 include( 'panel_arrow.lua' )
 include( 'panel_message.lua' )
@@ -31,15 +30,6 @@ include("sh_dhonline_autorun.lua")
 
 include( 'cl_splashscreen.lua' )
 include( 'vgui/vgui_scoreboard.lua' )
-
-
---surface.CreateFont("Trebuchet MS", 36, 0   , 0, false, "dhigwfont_num_nb" )
---surface.CreateFont("Trebuchet MS", 26, 0   , 0, false, "dhigwfont_nummedium_nb" )
---surface.CreateFont("Trebuchet MS", 20, 0   , 0, false, "dhigwfont_numsmall_nb" )
-surface.CreateFont("Trebuchet MS", 36, 0   , 0, false, "dhigwfont_textlarge_nb" )
-surface.CreateFont("Trebuchet MS", 24, 0   , 0, false, "dhigwfont_textmedium_nb" )
-surface.CreateFont("Trebuchet MS", 16, 400 , 0, false, "dhigwfont_textsmall_nb" )
-surface.CreateFont("Trebuchet MS", 24, 400 , 0, false, "dhigwfont_textmediumbold_nb" )
 
 function WARE_SortTable( plyA, plyB )
 	if ( not(plyA) or not(plyB) ) then return false end

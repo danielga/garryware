@@ -13,33 +13,48 @@ PANEL.Base = "DPanel"
    Name: gamemode:Init
 ---------------------------------------------------------*/
 function PANEL:Init()
-
-	local h = ScrH() * 0.2
+	self.colors = {}
+	self.colors.Win   = Color(   0, 164, 237 )
+	self.colors.Fail  = Color( 255,  87,  87 )
+	self.colors.Black = Color(   0,   0,   0,  87 )
 	
+	self.DYN_color = Color( 0, 0, 0 )
+	
+	self:SetSize( ScrW(), 28 )
 	self:SetPaintBackground( false )
-
-	self.BottomPanel = VGUIRect( 0, ScrH(), ScrW(), h )
-	self.BottomPanel:SetColor( color_black )
-	self.BottomPanel:SetParent( self )
+	
+	self.SubtitleObj = vgui.Create( "DLabel", self )
+	self.SubtitleObj:SetFont( "garryware_mediumtext" )
+	self.SubtitleObj:SetColor( color_white )
+	self.SubtitleObj:SetText("")
 	
 	self:SetVisible( false )
 end
 
-/*---------------------------------------------------------
-   Name: PerformLayout
----------------------------------------------------------*/
-function PANEL:PerformLayout()
 
-	self:SetSize( ScrW(), ScrH() )
-	self:SetPos( 0, 0 )
+function PANEL:PerformLayout()
+	self.SubtitleObj:SizeToContents()
+	self.SubtitleObj:Center()
+	self.SubtitleObj:AlignBottom( 1 )
+	
 end
 
-function PANEL:Show()
 
-	local h = ScrH() * 0.07
+function PANEL:SetSubtitle( sText )
+	self.SubtitleObj:SetText( sText )
+	self:InvalidateLayout()
 	
-	self.BottomPanel:SetPos( 0, ScrH() )
-	self.BottomPanel:MoveTo( 0, ScrH()-h, 1 )
+end
+
+function PANEL:SetBlend( fBlend )
+	GC_ColorBlend( self.DYN_color, self.colors.Fail, self.colors.Win, fBlend )
+	
+end
+
+
+function PANEL:Show()
+	self:SetPos( 0, ScrH() )
+	self:MoveTo( 0, ScrH() - self:GetTall(), 0.3, 0, 2)
 	
 	self:InvalidateLayout()
 	self:SetVisible( true )
@@ -47,10 +62,12 @@ function PANEL:Show()
 end
 
 function PANEL:Hide()
-	local h = ScrH() * 0.07
-
-	self.BottomPanel:MoveTo( 0, ScrH(), 1 )
+	self:MoveTo( 0, ScrH(), 0.3, 0, 2)
 	
 	timer.Simple( 1, function() self:SetVisible( false ) end )
 end
 
+function PANEL:Paint()
+	draw.RoundedBox( 0, 0, 0, self:GetWide(), self:GetTall()    , self.colors.Black )
+	draw.RoundedBox( 0, 0, 4, self:GetWide(), self:GetTall() - 4, self.DYN_color )
+end

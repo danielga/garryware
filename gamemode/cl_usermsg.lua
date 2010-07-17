@@ -192,7 +192,37 @@ local StatusVGUI = vgui.CreateFromTable( vgui_status )
 
 StupidBoardVGUI:Show()
 
+
+local tWinEvalutaion = {
+{5, "Epic FAIL"}, -- --> 0 to 5
+{11, "Massive FAIL"},
+{16, "Huge fail"},
+{31, "Fail"},
+{46, "Okay"}, ---
+{65, "Success"},
+{80, "Huge success"},
+{95, "Massive WIN"},
+{100, "Epic WIN"}
+}
+local function EvaluateFailure( iPercent )
+	local iPos = 1
+	while (iPos < #tWinEvalutaion) and ( iPercent > tWinEvalutaion[iPos][1] ) do
+		iPos = iPos + 1
+	end
+	return tWinEvalutaion[iPos][2]
+end
+
 local function Transit( m )
+	if m then
+		local theoWinFailNum = tonumber( m:ReadChar() )
+		TransitVGUI:SetSubtitle("Server Fail-o-meter : " .. tostring( 100 - theoWinFailNum ) .. "% ... " .. EvaluateFailure( theoWinFailNum ) .. "!"  )
+		
+		local fWinFailBlend = theoWinFailNum / 100
+		fWinFailBlend = math.Clamp((fWinFailBlend - 0.5) * 1.5 + 0.5, 0, 1)
+		TransitVGUI:SetBlend( fWinFailBlend )
+		
+	end
+	
 	TransitVGUI:Show()
 	RunConsoleCommand("r_cleardecals")
 	
@@ -213,7 +243,7 @@ usermessage.Hook( "WaitHide", WaitHide )
 local function EndOfGamemode( m )
 	ClockVGUI:Hide()
 	ClockGameVGUI:Hide()
-	StupidBoardVGUI:SetVisible( false )
+	StupidBoardVGUI:Hide()
 	
 	timer.Simple( GAMEMODE.WADAT.EpilogueFlourishDelayAfterEndOfGamemode, PlayEnding, 2 )
 end

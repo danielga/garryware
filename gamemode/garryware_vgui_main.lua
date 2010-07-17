@@ -18,31 +18,41 @@ function PANEL:Init()
 	
 	
 	self.dCentric = vgui.Create("GWArrow", self)
-	self.dCentric:SetZPos( 9001 )
+	self.dCentric:SetZPos( 9005 )
 	self:UseGeneric()
 	
 	self.dWinBox = vgui.Create("DPanel", self)
 	self.dWinBox:SetPaintBackground( false )
+	self.dWinBox:SetZPos( 9002 )
 	self.dWinImage = vgui.Create("DImage", self.dWinBox)
-	self.dWinImage:SetImage("ware/interface/ui_scoreboard_winner")
+	self.dWinImage:SetImage("ware/interface/ui_scoreboard_winner_noloss")
 	self.dWinText = vgui.Create("DLabel", self.dWinImage)
 	self.dWinText:SetText("Winners")
-	self.dWinText:SetFont( "dhigwfont_textmedium_nb" )
+	self.dWinText:SetFont( "garryware_mediumtext" )
 	self.dWinText:SetColor( color_white )
+
+	self.dWinPart = vgui.Create("GWArrow", self.dWinBox)
+	self.dWinPart:SetZPos( 9003 )
+	self.dWinPart:UseLeft( false )
+	self.dWinPart:SetRightInnerColor( self.colors.Win )
+	self.dWinPart:SetRightOuterColor( self.colors.Black )
+	
 	
 	self.dFailBox = vgui.Create("DPanel", self)
 	self.dFailBox:SetPaintBackground( false )
+	self.dFailBox:SetZPos( 9002 )
 	self.dFailImage = vgui.Create("DImage", self.dFailBox)
-	self.dFailImage:SetImage("ware/interface/ui_scoreboard_failure")
+	self.dFailImage:SetImage("ware/interface/ui_scoreboard_failure_noloss")
 	self.dFailText = vgui.Create("DLabel", self.dFailImage)
 	self.dFailText:SetText("Failures")
-	self.dFailText:SetFont( "dhigwfont_textmedium_nb" )
+	self.dFailText:SetFont( "garryware_mediumtext" )
 	self.dFailText:SetColor( color_white )
 	
-	/*self.dFailPart = vgui.Create("GWArrow", self.dFailImage)
-	self.dFailPart:UseLeft( false )
-	self.dFailPart:SetRightInnerColor( self.colors.Fail )
-	self.dFailPart:SetRightOuterColor( self.colors.Black )*/
+	self.dFailPart = vgui.Create("GWArrow", self.dFailBox)
+	self.dFailPart:SetZPos( 9003 )
+	self.dFailPart:UseLeft( true )
+	self.dFailPart:SetLeftInnerColor( self.colors.Fail )
+	self.dFailPart:SetLeftOuterColor( self.colors.Black )
 	
 	self.iLastWinFailRatio = 0.5
 	self.iDrawKeep = 0.4
@@ -95,6 +105,7 @@ function PANEL:PerformLayout()
 	self.dCentric:Center( )
 	self.dCentric:InvalidateLayout( )
 	
+	
 	self.dWinBox:SetWide( self:GetWide() * 0.5 )
 	self.dWinBox:SetTall( self:GetTall() )
 	self.dWinBox:AlignLeft( )
@@ -106,6 +117,12 @@ function PANEL:PerformLayout()
 	self.dWinText:SizeToContents( )
 	self.dWinText:AlignLeft( 16 )
 	self.dWinText:CenterVertical( )
+	
+	self.dWinPart:SetWide( self:GetWide() * 0.5 * 0.25 )
+	self.dWinPart:SetTall( self:GetTall() )
+	self.dWinPart:AlignLeft( 0 )
+	self.dWinPart:CenterVertical( )
+	
 	
 	self.dFailBox:SetWide( self:GetWide() * 0.5 )
 	self.dFailBox:SetTall( self:GetTall() )
@@ -119,10 +136,10 @@ function PANEL:PerformLayout()
 	self.dFailText:AlignRight( 16 )
 	self.dFailText:CenterVertical( )
 
-	/*self.dFailPart:SetWide( self:GetWide() * 0.5 * 0.25 )
+	self.dFailPart:SetWide( self:GetWide() * 0.5 * 0.25 )
 	self.dFailPart:SetTall( self:GetTall() )
-	self.dFailPart:AlignRight( -32 )
-	self.dFailPart:CenterVertical( )*/
+	self.dFailPart:AlignRight( 0 )
+	self.dFailPart:CenterVertical( )
 	
 end
 
@@ -205,7 +222,8 @@ function PANEL:Think()
 			
 		end
 		
-		/*self.dFailPart:SetText( iCount )*/
+		self.dFailPart:SetText( iCount )
+		self.dWinPart:SetText( #tCount - iCount )
 	end
 	
 	self:EvaluateLocked( )

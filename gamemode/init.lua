@@ -299,7 +299,22 @@ function GM:EndGame()
 	end
 	
 	self.NextgameStart = CurTime() + self.WADAT.EndFlourishTime
-	SendUserMessage( "Transit" )
+	local tCount = team.GetPlayers( TEAM_HUMANS )
+	if #tCount >= 5 then
+		local iWinFailPercent = 0
+		local iCount = 0
+		for k,ply in pairs( team.GetPlayers( TEAM_HUMANS ) ) do
+			if ply:GetAchieved() then
+				iCount = iCount + 1
+			end
+		end
+		
+		iWinFailPercent = math.floor( iCount / #tCount * 100 )
+		umsg.Start("Transit", nil)
+			umsg.Char( iWinFailPercent )
+		umsg.End()
+	
+	end
 	
 	-- Reinitialize
 	self.WareHaveStarted = false
@@ -457,7 +472,7 @@ function GM:Think()
 				self.FirstTimePickGame = 19.3
 				
 			end
-			SendUserMessage( "WaitShow" )
+			SendUserMessage("WaitShow")
 		end
 	end
 end

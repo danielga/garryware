@@ -2,7 +2,7 @@ local PANEL = {}
 
 function PANEL:Init()
 	self:SetPaintBackground( false )
-	self.bIsUsingLeft = true
+	self.bIsUsingLeft = false
 
 	self.dLeftOuter = vgui.Create("DImage", self)
 	self.dLeftOuter:SetImage("ware/interface/ui_scoreboard_arrow_left_outer")
@@ -16,7 +16,7 @@ function PANEL:Init()
 	
 	self.dText = vgui.Create("DLabel", self)
 	self.dText:SetText("x")
-	self.dText:SetFont( "dhigwfont_textlarge_nb" )
+	self.dText:SetFont( "garryware_largetext" )
 	self.dText:SetColor( color_white )
 	
 	self:SetText("")

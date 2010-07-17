@@ -1,6 +1,6 @@
 "UnlitGeneric" 
 { 
-	"$basetexture"		"ware/interface/ui_scoreboard_winner" 
+	"$basetexture"		"ware/interface/ui_scoreboard_winner_noloss" 
 	"$ignorez"		1
 	"$vertexcolor" 		1
 	"$vertexalpha" 		1
