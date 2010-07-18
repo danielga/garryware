@@ -1,7 +1,7 @@
 WARE.Author = "Hurricaaane (Ha3)"
 
 WARE.Models = {
-"models/props_junk/wood_crate001a.mdl"
+"models/props_wasteland/laundry_basket001.mdl"
  }
  
 WARE.CorrectColor = Color(0,0,0,255)
@@ -13,7 +13,7 @@ end
 WARE.Numbers = {}
 WARE.NumberSpawns = 0
 
-WARE.NumPhases = math.random( 3, 5 )
+WARE.NumPhases = 5
 
 function WARE:_DiceNoRepeat( myMax, lastUsed )
 	local dice = math.random(1, myMax - 1)
@@ -42,7 +42,7 @@ function WARE:Initialize()
 		prop:SetModel( self.Models[1] )
 		prop:PhysicsInit(SOLID_VPHYSICS)
 		prop:SetSolid(SOLID_VPHYSICS)
-		prop:SetPos(pos+Vector(0,0,64))
+		prop:SetPos(pos+Vector(0,0,92))
 		prop:Spawn()
 		
 		prop:SetColor(255, 255, 255, 100)
@@ -55,7 +55,7 @@ function WARE:Initialize()
 		
 		local textent = ents.Create("ware_text")
 		previousnumber = previousnumber + math.random(1,35)
-		textent:SetPos(pos + Vector(0,0,64))
+		textent:SetPos(pos + Vector(0,0,92))
 		textent:Spawn()
 		textent:SetEntityInteger( previousnumber )
 		

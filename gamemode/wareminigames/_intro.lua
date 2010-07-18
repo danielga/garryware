@@ -5,7 +5,7 @@ function WARE:IsPlayable()
 end
 
 function WARE:Initialize()
-	GAMEMODE:SetWareWindupAndLength(4, 7)
+	GAMEMODE:SetWareWindupAndLength(4, 13) -- Was 7 before
 	
 	GAMEMODE:SetPlayersInitialStatus( true )
 	GAMEMODE:DrawInstructions( "A new GarryWare game starts!" )

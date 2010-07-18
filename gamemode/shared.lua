@@ -32,7 +32,7 @@ GM.AllowSpectating = true
 GM.SelectClass = false
 
 GM.SecondsBetweenTeamSwitches = 3
-GM.GameLength = 8.0 + 47.0 / 60.0
+GM.GameLength = 9.0 + 47.0 / 60.0 -- First number was 8.0 before
 GM.NotEnoughTimeCap = 20
 -- If GM.DefaultAnnouncerID == false, then it switches to random each ware
 GM.DefaultAnnouncerID = 1
