@@ -41,6 +41,7 @@ GM.WareHaveStarted = false
 GM.ActionPhase = false
 
 GM.WareOverrideAnnouncer = false
+GM.WareShouldNotAnnounce = false
 GM.WarePhase_Current = 0
 GM.WarePhase_NextLength = 0
 
@@ -167,6 +168,8 @@ function GM:PickRandomGame()
 		self.WareOverrideAnnouncer = self.DefaultAnnouncerID or math.random(1, #GAMEMODE.WASND.BITBL_TimeLeft )
 	end
 	
+	local iLoopToPlay = ( (self.Windup + self.WareLen) > 14 ) and 2 or 1
+	
 	-- Send info about ware
 	local rp = RecipientFilter()
 	rp:AddAllPlayers()
@@ -175,12 +178,14 @@ function GM:PickRandomGame()
 		umsg.Float( self.NextgameEnd )
 		umsg.Float( self.Windup )
 		umsg.Float( self.WareLen )
-		umsg.Bool( false )
+		umsg.Bool( self.WareShouldNotAnnounce )
 		umsg.Bool( true )
 		umsg.Char( 1 )
 		umsg.Char( math.random(1, #GAMEMODE.WASND.TBL_GlobalWareningNew ) )
 		umsg.Char( self.WareOverrideAnnouncer )
+		umsg.Char( iLoopToPlay )
 	umsg.End()
+	self.WareShouldNotAnnounce = false
 end
 
 function GM:TryNextPhase( )
@@ -205,6 +210,8 @@ function GM:TryNextPhase( )
 		
 	end
 	
+	local iLoopToPlay = ( (self.Windup + self.WareLen) > 14 ) and 2 or 1
+	
 	--local rp = RecipientFilter()
 	--rp:AddAllPlayers()
 	umsg.Start("NextGameTimes", nil)
@@ -212,12 +219,14 @@ function GM:TryNextPhase( )
 		umsg.Float( self.NextgameEnd )
 		umsg.Float( self.Windup )
 		umsg.Float( self.WareLen )
-		umsg.Bool( false )
+		umsg.Bool( self.WareShouldNotAnnounce )
 		umsg.Bool( true )
 		umsg.Char( 4 )
 		umsg.Char( math.random(1, #GAMEMODE.WASND.TBL_GlobalWareningPhase ) )
 		umsg.Char( self.WareOverrideAnnouncer )
+		umsg.Char( iLoopToPlay )
 	umsg.End()
+	self.WareShouldNotAnnounce = false
 	
 	return true
 end

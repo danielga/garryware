@@ -20,6 +20,7 @@ gws_PrecacheSequence = 0
 gws_CurrentAnnouncer = 1
 
 gws_AmbientMusic = {}
+gws_AmbientMusic_dat = {}
 gws_AmbientMusicIsOn = false
 
 local function ModelList( m )
@@ -60,26 +61,43 @@ local function ServerJoinInfo( m )
 end
 usermessage.Hook( "ServerJoinInfo", ServerJoinInfo )
 
-local function EnableMusicVolume()
+local function EnableMusicVolume( optiLoopToPlay )
 	if gws_AmbientMusicIsOn then
-		gws_AmbientMusic[1]:ChangeVolume( 0.7 )
+		gws_AmbientMusic[optiLoopToPlay]:ChangeVolume( 0.7 )
 	end
 end
 
-local function EnableMusic()
+local function EnableMusic( optiLoopToPlay )	
 	if gws_AmbientMusicIsOn then
-		gws_AmbientMusic[1]:Stop()
-		gws_AmbientMusic[1]:Play()
-		gws_AmbientMusic[1]:ChangeVolume( 0.1 )
-		gws_AmbientMusic[1]:ChangePitch( GAMEMODE:GetSpeedPercent() )
-		timer.Simple( GAMEMODE.WADAT.StartFlourishLength * 0.7 , EnableMusicVolume )
+		for k, music in pairs( gws_AmbientMusic ) do
+			music:Stop()
+			gws_AmbientMusic_dat[k]._IsPlaying = false
+			
+		end
+		
+		gws_AmbientMusic[optiLoopToPlay]:Play()
+		gws_AmbientMusic_dat[optiLoopToPlay]._IsPlaying = true
+		gws_AmbientMusic[optiLoopToPlay]:ChangeVolume( 0.1 )
+		gws_AmbientMusic[optiLoopToPlay]:ChangePitch( GAMEMODE:GetSpeedPercent() )
+		timer.Simple( GAMEMODE.WADAT.StartFlourishLength * 0.7 , EnableMusicVolume, optiLoopToPlay )
+		
 	end
+	
 end
 
 local function DisableMusic()
 	if not gws_AmbientMusicIsOn then
-		gws_AmbientMusic[1]:ChangeVolume( 0.1 )
-		--gws_AmbientMusic[1]:Stop()
+		for k, music in pairs( gws_AmbientMusic ) do
+			if gws_AmbientMusic_dat[k]._IsPlaying then
+				music:ChangeVolume( 0.1 )
+				
+			else
+				music:Stop()
+				
+			end
+			
+		end
+		
 	end
 end
 
@@ -88,8 +106,14 @@ local function PlayEnding( musicID )
 	
 	LocalPlayer():EmitSound( GAMEMODE.WASND.TBL_GlobalWareningEpic[musicID] , 60, GAMEMODE:GetSpeedPercent() )
 	gws_AmbientMusicIsOn = true
-	gws_AmbientMusic[1]:Stop( )
-	timer.Simple( dataRef.Length, EnableMusic )
+	
+	for k, music in pairs( gws_AmbientMusic ) do
+		music:Stop()
+		gws_AmbientMusic_dat[k]._IsPlaying = false
+		
+	end
+	
+	timer.Simple( dataRef.Length, EnableMusic, 1 )
 end
 
 local function NextGameTimes( m )
@@ -100,15 +124,20 @@ local function NextGameTimes( m )
 	local bShouldKeepAnnounce = m:ReadBool()
 	local bShouldPlayMusic = m:ReadBool()
 	
-	if not bShouldKeepAnnounce then gws_TickAnnounce = 5 end
+	if not bShouldKeepAnnounce then
+		gws_TickAnnounce = 5
+	else
+		gws_TickAnnounce = 0
+	end
 	
 	if bShouldPlayMusic then
 		local libraryID = m:ReadChar()
 		local musicID = m:ReadChar()
 		gws_CurrentAnnouncer = m:ReadChar()
+		local loopToPlay = m:ReadChar()
 		LocalPlayer():EmitSound( GAMEMODE.WASND.BITBL_GlobalWarening[libraryID][musicID] , 60, GAMEMODE:GetSpeedPercent() )
 		gws_AmbientMusicIsOn = true
-		EnableMusic()
+		EnableMusic( loopToPlay )
 		
 	end
 	

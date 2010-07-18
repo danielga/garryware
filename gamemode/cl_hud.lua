@@ -226,11 +226,16 @@ function GM:AddScoreboardStreak( ScoreBoard )
 		local combo = ply:GetCombo()
 		local combomax = ply:GetBestCombo()
 		local sufstring = ""
+		--if (combo == combomax) then
+		--	sufstring = "Ongoing "
+		--	
+		--end
+		--return sufstring .. combomax
 		if (combo == combomax) then
-			sufstring = "Ongoing "
+			combomax = combomax + 0.1
 			
 		end
-		return sufstring .. combomax
+		return combomax
 		
 	end
 	ScoreBoard:AddColumn( "Best Streak", 80, f, 0.5, nil, 6, 6 )

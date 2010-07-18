@@ -29,7 +29,8 @@ GM.WADAT.TBL_GlobalWareningEpic[2].Length = 20.10
 GM.WADAT.EpilogueFlourishDelayAfterEndOfGamemode = 2.26
 
 GM.WASND.THL_AmbientMusic = {
-Sound("ware/exp_loop_1.wav")
+Sound("ware/exp_loop_1.wav"),
+Sound("ware/exp_loop_2.wav")
 }
 
 GM.WASND.BITBL_GlobalWarening = {}

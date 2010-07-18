@@ -60,7 +60,9 @@ end
 function GM:CreateAmbientMusic()
 	for k,path in pairs(GAMEMODE.WASND.THL_AmbientMusic) do
 		gws_AmbientMusic[k] = CreateSound(LocalPlayer(), path)
+		gws_AmbientMusic_dat[k] = {}
 	end
+	
 end
 
 function GM:InitPostEntity()

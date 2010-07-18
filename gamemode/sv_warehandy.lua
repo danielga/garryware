@@ -18,6 +18,10 @@ function GM:OverrideAnnouncer( id )
 	end
 end
 
+function GM:ForceNoAnnouncer( )
+    self.WareShouldNotAnnounce = true
+end
+
 function GM:DrawToPlayersGeneralInstructions( tPlayersInput, bInvert, sInstructions , optColorPointer , optTextColorPointer )
 	local rpPlayers = RecipientFilter()
 	if bInvert then

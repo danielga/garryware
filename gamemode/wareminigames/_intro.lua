@@ -5,10 +5,11 @@ function WARE:IsPlayable()
 end
 
 function WARE:Initialize()
-	GAMEMODE:SetWareWindupAndLength(4, 13) -- Was 7 before
+	GAMEMODE:SetWareWindupAndLength(4, 11) -- Was 7 before
 	
 	GAMEMODE:SetPlayersInitialStatus( true )
 	GAMEMODE:DrawInstructions( "A new GarryWare game starts!" )
+	GAMEMODE:ForceNoAnnouncer( )
 	
 	self.Entground = GAMEMODE:GetEnts(ENTS_CROSS)
 	umsg.Start("SpecialFlourish")
@@ -55,7 +56,7 @@ function WARE:StartAction()
 	local modelCount = #GAMEMODE.ModelPrecacheTable
 	
 	if modelCount > 0 then
-		local delay = 4.0 / modelCount
+		local delay = 8.0 / modelCount
 		spawnModel( 1 , modelCount, delay )
 	end
 	
