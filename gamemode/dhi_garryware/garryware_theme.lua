@@ -33,7 +33,7 @@ function THEME:Load()
 	
 	dhonline.SetVar("dhonline_core_ui_spacing", 0.3)
 
-	surface.CreateFont("Trebuchet MS", 24, 0   , 0, false, "garryware_mediumtext" )
+	--surface.CreateFont("Trebuchet MS", 24, 0   , 0, false, "garryware_mediumtext" )
 	
 end
 
@@ -45,31 +45,31 @@ function THEME:GetAppropriateFont(text, desiredChoice)
 	desiredChoice = desiredChoice or 2
 	if (desiredChoice == -1) then
 		if type(text) == "number" then
-			font = "dhigwfont_nummedium"
+			font = "garryware_mediumtext"
 		else
-			font = "dhigwfont_textmediumbold"
+			font = "garryware_mediumtext"
 		end
 	elseif (desiredChoice >= 2) then
 		if type(text) == "number" then
-			font = "dhigwfont_num"
+			font = "garryware_largetext"
 		else
-			font = "dhigwfont_textlarge"
+			font = "garryware_largetext"
 		end
 
 	elseif (desiredChoice == 1) then 
 		if type(text) == "number" then
-			font = "dhigwfont_nummedium"
+			font = "garryware_mediumtext"
 		else
-			font = "dhigwfont_textmedium"
+			font = "garryware_mediumtext"
 		end
 	else
 		if type(text) == "number" then
-			font = "dhigwfont_numsmall"
+			font = "garryware_smalltext"
 		else
-			font = "dhigwfont_textsmall"
+			font = "garryware_smalltext"
 		end
 	end
-	return font .. "_nb"
+	return font
 end
 
 ///////////////////////////////////////////////////////////////////////////

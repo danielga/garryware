@@ -12,6 +12,7 @@ include( 'shared.lua' )
 surface.CreateFont("Trebuchet MS", 36, 0   , 0, false, "garryware_instructions" )
 surface.CreateFont("Trebuchet MS", 36, 0   , 0, false, "garryware_largetext" )
 surface.CreateFont("Trebuchet MS", 24, 0   , 0, false, "garryware_mediumtext" )
+surface.CreateFont("Trebuchet MS", 16, 400 , 0, false, "garryware_smalltext" )
 
 include( 'panel_arrow.lua' )
 include( 'panel_message.lua' )
