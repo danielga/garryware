@@ -83,6 +83,10 @@ function GM:Think()
 				LocalPlayer():EmitSound( GAMEMODE.WASND.BITBL_TimeLeft[gws_CurrentAnnouncer][gws_TickAnnounce], 100, GAMEMODE:GetSpeedPercent() )
 			end
 			gws_TickAnnounce = gws_TickAnnounce - 1
+			
+			if gws_TickAnnounce == 0 and GAMEMODE.WASND.BITBL_TimeLeft[gws_CurrentAnnouncer][0] then
+				timer.Simple((gws_WareLen / 6), function(snd, spd) LocalPlayer():EmitSound(snd, 100, spd) end, GAMEMODE.WASND.BITBL_TimeLeft[gws_CurrentAnnouncer][0], GAMEMODE:GetSpeedPercent() )
+			end
 		end
 	end
 end

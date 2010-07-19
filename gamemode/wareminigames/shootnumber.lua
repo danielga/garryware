@@ -27,9 +27,6 @@ end
 function WARE:Initialize()
 	self.RoleColor = Color(114, 49, 130)
 	
-	-- This is not an IQ Game
-	--GAMEMODE:OverrideAnnouncer( 2 )
-	
 	self.NumberSpawns = math.random( 7, 20 )
 	
 	self.Crates = {}
@@ -77,6 +74,7 @@ function WARE:Initialize()
 	
 	GAMEMODE:SetPlayersInitialStatus( false )
 	GAMEMODE:DrawInstructions("Shoot the " .. self.Numbers[self.Dice] .. "!")
+	GAMEMODE:OverrideAnnouncer( 3 )
 	
 end
 
@@ -127,6 +125,7 @@ function WARE:PhaseSignal( iPhase )
 	self.Dice = self:_DiceNoRepeat( #self.Numbers, self.Dice )
 	
 	GAMEMODE:DrawInstructions( "Now shoot the ".. self.Numbers[self.Dice] .. "!" , self.RoleColor )
+	GAMEMODE:OverrideAnnouncer( 3 )
 
 end
 

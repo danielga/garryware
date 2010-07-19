@@ -112,9 +112,18 @@ GM.WASND.BITBL_TimeLeft[2][3] = Sound("ware/countdown_dos_sec3.mp3")
 GM.WASND.BITBL_TimeLeft[2][4] = Sound("ware/countdown_dos_sec4.mp3")
 GM.WASND.BITBL_TimeLeft[2][5] = Sound("ware/countdown_dos_sec5.mp3")
 
--- Bi-reference the sounds above for inclusion.
+GM.WASND.BITBL_TimeLeft[3] = {}
+GM.WASND.BITBL_TimeLeft[3][0] = Sound("ware/countdown_tick_high.wav")
+GM.WASND.BITBL_TimeLeft[3][1] = Sound("ware/countdown_tick_high.wav")
+GM.WASND.BITBL_TimeLeft[3][2] = Sound("ware/countdown_tick_low.wav")
+GM.WASND.BITBL_TimeLeft[3][3] = Sound("ware/countdown_tick_high.wav")
+GM.WASND.BITBL_TimeLeft[3][4] = Sound("ware/countdown_tick_low.wav")
+GM.WASND.BITBL_TimeLeft[3][5] = Sound("ware/countdown_tick_high.wav")
+
+-- Bi-reference the sounds above for client send inclusion.
 GM.WASND.BIREF_1 = GM.WASND.BITBL_TimeLeft[1]
 GM.WASND.BIREF_2 = GM.WASND.BITBL_TimeLeft[2]
+GM.WASND.BIREF_3 = GM.WASND.BITBL_TimeLeft[3]
 
 GM.WASND.TBL_LocalWon = {
 Sound("ware/local_exo_won1.wav"),
