@@ -29,6 +29,13 @@ function GM:PlayerInitialSpawn( ply, id )
 		umsg.Long( self.BestStreakEver )
 	umsg.End()
 	
+	if self.Decoration_Origin then
+		umsg.Start("DecorationInfo", ply )
+			umsg.Vector( self.Decoration_Origin )
+			umsg.Vector( self.Decoration_Extrema )
+		umsg.End()
+	end
+	
 	self:SendModelList( ply )
 	
 	ply:SetComboSpecialInteger( 0 )

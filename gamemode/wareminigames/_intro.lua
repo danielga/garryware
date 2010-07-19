@@ -5,7 +5,9 @@ function WARE:IsPlayable()
 end
 
 function WARE:Initialize()
-	GAMEMODE:SetWareWindupAndLength(4, 11) -- Was 7 before
+	self.RoleColor = Color(114, 49, 130)
+	
+	GAMEMODE:SetWareWindupAndLength(4, 5)
 	
 	GAMEMODE:SetPlayersInitialStatus( true )
 	GAMEMODE:DrawInstructions( "A new GarryWare game starts!" )
@@ -56,13 +58,34 @@ function WARE:StartAction()
 	local modelCount = #GAMEMODE.ModelPrecacheTable
 	
 	if modelCount > 0 then
-		local delay = 8.0 / modelCount
+		local delay = 4.0 / modelCount
 		spawnModel( 1 , modelCount, delay )
 	end
 	
 	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		v:Give( "weapon_physcannon" )
 	end
+end
+
+function WARE:PreEndAction()
+	if GAMEMODE:GetCurrentPhase() < 3 then
+		GAMEMODE:SetNextPhaseLength( 3.5 )
+		GAMEMODE:ForceNoAnnouncer( )
+		
+	end
+end
+
+function WARE:PhaseSignal( iPhase )
+	if GAMEMODE:GetCurrentPhase() == 2 then
+		GAMEMODE:DrawInstructions( "To get on a box, jump then press crouch while in the air!" , self.RoleColor )
+		
+	end
+	
+	if GAMEMODE:GetCurrentPhase() == 3 then
+		GAMEMODE:DrawInstructions( "Try to get on a box!" , self.RoleColor )
+		
+	end
+
 end
 
 function WARE:EndAction()
@@ -73,3 +96,18 @@ end
 function WARE:Think()	
 
 end
+
+function WARE:Think( )
+	if GAMEMODE:GetCurrentPhase() < 3 then return end
+	local entposcopy = GAMEMODE:GetEnts(ENTS_ONCRATE)
+	for _,block in pairs(entposcopy) do
+		local box = ents.FindInBox(block:GetPos()+Vector(-30,-30,0),block:GetPos()+Vector(30,30,64))
+		for _,target in pairs(box) do
+			if target:IsPlayer() and not target.__HasCompletedTraining then
+				target.__HasCompletedTraining = true
+				target:TellDone( )
+			end
+		end
+	end
+end
+

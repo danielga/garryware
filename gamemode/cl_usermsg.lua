@@ -23,6 +23,15 @@ gws_AmbientMusic = {}
 gws_AmbientMusic_dat = {}
 gws_AmbientMusicIsOn = false
 
+
+local function DecorationInfo( m )
+	local origin  = m:ReadVector()
+	local extrema = m:ReadVector()
+	
+	GAMEMODE:MapDecoration( origin, extrema )
+end
+usermessage.Hook( "DecorationInfo", DecorationInfo )
+
 local function ModelList( m )
 	local numberOfModels = m:ReadLong()
 	local currentModelCount = #GAMEMODE.ModelPrecacheTable

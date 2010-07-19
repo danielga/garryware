@@ -20,6 +20,8 @@ include( 'panel_message.lua' )
 include( 'cl_hud.lua' )
 include( 'cl_postprocess.lua' )
 include( 'cl_usermsg.lua' )
+include( 'cl_mapdecoration.lua' )
+
 include( 'skin.lua' )
 include( "sh_tables.lua" )
 include( "sh_chataddtext.lua" )

@@ -13,6 +13,8 @@ AddCSLuaFile( "cl_init.lua" )
 AddCSLuaFile( "cl_hud.lua" )
 AddCSLuaFile( "cl_postprocess.lua" )
 AddCSLuaFile( "cl_usermsg.lua" )
+AddCSLuaFile( "cl_mapdecoration.lua" )
+
 AddCSLuaFile( "cl_version.lua" )
 AddCSLuaFile( "cl_version_search.lua" )
 
@@ -61,8 +63,8 @@ resource.AddFile("materials/ware/interface/ware_trotter.vmt")
 resource.AddFile("materials/ware/interface/ware_trotter.vtf")
 resource.AddFile("materials/ware/interface/ware_shade.vmt")
 resource.AddFile("materials/ware/interface/ware_shade.vtf")
-resource.AddFile("materials/ware/stickers/ware_clock_two.vmt")
-resource.AddFile("materials/ware/stickers/ware_clock_two.vtf") -- This has LOD
+resource.AddFile("materials/ware/stickers/ware_sticker.vmt")
+resource.AddFile("materials/ware/stickers/ware_sticker.vtf") -- This has NOLOD actually
 resource.AddFile("materials/vgui/ware/garryware_logo.vmt")
 resource.AddFile("materials/vgui/ware/garryware_logo.vtf")
 resource.AddFile("materials/vgui/ware/garryware_logo_alone.vmt")

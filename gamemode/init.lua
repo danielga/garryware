@@ -31,6 +31,7 @@ if not DEBUG_DISABLE_STATS then
 	include( "sv_statistics.lua" )
 end
 
+
 -- It AddCS itself.
 include("sh_dhonline_autorun.lua")
 
@@ -484,6 +485,7 @@ function GM:Think()
 			SendUserMessage("WaitShow")
 		end
 	end
+	
 end
 
 function GM:WareRoomCheckup()
@@ -549,6 +551,16 @@ function GM:InitPostEntity( )
 			
 		end
 		
+	end
+	
+	-- Search for decoration
+	local tOriginEnt = ents.FindByName("deco_center")
+	local tExtremaEnt = ents.FindByName("deco_extrema")
+	if #tOriginEnt > 0 and #tExtremaEnt > 0 then
+		local origin  = tOriginEnt[1]
+		local extrema = tExtremaEnt[1]
+		self.Decoration_Origin  = origin:GetPos()
+		self.Decoration_Extrema = extrema:GetPos()
 	end
 	
 end

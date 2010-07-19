@@ -15,7 +15,7 @@ surface.CreateFont( "Verdana", 16, 400, true, false, "WAREScore" )
 ////////////////////////////////////////////////
 -- HUD Combos
 
-GM.StreakstickMat = Material("ware/stickers/ware_clock_two")
+GM.StreakstickMat = Material("ware/stickers/ware_sticker")
 local LightColor = nil
 local PosToScreen = nil
 local NewWorldPos = Vector(0,0,0)
@@ -33,9 +33,11 @@ function GM:PrintStreaksticks( )
 			LightColor.y = 177 * mathx.Clamp( LightColor.y, 0, 1 )
 			LightColor.z = 20  * mathx.Clamp( LightColor.z, 0, 1 )
 			PosToScreen = NewWorldPos:ToScreen()
+			PosToScreen.x = math.floor( PosToScreen.x )
+			PosToScreen.y = math.floor( PosToScreen.y )
 			
 			surface.SetDrawColor( LightColor.x, LightColor.y, LightColor.z, 255 )
-			surface.DrawTexturedRectRotated( PosToScreen.x, PosToScreen.y - 2, 52, 52, 0 )
+			surface.DrawTexturedRectRotated( PosToScreen.x, PosToScreen.y - 2, 42, 86, 0 )
 			
 			draw.SimpleTextOutlined( tostring(ply:GetCombo()), "WAREDom", PosToScreen.x, PosToScreen.y, GAMEMODE:GetBaseColorPtr( "dom_text" ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, GAMEMODE:GetBaseColorPtr( "dom_outline" ) )
 		end
