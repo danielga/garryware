@@ -61,6 +61,15 @@ function GM:PlayerSpawn(ply)
 		ply:SetLockedSpecialInteger( 1 )
 	end
 	
+	-- TODO
+	-- Double send it because sometime it crashes
+	if self.Decoration_Origin then
+		umsg.Start("DecorationInfo", ply )
+			umsg.Vector( self.Decoration_Origin )
+			umsg.Vector( self.Decoration_Extrema )
+		umsg.End()
+	end
+	
 end
 
 function GM:PlayerSelectSpawn(ply)

@@ -94,11 +94,14 @@ function GM:PostDrawOpaqueRenderables()
 end
 
 function GM:MapDecoration( origin, extrema )
+	if MAPDECO.Decorated then return end
 	local radius = (origin - extrema):Length()
 	
 	MAPDECO.MakeHarmonics( origin, radius, Color( 119, 199, 255, 164 ) )
 	MAPDECO.MakeHarmonics( origin, radius, Color( 241, 197, 255, 164 ) )
 	--MAPDECO.MakeHarmonics( origin, radius, Color( 197, 255, 231, 164 ) )
+	
+	MAPDECO.Decorated = true
 	
 end
 
