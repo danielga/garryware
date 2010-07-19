@@ -94,6 +94,7 @@ function WARE:Think( )
 	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		if v:GetPos().z < self.zlimit then
 			v:ApplyLose( )
+			v:SimulateDeath()
 		end
 	end
 end

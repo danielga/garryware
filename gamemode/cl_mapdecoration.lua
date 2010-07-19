@@ -89,6 +89,7 @@ function GM:PostDrawOpaqueRenderables()
 			
 		end
 	end
+	MAPDECO.LastPhasis = phasis
 	
 end
 

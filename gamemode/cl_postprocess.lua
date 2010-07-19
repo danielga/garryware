@@ -60,25 +60,59 @@ local WalkTimer = 0
 local VelSmooth = 0
 
 function GM:CalcView( ply, origin, angle, fov )
-
-	local vel = ply:GetVelocity()
-	local ang = ply:EyeAngles()
-	
-	VelSmooth = VelSmooth * 0.5 + vel:Length() * 0.1
-	WalkTimer = WalkTimer + VelSmooth * FrameTime() * 0.1
-	
-	angle.roll = angle.roll + ang:Right():DotProduct( vel ) * 0.005
-	
-	-- Motion Sickness
-	if ViewWobble > 0 then
-		angle.roll = angle.roll + math.sin(CurTime() * 2.5) * (ViewWobble * 15)
-		ViewWobble = ViewWobble - 0.1 * FrameTime()
+	if not SPECTATE_RAGDOLLTIME then
+		self.LastRagdollUndetect = 0
+		SPECTATE_RAGDOLLTIME = 2.5
 	end
 	
-	-- Make their view tilt when they strafe
-	if ply:GetGroundEntity() ~= NULL then	
-		angle.roll = angle.roll + math.sin( WalkTimer ) * VelSmooth * 0.001
-		angle.pitch = angle.pitch + math.sin( WalkTimer * 0.3 ) * VelSmooth * 0.001
+	local hasRagdoll = ValidEntity( LocalPlayer():GetRagdollEntity() )
+	if hasRagdoll and (CurTime() < ( self.LastRagdollUndetect + SPECTATE_RAGDOLLTIME)) then -- Death Ragdoll
+		local ragdoll = LocalPlayer():GetRagdollEntity()
+		local attachment = ragdoll:GetAttachment( 1 )
+		
+		if not ragdoll.triedHeadSnap then
+			ragdoll.BuildBonePositions = function( self, numbones, numphysbones )
+				if not self.s__boneid then
+					self.s__boneid = ragdoll:LookupBone("ValveBiped.Bip01_Head1")
+				end
+				if self.s__boneid and self.s__boneid ~= -1 then
+					local matBone = ragdoll:GetBoneMatrix( self.s__boneid )
+					matBone:Scale( Vector( 0.01, 0.01, 0.01 ) )
+					ragdoll:SetBoneMatrix( self.s__boneid, matBone )
+					
+				end
+			end
+			ragdoll.triedHeadSnap = true
+			
+		end
+
+		origin = attachment.Pos - attachment.Ang:Forward() * 0.4
+		angle  = attachment.Ang
+		
+	else
+		if not hasRagdoll then
+			self.LastRagdollUndetect = CurTime()
+		end
+		
+		local vel = ply:GetVelocity()
+		local ang = ply:EyeAngles()
+		
+		VelSmooth = VelSmooth * 0.5 + vel:Length() * 0.1
+		WalkTimer = WalkTimer + VelSmooth * FrameTime() * 0.1
+		
+		angle.roll = angle.roll + ang:Right():DotProduct( vel ) * 0.005
+		
+		-- Motion Sickness
+		if ViewWobble > 0 then
+			angle.roll = angle.roll + math.sin(CurTime() * 2.5) * (ViewWobble * 15)
+			ViewWobble = ViewWobble - 0.1 * FrameTime()
+		end
+		
+		-- Make their view tilt when they strafe
+		if ply:GetGroundEntity() ~= NULL then	
+			angle.roll = angle.roll + math.sin( WalkTimer ) * VelSmooth * 0.001
+			angle.pitch = angle.pitch + math.sin( WalkTimer * 0.3 ) * VelSmooth * 0.001
+		end
 	end
 		
 	return self.BaseClass:CalcView( ply, origin, angle, fov )
