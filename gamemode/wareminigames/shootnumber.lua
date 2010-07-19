@@ -68,8 +68,10 @@ function WARE:Initialize()
 		GAMEMODE:MakeAppearEffect(pos)
 	end
 	
+	self.TimeToGuess = 2.1 + (#self.Numbers / 7) * 0.2
+	
 
-	GAMEMODE:SetWareWindupAndLength(#self.Numbers * 0.2, #self.Numbers * 0.3 )
+	GAMEMODE:SetWareWindupAndLength(#self.Numbers * 0.2, self.TimeToGuess )
 	
 	self.Dice = math.random(1, #self.Numbers)
 	
@@ -113,7 +115,7 @@ function WARE:PreEndAction()
 			local goodent = self.Crates[self.Dice]
 			GAMEMODE:SendEntityTextColor( recipient , goodent.AssociatedText , 255, 255, 255, 255 )
 			
-			GAMEMODE:SetNextPhaseLength( #self.Numbers * 0.3 )
+			GAMEMODE:SetNextPhaseLength( self.TimeToGuess )
 			
 		end
 		
