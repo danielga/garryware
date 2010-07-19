@@ -37,7 +37,7 @@ function GM:PrintStreaksticks( )
 			PosToScreen.y = math.floor( PosToScreen.y )
 			
 			surface.SetDrawColor( LightColor.x, LightColor.y, LightColor.z, 255 )
-			surface.DrawTexturedRectRotated( PosToScreen.x, PosToScreen.y - 2, 42, 86, 0 )
+			surface.DrawTexturedRectRotated( PosToScreen.x, PosToScreen.y - 2, 28, 56, 0 )
 			
 			draw.SimpleTextOutlined( tostring(ply:GetCombo()), "WAREDom", PosToScreen.x, PosToScreen.y, GAMEMODE:GetBaseColorPtr( "dom_text" ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, GAMEMODE:GetBaseColorPtr( "dom_outline" ) )
 		end
