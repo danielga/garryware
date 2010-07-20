@@ -142,7 +142,14 @@ Sound("ware/local_lose4.wav")
 
 GM.WASND.Confirmation  = Sound("ware/local_exo_target_hit.wav")
 
-GM.WASND.OtherWin  = Sound("ware/other_exo_won1.wav")
+if SERVER or (CLIENT and not file.Exists("../sound/player/crit_hit.wav")) then
+	GM.WASND.OtherWin  = Sound("ware/other_exo_won1.wav")
+	
+else
+	GM.WASND.OtherWin  = Sound("TFPlayer.CritHit")
+	
+end
+
 GM.WASND.OtherLose = Sound("ware/other_lose1.wav")
 
 GM.WASND.EveryoneWon  = Sound("ware/everyone_won3.wav")
