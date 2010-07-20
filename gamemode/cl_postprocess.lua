@@ -108,7 +108,7 @@ function GM:CalcView( ply, origin, angle, fov )
 			end
 			self.FirstAngle.p = math.ApproachAngle(self.FirstAngle.p, self.SecondAngle.p, SPECTATE_ANGLEINCREASE)
 			self.FirstAngle.y = math.ApproachAngle(self.FirstAngle.y, self.SecondAngle.y, SPECTATE_ANGLEINCREASE)
-			self.FirstAngle.r = math.ApproachAngle(self.FirstAngle.r, self.SecondAngle.r, SPECTATE_ANGLEINCREASE)
+			self.FirstAngle.r = math.ApproachAngle(self.FirstAngle.r, self.SecondAngle.r, SPECTATE_ANGLEINCREASE * 0.5)
 			angle = self.FirstAngle
 		else
 			self.FirstAngle.p = math.ApproachAngle(self.FirstAngle.p, angle.p, SPECTATE_ANGLEINCREASE)
