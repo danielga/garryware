@@ -33,7 +33,7 @@ end
 
 -- Basic minigame functions
 function meta:GetAchieved()
-	local achieved = self:GetNWInt("ware_achieved", 0)
+	local achieved = self:GetDTInt(DTVAR_PLAYER_ACHIEVED_INT, 0)
 	if (achieved == -1) then
 		return nil
 	else
@@ -42,7 +42,7 @@ function meta:GetAchieved()
 end
 
 function meta:GetLocked()
-	local locked = self:GetNWInt("ware_locked", 0)
+	local locked = self:GetDTInt(DTVAR_PLAYER_LOCKED_INT, 0)
 	return (locked > 0)
 end
 
@@ -68,17 +68,17 @@ function meta:SetAchievedSpecialInteger( intAchieved )
 	if self:GetLocked() then
 		return false
 	end
-	self:SetNWInt("ware_achieved", intAchieved )
+	self:SetDTInt(DTVAR_PLAYER_ACHIEVED_INT, intAchieved )
 	return true
 end
 
 function meta:SetLockedSpecialInteger( intLocked )
-	self:SetNWInt("ware_locked", intLocked )
+	self:SetDTInt(DTVAR_PLAYER_LOCKED_INT, intLocked )
 	return true
 end
 
 function meta:SetComboSpecialInteger( intCombo )
-	self:SetNWInt("combo", intCombo )
+	self:SetDTInt(DTVAR_PLAYER_COMBO_INT, intCombo )
 	return true
 end
 -- <<<
@@ -168,11 +168,11 @@ function meta:SetAchievedAndLock( hasAchieved )
 end
 
 function meta:GetBestCombo()
-	return self:GetNWInt("combo_max", 0)
+	return self:GetDTInt(DTVAR_PLAYER_BESTCOMBO_INT, 0)
 end
 
 function meta:GetCombo()
-	return self:GetNWInt("combo", 0)
+	return self:GetDTInt(DTVAR_PLAYER_COMBO_INT, 0)
 end
 
 function meta:IncrementCombo()
@@ -181,7 +181,7 @@ function meta:IncrementCombo()
 	self:SetComboSpecialInteger( myCombo )
 	
 	if (myCombo > self:GetBestCombo()) then
-		self:SetNWInt("combo_max", myCombo)
+		self:SetDTInt(DTVAR_PLAYER_BESTCOMBO_INT, myCombo)
 	end
 	
 	if (myCombo > GAMEMODE:GetBestStreak()) then

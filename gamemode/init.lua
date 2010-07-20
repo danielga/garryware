@@ -35,6 +35,8 @@ end
 -- It AddCS itself.
 include("sh_dhonline_autorun.lua")
 
+GM.TakeFragOnSuicide = false
+
 -- Serverside Vars
 GM.GamesArePlaying = false
 GM.GameHasEnded = false
