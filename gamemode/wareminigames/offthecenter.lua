@@ -27,6 +27,18 @@ function WARE:Initialize()
 		local centerpos = GAMEMODE:GetEnts("center")[1]:GetPos()
 		local apos      = GAMEMODE:GetEnts("land_a")[1]:GetPos()
 		self.CircleRadius = (centerpos - apos):Length() - 64
+		local effectRadius = self.CircleRadius + 32
+		
+		local effectdata = EffectData()
+		effectdata:SetOrigin( centerpos )
+		effectdata:SetStart( apos )
+		effectdata:SetRadius( effectRadius )
+		effectdata:SetMagnitude( 15 )
+		effectdata:SetAngle( Angle( 119, 199, 255 ) )
+		effectdata:SetScale( 9 )
+		util.Effect( "ware_prisma_harmonics", effectdata , true, true )
+		effectdata:SetOrigin( centerpos + Vector(0,0,16) )
+		util.Effect( "ware_prisma_harmonics_floor", effectdata , true, true )
 		
 		local ent = ents.Create("ware_ringzone")
 		ent:SetPos( centerpos + Vector(0,0,8) )

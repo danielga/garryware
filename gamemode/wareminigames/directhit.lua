@@ -29,8 +29,6 @@ function WARE:Initialize()
 		self.CircleRadius = (centerpos - apos):Length() - 24
 		
 
-		local origin = ents.FindByName("deco_center")[1]
-		local extrema = ents.FindByName("deco_extrema")[1]
 		local effectdata = EffectData()
 		effectdata:SetOrigin( centerpos )
 		effectdata:SetStart( apos )

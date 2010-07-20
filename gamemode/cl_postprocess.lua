@@ -70,7 +70,7 @@ function GM:CalcView( ply, origin, angle, fov )
 	if not SPECTATE_RAGDOLLTIME then
 		self.LastRagdollUndetect = 0
 		SPECTATE_RAGDOLLTIME = 2.5
-		SPECTATE_ANGLEINCREASE = 10
+		SPECTATE_ANGLEINCREASE = 7
 	end
 	
 	local hasRagdoll = ValidEntity( LocalPlayer():GetRagdollEntity() )
@@ -106,18 +106,21 @@ function GM:CalcView( ply, origin, angle, fov )
 			if not self.SecondAngle then 
 				self.SecondAngle = (attachment.Pos - origin):Normalize():Angle()
 			end
-			self.FirstAngle.p = math.ApproachAngle(self.FirstAngle.p, self.SecondAngle.p, SPECTATE_ANGLEINCREASE)
-			self.FirstAngle.y = math.ApproachAngle(self.FirstAngle.y, self.SecondAngle.y, SPECTATE_ANGLEINCREASE)
-			self.FirstAngle.r = math.ApproachAngle(self.FirstAngle.r, self.SecondAngle.r, SPECTATE_ANGLEINCREASE * 0.5)
+			local multiplier = 1 + (relativity - 0.3) / 0.4
+			self.FirstAngle.p = math.ApproachAngle(self.FirstAngle.p, self.SecondAngle.p, SPECTATE_ANGLEINCREASE * multiplier)
+			self.FirstAngle.y = math.ApproachAngle(self.FirstAngle.y, self.SecondAngle.y, SPECTATE_ANGLEINCREASE * multiplier)
+			self.FirstAngle.r = math.ApproachAngle(self.FirstAngle.r, self.SecondAngle.r, SPECTATE_ANGLEINCREASE * 0.5 * multiplier)
 			angle = self.FirstAngle
 		else
-			self.FirstAngle.p = math.ApproachAngle(self.FirstAngle.p, angle.p, SPECTATE_ANGLEINCREASE)
-			self.FirstAngle.y = math.ApproachAngle(self.FirstAngle.y, angle.y, SPECTATE_ANGLEINCREASE)
-			self.FirstAngle.r = math.ApproachAngle(self.FirstAngle.r, angle.r, SPECTATE_ANGLEINCREASE)
+			local multiplier = 1 + (relativity - 0.7) / 0.3
+			self.FirstAngle.p = math.ApproachAngle(self.FirstAngle.p, angle.p, SPECTATE_ANGLEINCREASE * multiplier)
+			self.FirstAngle.y = math.ApproachAngle(self.FirstAngle.y, angle.y, SPECTATE_ANGLEINCREASE * multiplier)
+			self.FirstAngle.r = math.ApproachAngle(self.FirstAngle.r, angle.r, SPECTATE_ANGLEINCREASE * multiplier)
 			angle = self.FirstAngle
 		
 		end
-		origin = (attachment.Pos - attachment.Ang:Forward() * 0.4) * (1 - relativity) + relativity * origin
+		local birel = 1 - (1 - relativity) ^ 2
+		origin = (attachment.Pos - attachment.Ang:Forward() * 0.4) * (1 - birel) + birel * origin
 		
 		self.IsInThirdPerson = true
 		
