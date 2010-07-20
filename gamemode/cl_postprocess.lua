@@ -59,10 +59,18 @@ hook.Add( "RenderScreenspaceEffects", "RenderPostProcessing", DrawInternal )
 local WalkTimer = 0
 local VelSmooth = 0
 
+--[[
+function GM:ShouldDrawLocalPlayer()
+	
+	return self.IsInThirdPerson or false
+end
+]]--
+
 function GM:CalcView( ply, origin, angle, fov )
 	if not SPECTATE_RAGDOLLTIME then
 		self.LastRagdollUndetect = 0
 		SPECTATE_RAGDOLLTIME = 2.5
+		SPECTATE_ANGLEINCREASE = 10
 	end
 	
 	local hasRagdoll = ValidEntity( LocalPlayer():GetRagdollEntity() )
@@ -70,6 +78,7 @@ function GM:CalcView( ply, origin, angle, fov )
 		local ragdoll = LocalPlayer():GetRagdollEntity()
 		local attachment = ragdoll:GetAttachment( 1 )
 		
+		--[[
 		if not ragdoll.triedHeadSnap then
 			ragdoll.BuildBonePositions = function( self, numbones, numphysbones )
 				if not self.s__boneid then
@@ -85,13 +94,38 @@ function GM:CalcView( ply, origin, angle, fov )
 			ragdoll.triedHeadSnap = true
 			
 		end
-
-		origin = attachment.Pos - attachment.Ang:Forward() * 0.4
-		angle  = attachment.Ang
+		]]--
+		
+		local relativity = ((CurTime() - self.LastRagdollUndetect) / SPECTATE_RAGDOLLTIME) ^ 2
+		
+		
+		if relativity < 0.3 then
+			self.FirstAngle = attachment.Ang
+			angle  = self.FirstAngle
+		elseif relativity < 0.7 then
+			if not self.SecondAngle then 
+				self.SecondAngle = (attachment.Pos - origin):Normalize():Angle()
+			end
+			self.FirstAngle.p = math.ApproachAngle(self.FirstAngle.p, self.SecondAngle.p, SPECTATE_ANGLEINCREASE)
+			self.FirstAngle.y = math.ApproachAngle(self.FirstAngle.y, self.SecondAngle.y, SPECTATE_ANGLEINCREASE)
+			self.FirstAngle.r = math.ApproachAngle(self.FirstAngle.r, self.SecondAngle.r, SPECTATE_ANGLEINCREASE)
+			angle = self.FirstAngle
+		else
+			self.FirstAngle.p = math.ApproachAngle(self.FirstAngle.p, angle.p, SPECTATE_ANGLEINCREASE)
+			self.FirstAngle.y = math.ApproachAngle(self.FirstAngle.y, angle.y, SPECTATE_ANGLEINCREASE)
+			self.FirstAngle.r = math.ApproachAngle(self.FirstAngle.r, angle.r, SPECTATE_ANGLEINCREASE)
+			angle = self.FirstAngle
+		
+		end
+		origin = (attachment.Pos - attachment.Ang:Forward() * 0.4) * (1 - relativity) + relativity * origin
+		
+		self.IsInThirdPerson = true
 		
 	else
 		if not hasRagdoll then
 			self.LastRagdollUndetect = CurTime()
+			self.FirstAngle = nil
+			self.SecondAngle = nil
 		end
 		
 		local vel = ply:GetVelocity()
@@ -113,6 +147,9 @@ function GM:CalcView( ply, origin, angle, fov )
 			angle.roll = angle.roll + math.sin( WalkTimer ) * VelSmooth * 0.001
 			angle.pitch = angle.pitch + math.sin( WalkTimer * 0.3 ) * VelSmooth * 0.001
 		end
+		
+		self.IsInThirdPerson = false
+		
 	end
 		
 	return self.BaseClass:CalcView( ply, origin, angle, fov )
