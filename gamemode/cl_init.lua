@@ -39,16 +39,13 @@ function WARE_SortTable( plyA, plyB )
 	if ( not(plyA) or not(plyB) ) then return false end
 	if ( not(ValidEntity(plyA)) or not(ValidEntity(plyB)) ) then return false end
 	
-	if ( plyA:GetLocked() == plyB:GetLocked() ) then
+	local tokenA = plyA:GetAchieved() and (plyA:GetLocked() and 4 or 3) or (plyA:GetLocked() and 1 or 2)
+	local tokenB = plyB:GetAchieved() and (plyB:GetLocked() and 4 or 3) or (plyB:GetLocked() and 1 or 2)
+	
+	if ( tokenA == tokenB ) then
 		if ( plyA:Frags() == plyB:Frags() ) then
 			if ( plyA:GetBestCombo() == plyB:GetBestCombo() ) then
-				--[[if ( plyA:Deaths() == plyB:Deaths() ) then
-					return plyA:UserID() > plyB:UserID()
-				else
-					--Intentionnal : A player with more fails and same wins played more.
-					return plyA:Deaths() > plyB:Deaths()
-				end]]
-				return plyA:Nick() < plyB:Nick()
+				return plyA:Nick() > plyB:Nick()
 			else
 				return plyA:GetBestCombo() > plyB:GetBestCombo()
 			end
@@ -56,8 +53,8 @@ function WARE_SortTable( plyA, plyB )
 			return plyA:Frags() > plyB:Frags()
 		end
 	else
-		return ((plyA:GetAchieved() or false) and (plyA:GetLocked() and not plyB:GetLocked())
-		       or not(plyA:GetAchieved() or false) and (not plyA:GetLocked() and plyB:GetLocked())) or false
+		return tokenA > tokenB
+		
 	end
 end
 

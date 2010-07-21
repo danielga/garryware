@@ -83,7 +83,7 @@ function PANEL:SortPlayerList()
 			ply._cl_label:Show()
 			if ply:GetAchieved() then
 				if not (ply._cl_label.m_tpos == iWinStack) or not (ply._cl_label.m_tcol == 1) then
-					ply._cl_label:MoveTo( 0, iWinStack * ply._cl_label:GetTall() , 0.3, 0, 2)
+					ply._cl_label:MoveTo( 0, iWinStack * ply._cl_label:GetTall() , 0.2, 0, 2)
 				
 					ply._cl_label.m_tpos = iWinStack
 					ply._cl_label.m_tcol = 1
@@ -94,7 +94,7 @@ function PANEL:SortPlayerList()
 				
 			else				
 				if not (ply._cl_label.m_tpos == iFailStack) or not (ply._cl_label.m_tcol == -1) then
-					ply._cl_label:MoveTo( self:GetWide() - ply._cl_label:GetWide(), iFailStack * ply._cl_label:GetTall() , 0.3, 0, 2)
+					ply._cl_label:MoveTo( self:GetWide() - ply._cl_label:GetWide(), iFailStack * ply._cl_label:GetTall() , 0.2, 0, 2)
 					
 					ply._cl_label.m_tpos = iFailStack
 					ply._cl_label.m_tcol = -1
