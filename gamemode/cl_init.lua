@@ -45,7 +45,7 @@ function WARE_SortTable( plyA, plyB )
 	if ( tokenA == tokenB ) then
 		if ( plyA:Frags() == plyB:Frags() ) then
 			if ( plyA:GetBestCombo() == plyB:GetBestCombo() ) then
-				return plyA:Nick() > plyB:Nick()
+				return plyA:Nick() < plyB:Nick()
 			else
 				return plyA:GetBestCombo() > plyB:GetBestCombo()
 			end
