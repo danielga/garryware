@@ -9,6 +9,8 @@ WARE.Models = {
  
 WARE.Positions = {}
 
+
+
 function WARE:GetModelList()
 	return self.Models
 end
@@ -31,6 +33,8 @@ end
 ---end
 
 function WARE:Initialize()
+	self.SpawnedNPCs = {}
+
 	GAMEMODE:RespawnAllPlayers( true, true )
 	
 	--self.ChoiceNum = math.random(#possiblenpcs + 1, #possiblenpcs + 5)
@@ -65,17 +69,25 @@ function WARE:StartAction()
 	--else
 	--	myChoice = { possiblenpcs[self.ChoiceNum] }
 	--end
+	local spectators = team.GetPlayers(TEAM_SPECTATOR)
 	
 	for k,pos in pairs(self.Positions) do
 		local ent = ents.Create( myChoice[ math.random(1, #myChoice) ] )
 		ent:SetPos( Vector(0,0,164) + pos )
 		ent:Spawn()
 		
+		table.insert( self.SpawnedNPCs, ent )
+		
 		local phys = ent:GetPhysicsObject()
 		phys:ApplyForceCenter (VectorRand() * 16)
 		
 		GAMEMODE:AppendEntToBin(ent)
 		GAMEMODE:MakeAppearEffect(ent:GetPos())
+		
+		for k,spec in pairs( spectators ) do
+			ent:AddEntityRelationship( spec, 4, 10 )
+			
+		end
 	end
 end
 
@@ -84,17 +96,28 @@ function WARE:EndAction()
 end
 
 function WARE:EntityTakeDamage( ent, inflictor, attacker, amount)
-	if ent:IsPlayer() and ent:IsWarePlayer() and attacker:IsNPC( ) then
+	if ent:IsPlayer() and ent:IsWarePlayer() and not ent:GetLocked() and attacker:IsNPC( ) then
 		ent:ApplyLose( )
 		ent:SimulateDeath()
+		
+		for k,npc in pairs( self.SpawnedNPCs ) do
+			npc:AddEntityRelationship( ent, 4, 10 )
+		end
+		
 	end
+	
 end
 
 function WARE:Think( )
-	for k,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
-		if v:GetPos().z < self.zlimit then
-			v:ApplyLose( )
-			v:SimulateDeath()
+	for k,ent in pairs(team.GetPlayers(TEAM_HUMANS)) do 
+		if ent:IsPlayer() and ent:IsWarePlayer() and not ent:GetLocked() and ent:GetPos().z < self.zlimit then
+			ent:ApplyLose( )
+			ent:SimulateDeath()
+			
+			for k,npc in pairs( self.SpawnedNPCs ) do
+				npc:AddEntityRelationship( ent, 4, 10 )
+			end
+		
 		end
 	end
 end

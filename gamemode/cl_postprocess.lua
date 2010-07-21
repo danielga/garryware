@@ -78,9 +78,13 @@ function GM:CalcView( ply, origin, angle, fov )
 		local ragdoll = LocalPlayer():GetRagdollEntity()
 		local attachment = ragdoll:GetAttachment( 1 )
 		
-		--[[
+
 		if not ragdoll.triedHeadSnap then
+			ragdoll.PackTime = CurTime()
 			ragdoll.BuildBonePositions = function( self, numbones, numphysbones )
+				if ((CurTime() - self.PackTime) / SPECTATE_RAGDOLLTIME) > 0.25 then
+					return
+				end
 				if not self.s__boneid then
 					self.s__boneid = ragdoll:LookupBone("ValveBiped.Bip01_Head1")
 				end
@@ -94,7 +98,7 @@ function GM:CalcView( ply, origin, angle, fov )
 			ragdoll.triedHeadSnap = true
 			
 		end
-		]]--
+
 		
 		local relativity = ((CurTime() - self.LastRagdollUndetect) / SPECTATE_RAGDOLLTIME) ^ 2
 		

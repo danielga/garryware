@@ -24,6 +24,11 @@ function PANEL:Init()
 	
 end
 
+function PANEL:SetFont( sFont )
+	self.dText:SetFont( sFont )
+
+end
+
 function PANEL:UseLeft( bUseLeft )
 	if self.bIsUsingLeft == bUseLeft then return end
 	

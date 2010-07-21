@@ -1,3 +1,4 @@
+/*
 ELEMENT.Name = "8"
 ELEMENT.DefaultOff = false
 ELEMENT.DefaultGridPosX = 16 - 5
@@ -59,4 +60,4 @@ function ELEMENT:DrawFunction( )
 		if (k >= 5) then break end -- Horror museum
 	end
 end
-
+*/

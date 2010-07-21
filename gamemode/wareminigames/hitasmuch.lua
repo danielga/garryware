@@ -16,7 +16,7 @@ function WARE:Initialize()
 	self.MostTimesHit = 2
 	
 	GAMEMODE:SetPlayersInitialStatus( false )
-	GAMEMODE:DrawInstructions( "Hit the bullseye most times!" )
+	GAMEMODE:DrawInstructions( "Hit the bullseye 14 times or more!" )
 	
 	for k,ply in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		ply:Give( "sware_pistol" )
@@ -47,11 +47,11 @@ function WARE:StartAction()
 end
 
 function WARE:EndAction()
-	if (self.MostTimesHit > 2) then
+	if (self.MostTimesHit >= 14) then
 		GAMEMODE:DrawInstructions( "It was hit ".. self.MostTimesHit .." times!", self.EndingColor )
 		
 	else
-		GAMEMODE:DrawInstructions( "No one hit it enough!", self.EndingColor )
+		GAMEMODE:DrawInstructions( "It was only hit ".. self.MostTimesHit .." times!", self.EndingColor )
 		
 	end
 end
@@ -63,9 +63,13 @@ function WARE:Think( )
 			self.MostTimesHit = ply.BULLSEYE_Hit
 		end
 		
+		if ply.BULLSEYE_Hit >= 14 then
+			ply:SetAchievedNoLock( true )
+		end
+		
 	end
 
-	for k,ply in pairs(team.GetPlayers(TEAM_HUMANS)) do 
+	--[[for k,ply in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		local timesHit = ply.BULLSEYE_Hit
 		
 		if (self.MostTimesHit > 2) and (timesHit == self.MostTimesHit) then
@@ -74,6 +78,6 @@ function WARE:Think( )
 		else
 			ply:SetAchievedNoLock( false )
 		end
-	end
+	end]]--
 	
 end

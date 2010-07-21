@@ -24,6 +24,8 @@ function GM:EndTheGameForOnce()
 	umsg.Start("SpecialFlourish")
 		umsg.Char( 2 )
 	umsg.End()
+	umsg.Start("EndOfGamemode")
+	umsg.End()
 	
 	--Send info about ware
 	--local rp = RecipientFilter()

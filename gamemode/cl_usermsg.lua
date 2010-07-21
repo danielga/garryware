@@ -218,17 +218,21 @@ local vgui_wait = vgui.RegisterFile( "vgui_waitscreen.lua" )
 local vgui_clock = vgui.RegisterFile( "vgui_clock.lua" )
 local vgui_clockgame = vgui.RegisterFile( "vgui_clockgame.lua" )
 local vgui_stupidboard = vgui.RegisterFile( "garryware_vgui_main.lua")
+local vgui_livescoreboard = vgui.RegisterFile( "garryware_vgui_livescoreboard.lua")
 local vgui_instructions = vgui.RegisterFile( "garryware_vgui_instructions.lua")
 local vgui_status = vgui.RegisterFile( "garryware_vgui_status.lua")
+
 local TransitVGUI = vgui.CreateFromTable( vgui_transit )
 local WaitVGUI = vgui.CreateFromTable( vgui_wait )
 local ClockVGUI = vgui.CreateFromTable( vgui_clock )
 local ClockGameVGUI = vgui.CreateFromTable( vgui_clockgame )
 local StupidBoardVGUI = vgui.CreateFromTable( vgui_stupidboard )
+local LiveScoreBoardVGUI = vgui.CreateFromTable( vgui_livescoreboard )
 local InstructionsVGUI = vgui.CreateFromTable( vgui_instructions )
 local StatusVGUI = vgui.CreateFromTable( vgui_status )
 
 StupidBoardVGUI:Show()
+LiveScoreBoardVGUI:Show()
 
 
 local tWinEvalutaion = {
@@ -282,8 +286,9 @@ local function EndOfGamemode( m )
 	ClockVGUI:Hide()
 	ClockGameVGUI:Hide()
 	StupidBoardVGUI:Hide()
+	LiveScoreBoardVGUI:Hide()
 	
-	timer.Simple( GAMEMODE.WADAT.EpilogueFlourishDelayAfterEndOfGamemode, PlayEnding, 2 )
+	--timer.Simple( GAMEMODE.WADAT.EpilogueFlourishDelayAfterEndOfGamemode, PlayEnding, 2 )
 end
 usermessage.Hook( "EndOfGamemode", EndOfGamemode )
 

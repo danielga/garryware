@@ -63,7 +63,7 @@ end
 
 function PANEL:Show()	
 	self.BottomPanel:SetPos( 0, ScrH() )
-	self.BottomPanel:MoveTo( 0, ScrH() - 52, 1 )
+	self.BottomPanel:MoveTo( 0, ScrH() - 52, 0.3, 0, 2)
 	
 	self:InvalidateLayout()
 	self:SetVisible( true )
@@ -94,7 +94,7 @@ end
 function PANEL:Hide()
 	local h = ScrH() * 0.07
 
-	self.BottomPanel:MoveTo( 0, ScrH(), 1 )
+	self.BottomPanel:MoveTo( 0, ScrH(), 0.3, 0, 2)
 	
 	timer.Simple( 1, function() self:SetVisible( false ) end )
 end

@@ -16,6 +16,7 @@ surface.CreateFont("Trebuchet MS", 16, 400 , 0, false, "garryware_smalltext" )
 
 include( 'panel_arrow.lua' )
 include( 'panel_message.lua' )
+include( 'panel_playerlabel.lua' )
 
 include( 'cl_hud.lua' )
 include( 'cl_postprocess.lua' )
@@ -41,12 +42,13 @@ function WARE_SortTable( plyA, plyB )
 	if ( plyA:GetLocked() == plyB:GetLocked() ) then
 		if ( plyA:Frags() == plyB:Frags() ) then
 			if ( plyA:GetBestCombo() == plyB:GetBestCombo() ) then
-				if ( plyA:Deaths() == plyB:Deaths() ) then
+				--[[if ( plyA:Deaths() == plyB:Deaths() ) then
 					return plyA:UserID() > plyB:UserID()
 				else
 					--Intentionnal : A player with more fails and same wins played more.
 					return plyA:Deaths() > plyB:Deaths()
-				end
+				end]]
+				return plyA:Nick() < plyB:Nick()
 			else
 				return plyA:GetBestCombo() > plyB:GetBestCombo()
 			end

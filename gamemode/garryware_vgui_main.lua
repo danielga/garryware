@@ -2,7 +2,7 @@ PANEL.Base = "DPanel"
 
 function PANEL:Init()
 	self:SetSkin( G_GWI_SKIN )
-	self:SetPaintBackground( true )
+	self:SetPaintBackground( false )
 	self:SetVisible( false )
 	
 	self.m_state = -1
@@ -15,7 +15,6 @@ function PANEL:Init()
 	self.colors.White = Color( 255, 255, 255, 192 )
 	self.colors.Stale    = Color( 192, 192, 192 )
 	self.colors.Mystery  = Color( 90, 220, 220 )
-	
 	
 	self.dCentric = vgui.Create("GWArrow", self)
 	self.dCentric:SetZPos( 9005 )
@@ -59,6 +58,7 @@ function PANEL:Init()
 	
 	self.bLastIsWin = false
 	self.bLastIsLocked = false
+	
 end
 
 function PANEL:UseGeneric()
@@ -94,12 +94,13 @@ end
 
 function PANEL:PerformLayout()
 	local width  = ScrW() * 0.7
+	if width > 768 then width = 768 end
 	local height = (width * 0.5) / 512 * 64
 	
 	self:SetSize( width, height )
 	self:SetPos( (ScrW() - width) * 0.5, 8 )
 
-	--NOTE : CONVERT THE CENTRIC TO ITS OWN PANEL!
+	--NOTE : CONVERT THE CENTRIC TO ITS OWN PANEL! ... or not
 	self.dCentric:SetWide( self:GetWide() * 0.5 * 0.25 )
 	self.dCentric:SetTall( self:GetTall() )
 	self.dCentric:Center( )
