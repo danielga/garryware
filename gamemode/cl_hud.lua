@@ -217,11 +217,13 @@ function GM:AddScoreboardWon( ScoreBoard )
 
 end
 
+--[[
 function GM:AddScoreboardFailed( ScoreBoard )
 	local f = function( ply ) return ply:Deaths() end
 	ScoreBoard:AddColumn( "Failed", 50, f, 0.5, nil, 6, 6 )
 
 end
+]]--
 
 function GM:AddScoreboardStreak( ScoreBoard )
 	local f = function( ply )
@@ -288,6 +290,12 @@ function GM:AddScoreboardAward( ScoreBoard )
 
 end
 
+function GM:AddScoreboardPlayed( ScoreBoard )
+	local f = function( ply ) return (ply:Frags() + ply:Deaths()) end
+	ScoreBoard:AddColumn( "Num. played", 70, f, 0.5, nil, 6, 6 )
+
+end
+
 function GM:CreateScoreboard( ScoreBoard )
 
 	ScoreBoard:SetAsBullshitTeam( TEAM_SPECTATOR )
@@ -304,13 +312,16 @@ function GM:CreateScoreboard( ScoreBoard )
 	self:AddScoreboardWantsChange( ScoreBoard )	 --2
 	self:AddScoreboardName( ScoreBoard )	    --3
 	self:AddScoreboardWon( ScoreBoard )        --4
-	self:AddScoreboardFailed( ScoreBoard )    --5
-	self:AddScoreboardStreak( ScoreBoard )	 --6
-	self:AddScoreboardAward( ScoreBoard )  --7
-	self:AddScoreboardPing( ScoreBoard )  --8
+	--self:AddScoreboardFailed( ScoreBoard )    --5
+	
+	self:AddScoreboardStreak( ScoreBoard )	 --5
+	self:AddScoreboardAward( ScoreBoard )  --6
+	self:AddScoreboardPing( ScoreBoard )  --7
+	
+	self:AddScoreboardPlayed( ScoreBoard ) --8
 		
 	-- Here we sort by these columns (and descending), in this order. You can define up to 4
-	ScoreBoard:SetSortColumns( { 4, true, 6, true, 5, false, 3, false } )
+	ScoreBoard:SetSortColumns( { 4, true, 5, true, 3, false } )
 
 end
 
