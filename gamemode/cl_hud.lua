@@ -61,7 +61,7 @@ function GM:PrintStreaksticks( )
 			surface.SetDrawColor( LightColor.x, LightColor.y, LightColor.z, 255 )
 			surface.DrawTexturedRectRotated( PosToScreen.x, PosToScreen.y - 2, 28, 56, 0 )
 			
-			draw.SimpleTextOutlined( text, "garryware_largetext", PosToScreen.x, PosToScreen.y, GAMEMODE:GetBaseColorPtr( "dom_text" ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, GAMEMODE:GetBaseColorPtr( "dom_outline" ) )
+			draw.SimpleTextOutlined( text, "WAREIns", PosToScreen.x, PosToScreen.y, GAMEMODE:GetBaseColorPtr( "dom_text" ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, GAMEMODE:GetBaseColorPtr( "dom_outline" ) )
 		end
 	end
 end
