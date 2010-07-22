@@ -404,7 +404,7 @@ local function ReceiveStatuses( usrmsg )
 	local isServerGlobal = usrmsg:ReadBool() or false
 	
 	if not isServerGlobal then
-		sText = ((yourStatus and "Success!") or "Fail!")
+		sText = ((yourStatus and "Success!") or "Failure!") -- MaxOfS2D you fail
 		if yourStatus then
 			LocalPlayer():EmitSound( table.Random(GAMEMODE.WASND.TBL_LocalWon), 100, GAMEMODE:GetSpeedPercent() )
 		
