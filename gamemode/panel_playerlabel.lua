@@ -83,6 +83,7 @@ function PANEL:Init()
 	self.dText:SetColor( color_white )
 	
 	self:SetText("")
+	self:UseStale()
 
 	--self.bLastIsWin = false
 	self.bLastIsLocked = false
