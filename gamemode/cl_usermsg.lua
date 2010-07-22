@@ -375,9 +375,9 @@ end
 usermessage.Hook( "gw_instructions", ReceiveInstructions )
 
 
-
-local cStatusBackWinColorSet  = Color(128,128,255,192)
-local cStatusBackLoseColorSet = Color(255,64,64,192)
+	
+local cStatusBackWinColorSet  = Color(0, 164, 237,192)
+local cStatusBackLoseColorSet = Color(255,  87,  87,192)
 local cStatusTextColorSet = Color(255,255,255,255)
 
 local tWinParticles = {

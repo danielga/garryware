@@ -69,10 +69,10 @@ function PANEL:Paint()
 		surface.SetDrawColor( 166,225,225,255 )
 		
 	elseif (achieved and not locked) then
-		surface.SetDrawColor( 224,224,247,255 )
+		surface.SetDrawColor( 170,235,255,255 )
 		
 	elseif (achieved and locked) then
-		surface.SetDrawColor( 156,156,254,255 )
+		surface.SetDrawColor( 60,180,244,255 )
 		
 	elseif (not achieved and not locked) then
 		surface.SetDrawColor( 250,213,213,255 )
