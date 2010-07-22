@@ -8,6 +8,8 @@ function WARE:IsPlayable()
 end
 
 function WARE:Initialize()
+	GAMEMODE:EnableFirstFailAward( )
+	GAMEMODE:SetFailAwards( AWARD_VICTIM )
 	GAMEMODE:SetWareWindupAndLength(2,6)
 	
 	GAMEMODE:SetPlayersInitialStatus( true )

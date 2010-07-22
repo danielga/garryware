@@ -20,6 +20,9 @@ function WARE:GetModelList()
 end
 
 function WARE:Initialize()
+	GAMEMODE:EnableFirstWinAward( )
+	GAMEMODE:SetWinAwards( AWARD_AIM )
+	
 	GAMEMODE:SetWareWindupAndLength(1.5,8)
 	
 	self.TimesToHit = 1

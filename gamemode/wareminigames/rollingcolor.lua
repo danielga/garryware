@@ -49,6 +49,8 @@ local function RemoveProp( prop )
 end
 
 function WARE:Initialize()
+	GAMEMODE:EnableFirstWinAward( )
+	GAMEMODE:SetWinAwards( AWARD_REFLEX )
 	GAMEMODE:SetWareWindupAndLength(0.7, 7)
 	
 	self.Props = {}

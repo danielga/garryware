@@ -11,6 +11,8 @@ function WARE:IsPlayable()
 end
 
 function WARE:Initialize()
+	GAMEMODE:EnableFirstWinAward( )
+	GAMEMODE:SetWinAwards( AWARD_FRENZY )
 	GAMEMODE:SetWareWindupAndLength(1.5, 8)
 	
 	self.MostTimesHit = 0
@@ -73,6 +75,9 @@ function WARE:Think( )
 		end
 		
 		if ply.BULLSEYE_Hit >= 14 then
+			if self:IsFirstWinAwardEnabled( ) then
+				ply:ApplyWin()
+			end
 			ply:SetAchievedNoLock( true )
 		end
 		

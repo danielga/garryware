@@ -25,6 +25,8 @@ function WARE:_DiceNoRepeat( myMax, lastUsed )
 end
 
 function WARE:Initialize()
+	GAMEMODE:EnableFirstWinAward( )
+	GAMEMODE:SetWinAwards( AWARD_REFLEX, AWARD_FRENZY, AWARD_AIM )
 	self.RoleColor = Color(114, 49, 130)
 	
 	self.NumberSpawns = math.random( 7, 20 )

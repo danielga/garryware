@@ -62,8 +62,23 @@ function meta:SetAchievedNoLock( hasAchieved )
 	return true
 end
 
+function meta:ApplyFirst( )
+	self:SetDTBool( 0, true )
+	return true
+end
+
+function meta:IsFirst( )
+	return self:GetDTBool( 0 )
+	
+end
+
 -- Special functions for game engine - not for gamemodes -
 /// >>>
+function meta:RemoveFirst( )
+	self:SetDTBool( 0, false )
+	return true
+end
+
 function meta:SetAchievedSpecialInteger( intAchieved )
 	if self:GetLocked() then
 		return false
@@ -83,6 +98,26 @@ function meta:SetComboSpecialInteger( intCombo )
 end
 -- <<<
 -- End
+
+function meta:GiveAward( sAward )
+	if not sAward then return end
+
+	self.m_tokens[sAward] = (self.m_tokens[sAward] or 0) + 1
+
+end
+
+function meta:GiveAwards( tabVar )
+	if not tabVar then return end
+	
+	if #tabVar > 0 then
+		for _,id in pairs( tabVar ) do
+			self:GiveAward( id )
+			
+		end
+	
+	end
+
+end
 
 function meta:ApplyLock( dontSendStatusMessage )
 	if GAMEMODE:PhaseIsPrelude() then return false end
@@ -104,6 +139,15 @@ function meta:ApplyLock( dontSendStatusMessage )
 		self:AddFrags( 1 )
 		local newComboVal = self:IncrementCombo()
 		
+		self:GiveAwards( GAMEMODE.m_ware_winawards )
+		if GAMEMODE.m_ware_firstwin then
+			self:GiveAward( "first_win" )
+			self:ApplyFirst( )
+			
+			GAMEMODE.m_ware_firstwin = false
+			
+		end
+		
 		local ed = EffectData()
 		ed:SetOrigin( self:GetPos() )
 		util.Effect("ware_good", ed, true, true)
@@ -115,6 +159,15 @@ function meta:ApplyLock( dontSendStatusMessage )
 		self:EmitSound(GAMEMODE.WASND.OtherLose, 100, GAMEMODE:GetSpeedPercent())
 		self:AddDeaths( 1 )
 		self:InterruptCombo()
+		
+		self:GiveAwards( GAMEMODE.m_ware_failawards )
+		if GAMEMODE.m_ware_firstfail then
+			self:GiveAward( "first_fail" )
+			self:ApplyFirst( )
+			
+			GAMEMODE.m_ware_firstfail = false
+			
+		end
 		
 		local ed = EffectData()
 		ed:SetOrigin( self:GetPos() )

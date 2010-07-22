@@ -23,6 +23,8 @@ function WARE:IsPlayable()
 end
 
 function WARE:Initialize()
+	-- THIS HAS AWARDS IN OTHER PHASE.
+
 	self.RoleColor = Color(114, 49, 130)
 	GAMEMODE:SetWareWindupAndLength(0,4)
 	
@@ -71,6 +73,8 @@ end
 
 function WARE:PhaseSignal( iPhase )
 	if iPhase == 2 then
+		GAMEMODE:SetFailAwards( AWARD_VICTIM )
+		
 		for k,ply in pairs( team.GetPlayers(TEAM_HUMANS) ) do
 			ply:SetAchievedNoLock( true )
 			if not ply:GetLocked() then

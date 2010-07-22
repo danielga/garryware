@@ -2,12 +2,15 @@ WARE.Author = "Hurricaaane (Ha3)"
 WARE.Room = "empty"
 
 function WARE:Initialize()
+
 	self.IsTrap = (math.random(0,10) <= 3)
 	if not self.IsTrap then
 		GAMEMODE:SetWareWindupAndLength(2, math.Rand(1.3, 5.0))
+		GAMEMODE:SetWinAwards( AWARD_REFLEX )
 		
 	else
 		GAMEMODE:SetWareWindupAndLength(2, math.Rand(1.3, 2.5))
+		GAMEMODE:SetFailAwards( AWARD_VICTIM )
 		
 	end
 	

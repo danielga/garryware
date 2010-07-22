@@ -25,6 +25,7 @@ function WARE:_DiceNoRepeat( myMax, lastUsed )
 end
 
 function WARE:Initialize()
+	GAMEMODE:SetWinAwards( AWARD_MOVES )
 	GAMEMODE:SetWareWindupAndLength(0.7,5)
 	
 	self.Props = {}

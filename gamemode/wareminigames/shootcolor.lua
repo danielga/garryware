@@ -21,6 +21,8 @@ function WARE:GetModelList()
 end
 
 function WARE:Initialize()
+	GAMEMODE:EnableFirstWinAward( )
+	GAMEMODE:SetWinAwards( AWARD_REFLEX )
 	GAMEMODE:SetWareWindupAndLength(0.7,4)
 	
 	self.Props = {}

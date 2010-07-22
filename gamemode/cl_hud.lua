@@ -22,24 +22,46 @@ local NewWorldPos = Vector(0,0,0)
 
 function GM:PrintStreaksticks( )
 	for k,ply in pairs(team.GetPlayers(TEAM_HUMANS)) do
-		if ply:GetCombo() >= 3 then
+		if ply:GetCombo() >= 3 or (ply:IsFirst() and ply:GetAchieved()) then
 			surface.SetMaterial( self.StreakstickMat )
 		
 			GC_VectorCopy(NewWorldPos, ply:GetPos())
 			NewWorldPos.z = NewWorldPos.z + 96
 			
 			LightColor = render.GetLightColor( ply:GetPos() ) * 2
-			LightColor.x = 235 * mathx.Clamp( LightColor.x, 0, 1 )
-			LightColor.y = 177 * mathx.Clamp( LightColor.y, 0, 1 )
-			LightColor.z = 20  * mathx.Clamp( LightColor.z, 0, 1 )
+			LightColor.x = mathx.Clamp( LightColor.x, 0, 1 )
+			LightColor.y = mathx.Clamp( LightColor.y, 0, 1 )
+			LightColor.z = mathx.Clamp( LightColor.z, 0, 1 )
 			PosToScreen = NewWorldPos:ToScreen()
 			PosToScreen.x = math.floor( PosToScreen.x )
 			PosToScreen.y = math.floor( PosToScreen.y )
 			
+			if ply:IsFirst() then
+				LightColor.x = LightColor.x * 220
+				LightColor.y = LightColor.y * 220
+				LightColor.z = LightColor.z * 220
+				
+			else
+				LightColor.x = LightColor.x * 235
+				LightColor.y = LightColor.y * 177
+				LightColor.z = LightColor.z * 20
+				
+			end
+			
+			local text = ""
+			if ply:GetCombo() >= 3 then
+				text = tostring(ply:GetCombo())
+				
+			else
+				text = "!"
+				
+			end
+			
+			
 			surface.SetDrawColor( LightColor.x, LightColor.y, LightColor.z, 255 )
 			surface.DrawTexturedRectRotated( PosToScreen.x, PosToScreen.y - 2, 28, 56, 0 )
 			
-			draw.SimpleTextOutlined( tostring(ply:GetCombo()), "WAREDom", PosToScreen.x, PosToScreen.y, GAMEMODE:GetBaseColorPtr( "dom_text" ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, GAMEMODE:GetBaseColorPtr( "dom_outline" ) )
+			draw.SimpleTextOutlined( text, "garryware_largetext", PosToScreen.x, PosToScreen.y, GAMEMODE:GetBaseColorPtr( "dom_text" ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, GAMEMODE:GetBaseColorPtr( "dom_outline" ) )
 		end
 	end
 end

@@ -33,6 +33,8 @@ end
 ---end
 
 function WARE:Initialize()
+	GAMEMODE:EnableFirstFailAward( )
+	GAMEMODE:SetFailAwards( AWARD_VICTIM )
 	self.SpawnedNPCs = {}
 
 	GAMEMODE:RespawnAllPlayers( true, true )

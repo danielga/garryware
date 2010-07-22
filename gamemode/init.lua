@@ -14,6 +14,7 @@ DEBUG_DISABLE_STATS = not (GetConVar("ware_stats_enabled"):GetInt() > 0)
 include( "shared.lua" )
 include( "sh_tables.lua" )
 
+include( "sv_awards.lua" )
 include( "sv_effects.lua" )
 include( "sv_entitygathering.lua" )
 include( "sh_chataddtext.lua" )
@@ -139,9 +140,12 @@ function GM:PickRandomGame()
 	self.WarePhase_Current = 1
 	self.WarePhase_NextLength = 0
 	
+	self:ResetWareAwards( )
+	
 	-- Standard initialization
 	for k,v in pairs(player.GetAll()) do 
 		v:SetLockedSpecialInteger(0)
+		v:RemoveFirst( )
 		v:StripWeapons()
 	end
 	

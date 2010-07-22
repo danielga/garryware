@@ -6,6 +6,8 @@ WARE.CircleRadius = 64
 WARE.Circles = {}
 
 function WARE:Initialize()
+	GAMEMODE:SetFailAwards( AWARD_VICTIM )
+	
 	GAMEMODE:SetWareWindupAndLength(3, 4)
 
 	GAMEMODE:SetPlayersInitialStatus( true )

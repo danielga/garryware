@@ -1,6 +1,8 @@
 WARE.Author = "Hurricaaane (Ha3)"
 
 function WARE:Initialize()
+	GAMEMODE:SetWinAwards( AWARD_AIM, AWARD_REFLEX )
+	
 	GAMEMODE:SetWareWindupAndLength(1.5,8)
 	
 	self.TimesToHit = math.random(2,5)

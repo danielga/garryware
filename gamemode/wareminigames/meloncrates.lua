@@ -36,6 +36,8 @@ end
 
 
 function WARE:Initialize()
+	GAMEMODE:EnableFirstWinAward( )
+	GAMEMODE:SetWinAwards( AWARD_FRENZY )
 	local maxcount = table.Count(GAMEMODE:GetEnts(ENTS_ONCRATE))
 	
 	local numberMelonSpawns = math.Clamp(math.ceil(team.NumPlayers(TEAM_HUMANS) * 0.5), 1, maxcount)

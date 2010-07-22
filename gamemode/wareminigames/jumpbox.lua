@@ -13,6 +13,9 @@ function WARE:Initialize()
 end
 
 function WARE:StartAction()
+	GAMEMODE:EnableFirstWinAward( )
+	GAMEMODE:SetWinAwards( AWARD_MOVES )
+	
 	self.PlayerLastBlock = {}
 	self.PlayerSwapCount = {}
 	--self.PlayerLastTime = {}

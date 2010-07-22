@@ -13,7 +13,8 @@ end
 
 function GM:PlayerInitialSpawn( ply, id )
 	self.BaseClass:PlayerInitialSpawn( ply, id )
-
+	
+	ply.m_tokens = {}
 
 	-- Give him info about the current status of the game
 	local didnotbegin = false

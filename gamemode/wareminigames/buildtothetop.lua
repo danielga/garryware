@@ -29,6 +29,8 @@ end
 -----------------------------------------------------------------------------------
 
 function WARE:Initialize()
+	GAMEMODE:EnableFirstWinAward( )
+	GAMEMODE:SetWinAwards( AWARD_FRENZY, AWARD_MOVES )
 	GAMEMODE:SetWareWindupAndLength(2,14)
 
 	GAMEMODE:SetPlayersInitialStatus( false )

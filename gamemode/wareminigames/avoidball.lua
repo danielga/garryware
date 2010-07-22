@@ -1,6 +1,9 @@
 WARE.Author = "Hurricaaane (Ha3)"
 
 function WARE:Initialize()
+	GAMEMODE:EnableFirstFailAward( )
+	GAMEMODE:SetFailAwards( AWARD_VICTIM )
+	
 	GAMEMODE:SetWareWindupAndLength(1.5,8)
 	
 	GAMEMODE:SetPlayersInitialStatus( true )

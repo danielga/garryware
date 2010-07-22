@@ -26,6 +26,9 @@ end
 end*/
 
 function WARE:Initialize()
+	GAMEMODE:EnableFirstWinAward( )
+	GAMEMODE:SetWinAwards( AWARD_FRENZY, AWARD_AIM )
+	
 	-- HAXX
 	-- GravGunOnPickedUp hook is broken, so we'll use this tricky workaround
 	local lua_run = ents.Create("lua_run")

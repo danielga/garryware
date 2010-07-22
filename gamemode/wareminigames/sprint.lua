@@ -2,6 +2,7 @@ WARE.Author = "Frostyfrog"
 WARE.MaxSpeed = 320
 
 function WARE:Initialize()
+	GAMEMODE:SetWinAwards( AWARD_MOVES )
 	GAMEMODE:SetWareWindupAndLength(2.5,5)
 	
 	GAMEMODE:SetPlayersInitialStatus( true )

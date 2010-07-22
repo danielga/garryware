@@ -14,6 +14,10 @@ WARE.Numbers = {}
 WARE.NumberSpawns = 7
 
 function WARE:Initialize()
+	GAMEMODE:EnableFirstWinAward( )
+	GAMEMODE:SetWinAwards( AWARD_IQ_WIN )
+	GAMEMODE:SetFailAwards( AWARD_IQ_FAIL )
+	
 	local doTrap = (math.random(0,4) == 4)
 	GAMEMODE:OverrideAnnouncer( 2 )
 	

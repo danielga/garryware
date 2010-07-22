@@ -20,6 +20,8 @@ function GM:EndTheGameForOnce()
 	
 	self:EndGame()
 	
+	self:DoProcessAllAwards()
+	
 	--Send info about VGUI
 	umsg.Start("SpecialFlourish")
 		umsg.Char( 2 )
@@ -45,6 +47,7 @@ function GM:EndTheGameForOnce()
 	if not DEBUG_DISABLE_STATS then
 		self:StatsCR_LogSynthesisGLON()
 	end
+	
 end
 
 function GM:EndOfGame( bGamemodeVote )

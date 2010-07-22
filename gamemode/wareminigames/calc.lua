@@ -8,6 +8,10 @@ WARE.ChatBleh     = Color(192,192,0,0)
 WARE.ChatRegular  = Color(255,255,255,0)
 
 function WARE:Initialize()
+	GAMEMODE:EnableFirstWinAward( )
+	GAMEMODE:SetWinAwards( AWARD_IQ_WIN )
+	GAMEMODE:SetFailAwards( AWARD_IQ_FAIL )
+
 	GAMEMODE:OverrideAnnouncer( 2 )
 	
 	GAMEMODE:SetWareWindupAndLength( 2 , 8 )

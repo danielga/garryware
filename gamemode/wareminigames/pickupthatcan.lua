@@ -21,6 +21,8 @@ function WARE:FlashCans( iteration, delay )
 end
 
 function WARE:Initialize()
+	GAMEMODE:EnableFirstWinAward( )
+	GAMEMODE:SetWinAwards( AWARD_FRENZY )
 	GAMEMODE:SetWareWindupAndLength(3,5)
 	
 	GAMEMODE:SetPlayersInitialStatus( false )

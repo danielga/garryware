@@ -57,6 +57,9 @@ end
 -----------------------------------------------------------------------------------
 
 function WARE:Initialize()
+	GAMEMODE:EnableFirstWinAward( )
+	GAMEMODE:SetWinAwards( AWARD_IQ_WIN )
+	GAMEMODE:SetFailAwards( AWARD_IQ_FAIL )
 	GAMEMODE:OverrideAnnouncer( 2 )
 	
 	local numberSpawns = 5

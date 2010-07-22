@@ -19,6 +19,9 @@ function WARE:IsPlayable()
 end
 
 function WARE:Initialize()
+	GAMEMODE:EnableFirstWinAward( )
+	GAMEMODE:SetWinAwards( AWARD_MOVES )
+	
 	self.RoleColor = Color(114, 49, 130)
 	GAMEMODE:SetWareWindupAndLength(3, 3)
 	

@@ -8,6 +8,8 @@ function WARE:GetModelList()
 end
 
 function WARE:Initialize()
+	GAMEMODE:EnableFirstWinAward( )
+	GAMEMODE:SetWinAwards( AWARD_MOVES )
 	GAMEMODE:SetWareWindupAndLength(1,9)
 	
 	GAMEMODE:SetPlayersInitialStatus( false )

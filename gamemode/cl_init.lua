@@ -40,8 +40,8 @@ function WARE_SortTable( plyA, plyB )
 	if ( not(plyA) or not(plyB) ) then return false end
 	if ( not(ValidEntity(plyA)) or not(ValidEntity(plyB)) ) then return false end
 	
-	local tokenA = plyA:GetAchieved() and (plyA:GetLocked() and 4 or 3) or (plyA:GetLocked() and 1 or 2)
-	local tokenB = plyB:GetAchieved() and (plyB:GetLocked() and 4 or 3) or (plyB:GetLocked() and 1 or 2)
+	local tokenA = plyA:GetAchieved() and (plyA:GetLocked() and (plyA:IsFirst() and 5 or 4) or 3) or (plyA:GetLocked() and (plyA:IsFirst() and 1 or 0) or 2)
+	local tokenB = plyB:GetAchieved() and (plyB:GetLocked() and (plyB:IsFirst() and 5 or 4) or 3) or (plyB:GetLocked() and (plyB:IsFirst() and 1 or 0) or 2)
 	
 	if ( tokenA == tokenB ) then
 		if ( plyA:Frags() == plyB:Frags() ) then
@@ -56,6 +56,21 @@ function WARE_SortTable( plyA, plyB )
 	else
 		return tokenA > tokenB
 		
+	end
+end
+
+function WARE_SortTableStateBlind( plyA, plyB )
+	if ( not(plyA) or not(plyB) ) then return false end
+	if ( not(ValidEntity(plyA)) or not(ValidEntity(plyB)) ) then return false end
+	
+	if ( plyA:Frags() == plyB:Frags() ) then
+		if ( plyA:GetBestCombo() == plyB:GetBestCombo() ) then
+			return plyA:Nick() < plyB:Nick()
+		else
+			return plyA:GetBestCombo() > plyB:GetBestCombo()
+		end
+	else
+		return plyA:Frags() > plyB:Frags()
 	end
 end
 

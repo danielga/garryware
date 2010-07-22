@@ -225,3 +225,31 @@ DTVAR_PLAYER_LOCKED_INT    = 1
 DTVAR_PLAYER_COMBO_INT     = 2
 DTVAR_PLAYER_BESTCOMBO_INT = 3
 
+
+AWARD_IQ_WIN    = "iq_win"
+AWARD_IQ_FAIL   = "iq_fail"
+AWARD_REFLEX    = "reflex"
+AWARD_MOVES     = "moves"
+AWARD_FRENZY    = "frenzy"
+AWARD_AIM       = "aim"
+AWARD_VICTIM    = "victim"
+
+
+if false then
+	GAMEMODE:EnableFirstWinAward( )
+	GAMEMODE:EnableFirstFailAward( )
+	GAMEMODE:SetWinAwards( AWARD_FRENZY )
+	GAMEMODE:SetFailAwards( AWARD_VICTIM )
+	
+
+	GAMEMODE:EnableFirstWinAward( )
+	GAMEMODE:SetWinAwards( AWARD_IQ_WIN )
+	GAMEMODE:SetFailAwards( AWARD_IQ_FAIL )
+	
+end
+
+
+
+
+
+

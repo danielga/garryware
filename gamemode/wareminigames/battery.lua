@@ -20,6 +20,9 @@ function WARE:GetModelList()
 end
 
 function WARE:Initialize()
+	GAMEMODE:EnableFirstWinAward( )
+	GAMEMODE:SetWinAwards( AWARD_FRENZY )
+
 	self.Sockets = {}
 	GAMEMODE:SetWareWindupAndLength(0,12)
 	

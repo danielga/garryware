@@ -13,6 +13,7 @@ function WARE:IsPlayable()
 end
 
 function WARE:Initialize()
+	GAMEMODE:SetWinAwards( AWARD_MOVES )
 	self.LastThinkDo = 0
 	
 	GAMEMODE:RespawnAllPlayers( true, true )

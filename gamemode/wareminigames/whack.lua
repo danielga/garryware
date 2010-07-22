@@ -9,6 +9,11 @@ function WARE:IsPlayable()
 end
 
 function WARE:Initialize()
+	GAMEMODE:EnableFirstWinAward( )
+	GAMEMODE:EnableFirstFailAward( )
+	GAMEMODE:SetWinAwards( AWARD_FRENZY )
+	GAMEMODE:SetFailAwards( AWARD_VICTIM )
+
 	self.PlayersWhoDone = {}
 	self.Balls = {}
 	self.RoleColor = Color(114, 49, 130)

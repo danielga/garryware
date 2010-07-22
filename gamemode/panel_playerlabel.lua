@@ -5,6 +5,7 @@ function PANEL:Init()
 	self:SetPaintBackground( false )
 	self:SetVisible( false )
 
+	self.m_first = false
 	self.m_state = -1
 	self.m_achiev = -1
 	self.m_color = nil
@@ -24,10 +25,23 @@ function PANEL:Init()
 	self.colors.Stale    = Color( 192, 192, 192 )
 	self.colors.Mystery  = Color( 90, 220, 220 )
 	
+	self.colors.PlatineBlack  = Color( 20, 20, 20 )
+	self.colors.Platine  = Color( 255, 255, 255 )
+	self.colors.Invisible  = Color( 0, 0, 0, 0 )
+	
 	self.colors.Locked  =  Color( 255, 255, 255, 192 )
 	self.colors.Unlocked  =  Color( 0, 0, 0, 128 )
 	
 
+	self.dFirstArrow = vgui.Create("GWArrow", self)
+	self.dFirstArrow:UseLeft( true )
+	self.dFirstArrow:SetLeftInnerColor( self.colors.Invisible )
+	self.dFirstArrow:SetRightInnerColor( self.colors.Platine )
+	self.dFirstArrow:SetLeftOuterColor( self.colors.Invisible )
+	self.dFirstArrow:SetRightOuterColor( self.colors.Unlocked )
+	self.dFirstArrow:SetFont( "garryware_smalltext" )
+	self.dFirstArrow:SetColor( self.colors.PlatineBlack )
+	
 	self.dWinArrow = vgui.Create("GWArrow", self)
 	self.dWinArrow:UseLeft( false )
 	self.dWinArrow:SetLeftInnerColor( self.colors.Win )
@@ -83,16 +97,19 @@ function PANEL:PerformLayout()
 	--self.dAvatar:SetSize( self:GetTall() - self._STY_Border * 2 , self:GetTall() - self._STY_Border * 2 )
 	self.dAvatar:SetSize( self:GetTall() , self:GetTall() )
 	
+	self.dFirstArrow:SetSize( self:GetTall()*2.2 , self:GetTall() )
 	self.dWinArrow:SetSize( self:GetTall()*2 , self:GetTall() )
 	self.dFailArrow:SetSize( self:GetTall()*2 , self:GetTall() )
 	self.dComboArrow:SetSize( self:GetTall()*2 , self:GetTall() )
 	self.dCLittleArrow:SetSize( self:GetTall()*2 - self._STY_Border * 2 , self:GetTall() - self._STY_Border * 2 )
 	
+	self.dFirstArrow:Center()
 	self.dWinArrow:Center()
 	self.dFailArrow:Center()
 	self.dComboArrow:Center()
 	self.dCLittleArrow:Center()
 	
+	self.dFirstArrow:AlignRight( self._STY_ArrowSpacing * 4 + self:GetTall() * 4 + 2)
 	self.dWinArrow:AlignRight( self._STY_ArrowSpacing * 3 + self:GetTall() * 3)
 	self.dFailArrow:AlignRight( self._STY_ArrowSpacing * 2 + self:GetTall() * 2 )
 	self.dComboArrow:AlignRight( self._STY_ArrowSpacing * 1 + self:GetTall() * 1 )
@@ -276,6 +293,18 @@ function PANEL:Think()
 	self.dFailArrow:SetText( self.m_player:Deaths() )
 	self.dComboArrow:SetText( self.m_player:GetBestCombo() )
 	self.dCLittleArrow:SetText( self.m_player:GetCombo() )
+	
+	if self.m_player:IsFirst() and not self.m_first then
+		self.dFirstArrow:SetText( "1st" )
+		self.dFirstArrow:UseLeft( false )
+		self.m_first = not self.m_first
+
+	elseif not self.m_player:IsFirst() and self.m_first then
+		self.dFirstArrow:SetText( "" )
+		self.dFirstArrow:UseLeft( true )
+		self.m_first = not self.m_first
+		
+	end
 	
 end
 

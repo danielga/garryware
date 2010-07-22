@@ -10,6 +10,11 @@ function WARE:IsPlayable()
 end
 
 function WARE:Initialize()
+	GAMEMODE:EnableFirstWinAward( )
+	GAMEMODE:EnableFirstFailAward( )
+	GAMEMODE:SetWinAwards( AWARD_FRENZY )
+	GAMEMODE:SetFailAwards( AWARD_VICTIM )
+
 	GAMEMODE:SetWareWindupAndLength(2, 3)
 
 	GAMEMODE:SetPlayersInitialStatus( false )

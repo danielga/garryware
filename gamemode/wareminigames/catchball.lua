@@ -1,6 +1,8 @@
 WARE.Author = "Kelth"
 
 function WARE:Initialize()
+	GAMEMODE:EnableFirstWinAward( )
+	GAMEMODE:SetWinAwards( AWARD_FRENZY )
 	GAMEMODE:SetWareWindupAndLength(0.8,6)
 	
 	GAMEMODE:SetPlayersInitialStatus( false )

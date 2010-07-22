@@ -7,6 +7,8 @@ function WARE:GetModelList()
 end
 
 function WARE:Initialize()
+	GAMEMODE:EnableFirstWinAward( )
+	GAMEMODE:SetWinAwards( AWARD_FRENZY )
 	GAMEMODE:SetWareWindupAndLength(0.7,7.5)
 	
 	GAMEMODE:SetPlayersInitialStatus( false )

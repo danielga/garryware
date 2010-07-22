@@ -14,6 +14,7 @@ function WARE:IsPlayable()
 end
 
 function WARE:Initialize()
+	GAMEMODE:SetFailAwards( AWARD_VICTIM )
 	self.LastThinkDo = 0
 	
 	GAMEMODE:RespawnAllPlayers( true, true )

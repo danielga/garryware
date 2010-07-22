@@ -17,6 +17,7 @@ function WARE:IsPlayable()
 end
 
 function WARE:Initialize()
+	GAMEMODE:SetWinAwards( AWARD_FRENZY )
 	self.NumberOfCircles = math.Clamp( 1 + math.ceil(team.NumPlayers(TEAM_HUMANS) / 7) , 2 , 3 )
 
 	GAMEMODE:SetWareWindupAndLength(1, 6)
