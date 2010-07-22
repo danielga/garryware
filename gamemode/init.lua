@@ -488,6 +488,33 @@ function GM:Think()
 		end
 	end
 	
+	self:TryFindStuck()
+	
+end
+
+function GM:TryFindStuck()
+	for k,ply in pairs(team.GetPlayers( TEAM_HUMANS )) do
+		if ValidEntity(ply) then
+			local plyPhys = ply:GetPhysicsObject()
+			if plyPhys:IsValid() and plyPhys ~= NULL then
+				if plyPhys:IsPenetrating() then
+					ply:SetNoCollideWithTeammates( true )
+					if not ply._WasStuckOneTime then
+						ply._WasStuckOneTime = true
+						print("Found player " .. ply:Nick() .. " stuck!")
+					end
+					
+				elseif ply:GetNoCollideWithTeammates( ) then
+					ply:SetNoCollideWithTeammates( false )
+				
+				end
+				
+			end
+		
+		end
+		
+	end
+	
 end
 
 function GM:WareRoomCheckup()

@@ -45,7 +45,7 @@ end
 function WARE:Think( )
 	for k,ply in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 	
-		local timesHit = ply.BULLSEYE_Hit
+		local timesHit = ply.BULLSEYE_Hit or 0
 		
 		if timesHit == self.TimesToHit then
 			ply:SetAchievedNoLock( true )
