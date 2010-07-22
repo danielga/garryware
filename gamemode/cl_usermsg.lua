@@ -221,6 +221,7 @@ local vgui_stupidboard = vgui.RegisterFile( "garryware_vgui_main.lua")
 local vgui_livescoreboard = vgui.RegisterFile( "garryware_vgui_livescoreboard.lua")
 local vgui_instructions = vgui.RegisterFile( "garryware_vgui_instructions.lua")
 local vgui_status = vgui.RegisterFile( "garryware_vgui_status.lua")
+local vgui_ammo = vgui.RegisterFile( "garryware_vgui_ammo.lua")
 
 local TransitVGUI = vgui.CreateFromTable( vgui_transit )
 local WaitVGUI = vgui.CreateFromTable( vgui_wait )
@@ -230,10 +231,11 @@ local StupidBoardVGUI = vgui.CreateFromTable( vgui_stupidboard )
 local LiveScoreBoardVGUI = vgui.CreateFromTable( vgui_livescoreboard )
 local InstructionsVGUI = vgui.CreateFromTable( vgui_instructions )
 local StatusVGUI = vgui.CreateFromTable( vgui_status )
+local AmmoVGUI = vgui.CreateFromTable( vgui_ammo )
 
 StupidBoardVGUI:Show()
 LiveScoreBoardVGUI:Show()
-
+AmmoVGUI:Show()
 
 local tWinEvalutaion = {
 {5, "Epic FAIL"}, -- --> 0 to 5

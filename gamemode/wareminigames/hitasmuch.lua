@@ -13,7 +13,7 @@ end
 function WARE:Initialize()
 	GAMEMODE:SetWareWindupAndLength(1.5, 8)
 	
-	self.MostTimesHit = 2
+	self.MostTimesHit = 0
 	
 	GAMEMODE:SetPlayersInitialStatus( false )
 	GAMEMODE:DrawInstructions( "Hit the bullseye 14 times or more!" )
@@ -49,6 +49,15 @@ end
 function WARE:EndAction()
 	if (self.MostTimesHit >= 14) then
 		GAMEMODE:DrawInstructions( "It was hit ".. self.MostTimesHit .." times!", self.EndingColor )
+		
+	elseif (self.MostTimesHit == 2) then
+		GAMEMODE:DrawInstructions( "It was only hit twice!", self.EndingColor )
+		
+	elseif (self.MostTimesHit == 1) then
+		GAMEMODE:DrawInstructions( "It was only hit once!", self.EndingColor )
+		
+	elseif (self.MostTimesHit == 0) then
+		GAMEMODE:DrawInstructions( "No-one hit it!", self.EndingColor )
 		
 	else
 		GAMEMODE:DrawInstructions( "It was only hit ".. self.MostTimesHit .." times!", self.EndingColor )

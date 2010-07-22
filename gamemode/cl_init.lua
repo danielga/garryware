@@ -30,10 +30,11 @@ include( "sh_chataddtext.lua" )
 include( "cl_version.lua" )
 include( "cl_version_search.lua" )
 
-include("sh_dhonline_autorun.lua")
-
 include( 'cl_splashscreen.lua' )
 include( 'vgui/vgui_scoreboard.lua' )
+
+include( 'garbage_module.lua' )
+
 
 function WARE_SortTable( plyA, plyB )
 	if ( not(plyA) or not(plyB) ) then return false end

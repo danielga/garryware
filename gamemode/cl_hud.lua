@@ -189,7 +189,6 @@ function GM:HUDPaint()
 	
 	self:DrawCrosshair()
 	
-	dhonline.HUDPaint()
 end
 
 ////////////////////////////////////////////////

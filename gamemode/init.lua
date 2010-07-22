@@ -31,10 +31,6 @@ if not DEBUG_DISABLE_STATS then
 	include( "sv_statistics.lua" )
 end
 
-
--- It AddCS itself.
-include("sh_dhonline_autorun.lua")
-
 GM.TakeFragOnSuicide = false
 
 -- Serverside Vars
