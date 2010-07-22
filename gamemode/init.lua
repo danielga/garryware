@@ -167,7 +167,7 @@ function GM:PickRandomGame()
 		self.WareOverrideAnnouncer = self.DefaultAnnouncerID or math.random(1, #GAMEMODE.WASND.BITBL_TimeLeft )
 	end
 	
-	local iLoopToPlay = ( (self.Windup + self.WareLen) > 14 ) and 2 or 1
+	local iLoopToPlay = ( (self.Windup + self.WareLen) >= 10 ) and 2 or 1
 	
 	-- Send info about ware
 	local rp = RecipientFilter()
@@ -209,7 +209,7 @@ function GM:TryNextPhase( )
 		
 	end
 	
-	local iLoopToPlay = ( (self.Windup + self.WareLen) > 14 ) and 2 or 1
+	local iLoopToPlay = ( (self.Windup + self.WareLen) >= 10 ) and 2 or 1
 	
 	--local rp = RecipientFilter()
 	--rp:AddAllPlayers()
