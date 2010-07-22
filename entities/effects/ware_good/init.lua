@@ -7,7 +7,7 @@ function EFFECT:Init( data )
 	
 	for i=1,40 do
 		local particle = emitter:Add( "effects/yellowflare", self.Pos + VectorRand() * 5)
-		particle:SetColor(0,250,0)
+		particle:SetColor(0, 164, 237)
 		particle:SetStartSize( math.Rand(5,10) )
 		particle:SetEndSize( 0 )
 		particle:SetStartAlpha( 250 )
@@ -21,7 +21,7 @@ function EFFECT:Init( data )
 	end
 	
 	local particle = emitter:Add( "effects/yellowflare", self.Pos)
-	particle:SetColor(0,250,0)
+	particle:SetColor(0, 164, 237)
 	particle:SetStartSize( 100 )
 	particle:SetEndSize( 0 )
 	particle:SetStartAlpha( 250 )

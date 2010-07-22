@@ -76,7 +76,7 @@ function WARE:Think( )
 		end
 		
 		if ply.BULLSEYE_Hit >= 14 then
-			if self:IsFirstWinAwardEnabled( ) then
+			if GAMEMODE:IsFirstWinAwardEnabled( ) then
 				ply:ApplyWin()
 			end
 			ply:SetAchievedNoLock( true )
