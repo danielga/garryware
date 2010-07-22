@@ -95,20 +95,20 @@ function PANEL:Think()
 		if self.tvars.clip1 >= 0 and self.tvars.clip1type ~= -1 then	
 			local rate = -1
 			if self.tvars.clip1 <= 0 then
-				self.m_refmincolor   = self.colors.Bad
+				self.m_refbackcolor   = self.colors.Bad
 				
 			else
-				self.m_refmincolor   = self.colors.Good
+				self.m_refbackcolor   = self.colors.Good
 				
 			end
 			
 			if self.tvars.clip1left > 0 then
 				self.m_smalltext = self.tvars.clip1left
-				self.m_refbackcolor   = self.colors.Good
+				self.m_refmincolor   = self.colors.Good
 				
 			else
 				self.m_smalltext = "x"
-				self.m_refbackcolor   = self.colors.Bad
+				self.m_refmincolor   = self.colors.Bad
 				
 			end
 			
