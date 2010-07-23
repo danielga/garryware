@@ -173,6 +173,9 @@ function PANEL:PerformScoreData()
 			stack = stack + label:GetTall()
 			label:SetFont( "garryware_smalltext" )
 			
+			label:SetLeftPlatineData( (place == 2 and "2nd" or place == 3 and "3rd" or (place.. "'")) )
+			--label:SetRightPlatineData( ply:Frags() + ply:Deaths() )
+			
 			if (ply:Frags() == players[ k - 1 ]:Frags()) and (ply:GetBestCombo() == players[ k - 1 ]:GetBestCombo()) then
 				cumulator = cumulator + 1
 			
@@ -181,9 +184,6 @@ function PANEL:PerformScoreData()
 				cumulator = 0
 				
 			end
-			
-			label:SetLeftPlatineData( (place == 2 and "2nd" or place == 3 and "3rd" or (place.. "'")) )
-			--label:SetRightPlatineData( ply:Frags() + ply:Deaths() )
 			
 			label:InvalidateLayout( )
 			label:Show()

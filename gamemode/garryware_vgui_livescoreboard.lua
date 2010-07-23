@@ -18,6 +18,8 @@ function PANEL:Init()
 	
 	self.m_secondary_sort = false
 	
+	self:InvalidateLayout()
+	
 end
 
 	-- Sakuya can read source code
