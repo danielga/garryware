@@ -16,10 +16,12 @@ function PANEL:Init()
 	self._STY_LabelHeight = 16
 	self._STY_PADding     = 8
 	
+	self.m_secondary_sort = false
+	
 end
 
 	-- Sakuya can read source code
-	
+
 
 function PANEL:PerformLayout()
 	local width  = ScrW() * 0.7
@@ -27,11 +29,29 @@ function PANEL:PerformLayout()
 	local main_height = (width * 0.5) / 512 * 64
 	width = width - 128
 	
-	local heightcalc = ScrH() * 0.35 - 8 - main_height
-	heightcalc = heightcalc - heightcalc % self._STY_LabelHeight
-	
-	self:SetSize( width, heightcalc )
+	if not self.m_secondary_sort then
+		local heightcalc = ScrH() * 0.35 - 8 - main_height
+		heightcalc = heightcalc - heightcalc % self._STY_LabelHeight
+		self:SetSize( width, heightcalc )
+		
+	else
+		local heightcalc = ScrH() - 8 + main_height
+		self:SetSize( width, heightcalc )
+		
+	end
 	self:SetPos( (ScrW() - width) * 0.5, 8 + main_height )
+	
+end
+
+function PANEL:UseSecondarySort()
+	self.m_secondary_sort = true
+	self:InvalidateLayout()
+	
+end
+
+function PANEL:UseNormalSort()
+	self.m_secondary_sort = false
+	self:InvalidateLayout()
 	
 end
 
@@ -73,39 +93,83 @@ function PANEL:SortPlayerList()
 	end
 	
 	if #self.m_playerlist > 1 then
-		table.sort( self.m_playerlist , WARE_SortTable )
+		if not self.m_secondary_sort then
+			table.sort( self.m_playerlist , WARE_SortTable )
+		
+		else
+			table.sort( self.m_playerlist , WARE_SortTableStateBlind )
+		
+		end
+		
 	end
 	
+	local iNumPlayers = team.NumPlayers( TEAM_HUMANS )
 	local iWinStack  = 0
 	local iFailStack = 0
 	for k,ply in pairs( self.m_playerlist ) do
 		if ply:IsWarePlayer() then
 			ply._cl_label:Show()
-			if ply:GetAchieved() then
-				if not (ply._cl_label.m_tpos == iWinStack) or not (ply._cl_label.m_tcol == 1) then
-					ply._cl_label:MoveTo( 0, iWinStack * ply._cl_label:GetTall() , 0.2, 0, 2)
-				
-					ply._cl_label.m_tpos = iWinStack
-					ply._cl_label.m_tcol = 1
+			if not self.m_secondary_sort then
+				if ply:GetAchieved() then
+					if not (ply._cl_label.m_tpos == iWinStack) or not (ply._cl_label.m_tcol == 1) then
+						ply._cl_label:MoveTo( 0, iWinStack * ply._cl_label:GetTall() , 0.2, 0, 2)
+					
+						ply._cl_label.m_tpos = iWinStack
+						ply._cl_label.m_tcol = 1
+						
+					end
+					
+					iWinStack = iWinStack + 1
+					
+				else				
+					if not (ply._cl_label.m_tpos == iFailStack) or not (ply._cl_label.m_tcol == -1) then
+						ply._cl_label:MoveTo( self:GetWide() - ply._cl_label:GetWide(), iFailStack * ply._cl_label:GetTall() , 0.2, 0, 2)
+						
+						ply._cl_label.m_tpos = iFailStack
+						ply._cl_label.m_tcol = -1
+						
+					end
+					
+					iFailStack = iFailStack + 1
 					
 				end
 				
+			else
+				if not (ply._cl_label.m_tpos == iWinStack) or not (ply._cl_label.m_tcol == 0) then
+					ply._cl_label:MoveTo( self:GetWide() * 0.5 - ply._cl_label:GetWide() * 0.5, iWinStack * ply._cl_label:GetTall() , 0.2, 0, 2)
+				
+					ply._cl_label.m_tpos = iWinStack
+					ply._cl_label.m_tcol = 0
+					
+				end
 				iWinStack = iWinStack + 1
 				
-			else				
-				if not (ply._cl_label.m_tpos == iFailStack) or not (ply._cl_label.m_tcol == -1) then
-					ply._cl_label:MoveTo( self:GetWide() - ply._cl_label:GetWide(), iFailStack * ply._cl_label:GetTall() , 0.2, 0, 2)
+			end
+		else
+			if not self.m_secondary_sort then
+				if ply._cl_label:IsVisible() then
+					ply._cl_label:SetPos( (ScrW() - ply._cl_label:GetWide()) / 2, -ply._cl_label:GetTall() )
+					ply._cl_label:Hide()
+				
+				end
+				
+			else
+				if not ply._cl_label:IsVisible() then
+					ply._cl_label:Show()
+					ply._cl_label:MoveTo( self:GetWide() * 0.5 - ply._cl_label:GetWide() * 0.5, (iNumPlayers + iFailStack) * ply._cl_label:GetTall() , 0.2, 0, 2)
+				end
+				
+				local iTheoStack = (iNumPlayers + iFailStack)
+				if not (ply._cl_label.m_tpos == iTheoStack) or not (ply._cl_label.m_tcol == 0) then
+					ply._cl_label:MoveTo( self:GetWide() * 0.5 - ply._cl_label:GetWide() * 0.5, iTheoStack * ply._cl_label:GetTall() , 0.2, 0, 2)
 					
-					ply._cl_label.m_tpos = iFailStack
-					ply._cl_label.m_tcol = -1
-					
+					ply._cl_label.m_tpos = iNumPlayers + iFailStack
+					ply._cl_label.m_tcol = 0
 				end
 				
 				iFailStack = iFailStack + 1
 				
 			end
-		else
-			ply._cl_label:Hide()
 			
 		end
 		

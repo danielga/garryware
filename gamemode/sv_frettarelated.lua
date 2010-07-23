@@ -20,7 +20,7 @@ function GM:EndTheGameForOnce()
 	
 	self:EndGame()
 	
-	self:DoProcessAllAwards()
+	--self:DoProcessAllAwards()
 	
 	--Send info about VGUI
 	umsg.Start("SpecialFlourish")
@@ -54,6 +54,17 @@ function GM:EndOfGame( bGamemodeVote )
 	self:EndTheGameForOnce()
 	
 	self.BaseClass:EndOfGame( bGamemodeVote )
+end
+
+function GM:OnEndOfGame()
+
+	for k,v in pairs( player.GetAll() ) do
+
+		v:Freeze(true)
+		--v:ConCommand( "+showscores" )
+		
+	end
+	
 end
 
 function GM:StartGamemodeVote()

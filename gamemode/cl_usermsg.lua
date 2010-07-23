@@ -23,6 +23,9 @@ gws_AmbientMusic = {}
 gws_AmbientMusic_dat = {}
 gws_AmbientMusicIsOn = false
 
+-- TODO DEBUG : SET TO FALSE AFTER EDITING !
+gws_AtEndOfGame = false
+
 
 local function DecorationInfo( m )
 	local origin  = m:ReadVector()
@@ -213,6 +216,7 @@ usermessage.Hook( "EntityTextChangeColor", EntityTextChangeColor )
 VGUI Includes
 ------------------------------------*/
 
+
 local vgui_transit = vgui.RegisterFile( "vgui_transitscreen.lua" )
 local vgui_wait = vgui.RegisterFile( "vgui_waitscreen.lua" )
 local vgui_clock = vgui.RegisterFile( "vgui_clock.lua" )
@@ -222,6 +226,7 @@ local vgui_livescoreboard = vgui.RegisterFile( "garryware_vgui_livescoreboard.lu
 local vgui_instructions = vgui.RegisterFile( "garryware_vgui_instructions.lua")
 local vgui_status = vgui.RegisterFile( "garryware_vgui_status.lua")
 local vgui_ammo = vgui.RegisterFile( "garryware_vgui_ammo.lua")
+local vgui_awards = vgui.RegisterFile( "garryware_vgui_awards.lua")
 
 local TransitVGUI = vgui.CreateFromTable( vgui_transit )
 local WaitVGUI = vgui.CreateFromTable( vgui_wait )
@@ -232,6 +237,33 @@ local LiveScoreBoardVGUI = vgui.CreateFromTable( vgui_livescoreboard )
 local InstructionsVGUI = vgui.CreateFromTable( vgui_instructions )
 local StatusVGUI = vgui.CreateFromTable( vgui_status )
 local AmmoVGUI = vgui.CreateFromTable( vgui_ammo )
+local AwardVGUI = vgui.CreateFromTable( vgui_awards )
+
+function GM:ScoreboardShow()
+	if not gws_AtEndOfGame then
+		--GAMEMODE:GetScoreboard():SetVisible( true )
+		--GAMEMODE:PositionScoreboard( GAMEMODE:GetScoreboard() )
+		LiveScoreBoardVGUI:UseSecondarySort()
+		
+	else
+		AwardVGUI:Show()
+		
+	end
+	
+end
+
+function GM:ScoreboardHide()
+	if not gws_AtEndOfGame then
+		--GAMEMODE:GetScoreboard():SetVisible( false )
+		--GAMEMODE:PositionScoreboard( GAMEMODE:GetScoreboard() )
+		LiveScoreBoardVGUI:UseNormalSort()
+		
+	else
+		AwardVGUI:Hide()
+		
+	end
+	
+end
 
 StupidBoardVGUI:Show()
 LiveScoreBoardVGUI:Show()
@@ -284,11 +316,20 @@ local function WaitHide( m )
 end
 usermessage.Hook( "WaitHide", WaitHide )
 
+
 local function EndOfGamemode( m )
 	ClockVGUI:Hide()
 	ClockGameVGUI:Hide()
 	StupidBoardVGUI:Hide()
 	LiveScoreBoardVGUI:Hide()
+	AmmoVGUI:Show()
+	
+	AwardVGUI:Show()
+	AwardVGUI:PerformScoreData()
+	
+	GAMEMODE:GetScoreboard():SetVisible( false )
+	
+	gws_AtEndOfGame = true
 	
 	--timer.Simple( GAMEMODE.WADAT.EpilogueFlourishDelayAfterEndOfGamemode, PlayEnding, 2 )
 end

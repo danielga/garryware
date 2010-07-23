@@ -8,8 +8,8 @@ function PANEL:Init()
 	self.m_first = false
 	self.m_state = -1
 	self.m_achiev = -1
-	self.m_color = nil
-	self.m_bordercolor = nil
+	--self.m_color = nil
+	--self.m_bordercolor = nil
 	self.m_player = nil
 	
 	self._STY_Border = 2
@@ -32,55 +32,52 @@ function PANEL:Init()
 	self.colors.Locked  =  Color( 255, 255, 255, 192 )
 	self.colors.Unlocked  =  Color( 0, 0, 0, 128 )
 	
-
-	self.dFirstArrow = vgui.Create("GWArrow", self)
+	self.dLabel = vgui.Create("GWLabel", self)
+	
+	self.dFirstArrow = vgui.Create("GWArrow", self.dLabel)
 	self.dFirstArrow:UseLeft( true )
 	self.dFirstArrow:SetLeftInnerColor( self.colors.Invisible )
 	self.dFirstArrow:SetRightInnerColor( self.colors.Platine )
 	self.dFirstArrow:SetLeftOuterColor( self.colors.Invisible )
 	self.dFirstArrow:SetRightOuterColor( self.colors.Unlocked )
-	self.dFirstArrow:SetFont( "garryware_smalltext" )
 	self.dFirstArrow:SetColor( self.colors.PlatineBlack )
 	
-	self.dWinArrow = vgui.Create("GWArrow", self)
+	self.dWinArrow = vgui.Create("GWArrow", self.dLabel)
 	self.dWinArrow:UseLeft( false )
 	self.dWinArrow:SetLeftInnerColor( self.colors.Win )
 	self.dWinArrow:SetRightInnerColor( self.colors.Win )
 	self.dWinArrow:SetLeftOuterColor( self.colors.Locked )
 	self.dWinArrow:SetRightOuterColor( self.colors.Locked )
-	self.dWinArrow:SetFont( "garryware_smalltext" )
 	
-	self.dFailArrow = vgui.Create("GWArrow", self)
+	self.dFailArrow = vgui.Create("GWArrow", self.dLabel)
 	self.dFailArrow:UseLeft( false )
 	self.dFailArrow:SetLeftInnerColor( self.colors.Fail )
 	self.dFailArrow:SetRightInnerColor( self.colors.Fail )
 	self.dFailArrow:SetLeftOuterColor( self.colors.Locked )
 	self.dFailArrow:SetRightOuterColor( self.colors.Locked )
-	self.dFailArrow:SetFont( "garryware_smalltext" )
 
-	self.dComboArrow = vgui.Create("GWArrow", self)
+	self.dComboArrow = vgui.Create("GWArrow", self.dLabel)
 	self.dComboArrow:UseLeft( false )
 	self.dComboArrow:SetLeftInnerColor( self.colors.Orangey )
 	self.dComboArrow:SetRightInnerColor( self.colors.Orangey )
 	self.dComboArrow:SetLeftOuterColor( self.colors.Locked )
 	self.dComboArrow:SetRightOuterColor( self.colors.Locked )
-	self.dComboArrow:SetFont( "garryware_smalltext" )
 	
 
-	self.dCLittleArrow = vgui.Create("GWArrow", self)
+	self.dCLittleArrow = vgui.Create("GWArrow", self.dLabel)
 	self.dCLittleArrow:UseLeft( false )
 	self.dCLittleArrow:SetLeftInnerColor( self.colors.Orangey )
 	self.dCLittleArrow:SetRightInnerColor( self.colors.Orangey )
 	self.dCLittleArrow:SetLeftOuterColor( self.colors.Locked )
 	self.dCLittleArrow:SetRightOuterColor( self.colors.Locked )
-	self.dCLittleArrow:SetFont( "garryware_smalltext" )
 	
-	self.dAvatar = vgui.Create("AvatarImage", self)
+	self.dAvatar = vgui.Create("AvatarImage", self.dLabel)
 	
-	self.dText = vgui.Create("DLabel", self)
+	self.dText = vgui.Create("DLabel", self.dLabel)
 	self.dText:SetText("x")
-	self.dText:SetFont( "garryware_smalltext" )
 	self.dText:SetColor( color_white )
+	
+	self:SetFont( "garryware_smalltext" )
 	
 	self:SetText("")
 	self:UseStale()
@@ -90,8 +87,21 @@ function PANEL:Init()
 	
 end
 
+function PANEL:SetFont( sFont )
+	self.dFirstArrow:SetFont( sFont )
+	self.dWinArrow:SetFont( sFont )
+	self.dFailArrow:SetFont( sFont )
+	self.dComboArrow:SetFont( sFont )
+	self.dCLittleArrow:SetFont( sFont )
+	self.dText:SetFont( sFont )
+
+end
+
 
 function PANEL:PerformLayout()
+	self.dLabel:SetSize( self:GetWide(), self:GetTall() )
+	self.dLabel:SetPos( 0, 0 )
+
 	self.dText:SetSize( self:GetWide() * 0.7, self:GetTall() )
 	self.dText:Center()
 	self.dText:AlignLeft( self:GetTall() + 8 )
@@ -135,7 +145,7 @@ end
 function PANEL:UseStale()
 	if self.m_state == 1 then return end
 	
-	self.m_color = self.colors.Stale
+	self.dLabel:SetBackgroundColor( self.colors.Stale )
 	
 	self.m_state = 1
 	
@@ -144,7 +154,7 @@ end
 function PANEL:UseStale()
 	if self.m_state == 1 then return end
 	
-	self.m_color = self.colors.Stale
+	self.dLabel:SetBackgroundColor( self.colors.Stale )
 	
 	self.m_state = 1
 	
@@ -153,7 +163,7 @@ end
 function PANEL:UseMystery()
 	if self.m_state == 2 then return end
 	
-	self.m_color = self.colors.Mystery
+	self.dLabel:SetBackgroundColor( self.colors.Mystery )
 	
 	self.m_state = 2
 	
@@ -163,7 +173,7 @@ end
 function PANEL:UseWin()
 	if self.m_state == -1 then return end
 	
-	self.m_color = self.colors.Win
+	self.dLabel:SetBackgroundColor( self.colors.Win )
 	
 	self.m_state = -1
 	
@@ -173,7 +183,7 @@ end
 function PANEL:UseFail()
 	if self.m_state == -2 then return end
 	
-	self.m_color = self.colors.Fail
+	self.dLabel:SetBackgroundColor( self.colors.Fail )
 	
 	self.m_state = -2
 	
@@ -182,7 +192,7 @@ end
 function PANEL:UseLocked()
 	if self.m_achiev == -2 then return end
 	
-	self.m_bordercolor = self.colors.Locked
+	self.dLabel:SetBorderColor( self.colors.Locked )
 	
 	self.m_achiev = -2
 	
@@ -191,7 +201,7 @@ end
 function PANEL:UseUnlocked()
 	if self.m_achiev == -1 then return end
 	
-	self.m_bordercolor = self.colors.Unlocked
+	self.dLabel:SetBorderColor( self.colors.Unlocked )
 	
 	self.m_achiev = -1
 	
@@ -286,10 +296,27 @@ function PANEL:Think()
 	--	
 	--end
 	
-	self:EvaluateLocked()
-	self:EvaluateAchieved()
+	if self.m_player:IsWarePlayer() then
+		self:EvaluateLocked()
+		self:EvaluateAchieved()
+		self:SetText( self.m_player:Name() )
+		
+	else
+		self:UseStale()
+		self:UseLocked()
+		if self.m_player:Team() == TEAM_SPECTATOR then
+			self:SetText( self.m_player:Name() .. " (SPEC)" )
+			
+		elseif self.m_player:Team() == TEAM_UNASSIGNED then
+			self:SetText( self.m_player:Name() .. " (LOBBY)" )
+		
+		else
+			self:SetText( self.m_player:Name() )
+		
+		end
+		
+	end
 	
-	self:SetText( self.m_player:Name() )
 	self.dWinArrow:SetText( self.m_player:Frags() )
 	self.dFailArrow:SetText( self.m_player:Deaths() )
 	self.dComboArrow:SetText( self.m_player:GetBestCombo() )
@@ -308,7 +335,7 @@ function PANEL:Think()
 	end
 	
 end
-
+/*
 function PANEL:Paint()
 	if not ValidEntity( self.m_player ) then return end
 	
@@ -316,5 +343,5 @@ function PANEL:Paint()
 	draw.RoundedBox(0, self._STY_Border, self._STY_Border, self:GetWide() - self._STY_Border * 2, self:GetTall() - self._STY_Border * 2, self.m_color)
 
 end
-
+*/
 vgui.Register( "GWPlayerLabel", PANEL, "DPanel" )

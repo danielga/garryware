@@ -38,9 +38,12 @@ AddCSLuaFile( "garryware_vgui_livescoreboard.lua" )
 AddCSLuaFile( "garryware_vgui_instructions.lua" )
 AddCSLuaFile( "garryware_vgui_status.lua" )
 AddCSLuaFile( "garryware_vgui_ammo.lua" )
+AddCSLuaFile( "garryware_vgui_awards.lua" )
+AddCSLuaFile( "panel_warelabel.lua" )
 AddCSLuaFile( "panel_arrow.lua" )
 AddCSLuaFile( "panel_message.lua" )
 AddCSLuaFile( "panel_playerlabel.lua" )
+AddCSLuaFile( "panel_finalplayerlabel.lua" )
 
 -- Sound Resources
 for k,stringOrTable in pairs(GM.WASND) do

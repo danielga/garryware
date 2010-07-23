@@ -2,7 +2,7 @@ PANEL.Base = "DPanel"
 
 function PANEL:Init()
 	self:SetSkin( G_GWI_SKIN )
-	self:SetPaintBackground( true )
+	self:SetPaintBackground( false )
 	self:SetVisible( true )
 	
 	self.colors = {}
@@ -10,26 +10,26 @@ function PANEL:Init()
 	self.colors.Bad      = Color( 255,  87,  87 )
 	self.colors.Border  =  Color( 255, 255, 255, 192 )
 	
-	self.dClip = vgui.Create("DLabel", self)
+	self.dClip = vgui.Create("GWLabel", self)
 	self.dClip:SetText("")
 	self.dClip:SetFont( "garryware_largetext" )
 	self.dClip:SetColor( color_white )
 	self.dClip:SetZPos( 1500 )
 	self.dClip:SetContentAlignment( 5 )
+	self.dClip:SetBorderColor( self.colors.Border )
 	
 	
-	self.dBox  = vgui.Create("DLabel", self)
+	self.dBox  = vgui.Create("GWLabel", self)
 	self.dBox:SetText("")
 	self.dBox:SetFont( "garryware_mediumtext" )
 	self.dBox:SetColor( color_white )
 	self.dBox:SetZPos( 2000 )
 	self.dBox:SetContentAlignment( 5 )
+	self.dBox:SetBorderColor( self.colors.Border )
 	
 
 	self.m_smalltext  = ""
 	self.m_bigtext    = ""
-	self.m_refmincolor  = self.colors.Border
-	self.m_refbackcolor = self.colors.Border
 	
 	self.m_candraw = false
 	
@@ -81,34 +81,24 @@ function PANEL:Think()
 			
 		end
 		
-		--[[if not self.STORmaxammo[SWEP] then
-			self.STORmaxammo[SWEP] = self.tvars.clip1
-			
-		elseif self.tvars.clip1 > self.STORmaxammo[SWEP] then
-			self.STORmaxammo[SWEP] = self.tvars.clip1
-			
-		end
-		
-		self.tvars.clip1max = tonumber(self.STORmaxammo[SWEP]) or 1]]--
-		
 		--Sweps, not the phys/gravgun...
 		if self.tvars.clip1 >= 0 and self.tvars.clip1type ~= -1 then	
 			local rate = -1
 			if self.tvars.clip1 <= 0 then
-				self.m_refbackcolor   = self.colors.Bad
+				self.dClip:SetBackgroundColor( self.colors.Bad )
 				
 			else
-				self.m_refbackcolor   = self.colors.Good
+				self.dClip:SetBackgroundColor( self.colors.Good )
 				
 			end
 			
 			if self.tvars.clip1left > 0 then
 				self.m_smalltext = self.tvars.clip1left
-				self.m_refmincolor   = self.colors.Good
+				self.dBox:SetBackgroundColor( self.colors.Good )
 				
 			else
 				self.m_smalltext = "x"
-				self.m_refmincolor   = self.colors.Bad
+				self.dBox:SetBackgroundColor( self.colors.Bad )
 				
 			end
 			
@@ -134,24 +124,12 @@ function PANEL:Think()
 		self.dBox:SetText( self.m_smalltext )
 		self.dClip:SetVisible( true )
 		self.dBox:SetVisible( true )
+		
 	else
 		self.dClip:SetVisible( false )
 		self.dBox:SetVisible( false )
 		
 	end
-	
-end
-
-function PANEL:Paint()
-	if not self.m_candraw then return end
-	
-	local cx,cy = self.dClip:GetPos()
-	local bx,by = self.dBox:GetPos()
-	draw.RoundedBox( 0, cx, cy, self.dClip:GetWide(), self.dClip:GetTall(), self.colors.Border )
-	draw.RoundedBox( 0, cx + 2, cy + 2, self.dClip:GetWide() - 2 * 2, self.dClip:GetTall() - 2 * 2, self.m_refbackcolor )
-	
-	draw.RoundedBox( 0, bx, by, self.dBox:GetWide(), self.dBox:GetTall(), self.colors.Border )
-	draw.RoundedBox( 0, bx + 2, by + 2, self.dBox:GetWide() - 2 * 2 ,  self.dBox:GetTall() - 2 * 2, self.m_refmincolor  )
 	
 end
 

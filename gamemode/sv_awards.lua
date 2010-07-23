@@ -138,7 +138,7 @@ function GM:StreamAwards()
 end
 
 function GM:DoProcessAllAwards()
-	self:FinalizeEndOfGamemodeAwards()
+	--self:FinalizeEndOfGamemodeAwards()
 	local awards = self:CalculateBestAwards()
 	
 	--self:StreamAwards()
