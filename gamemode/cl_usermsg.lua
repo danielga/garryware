@@ -239,6 +239,11 @@ local StatusVGUI = vgui.CreateFromTable( vgui_status )
 local AmmoVGUI = vgui.CreateFromTable( vgui_ammo )
 local AwardVGUI = vgui.CreateFromTable( vgui_awards )
 
+local function ForceRefreshVGUI()
+	LiveScoreBoardVGUI:LabelRefresh( true )
+end
+concommand.Add("ware_forcerefresh_vgui", ForceRefreshVGUI)
+
 function GM:ScoreboardShow()
 	if not gws_AtEndOfGame then
 		--GAMEMODE:GetScoreboard():SetVisible( true )

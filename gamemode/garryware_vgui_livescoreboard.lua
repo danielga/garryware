@@ -55,10 +55,21 @@ function PANEL:UseNormalSort()
 	
 end
 
-function PANEL:LabelRefresh()
-	if CurTime() < (self.LabelMakeRefreshDelay + self.LabelMakeRefreshTime) then return end
+function PANEL:LabelRefresh( bForce )
+	if not bForce and (CurTime() < (self.LabelMakeRefreshDelay + self.LabelMakeRefreshTime)) then return end
+	
+	if bForce then
+		self.m_playerlist = {}
+	end
 	
 	for k,ply in pairs( player.GetAll() ) do
+		if bForce then
+			if ply._cl_label then
+				ply._cl_label:Remove()
+				ply._cl_label = nil
+			end
+		end
+		
 		if not ply._cl_label then
 			ply._cl_label = vgui.Create("GWPlayerLabel", self)
 			ply._cl_label:SetSize( self:GetWide() * 0.5 - self._STY_PADding, self._STY_LabelHeight )
