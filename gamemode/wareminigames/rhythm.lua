@@ -32,7 +32,7 @@ function WARE:Initialize()
 
 	GAMEMODE:SetWareWindupAndLength(60/self.Tempo*self.TestTempo, 60/self.Tempo*(self.NumberSpawns+1))
 	
-	GAMEMODE:SetPlayersInitialStatus( false )
+	GAMEMODE:SetPlayersInitialStatus( true )
 	GAMEMODE:DrawInstructions("To the rhythm!" )
 	
 	self.Crates = {}
