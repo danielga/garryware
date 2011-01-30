@@ -16,6 +16,7 @@ GM.WADAT.TransitFlourishTime = 1.3
 GM.WADAT.TBL_GlobalWareningEpic = {}
 GM.WADAT.TBL_GlobalWareningEpic[1] = {}
 GM.WADAT.TBL_GlobalWareningEpic[2] = {}
+GM.WADAT.TBL_GlobalWareningEpic[3] = {}
 -- Prologue Data
 GM.WADAT.TBL_GlobalWareningEpic[1].MusicFadeDelay  = 0.4
 GM.WADAT.TBL_GlobalWareningEpic[1].StartDalay = 2.0
@@ -24,6 +25,10 @@ GM.WADAT.TBL_GlobalWareningEpic[1].Length = 10.24
 GM.WADAT.TBL_GlobalWareningEpic[2].MusicFadeDelay = 0.00
 GM.WADAT.TBL_GlobalWareningEpic[2].StartDalay = 2.0
 GM.WADAT.TBL_GlobalWareningEpic[2].Length = 20.10
+-- NoMusic Data
+GM.WADAT.TBL_GlobalWareningEpic[3].MusicFadeDelay = 0.1
+GM.WADAT.TBL_GlobalWareningEpic[3].StartDalay = 2.0
+GM.WADAT.TBL_GlobalWareningEpic[3].Length = 20
 
 
 GM.WADAT.EpilogueFlourishDelayAfterEndOfGamemode = 2.26
@@ -83,7 +88,8 @@ Sound("ware/exp_game_transit_2.mp3")
 
 GM.WASND.TBL_GlobalWareningEpic   = {
 Sound("ware/game_prologue.mp3"),
-Sound("ware/game_epilogue.mp3")
+Sound("ware/game_epilogue.mp3"),
+Sound("common/NULL.WAV")
 }
 
 
@@ -119,6 +125,14 @@ GM.WASND.BITBL_TimeLeft[3][2] = Sound("ware/countdown_tick_low.wav")
 GM.WASND.BITBL_TimeLeft[3][3] = Sound("ware/countdown_tick_high.wav")
 GM.WASND.BITBL_TimeLeft[3][4] = Sound("ware/countdown_tick_low.wav")
 GM.WASND.BITBL_TimeLeft[3][5] = Sound("ware/countdown_tick_high.wav")
+
+GM.WASND.BITBL_TimeLeft[4] = {}
+GM.WASND.BITBL_TimeLeft[4][0] = Sound("common/NULL.WAV")
+GM.WASND.BITBL_TimeLeft[4][1] = Sound("common/NULL.WAV")
+GM.WASND.BITBL_TimeLeft[4][2] = Sound("common/NULL.WAV")
+GM.WASND.BITBL_TimeLeft[4][3] = Sound("common/NULL.WAV")
+GM.WASND.BITBL_TimeLeft[4][4] = Sound("common/NULL.WAV")
+GM.WASND.BITBL_TimeLeft[4][5] = Sound("common/NULL.WAV")
 
 -- Bi-reference the sounds above for client send inclusion.
 GM.WASND.BIREF_1 = GM.WASND.BITBL_TimeLeft[1]
