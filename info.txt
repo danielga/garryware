@@ -13,11 +13,11 @@
 
 	"fretta_maps"
 	{
-		"1"	"^wa_"
+		"1"	"^wa_harmonics"
 	}
 	"mappattern"
 	{
-		"1"	"^wa_"
+		"1"	"^wa_harmonics"
 	}
 
 	"selectable"	"1"
