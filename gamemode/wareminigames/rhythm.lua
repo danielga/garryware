@@ -167,7 +167,9 @@ function WARE:EntityTakeDamage(ent,inf,att,amount,info)
 		
 	else
 		GAMEMODE:SendEntityTextColor( att , ent.AssociatedText     , 96, 96, 96, 255 )
-		GAMEMODE:DrawInstructions( "Too early!" , self.FailmessageColor , nil , att )
+		if (ent.CrateID == self.CurrentRhythm) then
+			GAMEMODE:DrawInstructions( "Too early!" , self.FailmessageColor , nil , att )
+		end
 		
 		att:ApplyLose( )
 		att:StripWeapons()
