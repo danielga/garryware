@@ -83,6 +83,23 @@ function GM:DrawWareText()
 	end
 end
 
+function GM:DrawWareAscii()
+	self.Ent_WareTexts = {}
+	self.Ent_WareTexts = ents.FindByClass("ware_ascii")
+	
+	-- Draw farthest first.
+	for k,v in pairs(self.Ent_WareTexts) do
+		v.Ent_EyeDistance = (v:GetPos() - EyePos()):Length()
+	end
+	table.sort(self.Ent_WareTexts, function(a, b) return a.Ent_EyeDistance > b.Ent_EyeDistance end)
+	
+	for k,v in pairs(self.Ent_WareTexts) do
+		local pos_toscreen = v:GetPos():ToScreen()
+		
+		draw.SimpleTextOutlined( string.char(v:GetDTInt(0)) , "WAREIns", pos_toscreen.x, pos_toscreen.y, v.TextColor, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color( 0, 0, 0, v.TextColor.a ) )
+	end
+end
+
 
 ////////////////////////////////////////////////
 ////////////////////////////////////////////////
@@ -208,6 +225,7 @@ function GM:HUDPaint()
 	self:PrintStreaksticks()
 	self:OnScreenParticlesThink()
 	self:DrawWareText()
+	self:DrawWareAscii()
 	
 	self:DrawCrosshair()
 	
