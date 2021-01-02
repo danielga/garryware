@@ -41,18 +41,6 @@ function WARE:Initialize()
 	GAMEMODE:SetPlayersInitialStatus( false )
 	GAMEMODE:DrawInstructions( "Grab a prop!" )
 	
-	-- HAXX
-	-- GravGunOnPickedUp hook is broken, so we'll use this tricky workaround
-	local lua_run1 = ents.Create("lua_run")
-	lua_run1:SetKeyValue('Code','CALLER:SetColor(255,255,255,100);CALLER.CartOwner=ACTIVATOR;ACTIVATOR.Cart=CALLER')
-	lua_run1:SetKeyValue('targetname','luarun1')
-	lua_run1:Spawn()
-	
-	--local lua_run2 = ents.Create("lua_run")
-	--lua_run2:SetKeyValue('Code','CALLER:SetColor(255,255,255,255);CALLER.CartOwner=nil;ACTIVATOR.Cart=nil')
-	--lua_run2:SetKeyValue('targetname','luarun2')
-	--lua_run2:Spawn()
-	
 	local pitposz = GAMEMODE:GetEnts("pit_measure")[1]:GetPos().z
 	local aposz   = GAMEMODE:GetEnts("land_measure")[1]:GetPos().z
 	self.zlimit = pitposz + (aposz - pitposz) * 0.8
@@ -75,14 +63,17 @@ function WARE:Initialize()
 		prop:SetAngles(Angle(math.random(-180,180),math.random(-180,180),math.random(-180,180)))
 		prop:Spawn()
 		
-		prop:Fire("AddOutput", "OnPhysGunOnlyPickup luarun1,RunCode")
-		--cart:Fire("AddOutput", "OnPhysGunDrop luarun2,RunCode")
-		--cart:Fire("AddOutput", "OnPhysCannonDetach luarun2,RunCode")
-		
 		GAMEMODE:AppendEntToBin(cart)
 		GAMEMODE:MakeAppearEffect(pos)
 	end
 	
+end
+
+function WARE:GravGunOnPickedUp(ply, ent)
+	ent:SetRenderMode(RENDERMODE_TRANSALPHA)
+	ent:SetColor(Color(255,255,255,100))
+	ent.CartOwner=ply
+	ply.Cart=ent
 end
 
 function WARE:StartAction()	

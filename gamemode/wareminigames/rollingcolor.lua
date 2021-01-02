@@ -24,7 +24,7 @@ end
 
 function WARE:SwitchAllToNextColor( )
 	for k,prop in pairs(self.Props) do
-		if ValidEntity( prop ) then
+		if IsValid( prop ) then
 			self:SwitchToNextColor( prop )
 		end
 	end
@@ -38,7 +38,7 @@ function WARE:SwitchToNextColor( prop )
 	
 	local colorID = self.MagicSequence[sequenceID]
 	
-	prop:SetColor(self.PossibleColors[colorID][2].r, self.PossibleColors[colorID][2].g, self.PossibleColors[colorID][2].b, self.PossibleColors[colorID][2].a)
+	prop:SetColor(Color(self.PossibleColors[colorID][2].r, self.PossibleColors[colorID][2].g, self.PossibleColors[colorID][2].b, self.PossibleColors[colorID][2].a))
 end
 
 local function RemoveProp( prop )
@@ -107,14 +107,15 @@ function WARE:StartAction()
 		ply:Give("sware_pistol")
 		ply:GiveAmmo(12, "Pistol", true)
 	end
-	timer.Create("WARETIMERrollingcolor", 0.7, 0, self.SwitchAllToNextColor, self)
+	timer.Create("WARETIMERrollingcolor", 0.7, 0, function() self:SwitchAllToNextColor() end)
 end
 
 function WARE:EndAction()
 	timer.Destroy("WARETIMERrollingcolor")
 end
 
-function WARE:EntityTakeDamage( ent, inf, att, amount, info )
+function WARE:EntityTakeDamage( ent, info )
+	local att = info:GetAttacker()
 	if att:IsPlayer() == false or info:IsBulletDamage() == false then return end
 	if not ent.SequenceID then return end
 	
@@ -123,7 +124,7 @@ function WARE:EntityTakeDamage( ent, inf, att, amount, info )
 	if self.MagicSequence[ent.SequenceID] == self.SelectedColorID then
 		att:ApplyWin( )
 		ent.HitCorrect = true
-		timer.Simple(1, RemoveProp, ent )
+		timer.Simple(1, function() RemoveProp(ent) end)
 	else
 		att:ApplyLose( )
 	end

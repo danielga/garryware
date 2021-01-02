@@ -61,7 +61,7 @@ function WARE:Think( )
 	for _,ply in pairs(team.GetPlayers(TEAM_HUMANS)) do
 		if not GAMEMODE:PhaseIsPrelude() and not ply:GetLocked() then
 			local ent = ply:GetGroundEntity()
-			if ent == GetWorldEntity() then
+			if ent == game.GetWorld() then
 				ply:ApplyLose()
 				ply:SimulateDeath( Vector(0, 0, -1) * 10^3 )
 				ply:EjectWeapons( Vector(0, 0, 1) * 100, 120)
@@ -93,7 +93,9 @@ function WARE:Think( )
 					
 					if (target:IsPlayer() == false) then
 						target:EmitSound("weapons/flame_thrower_airblast_rocket_redirect.wav")
-						target:GetPhysicsObject():ApplyForceCenter((target:GetPos() - ring:GetPos()):Normalize() * 150000)
+						local vec = target:GetPos() - ring:GetPos()
+						vec:Normalize()
+						target:GetPhysicsObject():ApplyForceCenter(vec * 150000)
 						
 						if ((target.Deflected or false) == false) then
 							target.Deflected = true
@@ -111,7 +113,9 @@ function WARE:Think( )
 						
 					else
 						target:SetGroundEntity( NULL )
-						target:SetVelocity(target:GetVelocity()*(-1) + (target:GetPos() + Vector(0,0,32) - ring:GetPos()):Normalize() * 500)
+						local vec = target:GetPos() + Vector(0,0,32) - ring:GetPos()
+						vec:Normalize()
+						target:SetVelocity(target:GetVelocity()*(-1) + vec * 500)
 					end
 				
 				end

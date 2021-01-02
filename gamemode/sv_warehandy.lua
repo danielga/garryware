@@ -143,7 +143,7 @@ end
 
 function GM:RemoveEnts()
 	for k,v in pairs(GAMEMODE.WareEnts) do
-		if (ValidEntity(v)) then
+		if (IsValid(v)) then
 			GAMEMODE:MakeDisappearEffect(v:GetPos())
 			v:Remove()
 		end

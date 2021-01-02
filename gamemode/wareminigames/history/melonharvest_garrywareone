@@ -25,11 +25,12 @@ local function EntityCaught(trigger,ent)
                 cart.CartOwner:SendLua("LocalPlayer():EmitSound( \"" .. GAMEMODE.WinOther .. "\" )")
                 
                 if cart.NumHarvested>=GAMEMODE.Minigame.NumHarvest then
-                        cart:SetColor(255,255,255,255)
+                        cart:SetColor(Color(255,255,255,255))
+                        cart:SetRenderMode(RENDERMODE_NORMAL)
                         cart.CartOwner:WarePlayerDestinyWin()
                         cart.CartOwner:StripWeapons()
                         trigger:Remove()
-                        timer.Simple(1, RemoveCartVictory, cart)
+                        timer.Simple(1, function() RemoveCartVictory(cart) end)
                 end
         end
 end
@@ -46,18 +47,6 @@ function WARE:Initialize()
         GAMEMODE:SetWareWindupAndLength(5,acttime)
         GAMEMODE:DrawPlayersTextAndInitialStatus("Grab a laundry cart...",0)
         
-        -- HAXX
-        -- GravGunOnPickedUp hook is broken, so we'll use this tricky workaround
-        local lua_run1 = ents.Create("lua_run")
-        lua_run1:SetKeyValue('Code','CALLER:SetColor(255,255,255,100);CALLER.CartOwner=ACTIVATOR;ACTIVATOR.Cart=CALLER')
-        lua_run1:SetKeyValue('targetname','luarun1')
-        lua_run1:Spawn()
-        
-        local lua_run2 = ents.Create("lua_run")
-        lua_run2:SetKeyValue('Code','CALLER:SetColor(255,255,255,255);CALLER.CartOwner=nil;ACTIVATOR.Cart=nil')
-        lua_run2:SetKeyValue('targetname','luarun2')
-        lua_run2:Spawn()
-        
         for _,pos in ipairs(GAMEMODE:GetRandomPositions(numberSpawns, GAMEMODE:GetEnts(ENTS_ONCRATE))) do
                 local cart = ents.Create("prop_physics")
                 cart:SetModel("models/props_wasteland/laundry_cart001.mdl")
@@ -68,10 +57,6 @@ function WARE:Initialize()
                 cart:SetAngles(Angle(0,math.random(-180,180),0))
                 cart:Spawn()
                 
-                cart:Fire("AddOutput", "OnPhysGunOnlyPickup luarun1,RunCode")
-                cart:Fire("AddOutput", "OnPhysGunDrop luarun2,RunCode")
-                cart:Fire("AddOutput", "OnPhysCannonDetach luarun2,RunCode")
-                
                 GAMEMODE:AppendEntToBin(cart)
                 GAMEMODE:MakeAppearEffect(pos+Vector(0,0,100))
         end
@@ -79,6 +64,20 @@ function WARE:Initialize()
         for _,v in pairs(team.GetPlayers(TEAM_UNASSIGNED)) do
                 v:Give( "weapon_physcannon" )
         end
+end
+
+function WARE:GravGunOnPickedUp(ply, ent)
+    ent:SetRenderMode(RENDERMODE_TRANSALPHA)
+    ent:SetColor(Color(255,255,255,100))
+    ent.CartOwner=ply
+    ply.Cart=ent
+end
+
+function WARE:GravGunOnDropped(ply, ent)
+    ent:SetRenderMode(RENDERMODE_NORMAL)
+    ent:SetColor(Color(255,255,255,255))
+    ent.CartOwner=nil
+    ply.Cart=nil
 end
 
 function WARE:StartAction()
@@ -104,9 +103,6 @@ function WARE:StartAction()
 end
 
 function WARE:EndAction()
-        for _,v in pairs(ents.FindByClass("lua_run")) do
-                v:Remove()
-        end
 end
 
 function WARE:Think()

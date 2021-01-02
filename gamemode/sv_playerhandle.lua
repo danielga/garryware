@@ -7,12 +7,14 @@
 // Player Handle and Model Precache           //
 ////////////////////////////////////////////////
 
+DEFINE_BASECLASS( "gamemode_base" )
+
 function GM:PlayerCanHearPlayersVoice( pListener, pTalker )
 	return true
 end
 
 function GM:PlayerInitialSpawn( ply, id )
-	self.BaseClass:PlayerInitialSpawn( ply, id )
+	BaseClass.PlayerInitialSpawn( self, ply, id )
 	
 	ply.m_tokens = {}
 
@@ -51,8 +53,17 @@ function GM:PlayerDisconnected( ply )
 	
 end
 
+function GM:AllowPlayerPickup( ply, ent )
+	return false
+end
+
 function GM:PlayerSpawn(ply)
-	self.BaseClass:PlayerSpawn( ply )
+	local classes = team.GetClass( ply:Team() )
+	if classes and classes[1] then
+		player_manager.SetPlayerClass( ply, classes[1] )
+	end
+
+	BaseClass.PlayerSpawn( self, ply )
 	
 	ply:CrosshairDisable()
 	ply:RestoreDeath()
@@ -95,7 +106,7 @@ end
 
 
 function GM:PlayerDeath( victim, weapon, killer )
-	self.BaseClass:PlayerDeath( victim, weapon, killer )
+	BaseClass.PlayerDeath( self, victim, weapon, killer )
 	victim:RestoreDeath()
 	victim:ApplyLose()
 	

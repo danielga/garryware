@@ -13,15 +13,15 @@ ENT.NWVector = Vector(0,0,0)
 
 function ENT:Initialize()
 	if (CLIENT) then
-		GC_VectorCopy(self.A_RBWS, self.Entity:GetPos())
+		GC_VectorCopy(self.A_RBWS, self:GetPos())
 		self.A_RBWS.x = self.A_RBWS.x - self.SizeRB
 		self.A_RBWS.y = self.A_RBWS.y - self.SizeRB
 		
-		GC_VectorCopy(self.B_RBWS, self.Entity:GetPos())
+		GC_VectorCopy(self.B_RBWS, self:GetPos())
 		self.B_RBWS.x = self.B_RBWS.x + self.SizeRB
 		self.B_RBWS.y = self.B_RBWS.y + self.SizeRB
 		
-		self.Entity:SetRenderBoundsWS(self.A_RBWS, self.B_RBWS)
+		self:SetRenderBoundsWS(self.A_RBWS, self.B_RBWS)
 	end
 end
 

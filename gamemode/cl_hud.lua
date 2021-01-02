@@ -7,9 +7,11 @@
 // HUD and Stickers and Air Numbers (no VGUI) //
 ////////////////////////////////////////////////
 
-surface.CreateFont( "coolvetica", 48, 400, true, false, "WAREIns" ) 
-surface.CreateFont( "coolvetica", 36, 400, true, false, "WAREDom" )
-surface.CreateFont( "Verdana", 16, 400, true, false, "WAREScore" ) 
+DEFINE_BASECLASS( "gamemode_base" )
+
+surface.CreateFont( "WAREIns", {font = "coolvetica", size = 48, weight = 400, antialias = true, additive = false} ) 
+surface.CreateFont( "WAREDom", {font = "coolvetica", size = 36, weight = 400, antialias = true, additive = false} )
+surface.CreateFont( "WAREScore", {font = "Verdana", size = 16, weight = 400, antialias = true, additive = false} ) 
 
 ////////////////////////////////////////////////
 ////////////////////////////////////////////////
@@ -29,9 +31,9 @@ function GM:PrintStreaksticks( )
 			NewWorldPos.z = NewWorldPos.z + 96
 			
 			LightColor = render.GetLightColor( ply:GetPos() ) * 2
-			LightColor.x = mathx.Clamp( LightColor.x, 0, 1 )
-			LightColor.y = mathx.Clamp( LightColor.y, 0, 1 )
-			LightColor.z = mathx.Clamp( LightColor.z, 0, 1 )
+			LightColor.x = math.Clamp( LightColor.x, 0, 1 )
+			LightColor.y = math.Clamp( LightColor.y, 0, 1 )
+			LightColor.z = math.Clamp( LightColor.z, 0, 1 )
 			PosToScreen = NewWorldPos:ToScreen()
 			PosToScreen.x = math.floor( PosToScreen.x )
 			PosToScreen.y = math.floor( PosToScreen.y )
@@ -205,7 +207,7 @@ function GM:DrawCrosshair()
 	self:BiltCrosshair(gw_clientdata.crosshair.ch_x, gw_clientdata.crosshair.ch_y, size_smooth, 2)
 	
 	-- Calculating
-	gw_clientdata.crosshair.traceLineData = utilx.GetPlayerTrace( LocalPlayer(), LocalPlayer():GetCursorAimVector() )
+	gw_clientdata.crosshair.traceLineData = util.GetPlayerTrace( LocalPlayer(), LocalPlayer():GetAimVector() )
 	gw_clientdata.crosshair.traceLineRes = util.TraceLine( gw_clientdata.crosshair.traceLineData )
 	
 	gw_clientdata.crosshair.scrpos = gw_clientdata.crosshair.traceLineRes.HitPos:ToScreen()
@@ -220,7 +222,7 @@ end
 -- Paint.
 
 function GM:HUDPaint()
-	self.BaseClass:HUDPaint()
+	BaseClass.HUDPaint( self )
 	
 	self:PrintStreaksticks()
 	self:OnScreenParticlesThink()
@@ -392,7 +394,7 @@ end
 
 function GM:HUDDrawTargetID()
 
-	local tr = utilx.GetPlayerTrace( LocalPlayer(), LocalPlayer():GetCursorAimVector() )
+	local tr = util.GetPlayerTrace( LocalPlayer(), LocalPlayer():GetAimVector() )
 	local trace = util.TraceLine( tr )
 	if (!trace.Hit) then return end
 	if (!trace.HitNonWorld) then return end

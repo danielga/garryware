@@ -28,15 +28,6 @@ end*/
 function WARE:Initialize()
 	GAMEMODE:EnableFirstWinAward( )
 	GAMEMODE:SetWinAwards( AWARD_FRENZY, AWARD_AIM )
-	
-	-- HAXX
-	-- GravGunOnPickedUp hook is broken, so we'll use this tricky workaround
-	local lua_run = ents.Create("lua_run")
-	
-	lua_run:SetKeyValue('Code','CALLER.Owner=ACTIVATOR')
-	lua_run:SetKeyValue('targetname','luarun')
-	lua_run:Spawn()
-
 
 	self.Gathered = 0
 
@@ -58,6 +49,10 @@ function WARE:Initialize()
 	
 end
 
+function WARE:GravGunOnPickedUp(ply, ent)
+	ent.Owner = ply
+end
+
 function WARE:StartAction()	
 
 	GAMEMODE:DrawInstructions( "Gather up ".. self.ToGather .." files into the folder!" )
@@ -77,12 +72,11 @@ function WARE:StartAction()
 		prop:SetPos(newpos)
 		prop:Spawn()
 		
-		prop:SetColor(255, 255, 255, 0)
+		prop:SetRenderMode(RENDERMODE_TRANSALPHA)
+		prop:SetColor(Color(255, 255, 255, 0))
 		prop:SetCollisionGroup(COLLISION_GROUP_WEAPON)
 		
 		prop.IsAFile = true
-		
-		prop:Fire("AddOutput", "OnPhysGunPickup luarun,RunCode")
 	
 		local physobj = prop:GetPhysicsObject()
 		physobj:EnableMotion(true)
@@ -107,7 +101,8 @@ function WARE:StartAction()
 	self.ZipEnt:SetPos(centerposupped)
 	self.ZipEnt:Spawn()
 	
-	self.ZipEnt:SetColor(255, 255, 255, 0)
+	self.ZipEnt:SetRenderMode(RENDERMODE_TRANSALPHA)
+	self.ZipEnt:SetColor(Color(255, 255, 255, 0))
 	self.ZipEnt:GetPhysicsObject():EnableMotion(false)
 	self.ZipEnt:SetCollisionGroup(COLLISION_GROUP_WEAPON)
 	
@@ -195,7 +190,8 @@ function WARE:MidActionTrigger()
 		prop:SetPos(newpos)
 		prop:Spawn()
 		
-		prop:SetColor(255, 255, 255, 0)
+		prop:SetRenderMode(RENDERMODE_TRANSALPHA)
+		prop:SetColor(Color(255, 255, 255, 0))
 		prop:SetCollisionGroup(COLLISION_GROUP_WEAPON)
 		
 		prop.IsAMail = true
@@ -204,8 +200,6 @@ function WARE:MidActionTrigger()
 		physobj:EnableMotion(true)
 		physobj:ApplyForceCenter(VectorRand() * 256 * physobj:GetMass())
 		
-		prop:Fire("AddOutput", "OnPhysGunPickup luarun,RunCode")
-
 		local filelogo = ents.Create("ware_icon_mail")
 		filelogo:SetPos(newpos)
 		filelogo:Spawn()
@@ -224,10 +218,6 @@ function WARE:EndAction()
 			v:SetAchievedNoLock( false )
 		end
 	end
-
-	for _,v in pairs(ents.FindByClass("lua_run")) do
-		v:Remove()
-	end
 end
 
 function WARE:Think()
@@ -236,7 +226,8 @@ function WARE:Think()
 		local vel = physobj:GetVelocity()
 		local speed = vel:Length()
 		if (speed > self.BVelocity) then
-			vel = vel:Normalize() * ((speed - self.BVelocity) * 0.7 + self.BVelocity)
+			vel:Normalize()
+			vel = vel * ((speed - self.BVelocity) * 0.7 + self.BVelocity)
 			physobj:SetVelocity(vel)
 		end
 	end
@@ -248,7 +239,7 @@ function WARE:Think()
 				if target.IsAFile and target.Owner then
 					GAMEMODE:MakeDisappearEffect( self.ZipEnt:GetPos() )
 					
-					if target.Owner then
+					if IsValid(target.Owner) then
 						target.Owner:SetAchievedNoLock( true )
 					end
 					
@@ -273,7 +264,7 @@ function WARE:Think()
 				if target.IsAMail and target.Owner then
 					GAMEMODE:MakeDisappearEffect( self.FacepunchEnt:GetPos() )
 					
-					if target.Owner then
+					if IsValid(target.Owner) then
 						target.Owner:ApplyWin( )
 						target.Owner:StripWeapons()
 					end
@@ -287,7 +278,7 @@ function WARE:Think()
 end
 
 function WARE:GravGunPickupAllowed( ply, target )
-	if ValidEntity(target) and target:GetClass() == "ware_bullseye" then
+	if IsValid(target) and target:GetClass() == "ware_bullseye" then
 		return false
 	else
 		return true
@@ -295,7 +286,7 @@ function WARE:GravGunPickupAllowed( ply, target )
 end
 
 function WARE:GravGunPunt( ply, target )
-	if ValidEntity(target) and target:GetClass() == "ware_bullseye" then
+	if IsValid(target) and target:GetClass() == "ware_bullseye" then
 		return false
 	else
 		return true

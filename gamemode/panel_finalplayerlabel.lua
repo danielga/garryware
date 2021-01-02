@@ -133,7 +133,7 @@ function PANEL:PerformLayout()
 end
 
 function PANEL:SetPlayer( ent )
-	if ValidEntity( ent ) then
+	if IsValid( ent ) then
 		self.m_player = ent
 		self.dAvatar:SetPlayer( self.m_player )
 	end
@@ -181,7 +181,7 @@ function PANEL:Think()
 		self:Remove()
 		return
 	end
-	if not ValidEntity(self.m_player) or not self.m_player:IsPlayer() then
+	if not IsValid(self.m_player) or not self.m_player:IsPlayer() then
 		--self:Remove()
 		-- DO NOT REMOVE INVALID PLAYERS. USE THEIR OLD DATA STORED IN THE LABELS
 		return

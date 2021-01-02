@@ -154,7 +154,7 @@ function meta:ApplyLock( dontSendStatusMessage )
 	
 	else
 		-- TOKEN_GWUPDATE_COMP
-		local anim = (math.random(0, 1) > 0) and ACT_ITEM_THROW or ACT_ITEM_DROP
+		local anim = (math.random(0, 1) > 0) and ACT_GMOD_GESTURE_ITEM_THROW or ACT_GMOD_GESTURE_ITEM_DROP
 		self:DoAnimationEvent( anim ) 
 		self:EmitSound(GAMEMODE.WASND.OtherLose, 100, GAMEMODE:GetSpeedPercent())
 		self:AddDeaths( 1 )
@@ -306,7 +306,7 @@ function meta:EjectWeapons( vectForce, fRandomness )
 			local physobj = weaponSim:GetPhysicsObject()
 			if physobj:IsValid() then
 				physobj:ApplyForceCenter( physobj:GetMass() * (vectForce or Vector(0,0,0) + VectorRand() * fRandomness) )
-				physobj:AddAngleVelocity( Angle(math.random(-128,128),math.random(-128,128),math.random(-128,128)) ) 
+				physobj:AddAngleVelocity( Vector(math.random(-128,128),math.random(-128,128),math.random(-128,128)) ) 
 			end
 			
 			GAMEMODE:AppendEntToBin( weaponSim )
@@ -322,7 +322,8 @@ function meta:SimulateDeath( optvectPush, optiObjNumber )
 	
 	self._SimDead = true
 	
-	self:SetColor(255, 255, 255, 64)
+	self:SetRenderMode(RENDERMODE_TRANSALPHA)
+	self:SetColor(Color(255, 255, 255, 64))
 	self:CreateRagdoll( )
 	
 	if optvectPush then
@@ -341,7 +342,8 @@ function meta:RestoreDeath()
 	
 	self._SimDead = false
 	
-	self:SetColor(255, 255, 255, 255)
+	self:SetColor(Color(255, 255, 255, 255))
+	self:SetRenderMode(RENDERMODE_NORMAL)
 	if self:GetRagdollEntity() then
 		self:GetRagdollEntity():Remove()
 		
@@ -361,12 +363,12 @@ function meta:Recoil( pitch, yaw )
 
 	-- On the client it can sometimes process the same usercmd twice
 	-- This function returns true if it's the first time we're doing this usercmd
-	if ( not SinglePlayer() and not IsFirstTimePredicted() ) then return end
+	if ( not game.SinglePlayer() and not IsFirstTimePredicted() ) then return end
 
 	-- People shouldn't really be playing in SP
 	-- But if they are they won't get recoil because the weapons aren't predicted
 	-- So the clientside stuff never fires the recoil
-	if ( SERVER and SinglePlayer() ) then 
+	if ( SERVER and game.SinglePlayer() ) then 
 	
 		-- Please don't call SendLua in multiplayer games. This uses a lot of bandwidth
 		self:SendLua( "LocalPlayer():Recoil("..pitch..","..yaw..")" )

@@ -37,7 +37,7 @@ function WARE:FlashSpawns( iteration, delay )
 		GAMEMODE:MakeAppearEffect( pos )
 	end
 	if (iteration > 0) then
-		timer.Simple( delay , self.FlashSpawns, self , iteration - 1, delay )
+		timer.Simple( delay , function() self:FlashSpawns( iteration - 1, delay ) end )
 	end
 	
 end
@@ -128,7 +128,8 @@ function WARE:EndAction()
 
 end
 
-function WARE:EntityTakeDamage( ent, inflictor, attacker, amount)
+function WARE:EntityTakeDamage( ent, info )
+	local attacker = info:GetAttacker()
 	if ent:IsPlayer() and ent:IsWarePlayer() and attacker:IsNPC( ) then
 		ent:ApplyLose( )
 	end

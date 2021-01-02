@@ -43,7 +43,7 @@ COMPO
 stats.RollupTable = {}
 
 function GM:StatsManagePlayerJoined( ply )
-	if not (ValidEntity( ply ) and ply:IsPlayer()) then return end
+	if not (IsValid( ply ) and ply:IsPlayer()) then return end
 	local sSteamID = ply:SteamID()
 	
 	local UIDmatch = nil
@@ -83,7 +83,7 @@ function GM:StatsStore( ply )
 end
 
 function GM:StatsAddPlayer( ply )
-	if not (ValidEntity( ply ) and ply:IsPlayer()) then return end
+	if not (IsValid( ply ) and ply:IsPlayer()) then return end
 	local UID = ply:UserID()
 	
 	if stats.PlayerTable[UID] then return end

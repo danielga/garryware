@@ -124,7 +124,7 @@ function WARE:PhaseSignal( iPhase )
 end
 
 function WARE:EndAction()
-	if ValidEntity( self.TheProp ) then
+	if IsValid( self.TheProp ) then
 		GAMEMODE:MakeLandmarkEffect( self.TheProp:GetPos() )
 	end
 end

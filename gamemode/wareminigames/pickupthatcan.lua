@@ -16,7 +16,7 @@ function WARE:FlashCans( iteration, delay )
 		GAMEMODE:MakeAppearEffect( ent:GetPos() )
 	end
 	if (iteration > 0) then
-		timer.Simple( delay , self.FlashCans, self , iteration - 1, delay )
+		timer.Simple( delay , function() self:FlashCans( iteration - 1, delay ) end )
 	end
 end
 
@@ -30,14 +30,6 @@ function WARE:Initialize()
 	
 	local numberSpawns = math.Clamp(team.NumPlayers(TEAM_HUMANS),1,table.Count(GAMEMODE:GetEnts(ENTS_INAIR)))
 	
-	-- HAXX
-	-- GravGunOnPickedUp hook is broken, so we'll use this tricky workaround
-	local lua_run = ents.Create("lua_run")
-	
-	lua_run:SetKeyValue('Code','CALLER.CanOwner=ACTIVATOR')
-	lua_run:SetKeyValue('targetname','luarun')
-	lua_run:Spawn()
-	
 	for _,pos in ipairs(GAMEMODE:GetRandomPositions(numberSpawns, ENTS_INAIR)) do
 		local prop = ents.Create("prop_physics")
 		prop:SetModel( self.Models[1] )
@@ -49,8 +41,6 @@ function WARE:Initialize()
 		prop:SetAngles(Angle(math.random(-180,180),math.random(-180,180),math.random(-180,180)))
 		prop:Spawn()
 		
-		prop:Fire("AddOutput", "OnPhysGunPickup luarun,RunCode")
-		
 		util.SpriteTrail(prop,0,self.TrailColor,false,1.2,2.2,5,1/((1.2+2.2)*0.5),"trails/physbeam.vmt")
 		
 		GAMEMODE:AppendEntToBin(prop)
@@ -61,6 +51,10 @@ function WARE:Initialize()
 	for _,v in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		v:Give( "weapon_physcannon" )
 	end
+end
+
+function WARE:GravGunOnPickedUp(ply, ent)
+	ent.CanOwner = ply
 end
 
 function WARE:StartAction()
@@ -91,9 +85,6 @@ function WARE:StartAction()
 end
 
 function WARE:EndAction()
-	for _,v in pairs(ents.FindByClass("lua_run")) do
-		v:Remove()
-	end
 end
 
 function WARE:Think()
@@ -105,7 +96,7 @@ function WARE:Think()
 				local bmin,bmax = w:WorldSpaceAABB()
 				for _,v in pairs(ents.FindInBox(bmin + Vector(12,12,14),bmax - Vector(12,12,10))) do
 					if v:GetModel()=="models/props_junk/popcan01a.mdl" then
-						local Owner = v.CanOwner
+						local Owner = v.CanOwner or v:GetOwner()
 						if Owner and Owner:IsPlayer() then
 							GAMEMODE:MakeAppearEffect(v:GetPos())
 							v:Remove()

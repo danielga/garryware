@@ -64,7 +64,8 @@ function WARE:Think( )
 			
 			if (calctor - bactor):Length() > self.CircleRadius then
 				v:ApplyLose( )
-				local dir = (self.CenterPos - v:GetPos() + Vector(0,0,100)):Normalize()
+				local dir = self.CenterPos - v:GetPos() + Vector(0,0,100)
+				dir:Normalize()
 				v:SimulateDeath( dir * 100000 )
 				v:EjectWeapons(dir * 300, 100)
 				
@@ -72,7 +73,9 @@ function WARE:Think( )
 				
 				local effectdata = EffectData( )
 					effectdata:SetOrigin( v:GetPos() )
-					effectdata:SetNormal( (v:GetPos() - self.CenterPos):Normalize() )
+					local vec = v:GetPos() - self.CenterPos
+					vec:Normalize()
+					effectdata:SetNormal( vec )
 				util.Effect( "waveexplo", effectdata, true, true )
 			end
 		end

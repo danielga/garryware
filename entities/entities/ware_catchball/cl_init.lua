@@ -21,17 +21,17 @@ end
 ---------------------------------------------------------*/
 function ENT:Draw()
 	
-	local pos = self.Entity:GetPos()
-	local vel = self.Entity:GetVelocity()
+	local pos = self:GetPos()
+	local vel = self:GetVelocity()
 		
 	render.SetMaterial( matBall )
 	
 	local lcolor = render.GetLightColor( self:GetPos() ) * 2
-	local colorPtr = (self.Entity:IsUsable() and self.Color) or self.UnusableColor
+	local colorPtr = (self:IsUsable() and self.Color) or self.UnusableColor
 	
-	lcolor.x = colorPtr.r * mathx.Clamp( lcolor.x, 0, 1 )
-	lcolor.y = colorPtr.g * mathx.Clamp( lcolor.y, 0, 1 )
-	lcolor.z = colorPtr.b * mathx.Clamp( lcolor.z, 0, 1 )
+	lcolor.x = colorPtr.r * math.Clamp( lcolor.x, 0, 1 )
+	lcolor.y = colorPtr.g * math.Clamp( lcolor.y, 0, 1 )
+	lcolor.z = colorPtr.b * math.Clamp( lcolor.z, 0, 1 )
 		
 	if ( vel:Length() > 1 ) then
 	

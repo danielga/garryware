@@ -30,14 +30,6 @@ function WARE:Initialize()
 	GAMEMODE:SetPlayersInitialStatus( false )
 	GAMEMODE:DrawInstructions( "Hit the bullseye!" )
 	
-	-- HAXX
-	-- GravGunOnPickedUp hook is broken, so we'll use this tricky workaround
-	local lua_run = ents.Create("lua_run")
-	--lua_run:SetKeyValue('Code','CALLER:SetNWEntity("CanOwner",ACTIVATOR)')
-	lua_run:SetKeyValue('Code','CALLER.LastPuntedBy=ACTIVATOR')
-	lua_run:SetKeyValue('targetname','luarun')
-	lua_run:Spawn()
-	
 	for k,ply in pairs(team.GetPlayers(TEAM_HUMANS)) do 
 		ply:Give( "weapon_physcannon" )
 		ply.BULLSEYE_Hit = 0
@@ -45,6 +37,10 @@ function WARE:Initialize()
 	
 	self.Bullseyes = {}
 	
+end
+
+function WARE:GravGunOnPickedUp(ply, ent)
+	ent.LastPuntedBy = ply
 end
 
 function WARE:StartAction()
@@ -79,8 +75,6 @@ function WARE:StartAction()
 		ent:SetAngles( Angle(0, math.Rand(0,360), 0) )
 		ent:Spawn()
 		
-		ent:Fire("AddOutput", "OnPhysGunPickup luarun,RunCode")
-		
 		GAMEMODE:AppendEntToBin(ent)
 		GAMEMODE:MakeAppearEffect(ent:GetPos())
 	end
@@ -88,20 +82,17 @@ function WARE:StartAction()
 end
 
 function WARE:EndAction()
-	for _,v in pairs(ents.FindByClass("lua_run")) do
-		v:Remove()
-	end
-
 end
 
 function WARE:Think()
 	for k,ent in pairs(self.Bullseyes) do
-		if ValidEntity(ent) and ent:GetPhysicsObject():IsValid() then
+		if IsValid(ent) and ent:GetPhysicsObject():IsValid() then
 			local physobj = ent:GetPhysicsObject()
 			local vel = physobj:GetVelocity()
 			local speed = vel:Length()
 			if (speed > self.BVelocity) then
-				vel = vel:Normalize() * ((speed - self.BVelocity) * 0.7 + self.BVelocity)
+				vel:Normalize()
+				vel = vel * ((speed - self.BVelocity) * 0.7 + self.BVelocity)
 				physobj:SetVelocity(vel)
 			end
 		end
@@ -110,7 +101,7 @@ end
 
 function WARE:WarePhysicsCollideStream( collide_ent, data, physobj )
 	if (collide_ent:GetClass() == "ware_bullseye") and (data.HitEntity:GetClass() == "prop_physics") then
-		if ValidEntity(data.HitEntity.LastPuntedBy) and data.HitEntity.LastPuntedBy:IsPlayer() then
+		if IsValid(data.HitEntity.LastPuntedBy) and data.HitEntity.LastPuntedBy:IsPlayer() then
 			data.HitEntity.LastPuntedBy:ApplyWin( )
 			data.HitEntity.LastPuntedBy:StripWeapons()
 		end
@@ -120,7 +111,7 @@ function WARE:WarePhysicsCollideStream( collide_ent, data, physobj )
 end
 
 function WARE:GravGunPickupAllowed( ply, target )
-	if ValidEntity(target) and target:GetClass() == "ware_bullseye" then
+	if IsValid(target) and target:GetClass() == "ware_bullseye" then
 		return false
 	else
 		return true
@@ -128,7 +119,7 @@ function WARE:GravGunPickupAllowed( ply, target )
 end
 
 function WARE:GravGunPunt( ply, target )
-	if ValidEntity(target) and target:GetClass() == "ware_bullseye" then
+	if IsValid(target) and target:GetClass() == "ware_bullseye" then
 		return false
 	else
 		return true

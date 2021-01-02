@@ -75,7 +75,7 @@ usermessage.Hook( "ServerJoinInfo", ServerJoinInfo )
 
 local function EnableMusicVolume( optiLoopToPlay )
 	if gws_AmbientMusicIsOn then
-		gws_AmbientMusic[optiLoopToPlay]:ChangeVolume( 0.7 )
+		gws_AmbientMusic[optiLoopToPlay]:ChangeVolume( 0.7, 0 )
 	end
 end
 
@@ -89,9 +89,9 @@ local function EnableMusic( optiLoopToPlay )
 		
 		gws_AmbientMusic[optiLoopToPlay]:Play()
 		gws_AmbientMusic_dat[optiLoopToPlay]._IsPlaying = true
-		gws_AmbientMusic[optiLoopToPlay]:ChangeVolume( 0.1 )
-		gws_AmbientMusic[optiLoopToPlay]:ChangePitch( GAMEMODE:GetSpeedPercent() )
-		timer.Simple( GAMEMODE.WADAT.StartFlourishLength * 0.7 , EnableMusicVolume, optiLoopToPlay )
+		gws_AmbientMusic[optiLoopToPlay]:ChangeVolume( 0.1, 0 )
+		gws_AmbientMusic[optiLoopToPlay]:ChangePitch( GAMEMODE:GetSpeedPercent(), 0 )
+		timer.Simple( GAMEMODE.WADAT.StartFlourishLength * 0.7 , function() EnableMusicVolume(optiLoopToPlay) end )
 		
 	end
 	
@@ -101,7 +101,7 @@ local function DisableMusic()
 	if not gws_AmbientMusicIsOn then
 		for k, music in pairs( gws_AmbientMusic ) do
 			if gws_AmbientMusic_dat[k]._IsPlaying then
-				music:ChangeVolume( 0.1 )
+				music:ChangeVolume( 0.1, 0 )
 				
 			else
 				music:Stop()
@@ -125,7 +125,7 @@ local function PlayEnding( musicID )
 		
 	end
 	
-	timer.Simple( dataRef.Length, EnableMusic, 1 )
+	timer.Simple( dataRef.Length, function() EnableMusic(1) end )
 end
 
 local function NextGameTimes( m )
@@ -203,10 +203,10 @@ local function EntityTextChangeColor( m )
 	local target = m:ReadEntity()
 	local r,g,b,a = m:ReadChar() + 128, m:ReadChar() + 128, m:ReadChar() + 128, m:ReadChar() + 128
 	
-	if ValidEntity(target) and target.SetEntityColor then
+	if IsValid(target) and target.SetEntityColor then
 		target:SetEntityColor(r,g,b,a)
 	else
-		timer.Simple( 0, function(target,r,g,b,a) if ValidEntity(target) and target.SetEntityColor then target:SetEntityColor(r,g,b,a) end end )
+		timer.Simple( 0, function(target,r,g,b,a) if IsValid(target) and target.SetEntityColor then target:SetEntityColor(r,g,b,a) end end )
 	end
 end
 usermessage.Hook( "EntityTextChangeColor", EntityTextChangeColor )
@@ -332,19 +332,19 @@ local function EndOfGamemode( m )
 	AwardVGUI:Show()
 	AwardVGUI:PerformScoreData()
 	
-	GAMEMODE:GetScoreboard():SetVisible( false )
+	--GAMEMODE:GetScoreboard():SetVisible( false )
 	
 	gws_AtEndOfGame = true
 	
-	--timer.Simple( GAMEMODE.WADAT.EpilogueFlourishDelayAfterEndOfGamemode, PlayEnding, 2 )
+	--timer.Simple( GAMEMODE.WADAT.EpilogueFlourishDelayAfterEndOfGamemode, function() PlayEnding(2) end )
 end
 usermessage.Hook( "EndOfGamemode", EndOfGamemode )
 
 local function SpecialFlourish( m )
 	local musicID = m:ReadChar()
 	local dataRef = GAMEMODE.WADAT.TBL_GlobalWareningEpic[musicID]
-	timer.Simple( dataRef.StartDalay + dataRef.MusicFadeDelay, function() gws_AmbientMusic[1]:ChangeVolume( 0.0 ) end )
-	timer.Simple( dataRef.StartDalay, PlayEnding, musicID )
+	timer.Simple( dataRef.StartDalay + dataRef.MusicFadeDelay, function() gws_AmbientMusic[1]:ChangeVolume( 0.0, 0 ) end )
+	timer.Simple( dataRef.StartDalay, function() PlayEnding(musicID) end )
 end
 usermessage.Hook( "SpecialFlourish", SpecialFlourish )
 
@@ -355,10 +355,10 @@ end
 usermessage.Hook( "HitConfirmation", HitConfirmation )
 
 local function DoRagdollEffect( ply, optvectPush, optiObjNumber, iIter)
-	if not ValidEntity( ply ) then return end
+	if not IsValid( ply ) then return end
 	
 	local ragdoll = ply:GetRagdollEntity()
-	if ragdoll then
+	if IsValid(ragdoll) then
 		local physobj = nil
 		if optiObjNumber >= 0 then
 			physobj = ragdoll:GetPhysicsObjectNum( optiObjNumber )
@@ -370,7 +370,7 @@ local function DoRagdollEffect( ply, optvectPush, optiObjNumber, iIter)
 		
 		--print(ply:GetModel(), physobj:GetMass() )
 		
-		if physobj and physobj:IsValid() and physobj ~= NULL then
+		if IsValid(physobj) then
 			physobj:SetVelocity( 10^6 * optvectPush )
 			
 		else
@@ -391,7 +391,7 @@ local function PlayerRagdollEffect( m )
 	local optvectPush = m:ReadVector()
 	local optiObjNumber = m:ReadChar()
 	
-	if not ValidEntity( ply ) then return end
+	if not IsValid( ply ) then return end
 	
 	DoRagdollEffect( ply, optvectPush, optiObjNumber, 20)
 end
@@ -429,12 +429,12 @@ local cStatusTextColorSet = Color(255,255,255,255)
 local tWinParticles = {
 	{"effects/yellowflare",35,2,ScrW()*0,ScrH(),20,20,50,70,-45,-60,60,64,256,Color(0, 164, 237,255),Color(0, 164, 237,0),5,1},
 	{"effects/yellowflare",5,2,ScrW()*0,ScrH(),10,10,20,30,-45,-60,60,256,512,Color(255,255,255,255),Color(255,255,255,0),10,1},
-	{"gui/silkicons/check_on.vmt",5,2,ScrW()*0,ScrH(),16,16,32,32,-45,-60,60,64,128,Color(255,255,255,255),Color(255,255,255,0),0,0.2}
+	{"icon16/tick.png",5,2,ScrW()*0,ScrH(),16,16,32,32,-45,-60,60,64,128,Color(255,255,255,255),Color(255,255,255,0),0,0.2}
 }
 local tFailParticles = {
 	{"effects/yellowflare",35,2,ScrW()*0,ScrH(),20,20,50,70,-45,-60,60,64,256,Color(255,87,87,255),Color(255,87,87,0),5,1},
 	{"effects/yellowflare",5,2,ScrW()*0,ScrH(),10,10,20,30,-45,-60,60,256,512,Color(255,255,255,255),Color(255,255,255,0),10,1},
-	{"gui/silkicons/check_off.vmt",5,2,ScrW()*0,ScrH(),16,16,32,32,-45,-60,60,64,128,Color(255,255,255,255),Color(255,255,255,0),0,0.2}
+	{"icon16/cross.png",5,2,ScrW()*0,ScrH(),16,16,32,32,-45,-60,60,64,128,Color(255,255,255,255),Color(255,255,255,0),0,0.2}
 }
 
 local function MakeParticlesFromTable( myTablePtr )

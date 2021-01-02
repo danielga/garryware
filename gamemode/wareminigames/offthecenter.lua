@@ -108,13 +108,16 @@ function WARE:Think( )
 				end
 				
 				target:SetGroundEntity( NULL )
-				target:SetVelocity(target:GetVelocity()*(-1) + (target:GetPos() + Vector(0,0,32) - ring:GetPos()):Normalize() * 500)
+				local vec = target:GetPos() + Vector(0,0,32) - ring:GetPos()
+				vec:Normalize()
+				target:SetVelocity(target:GetVelocity()*(-1) + vec * 500)
 			
 			end
 		end
 	
 		if target:IsPlayer() and target:IsWarePlayer() and not target:GetLocked() then
-			local dir = (target:GetPos() + Vector(0, 0, 128) - ring:GetPos()):Normalize()
+			local dir = target:GetPos() + Vector(0, 0, 128) - ring:GetPos()
+			dir:Normalize()
 			target:ApplyLose()
 			target:SimulateDeath( dir * 1000 )
 			target:EjectWeapons( dir * 200, 100 ) 

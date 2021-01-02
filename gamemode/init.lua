@@ -7,6 +7,8 @@
 // Serverside Initialization                  //
 ////////////////////////////////////////////////
 
+DEFINE_BASECLASS( "gamemode_base" )
+
 -- Defaulted OFF !
 CreateConVar( "ware_stats_enabled", 0, {FCVAR_ARCHIVE} )
 DEBUG_DISABLE_STATS = not (GetConVar("ware_stats_enabled"):GetInt() > 0)
@@ -399,7 +401,7 @@ function GM:SetNextGameStartsIn( delay )
 end	
 
 function GM:Think()
-	self.BaseClass:Think()
+	BaseClass.Think( self )
 	
 	if (self.GamesArePlaying == true) then
 		if (self.WareHaveStarted == false) then
@@ -494,9 +496,9 @@ end
 
 function GM:TryFindStuck()
 	for k,ply in pairs(team.GetPlayers( TEAM_HUMANS )) do
-		if ValidEntity(ply) then
+		if IsValid(ply) then
 			local plyPhys = ply:GetPhysicsObject()
-			if plyPhys:IsValid() and plyPhys ~= NULL then
+			if IsValid(plyPhys) then
 				if plyPhys:IsPenetrating() then
 					ply:SetNoCollideWithTeammates( true )
 					if not ply._WasStuckOneTime then
@@ -540,7 +542,7 @@ function GM:WareRoomCheckup()
 end
 
 function GM:InitPostEntity( )
-	self.BaseClass:InitPostEntity()
+	BaseClass.InitPostEntity( self )
 	
 	self:WareRoomCheckup()
 	
@@ -596,7 +598,7 @@ end
 
 /*
 -- (Ha3) Silent fall damage leg break sound ? Didn't work.
-function GM:EntityTakeDamage( ent, inflictor, attacker, amount, dmginfo )
+function GM:EntityTakeDamage( ent, dmginfo )
 	if ent:IsPlayer() and dmginfo:IsFallDamage() then
 		dmginfo:ScaleDamage( 0 )
 		return false
@@ -615,7 +617,7 @@ function IncludeMinigames()
 	local authors = {}
 	local str = ""
 	
-	for _,file in pairs( file.FindInLua(path.."*.lua") ) do
+	for _,file in pairs( file.Find(path.."*.lua", "LUA") ) do
 		WARE = {}
 		
 		--AddCSLuaFile(path..file)

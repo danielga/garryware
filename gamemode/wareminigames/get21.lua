@@ -44,7 +44,8 @@ function WARE:Initialize()
 		prop:SetPos(newpos)
 		prop:Spawn()
 		
-		prop:SetColor(255, 255, 255, 192)
+		prop:SetRenderMode(RENDERMODE_TRANSALPHA)
+		prop:SetColor(Color(255, 255, 255, 192))
 		prop:SetHealth(100000)
 		prop:GetPhysicsObject():EnableMotion(false)
 		prop:SetCollisionGroup(COLLISION_GROUP_WEAPON)
@@ -129,8 +130,9 @@ function WARE:EndAction()
 	GAMEMODE:DrawInstructions( "Possible combination was ".. message .."!" , self.CorrectColor)
 end
 
-function WARE:EntityTakeDamage(ent,inf,att,amount,info)
+function WARE:EntityTakeDamage(ent,info)
 	local pool = self
+	local att = info:GetAttacker()
 	
 	if not att:IsPlayer() or not info:IsBulletDamage() then return end
 	if not pool.Crates or not ent.CrateID then return end

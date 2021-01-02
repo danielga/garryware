@@ -257,11 +257,11 @@ function SKIN:PaintScorePanel( panel )
 		
 	local x, y = panel:LocalToScreen( 0, 0 )
 	
-	matBlurScreen:SetMaterialFloat( "$blur", 5 )
+	matBlurScreen:SetFloat( "$blur", 5 )
 	render.UpdateScreenEffectTexture()
 	surface.DrawTexturedRect( x*-1, y*-1, ScrW(), ScrH() )
 	
-	--matBlurScreen:SetMaterialFloat( "$blur", 3 )
+	--matBlurScreen:SetFloat( "$blur", 3 )
 	--render.UpdateScreenEffectTexture()
 	--surface.DrawTexturedRect( x*-1, y*-1, ScrW(), ScrH() )
 		

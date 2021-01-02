@@ -1,0 +1,37 @@
+"garryware"
+{
+	"base"		"base"
+	"title"		"GarryWare (v1.193)"
+	"maps"		"^wa_"
+	"menusystem"	"1"
+
+	"settings"
+	{
+		1
+		{
+			"name"		"ware_stats_enabled"
+			"text"		"Enable statistics"
+			"help"		"Enable statistics"
+			"type"		"CheckBox"
+			"default"	"0"
+		}
+
+		2
+		{
+			"name"		"ware_debug"
+			"text"		"Set minigame debug mode"
+			"help"		"0 for normal gameplay, 1 for continuous gameplay of ware_debugname minigame, 2 for normal gameplay with stripped waiting time, 3 for normal gameplay with stripped waiting time and skipped intro"
+			"type"		"Numeric"
+			"default"	"0"
+		}
+
+		3
+		{
+			"name"		"ware_debugname"
+			"text"		"Sets the minigame to debug"
+			"help"		"Sets the minigame to debug"
+			"type"		"Text"
+			"default"	""
+		}
+	}
+}

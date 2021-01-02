@@ -95,7 +95,7 @@ function PANEL:SortPlayerList()
 			
 	local k = 1
 	while k <= #self.m_playerlist do
-		if not ValidEntity( self.m_playerlist[k] ) then
+		if not IsValid( self.m_playerlist[k] ) then
 			table.remove( self.m_playerlist, k )
 			
 		else

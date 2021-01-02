@@ -66,7 +66,7 @@ function PANEL:Hide()
 end
 
 function PANEL:Think()
-	if ValidEntity(LocalPlayer()) and LocalPlayer():Alive() then
+	if IsValid(LocalPlayer()) and LocalPlayer():Alive() then
 		local SWEP = LocalPlayer():GetActiveWeapon()
 		self.tvars = {}
 		

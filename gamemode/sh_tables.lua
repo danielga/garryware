@@ -96,7 +96,7 @@ Sound("common/NULL.WAV")
 GM.WASND.BITBL_TimeLeft = {}
 
 GM.WASND.BITBL_TimeLeft[1] = {}
-if SERVER or (CLIENT and not file.Exists("../sound/vo/announcer_begins_1sec.wav")) then
+if SERVER or (CLIENT and not file.Exists("sound/vo/announcer_begins_1sec.wav", "MOD")) then
 	GM.WASND.BITBL_TimeLeft[1][1] = Sound("ware/countdown_ann_sec1.mp3")
 	GM.WASND.BITBL_TimeLeft[1][2] = Sound("ware/countdown_ann_sec2.mp3")
 	GM.WASND.BITBL_TimeLeft[1][3] = Sound("ware/countdown_ann_sec3.mp3")
@@ -156,7 +156,7 @@ Sound("ware/local_lose4.wav")
 
 GM.WASND.Confirmation  = Sound("ware/local_exo_target_hit.wav")
 
-if SERVER or (CLIENT and not file.Exists("../sound/player/crit_hit.wav")) then
+if SERVER or (CLIENT and not file.Exists("sound/player/crit_hit.wav", "MOD")) then
 	GM.WASND.OtherWin  = Sound("ware/other_exo_won1.wav")
 	
 else

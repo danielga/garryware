@@ -10,7 +10,7 @@ function ENT:Initialize()
 
 	self.TextColor = Color( 255, 255, 255, 255 )
 	if (CLIENT) then
-		self.Entity:SetRenderBoundsWS(self.Entity:GetPos()+Vector(-128,-128,-128), self.Entity:GetPos()+Vector(128,128,128))
+		self:SetRenderBoundsWS(self:GetPos()+Vector(-128,-128,-128), self:GetPos()+Vector(128,128,128))
 	end
 end
 

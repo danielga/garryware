@@ -7,15 +7,17 @@
 -- Shared vars                                --
 ////////////////////////////////////////////////
 
+DEFINE_BASECLASS( "gamemode_base" )
+
 include( "ply_extension.lua" )
+include( "player_class/player_garryware.lua" )
 
 GM.Name 	= "GarryWare"
 GM.Author 	= "Hurricaaane (Ha3 Team)"
 GM.Email 	= ""
 GM.Website 	= ""
 
-DeriveGamemode( "fretta" )
-IncludePlayerClasses()
+--IncludePlayerClasses()
 
 GM.Help		= 
 [[Rules :
@@ -25,6 +27,8 @@ By : Hurricaaane (Ha3 Team)
 
 Music by The Hamster Alliance ( http://www.hamsteralliance.com/ ).
 Special thanks to Kilburn for developing the modular shape of the gamemode.]]
+
+GM.RestartIntermission = 20.0
 
 GM.TeamBased = true
 GM.AllowAutoTeam = true
@@ -66,11 +70,10 @@ TEAM_HUMANS = 1
 function GM:CreateTeams()
 	team.SetUp( TEAM_HUMANS, "Players", Color( 235, 177, 20 ), true )
 	team.SetSpawnPoint( TEAM_HUMANS, "info_player_start" )
-	team.SetClass( TEAM_HUMANS, { "Default" } )
+	team.SetClass( TEAM_HUMANS, "player_garryware" )
 	
 	team.SetUp( TEAM_SPECTATOR, "Spectators", Color( 200, 200, 200 ), true )
 	team.SetSpawnPoint( TEAM_SPECTATOR, "info_player_start" )
-	team.SetClass( TEAM_SPECTATOR, { "Spectator" } )
 
 end
 

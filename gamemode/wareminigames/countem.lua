@@ -59,7 +59,7 @@ function WARE:StartAction()
 	local howManyPossible = (not useX and self.Grid:Width() or self.Grid:Height())
 	for i=1,howManyPossible do
 		local myCopo = self.Grid:Get( (useX and whichAttic or i), (not useX and whichAttic or i) )
-		if myCopo.W_CRATE then
+		if IsValid(myCopo.W_CRATE) then
 			table.insert( self.myCoponents, myCopo )
 			myCopo.W_CRATE:Remove()
 			
@@ -84,7 +84,8 @@ function WARE:StartAction()
 		prop:SetPos(newpos)
 		prop:Spawn()
 		
-		prop:SetColor(255, 255, 255, 192)
+		prop:SetRenderMode(RENDERMODE_TRANSALPHA)
+		prop:SetColor(Color(255, 255, 255, 192))
 		prop:SetHealth(100000)
 		prop:GetPhysicsObject():EnableMotion( false )
 		prop:SetCollisionGroup(COLLISION_GROUP_WEAPON)
@@ -132,8 +133,9 @@ function WARE:EndAction()
 	
 end
 
-function WARE:EntityTakeDamage(ent,inf,att,amount,info)
+function WARE:EntityTakeDamage(ent,info)
 	local pool = self
+	local att = info:GetAttacker()
 	
 	if not att:IsPlayer() or not info:IsBulletDamage() then return end
 	if not ent.CrateID then return end

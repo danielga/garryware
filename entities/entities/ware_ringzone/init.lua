@@ -5,15 +5,15 @@ include( 'shared.lua' )
 
 function ENT:Initialize()
 
-	self.Entity:SetModel("models/Combine_Helicopter/helicopter_bomb01.mdl")
+	self:SetModel("models/Combine_Helicopter/helicopter_bomb01.mdl")
 	
-	self.Entity:SetMoveType( MOVETYPE_NONE )
-	self.Entity:SetSolid( SOLID_NONE )
+	self:SetMoveType( MOVETYPE_NONE )
+	self:SetSolid( SOLID_NONE )
 	
-	self.Entity:SetCollisionGroup( COLLISION_GROUP_DEBRIS )
+	self:SetCollisionGroup( COLLISION_GROUP_DEBRIS )
 	
-	self.Entity:SetTrigger( true )
-	self.Entity:DrawShadow( false )
+	self:SetTrigger( true )
+	self:DrawShadow( false )
 	
 	self:SetNWVector("color", Vector(255 , 255 , 255))
 	self:SetNWInt("size", 64)

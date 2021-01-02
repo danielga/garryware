@@ -7,6 +7,8 @@
 // Post-processing                            //
 ////////////////////////////////////////////////
 
+DEFINE_BASECLASS( "gamemode_base" )
+
 local Sharpen = 0
 local MotionBlur = 0
 local ViewWobble = 0
@@ -73,7 +75,7 @@ function GM:CalcView( ply, origin, angle, fov )
 		SPECTATE_ANGLEINCREASE = 7
 	end
 	
-	local hasRagdoll = ValidEntity( LocalPlayer():GetRagdollEntity() )
+	local hasRagdoll = IsValid( LocalPlayer():GetRagdollEntity() )
 	if hasRagdoll and (CurTime() < ( self.LastRagdollUndetect + SPECTATE_RAGDOLLTIME)) then -- Death Ragdoll
 		local ragdoll = LocalPlayer():GetRagdollEntity()
 		local attachment = ragdoll:GetAttachment( 1 )
@@ -108,7 +110,9 @@ function GM:CalcView( ply, origin, angle, fov )
 			angle  = self.FirstAngle
 		elseif relativity < 0.7 then
 			if not self.SecondAngle then 
-				self.SecondAngle = (attachment.Pos - origin):Normalize():Angle()
+				local vec = attachment.Pos - origin
+				vec:Normalize()
+				self.SecondAngle = vec:Angle()
 			end
 			local multiplier = 1 + (relativity - 0.3) / 0.4
 			self.FirstAngle.p = math.ApproachAngle(self.FirstAngle.p, self.SecondAngle.p, SPECTATE_ANGLEINCREASE * multiplier)
@@ -150,7 +154,7 @@ function GM:CalcView( ply, origin, angle, fov )
 		end
 		
 		-- Make their view tilt when they strafe
-		if ply:GetGroundEntity() ~= NULL then	
+		if IsValid(ply:GetGroundEntity()) then	
 			angle.roll = angle.roll + math.sin( WalkTimer ) * VelSmooth * 0.001
 			angle.pitch = angle.pitch + math.sin( WalkTimer * 0.3 ) * VelSmooth * 0.001
 		end
@@ -159,12 +163,12 @@ function GM:CalcView( ply, origin, angle, fov )
 		
 	end
 		
-	return self.BaseClass:CalcView( ply, origin, angle, fov )
+	return BaseClass.CalcView( self, ply, origin, angle, fov )
 	
 end
 
 function GM:GetMotionBlurValues( x, y, fwd, spin )
-	if( ValidEntity( LocalPlayer() ) and ( not LocalPlayer():IsOnGround() or LocalPlayer():KeyDown( IN_SPEED ) )) then
+	if( IsValid( LocalPlayer() ) and ( not LocalPlayer():IsOnGround() or LocalPlayer():KeyDown( IN_SPEED ) )) then
 		fwd = fwd * 5
 	end
 	

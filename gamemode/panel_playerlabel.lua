@@ -129,7 +129,7 @@ function PANEL:PerformLayout()
 end
 
 function PANEL:SetPlayer( ent )
-	if ValidEntity( ent ) /*and ent:IsPlayer()*/ then
+	if IsValid( ent ) /*and ent:IsPlayer()*/ then
 		self.m_player = ent
 		self.dAvatar:SetPlayer( self.m_player )
 	end
@@ -283,7 +283,7 @@ function PANEL:Think()
 		self:Remove()
 		return
 	end
-	if not ValidEntity(self.m_player) or not self.m_player:IsPlayer() then
+	if not IsValid(self.m_player) or not self.m_player:IsPlayer() then
 		self:Remove()
 		return
 	end
@@ -337,7 +337,7 @@ function PANEL:Think()
 end
 /*
 function PANEL:Paint()
-	if not ValidEntity( self.m_player ) then return end
+	if not IsValid( self.m_player ) then return end
 	
 	draw.RoundedBox(0, 0, 0, self:GetWide(), self:GetTall(), self.m_bordercolor)
 	draw.RoundedBox(0, self._STY_Border, self._STY_Border, self:GetWide() - self._STY_Border * 2, self:GetTall() - self._STY_Border * 2, self.m_color)

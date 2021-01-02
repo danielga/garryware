@@ -42,7 +42,7 @@ local function spawnModel( iModel , modelCount , delay )
 	GAMEMODE:AppendEntToBin( ent )
 	
 	if (iModel < modelCount) then
-		timer.Simple( delay, spawnModel , iModel + 1 , modelCount , delay )
+		timer.Simple( delay, function() spawnModel( iModel + 1 , modelCount , delay ) end )
 	end
 end
 

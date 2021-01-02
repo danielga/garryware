@@ -45,7 +45,7 @@ local function Flag(p)
         flag:Spawn()
        
         flag:SetMaterial("models/debug/debugwhite")
-        flag:SetColor(200,0,0,255)
+        flag:SetColor(Color(200,0,0,255))
        
         flag:SetParent(p)
        
@@ -82,15 +82,15 @@ local function Uncover(p)
                
                 local c = Colors[num] or Colors[8]
                
-                timer.Simple(0.1, function(t)
+                timer.Simple(0.1, function()
                         umsg.Start("EntityTextChangeColor")
-                                umsg.Entity(t)
+                                umsg.Entity(textent)
                                 umsg.Long(c[1])
                                 umsg.Long(c[2])
                                 umsg.Long(c[3])
                                 umsg.Long(255)
                         umsg.End()
-                end, textent)
+                end)
         end
 end
 
@@ -172,7 +172,7 @@ function WARE:Initialize()
                 if p:IsValid() and not p.Mine then
                         p.Mine = true
                         if dbg then
-                                p:SetColor(255,200,200,255)
+                                p:SetColor(Color(255,200,200,255))
                         end
                         p:SetHealth(100000)
                         self.NumMines = self.NumMines + 1
@@ -239,7 +239,8 @@ function WARE:Think()
         end
 end
 
-function WARE:EntityTakeDamage(ent,inf,att,amount,info)
+function WARE:EntityTakeDamage(ent,info)
+        local att = info:GetAttacker()
         -- Losers shouldn't be able to trigger mines again
         if not att:IsPlayer() or amount<10 or self.Losers[att] then return end
        
@@ -259,8 +260,8 @@ function WARE:EntityTakeDamage(ent,inf,att,amount,info)
                 util.Effect("Explosion", effectdata, true, true)
                
                 -- Turn the crate red for 3 seconds, so it gives a hint to other players
-                ent:SetColor(255,0,0,255)
-                timer.Simple(3,function(e) if e:IsValid() and e.Mine then e:SetColor(255,255,255,255) end end,ent)
+                ent:SetColor(Color(255,0,0,255))
+                timer.Simple(3,function() if ent:IsValid() and ent.Mine then ent:SetColor(Color(255,255,255,255)) end end)
                
                 att:WareApplyLose( )
                 att:StripWeapons()
@@ -279,7 +280,7 @@ function WARE:EntityTakeDamage(ent,inf,att,amount,info)
                         for _,p in pairs(ents.FindByClass("prop_physics")) do
                                 if p.Mine then
                                         p.Mine = false
-                                        p:SetColor(255,0,0,255)
+                                        p:SetColor(Color(255,0,0,255))
                                         Mine(p)
                                 end
                         end
@@ -328,7 +329,7 @@ function WARE:PropBreak(killer, prop)
                 for _,p in pairs(ents.FindByClass("prop_physics")) do
                         if p.Mine then
                                 p.Mine = false
-                                p:SetColor(0,255,0,255)
+                                p:SetColor(Color(0,255,0,255))
                                 Flag(p)
                         end
                 end

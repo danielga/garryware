@@ -58,7 +58,8 @@ function WARE:Initialize()
 			speaker:SetPos(prop:GetPos())
 			speaker:SetAngles(Angle(math.random(0,360),math.random(0,360),math.random(0,360)))
 			speaker:Spawn()
-			speaker:SetColor(255,255,255,0)
+			speaker:SetRenderMode(RENDERMODE_TRANSALPHA)
+			speaker:SetColor(Color(255,255,255,0))
 			speaker:GetPhysicsObject():EnableMotion(false)
 			
 			speaker.AlarmSound = CreateSound(speaker, Sound(Alarms[math.random(1,#Alarms)]))
@@ -99,7 +100,7 @@ function WARE:Think()
 	for _,v in pairs(self.Speakers) do
 		if v.AlarmSound and v.AlarmPitch then
 			v.AlarmPitch = v.AlarmPitch - 0.7
-			v.AlarmSound:ChangePitch(v.AlarmPitch)
+			v.AlarmSound:ChangePitch(v.AlarmPitch, 0)
 			
 			if v.AlarmPitch<=1 then
 				v.AlarmSound:Stop()
@@ -128,11 +129,12 @@ function WARE:PropBreak(pl,prop)
 		spark:SetParent(prop.Speaker)
 		spark:Fire("StartSpark")
 		
-		prop.Speaker:SetColor(255,255,255,255)
+		prop.Speaker:SetColor(Color(255,255,255,255))
+		prop.Speaker:SetRenderMode(RENDERMODE_NORMAL)
 		prop.Speaker:SetCollisionGroup(COLLISION_GROUP_INTERACTIVE)
 		prop.Speaker:GetPhysicsObject():EnableMotion(true)
 		prop.Speaker:GetPhysicsObject():Wake()
-		prop.Speaker:GetPhysicsObject():AddAngleVelocity(Angle(math.random(500,2000),math.random(500,2000),math.random(500,2000)))
+		prop.Speaker:GetPhysicsObject():AddAngleVelocity(Vector(math.random(500,2000),math.random(500,2000),math.random(500,2000)))
 		prop.Speaker:GetPhysicsObject():ApplyForceCenter((prop:GetPos()-pl:GetPos()-Vector(0,0,20)):GetNormal() * math.random(10000,20000))
 	end
 end

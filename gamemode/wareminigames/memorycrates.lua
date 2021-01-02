@@ -34,7 +34,8 @@ function WARE:ResetCrate(i)
 	
 	local col = CrateColours[i]
 	
-	prop:SetColor(col[1]*100, col[2]*100, col[3]*100, 100)
+	prop:SetRenderMode(RENDERMODE_TRANSALPHA)
+	prop:SetColor(Color(col[1]*100, col[2]*100, col[3]*100, 100))
 end
 
 function WARE:PlayCrate(i)
@@ -45,13 +46,14 @@ function WARE:PlayCrate(i)
 	
 	local col = CrateColours[i]
 	
-	prop:SetColor(col[1]*255, col[2]*255, col[3]*255, 255)
+	prop:SetColor(Color(col[1]*255, col[2]*255, col[3]*255, 255))
+	prop:SetRenderMode(RENDERMODE_NORMAL)
 	prop:SetHealth(100000)
 	prop:EmitSound("buttons/button17.wav", 100, CratePitches[i]/3)
 	
 	GAMEMODE:MakeAppearEffect( prop:GetPos() )
 	
-	timer.Simple(0.5, self.ResetCrate, self, i)
+	timer.Simple(0.5, function() self:ResetCrate(i) end)
 end
 
 -----------------------------------------------------------------------------------
@@ -81,7 +83,8 @@ function WARE:Initialize()
 		prop:SetPos(pos + Vector(0,0,64))
 		prop:Spawn()
 		
-		prop:SetColor(col[1]*100, col[2]*100, col[3]*100, 100)
+		prop:SetRenderMode(RENDERMODE_TRANSALPHA)
+		prop:SetColor(Color(col[1]*100, col[2]*100, col[3]*100, 100))
 		prop:SetHealth(100000)
 		prop:SetMoveType(MOVETYPE_NONE)
 		prop:SetCollisionGroup(COLLISION_GROUP_WEAPON)
@@ -99,7 +102,7 @@ function WARE:Initialize()
 	self.Sequence = {}
 	for i=1,numberSpawns do
 		self.Sequence[i] = table.remove(sequence, math.random(1,#sequence))
-		timer.Simple(delay+i-1, self.PlayCrate, self, self.Sequence[i])
+		timer.Simple(delay+i-1, function() self:PlayCrate(self.Sequence[i]) end)
 	end
 end
 
@@ -119,8 +122,9 @@ function WARE:EndAction()
 	
 end
 
-function WARE:EntityTakeDamage(ent,inf,att,amount,info)
+function WARE:EntityTakeDamage(ent,info)
 	local pool = self
+	local att = info:GetAttacker()
 	
 	if not att:IsPlayer() or not info:IsBulletDamage() then return end
 	if not pool.PlayerCurrentCrate[att] then return end

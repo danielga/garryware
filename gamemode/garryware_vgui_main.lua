@@ -188,7 +188,7 @@ end
 
 
 function PANEL:Think()
-	if not ValidEntity( LocalPlayer() ) or not LocalPlayer().GetAchieved then return end
+	if not IsValid( LocalPlayer() ) or not LocalPlayer().GetAchieved then return end
 	
 	if LocalPlayer():GetAchieved() == nil then
 		if not LocalPlayer():GetLocked() then

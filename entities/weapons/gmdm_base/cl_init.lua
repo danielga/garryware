@@ -34,7 +34,7 @@ end
 function SWEP:DrawWorldModel()
 
 	if ( self.Owner ) then
-		self.Weapon:DrawModel()
+		self:DrawModel()
 	return end
 
 end
@@ -43,7 +43,7 @@ end
 function SWEP:DrawWorldModelTranslucent()
 
 	if ( self.Owner ) then
-		self.Weapon:DrawModel()
+		self:DrawModel()
 	return end
 	
 

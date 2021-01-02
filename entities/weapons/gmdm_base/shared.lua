@@ -13,8 +13,8 @@ SWEP.Primary.Ammo = "Buckshot"
 
 SWEP.HoldType = "smg"
 
-SWEP.AllowRicochet = true
-SWEP.AllowPenetration = true
+SWEP.AllowRicochet = false
+SWEP.AllowPenetration = false
 
 SWEP.PenetrationMax = 32
 SWEP.PenetrationMaxWood = 128
@@ -172,7 +172,7 @@ function SWEP:GMDMShootBullet( dmg, snd, pitch, yaw, numbul, cone )
 	if not IsFirstTimePredicted() then return end
 
 	if( snd ~= nil ) then
-		self.Weapon:EmitSound( snd )
+		self:EmitSound( snd )
 	end
 
 	if( self.Owner and self.Owner:IsPlayer() ) then
@@ -182,14 +182,14 @@ function SWEP:GMDMShootBullet( dmg, snd, pitch, yaw, numbul, cone )
 	-- Make gunsmoke
 	local effectdata = EffectData()
 		effectdata:SetOrigin( self.Owner:GetShootPos() )
-		effectdata:SetEntity( self.Weapon )
+		effectdata:SetEntity( self )
 		effectdata:SetStart( self.Owner:GetShootPos() )
 		effectdata:SetNormal( self.Owner:GetAimVector() )
 		effectdata:SetAttachment( 1 )
 	util.Effect( "GMDM_GunSmoke", effectdata )
 	
-	--if ( SinglePlayer() and CLIENT ) then return end
-	--if ( not SinglePlayer() and SERVER ) then return end
+	--if ( game.SinglePlayer() and CLIENT ) then return end
+	--if ( not game.SinglePlayer() and SERVER ) then return end
 	
 	--util.ScreenShake( self.Owner:GetShootPos(), 100, 0.2, 0.5, 256 )
 	
@@ -259,7 +259,7 @@ function SWEP:RicochetCallback( bouncenum, attacker, tr, dmginfo )
 		end
 	end
 	
-	timer.Simple( 0.05, attacker.FireBullets, attacker, bullet, true )
+	timer.Simple( 0.05, function() attacker:FireBullets(bullet, true) end )
 	attacker:SetNetworkedInt( "BulletType", 2 ) -- 2 = Ricochet
 	
 	return { damage = true, effects = DoDefaultEffect }
@@ -277,16 +277,16 @@ function SWEP:NoteGMDMShot()
 	GMDMLastShoot = CurTime()
 	
 	-- No prediction in SP. Make sure it knows when we last shot.
-	if ( SinglePlayer() ) then
+	if ( game.SinglePlayer() ) then
 		self.Owner:SendLua( "GMDMLastShoot = CurTime()" )
 	end
 
 end
 
 function SWEP:Reload()
-	local canReload = self.Weapon:DefaultReload( ACT_VM_RELOAD )
-	if canReload and self.Weapon.CustomReload then
-		self.Weapon:CustomReload()
+	local canReload = self:DefaultReload( ACT_VM_RELOAD )
+	if canReload and self.CustomReload then
+		self:CustomReload()
 		
 	end
 	
@@ -339,10 +339,10 @@ end
 
 function SWEP:GMDMShootBulletEx( damage, num_bullets, aimcone, tracerfreq )
 	
-	if( self.SupportsSilencer and self.Weapon:GetNetworkedBool( "Silenced", false ) == true ) then
-		self.Weapon:SendWeaponAnim( ACT_VM_PRIMARYATTACK_SILENCED )
+	if( self.SupportsSilencer and self:GetNetworkedBool( "Silenced", false ) == true ) then
+		self:SendWeaponAnim( ACT_VM_PRIMARYATTACK_SILENCED )
 	else
-		self.Weapon:SendWeaponAnim( ACT_VM_PRIMARYATTACK ) 		-- View model animation
+		self:SendWeaponAnim( ACT_VM_PRIMARYATTACK ) 		-- View model animation
 	end
 	self.Owner:MuzzleFlash()							-- Crappy muzzle light
 	self.Owner:SetAnimation( PLAYER_ATTACK1 )			-- 3rd Person Animation

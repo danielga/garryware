@@ -83,7 +83,7 @@ end
 function WARE:PhaseSignal( iPhase )
 	if iPhase == 2 then
 		for k,v in pairs( self.Balls ) do
-			if ValidEntity( v ) then
+			if IsValid( v ) then
 				GAMEMODE:MakeDisappearEffect( v:GetPos() )
 				v:Remove()
 			end
@@ -126,10 +126,11 @@ function WARE:EndAction()
 	
 end
 
-function WARE:EntityTakeDamage( ent, inflictor, attacker, amount )
+function WARE:EntityTakeDamage( ent, info )
+	local attacker = info:GetAttacker()
 	if GAMEMODE:GetCurrentPhase() == 2 then
-		if not ValidEntity( ent ) or not ent:IsPlayer() or not ent:IsWarePlayer() or ent.WARE_IsAttacker or ent:GetLocked() then return end
-		if not ValidEntity( attacker ) or not attacker:IsPlayer() or not attacker:IsWarePlayer() or not attacker.WARE_IsAttacker then return end
+		if not IsValid( ent ) or not ent:IsPlayer() or not ent:IsWarePlayer() or ent.WARE_IsAttacker or ent:GetLocked() then return end
+		if not IsValid( attacker ) or not attacker:IsPlayer() or not attacker:IsWarePlayer() or not attacker.WARE_IsAttacker then return end
 		
 		attacker:ApplyWin( )
 		attacker:SendHitConfirmation()

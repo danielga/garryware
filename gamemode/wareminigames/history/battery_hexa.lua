@@ -43,14 +43,6 @@ function WARE:Initialize()
 	GAMEMODE:SetPlayersInitialStatus( false )
 	GAMEMODE:DrawInstructions( "Find a battery and plug it!" )
 	
-	-- HAXX
-	-- GravGunOnPickedUp hook is broken, so we'll use this tricky workaround
-	local lua_run = ents.Create("lua_run")
-	--lua_run:SetKeyValue('Code','CALLER:SetNWEntity("CanOwner",ACTIVATOR)')
-	lua_run:SetKeyValue('Code','CALLER.BatteryOwner=ACTIVATOR')
-	lua_run:SetKeyValue('targetname','luarun')
-	lua_run:Spawn()
-	
 	local ratio = 1
 	local minimum = 1
 	local num = math.Clamp(math.ceil(team.NumPlayers(TEAM_HUMANS) * ratio),minimum,64)
@@ -95,7 +87,9 @@ function WARE:Initialize()
 		local land_oppos = GAMEMODE:GetEnts( hexaprism_oppositions[(idam - 1 + 3) % 6 + 1] )[1]:GetPos() 
 		
 		local myAngle    = (land_oppos - land_side):Angle()
-		local myPosition = land_side + (land_side - land_oppos):Normalize() * measure + Vector(0,0,64) * paternation
+		local vec = land_side - land_oppos
+		vec:Normalize()
+		local myPosition = land_side + vec * measure + Vector(0,0,64) * paternation
 		
 		local ent = ents.Create ("prop_physics")
 		ent:SetModel( self.Models[MDL_PLUGHOLDER] )
@@ -137,14 +131,15 @@ function WARE:Initialize()
 	return
 end
 
+function WARE:GravGunOnPickedUp(ply, ent)
+	ent.BatteryOwner = ply
+end
+
 function WARE:StartAction()
 	return
 end
 
 function WARE:EndAction()
-	for _,v in pairs(ents.FindByClass("lua_run")) do
-		v:Remove()
-	end
 	for _,v in pairs(ents.FindByClass("prop_physics")) do
 		if v:GetModel() == self.Models[MDL_PLUGHOLDER] and not v.IsOccupied then
 			GAMEMODE:MakeLandmarkEffect( v:GetPos() )
@@ -159,8 +154,6 @@ function WARE:PropBreak(pl,prop)
 		ent:SetPos(prop:GetPos())
 		ent:Spawn()
 		
-		ent:Fire("AddOutput", "OnPhysGunPickup luarun,RunCode")
-		
 		local ent2 = ents.Create ("prop_physics")
 		ent2:SetModel( MDLLIST[MDL_BATTERYDONGLE] )
 		ent2:SetPos(ent:GetPos() + ent:GetForward()*-8)
@@ -169,7 +162,7 @@ function WARE:PropBreak(pl,prop)
 
 		local phys = ent:GetPhysicsObject()
 		phys:Wake()
-		phys:AddAngleVelocity(Angle(math.random(200,300),math.random(200,300),math.random(200,300)))
+		phys:AddAngleVelocity(Vector(math.random(200,300),math.random(200,300),math.random(200,300)))
 		phys:ApplyForceCenter(VectorRand() * 64)
 		
 		GAMEMODE:AppendEntToBin(ent)
@@ -188,7 +181,7 @@ function WARE:PropBreak(pl,prop)
 end
 
 local function PlugBatteryIn(batteryremove, socket)
-	if ( not ValidEntity(batteryremove) or not ValidEntity(socket) ) then return end
+	if ( not IsValid(batteryremove) or not IsValid(socket) ) then return end
 	
 	batteryremove:Remove()
 	
@@ -235,7 +228,7 @@ function WARE:Think()
 							
 							GAMEMODE:MakeAppearEffect(v:GetPos())
 							
-							timer.Simple(0.05, PlugBatteryIn, v, w)
+							timer.Simple(0.05, function() PlugBatteryIn(v, w) end)
 						end
 					end
 				end
@@ -250,7 +243,9 @@ function WARE:Think()
 		local sphere = ents.FindInSphere(camera:GetPos(),24)
 		for _,target in pairs(sphere) do
 			if target:GetClass() == "prop_physics" then
-				target:GetPhysicsObject():ApplyForceCenter((target:GetPos() - camera:GetPos()):Normalize() * 500)
+				local vec = target:GetPos() - camera:GetPos()
+				vec:Normalize()
+				target:GetPhysicsObject():ApplyForceCenter(vec * 500)
 			end
 		end
 	end

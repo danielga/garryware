@@ -7,13 +7,15 @@
 -- Clientside Initialization                  --
 ////////////////////////////////////////////////
 
+DEFINE_BASECLASS( "gamemode_base" )
+
 include( 'shared.lua' )
 
-surface.CreateFont("Trebuchet MS", 36, 0   , 0, false, "garryware_instructions" )
-surface.CreateFont("Trebuchet MS", 36, 0   , 0, false, "garryware_largetext" )
-surface.CreateFont("Trebuchet MS", 24, 0   , 0, false, "garryware_mediumtext" )
-surface.CreateFont("Trebuchet MS", 20, 0   , 0, false, "garryware_averagetext" )
-surface.CreateFont("Trebuchet MS", 16, 400 , 0, false, "garryware_smalltext" )
+surface.CreateFont("garryware_instructions",	{font = "Trebuchet MS", size = 36, weight = 0   , antialias = true, additive = false})
+surface.CreateFont("garryware_largetext",		{font = "Trebuchet MS", size = 36, weight = 0   , antialias = true, additive = false})
+surface.CreateFont("garryware_mediumtext",		{font = "Trebuchet MS", size = 24, weight = 0   , antialias = true, additive = false})
+surface.CreateFont("garryware_averagetext",		{font = "Trebuchet MS", size = 20, weight = 0   , antialias = true, additive = false})
+surface.CreateFont("garryware_smalltext",		{font = "Trebuchet MS", size = 16, weight = 400 , antialias = true, additive = false})
 
 include( 'panel_warelabel.lua' )
 include( 'panel_arrow.lua' )
@@ -41,7 +43,7 @@ include( 'garbage_module.lua' )
 
 function WARE_SortTable( plyA, plyB )
 	if ( not(plyA) or not(plyB) ) then return false end
-	if ( not(ValidEntity(plyA)) or not(ValidEntity(plyB)) ) then return false end
+	if ( not(IsValid(plyA)) or not(IsValid(plyB)) ) then return false end
 	
 	local tokenA = plyA:GetAchieved() and (plyA:GetLocked() and (plyA:IsFirst() and 5 or 4) or 3) or (plyA:GetLocked() and (plyA:IsFirst() and 1 or 0) or 2)
 	local tokenB = plyB:GetAchieved() and (plyB:GetLocked() and (plyB:IsFirst() and 5 or 4) or 3) or (plyB:GetLocked() and (plyB:IsFirst() and 1 or 0) or 2)
@@ -64,7 +66,7 @@ end
 
 function WARE_SortTableStateBlind( plyA, plyB )
 	if ( not(plyA) or not(plyB) ) then return false end
-	if ( not(ValidEntity(plyA)) or not(ValidEntity(plyB)) ) then return false end
+	if ( not(IsValid(plyA)) or not(IsValid(plyB)) ) then return false end
 	
 	if ( plyA:Frags() == plyB:Frags() ) then
 		if ( plyA:GetBestCombo() == plyB:GetBestCombo() ) then
@@ -86,13 +88,13 @@ function GM:CreateAmbientMusic()
 end
 
 function GM:InitPostEntity()
-	self.BaseClass:InitPostEntity()
+	BaseClass.InitPostEntity( self )
 	
 	self:CreateAmbientMusic()
 end
 
 function GM:Think()
-	self.BaseClass:Think()
+	BaseClass.Think( self )
 	
 	-- Announcer ticks.
 	if (gws_TickAnnounce > 0 and CurTime() < gws_NextgameEnd ) then
@@ -103,7 +105,7 @@ function GM:Think()
 			gws_TickAnnounce = gws_TickAnnounce - 1
 			
 			if gws_TickAnnounce == 0 and GAMEMODE.WASND.BITBL_TimeLeft[gws_CurrentAnnouncer][0] then
-				timer.Simple((gws_WareLen / 6), function(snd, spd) LocalPlayer():EmitSound(snd, 100, spd) end, GAMEMODE.WASND.BITBL_TimeLeft[gws_CurrentAnnouncer][0], GAMEMODE:GetSpeedPercent() )
+				timer.Simple((gws_WareLen / 6), function() LocalPlayer():EmitSound(GAMEMODE.WASND.BITBL_TimeLeft[gws_CurrentAnnouncer][0], 100, GAMEMODE:GetSpeedPercent()) end )
 			end
 		end
 	end

@@ -65,7 +65,7 @@ function WARE:StartAction()
 		platform:SetPos(pos + Vector(0,0,-140))
 		platform:SetAngles(Angle(90,0,0))
 		platform:Spawn()
-		platform:SetColor(255,0,0,255)
+		platform:SetColor(Color(255,0,0,255))
 		platform:GetPhysicsObject():EnableMotion(false)
 		
 		GAMEMODE:AppendEntToBin(platform)
@@ -97,6 +97,6 @@ function WARE:GravGunPunt(pl,ent)
 		ent:EmitSound("doors/vent_open3.wav")
 		GAMEMODE:MakeDisappearEffect( ent:GetPos() )
 		
-		timer.Simple(1.7, RespawnSawblade, ent)
+		timer.Simple(1.7, function() RespawnSawblade(ent) end)
 	end
 end

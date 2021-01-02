@@ -44,7 +44,8 @@ function WARE:Initialize()
 		prop:SetPos(pos+Vector(0,0,92))
 		prop:Spawn()
 		
-		prop:SetColor(255, 255, 255, 100)
+		prop:SetRenderMode(RENDERMODE_TRANSALPHA)
+		prop:SetColor(Color(255, 255, 255, 100))
 		prop:SetHealth(100000)
 		prop:SetMoveType(MOVETYPE_NONE)
 		prop:SetCollisionGroup(COLLISION_GROUP_WEAPON)
@@ -133,8 +134,9 @@ end
 
 
 
-function WARE:EntityTakeDamage(ent,inf,att,amount,info)
+function WARE:EntityTakeDamage(ent,info)
 	local pool = self
+	local att = info:GetAttacker()
 	
 	if not att:IsPlayer() or not info:IsBulletDamage() then return end
 	if not pool.Crates or not ent.CrateID then return end
